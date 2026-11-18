@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Special+Elite&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.2.2/build/mp4-muxer.js"></script>
 <style>
   :root {
     --bg-0: #090b0f;
@@ -126,6 +127,7 @@
     transition: all 0.12s ease; white-space: nowrap; flex-shrink: 0;
   }
   .btn:hover { background: var(--bg-3); border-color: var(--border-hi); }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
   .btn.active { background: rgba(230,57,70,0.2); border-color: var(--accent); color: #fff; }
   .btn.primary {
     background: linear-gradient(180deg, var(--accent-hi), var(--accent));
@@ -152,11 +154,10 @@
   textarea { resize: vertical; min-height: 50px; line-height: 1.38; width: 100%; }
   #templateSelect { max-width: 195px; min-width: 90px; flex-shrink: 1; text-overflow: ellipsis; }
   #aspectSelect { max-width: 92px; }
-  #resSelect { max-width: 78px; }
+  #resSelect { max-width: 82px; }
   #fpsSelect { max-width: 62px; }
 
   @media (max-width: 1360px) {
-    .brand-title-long { display: none; }
     #templateSelect { max-width: 145px; }
     .btn { padding: 3px 6px; font-size: 10px; }
     .hide-compact { display: none; }
@@ -395,18 +396,24 @@
 
   /* MODAL */
   .modal-backdrop {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px);
+    position: fixed; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(5px);
     display: none; align-items: center; justify-content: center; z-index: 100;
   }
   .modal-backdrop.show { display: flex; }
   .modal {
-    width: 440px; max-width: 94vw; background: var(--bg-1); border: 1px solid var(--border-hi);
-    border-radius: 10px; padding: 18px; box-shadow: 0 24px 70px rgba(0,0,0,0.8);
+    width: 490px; max-width: 94vw; background: var(--bg-1); border: 1px solid var(--border-hi);
+    border-radius: 10px; padding: 18px; box-shadow: 0 24px 70px rgba(0,0,0,0.85);
   }
   .modal h3 { margin: 0 0 12px; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .export-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.38);
+    color: #86efac; padding: 3px 8px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px; margin-bottom: 10px;
+  }
   .progress-wrap {
     width: 100%; height: 10px; background: var(--bg-0); border-radius: 6px;
-    overflow: hidden; border: 1px solid var(--border); margin: 12px 0;
+    overflow: hidden; border: 1px solid var(--border); margin: 10px 0 8px;
   }
   .progress-bar {
     height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--amber));
@@ -456,15 +463,15 @@
         <option value="4:5">4:5 Port</option>
       </select>
       <select id="resSelect" title="Export Resolution">
-        <option value="1080">1080p HD</option>
-        <option value="2160">4K UHD</option>
+        <option value="720">720p HD</option>
+        <option value="1080" selected>1080p HD</option>
         <option value="1440">1440p 2K</option>
-        <option value="720">720p</option>
+        <option value="2160">4K UHD</option>
       </select>
       <select id="fpsSelect" title="Frame Rate">
-        <option value="30">30 fps</option>
-        <option value="60">60 fps</option>
         <option value="24">24 fps</option>
+        <option value="30" selected>30 fps</option>
+        <option value="60">60 fps</option>
       </select>
       <div class="divider"></div>
       <button class="btn icon" id="undoBtn" title="Undo (Ctrl+Z)">↶</button>
@@ -601,33 +608,66 @@
   </section>
 </div>
 
-<!-- EXPORT VIDEO MODAL -->
+<!-- EXPORT VIDEO MODAL (MP4 H.264 UP TO 4K UHD + WEBM VP9) -->
 <div class="modal-backdrop" id="exportModal">
   <div class="modal">
     <h3><span>🎬 Export Broadcast Video Clip</span><button class="btn sm" id="closeExportBtn">✕</button></h3>
+    <div class="export-badge" id="exportEngineBadge">⚡ Engine Ready</div>
+
     <div class="field">
-      <label>Output Specs</label>
-      <div id="exportSummary" style="background:var(--bg-0);padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:11px"></div>
+      <label>Output Specs & Estimated Size</label>
+      <div id="exportSummary" style="background:var(--bg-0);padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:10.5px"></div>
     </div>
+
     <div class="row2">
       <div class="field">
-        <label>Video Quality / Bitrate</label>
+        <label>Container Format</label>
+        <select id="exportFormat" style="width:100%">
+          <option value="mp4" selected>MP4 (H.264 — Premiere / DaVinci / YouTube)</option>
+          <option value="webm">WebM (VP9 — Lightweight / Web)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Resolution (Up to 4K UHD)</label>
+        <select id="exportRes" style="width:100%">
+          <option value="720">720p HD (1280×720)</option>
+          <option value="1080" selected>1080p Full HD (1920×1080)</option>
+          <option value="1440">1440p 2K QHD (2560×1440)</option>
+          <option value="2160">2160p 4K UHD (3840×2160)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row3">
+      <div class="field">
+        <label>Frame Rate</label>
+        <select id="exportFps" style="width:100%">
+          <option value="24">24 fps Cinema</option>
+          <option value="30" selected>30 fps Standard</option>
+          <option value="60">60 fps Smooth</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Quality / Bitrate</label>
         <select id="exportBitrate" style="width:100%">
-          <option value="20000000">Master Pro (20 Mbps)</option>
-          <option value="12000000" selected>High Broadcast (12 Mbps)</option>
-          <option value="6000000">Web Optimized (6 Mbps)</option>
+          <option value="50000000">4K Cinema Master (50 Mbps)</option>
+          <option value="30000000">Ultra Pro 4K/2K (30 Mbps)</option>
+          <option value="18000000" selected>High Broadcast (18 Mbps)</option>
+          <option value="10000000">Standard YouTube (10 Mbps)</option>
+          <option value="5000000">Compact Web (5 Mbps)</option>
         </select>
       </div>
       <div class="field">
         <label>Audio Mix</label>
         <select id="exportAudioMode" style="width:100%">
-          <option value="sfx">Include Procedural SFX</option>
-          <option value="silent">Silent Clean Video</option>
+          <option value="sfx">Procedural SFX</option>
+          <option value="silent">Silent Clean</option>
         </select>
       </div>
     </div>
+
     <div class="progress-wrap"><div class="progress-bar" id="exportProgressBar"></div></div>
-    <div id="exportStatus" style="font-size:11px;color:var(--text-1);min-height:18px;margin-bottom:12px">Ready to render full timeline sequence.</div>
+    <div id="exportStatus" style="font-size:10.5px;color:var(--text-1);min-height:18px;margin-bottom:12px">Ready to render full timeline sequence.</div>
     <div style="display:flex;justify-content:flex-end;gap:8px">
       <button class="btn" id="cancelExportBtn">Cancel</button>
       <button class="btn primary" id="startRenderBtn">● Start Render & Download</button>
@@ -836,8 +876,87 @@
   let grainCanvas = null;
 
   /* ============================================================
-     3. PROCEDURAL SFX ENGINE (WEB AUDIO API)
+     3. PROCEDURAL SFX ENGINE (REAL-TIME + OFFLINE RENDER FOR MP4)
   ============================================================ */
+  function scheduleProceduralSfx(audioCtx, destNode, kind, atTime, vol) {
+    const master = audioCtx.createGain();
+    master.gain.value = vol;
+    master.connect(destNode);
+
+    const makeNoise = (dur) => {
+      const len = Math.max(1, Math.floor(audioCtx.sampleRate * dur));
+      const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+      const src = audioCtx.createBufferSource();
+      src.buffer = buf;
+      return src;
+    };
+
+    if (kind === 'slam' || kind === 'paper') {
+      const n = makeNoise(0.16);
+      const f = audioCtx.createBiquadFilter();
+      f.type = 'bandpass'; f.frequency.setValueAtTime(1400, atTime); f.Q.value = 1.2;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.45, atTime);
+      g.gain.exponentialRampToValueAtTime(0.001, atTime + 0.15);
+      n.connect(f); f.connect(g); g.connect(master);
+      n.start(atTime);
+
+      const osc = audioCtx.createOscillator();
+      const og = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(140, atTime);
+      osc.frequency.exponentialRampToValueAtTime(42, atTime + 0.12);
+      og.gain.setValueAtTime(0.55, atTime);
+      og.gain.exponentialRampToValueAtTime(0.001, atTime + 0.13);
+      osc.connect(og); og.connect(master);
+      osc.start(atTime); osc.stop(atTime + 0.14);
+    } else if (kind === 'stamp') {
+      const osc = audioCtx.createOscillator();
+      const og = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(110, atTime);
+      osc.frequency.exponentialRampToValueAtTime(28, atTime + 0.22);
+      og.gain.setValueAtTime(0.9, atTime);
+      og.gain.exponentialRampToValueAtTime(0.001, atTime + 0.24);
+      osc.connect(og); og.connect(master);
+      osc.start(atTime); osc.stop(atTime + 0.25);
+
+      const n = makeNoise(0.08);
+      const f = audioCtx.createBiquadFilter();
+      f.type = 'lowpass'; f.frequency.value = 900;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.5, atTime);
+      g.gain.exponentialRampToValueAtTime(0.001, atTime + 0.08);
+      n.connect(f); f.connect(g); g.connect(master);
+      n.start(atTime);
+    } else if (kind === 'string') {
+      const n = makeNoise(0.32);
+      const f = audioCtx.createBiquadFilter();
+      f.type = 'bandpass';
+      f.frequency.setValueAtTime(300, atTime);
+      f.frequency.exponentialRampToValueAtTime(2200, atTime + 0.14);
+      f.frequency.exponentialRampToValueAtTime(500, atTime + 0.3);
+      f.Q.value = 2.5;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.01, atTime);
+      g.gain.linearRampToValueAtTime(0.32, atTime + 0.1);
+      g.gain.exponentialRampToValueAtTime(0.001, atTime + 0.31);
+      n.connect(f); f.connect(g); g.connect(master);
+      n.start(atTime);
+    } else if (kind === 'marker') {
+      const n = makeNoise(0.28);
+      const f = audioCtx.createBiquadFilter();
+      f.type = 'bandpass'; f.frequency.value = 2600; f.Q.value = 3;
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.18, atTime);
+      g.gain.exponentialRampToValueAtTime(0.001, atTime + 0.27);
+      n.connect(f); f.connect(g); g.connect(master);
+      n.start(atTime);
+    }
+  }
+
   const SFX = {
     ctx: null,
     dest: null,
@@ -856,83 +975,26 @@
       if (!this.ctx) return;
       const now = this.ctx.currentTime;
       const vol = state.cameraFX.sfxVolume;
-      const master = this.ctx.createGain();
-      master.gain.value = vol;
-      master.connect(this.ctx.destination);
-      if (this.dest) master.connect(this.dest);
-
-      const makeNoise = (dur) => {
-        const len = Math.floor(this.ctx.sampleRate * dur);
-        const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
-        const data = buf.getChannelData(0);
-        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
-        const src = this.ctx.createBufferSource();
-        src.buffer = buf;
-        return src;
-      };
-
-      if (kind === 'slam' || kind === 'paper') {
-        const n = makeNoise(0.16);
-        const f = this.ctx.createBiquadFilter();
-        f.type = 'bandpass'; f.frequency.setValueAtTime(1400, now); f.Q.value = 1.2;
-        const g = this.ctx.createGain();
-        g.gain.setValueAtTime(0.45, now);
-        g.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-        n.connect(f); f.connect(g); g.connect(master);
-        n.start(now);
-
-        const osc = this.ctx.createOscillator();
-        const og = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(140, now);
-        osc.frequency.exponentialRampToValueAtTime(42, now + 0.12);
-        og.gain.setValueAtTime(0.55, now);
-        og.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
-        osc.connect(og); og.connect(master);
-        osc.start(now); osc.stop(now + 0.14);
-      } else if (kind === 'stamp') {
-        const osc = this.ctx.createOscillator();
-        const og = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(110, now);
-        osc.frequency.exponentialRampToValueAtTime(28, now + 0.22);
-        og.gain.setValueAtTime(0.9, now);
-        og.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
-        osc.connect(og); og.connect(master);
-        osc.start(now); osc.stop(now + 0.25);
-
-        const n = makeNoise(0.08);
-        const f = this.ctx.createBiquadFilter();
-        f.type = 'lowpass'; f.frequency.value = 900;
-        const g = this.ctx.createGain();
-        g.gain.setValueAtTime(0.5, now);
-        g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-        n.connect(f); f.connect(g); g.connect(master);
-        n.start(now);
-      } else if (kind === 'string') {
-        const n = makeNoise(0.32);
-        const f = this.ctx.createBiquadFilter();
-        f.type = 'bandpass';
-        f.frequency.setValueAtTime(300, now);
-        f.frequency.exponentialRampToValueAtTime(2200, now + 0.14);
-        f.frequency.exponentialRampToValueAtTime(500, now + 0.3);
-        f.Q.value = 2.5;
-        const g = this.ctx.createGain();
-        g.gain.setValueAtTime(0.01, now);
-        g.gain.linearRampToValueAtTime(0.32, now + 0.1);
-        g.gain.exponentialRampToValueAtTime(0.001, now + 0.31);
-        n.connect(f); f.connect(g); g.connect(master);
-        n.start(now);
-      } else if (kind === 'marker') {
-        const n = makeNoise(0.28);
-        const f = this.ctx.createBiquadFilter();
-        f.type = 'bandpass'; f.frequency.value = 2600; f.Q.value = 3;
-        const g = this.ctx.createGain();
-        g.gain.setValueAtTime(0.18, now);
-        g.gain.exponentialRampToValueAtTime(0.001, now + 0.27);
-        n.connect(f); f.connect(g); g.connect(master);
-        n.start(now);
+      scheduleProceduralSfx(this.ctx, this.ctx.destination, kind, now, vol);
+      if (this.dest) scheduleProceduralSfx(this.ctx, this.dest, kind, now, vol);
+    },
+    async renderOfflineMix(durationSec, sampleRate = 48000) {
+      const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+      if (!OAC) return null;
+      const totalSamples = Math.ceil(durationSec * sampleRate);
+      const oac = new OAC(2, totalSamples, sampleRate);
+      const vol = state.cameraFX.sfxVolume;
+      for (const el of state.elements) {
+        if (el.visible === false) continue;
+        const t = Math.max(0.01, Math.min(durationSec - 0.1, el.startTime || 0));
+        const kind = el.type === 'stamp' ? 'stamp' : el.type === 'marker' ? 'marker' : 'slam';
+        scheduleProceduralSfx(oac, oac.destination, kind, t, vol);
       }
+      for (const c of state.connections) {
+        const t = Math.max(0.01, Math.min(durationSec - 0.1, c.startTime || 0));
+        scheduleProceduralSfx(oac, oac.destination, 'string', t, vol);
+      }
+      return await oac.startRendering();
     }
   };
 
@@ -1118,7 +1180,6 @@
       }
     }
 
-    // Seamless wrapped stains for parchment (eliminates any visible tiling seam)
     if (key === 'parchment') {
       for (let i = 0; i < 10; i++) {
         const gx = Math.random() * size, gy = Math.random() * size, gr = 90 + Math.random() * 190;
@@ -1493,10 +1554,18 @@
   const stageCanvas = document.getElementById('stageCanvas');
   const stageCtx = stageCanvas.getContext('2d');
 
-  function getExportDims() {
+  function getExportDims(resOverride = null) {
     const [aw, ah] = ASPECTS[state.aspect] || [16, 9];
-    const h = parseInt(state.resHeight, 10) || 1080;
-    const w = Math.round((h * aw) / ah / 2) * 2;
+    const base = parseInt(resOverride || state.resHeight, 10) || 1080;
+    let w, h;
+    if (aw >= ah) {
+      h = Math.round(base / 2) * 2;
+      w = Math.round((h * aw) / ah / 2) * 2;
+    } else {
+      // Portrait (e.g., 9:16): 2160p -> 2160x3840 or 1080p -> 1080x1920
+      w = Math.round(base / 2) * 2;
+      h = Math.round((w * ah) / aw / 2) * 2;
+    }
     return { w, h };
   }
 
@@ -3154,27 +3223,249 @@
   }
 
   /* ============================================================
-     15. BROADCAST VIDEO & PNG EXPORTER + JSON SAVE/LOAD
+     15. PRO BROADCAST VIDEO EXPORTER (MP4 H.264 UP TO 4K + WEBM VP9)
   ============================================================ */
   let activeRecorder = null;
   let exportAborted = false;
 
-  function openExportModal() {
-    const { w, h } = getExportDims();
+  function canUseWebCodecsMp4() {
+    return typeof VideoEncoder !== 'undefined' && typeof VideoFrame !== 'undefined' && typeof window.Mp4Muxer !== 'undefined';
+  }
+
+  function updateExportModalSummary() {
+    const fmt = document.getElementById('exportFormat').value;
+    const res = parseInt(document.getElementById('exportRes').value, 10) || 1080;
+    const fps = parseInt(document.getElementById('exportFps').value, 10) || 30;
+    const bitrate = parseInt(document.getElementById('exportBitrate').value, 10) || 18000000;
+
+    state.resHeight = res;
+    state.fps = fps;
+    document.getElementById('resSelect').value = String(res);
+    document.getElementById('fpsSelect').value = String(fps);
+
+    const { w, h } = getExportDims(res);
+    const estMB = Math.max(0.2, ((bitrate * state.duration) / 8 / 1024 / 1024)).toFixed(1);
     document.getElementById('exportSummary').textContent =
-      `${w} × ${h} (${state.aspect})  •  ${state.fps} FPS  •  ${state.duration}s Sequence`;
+      `${fmt.toUpperCase()} • ${w} × ${h} (${state.aspect}) • ${fps} FPS • ${state.duration}s • ~${estMB} MB`;
+
+    const badge = document.getElementById('exportEngineBadge');
+    if (fmt === 'mp4') {
+      if (canUseWebCodecsMp4()) {
+        badge.textContent = '⚡ Engine: WebCodecs H.264 MP4 (Frame-Accurate Offline 4K)';
+      } else if (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported('video/mp4')) {
+        badge.textContent = '⚡ Engine: Native Browser MP4 Recorder';
+      } else {
+        badge.textContent = '⚠️ Browser lacks native H.264 MP4 — will fallback cleanly to WebM';
+      }
+    } else {
+      badge.textContent = '⚡ Engine: MediaRecorder VP9 WebM (Real-Time + Audio)';
+    }
+  }
+
+  function openExportModal() {
+    document.getElementById('exportRes').value = String(state.resHeight);
+    document.getElementById('exportFps').value = String(state.fps);
+    // Smart default bitrate for 4K vs 1080p
+    if (state.resHeight >= 2160) document.getElementById('exportBitrate').value = '30000000';
+    else if (state.resHeight >= 1440) document.getElementById('exportBitrate').value = '18000000';
+    updateExportModalSummary();
     document.getElementById('exportProgressBar').style.width = '0%';
     document.getElementById('exportStatus').textContent = 'Ready to render full timeline sequence.';
     document.getElementById('startRenderBtn').disabled = false;
     document.getElementById('exportModal').classList.add('show');
   }
 
-  function startVideoExport() {
-    const { w, h } = getExportDims();
-    const fps = parseInt(state.fps, 10) || 30;
-    const bitrate = parseInt(document.getElementById('exportBitrate').value, 10) || 12000000;
-    const includeAudio = document.getElementById('exportAudioMode').value === 'sfx';
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
 
+  async function pickSupportedAvcConfig(w, h, fps, bitrate) {
+    // Ordered from highest 4K 60fps H.264 High Profile down to Baseline
+    const codecs = [
+      'avc1.640034', // High L5.2 (4K 60fps)
+      'avc1.640033', // High L5.1 (4K 30fps)
+      'avc1.640032', // High L5.0 (4K/2K)
+      'avc1.64002a', // High L4.2 (1080p 60fps)
+      'avc1.640028', // High L4.0 (1080p 30fps)
+      'avc1.4d0033', // Main L5.1
+      'avc1.4d002a', // Main L4.2
+      'avc1.420033', // Baseline L5.1
+      'avc1.42002a', // Baseline L4.2
+      'avc1.42001f'  // Baseline L3.1
+    ];
+    for (const codec of codecs) {
+      const cfg = {
+        codec,
+        width: w,
+        height: h,
+        bitrate,
+        framerate: fps,
+        hardwareAcceleration: 'prefer-hardware'
+      };
+      try {
+        const sup = await VideoEncoder.isConfigSupported(cfg);
+        if (sup && sup.supported) return sup.config || cfg;
+      } catch (_) {}
+      // Retry without hardware preference
+      const swCfg = { codec, width: w, height: h, bitrate, framerate: fps };
+      try {
+        const sup = await VideoEncoder.isConfigSupported(swCfg);
+        if (sup && sup.supported) return sup.config || swCfg;
+      } catch (_) {}
+    }
+    return null;
+  }
+
+  async function exportMp4WebCodecs(w, h, fps, bitrate, includeAudio) {
+    const statusEl = document.getElementById('exportStatus');
+    const barEl = document.getElementById('exportProgressBar');
+    const prevMode = state.viewMode;
+
+    const videoConfig = await pickSupportedAvcConfig(w, h, fps, bitrate);
+    if (!videoConfig) {
+      throw new Error(`H.264 encoder does not support ${w}×${h} on this device.`);
+    }
+
+    // Check optional AAC AudioEncoder for Procedural SFX inside MP4
+    let useAudio = false;
+    let audioCodecMux = 'aac';
+    let audioConfig = null;
+    if (includeAudio && state.cameraFX.sfxEnabled && typeof AudioEncoder !== 'undefined' && typeof AudioData !== 'undefined') {
+      try {
+        const aacCfg = { codec: 'mp4a.40.2', numberOfChannels: 2, sampleRate: 48000, bitrate: 192000 };
+        const supAac = await AudioEncoder.isConfigSupported(aacCfg);
+        if (supAac && supAac.supported) {
+          useAudio = true; audioCodecMux = 'aac'; audioConfig = aacCfg;
+        }
+      } catch (_) {}
+    }
+
+    const target = new window.Mp4Muxer.ArrayBufferTarget();
+    const muxerOpts = {
+      target,
+      video: { codec: 'avc', width: w, height: h },
+      fastStart: 'in-memory',
+      firstTimestampBehavior: 'offset'
+    };
+    if (useAudio) {
+      muxerOpts.audio = { codec: audioCodecMux, numberOfChannels: 2, sampleRate: 48000 };
+    }
+    const muxer = new window.Mp4Muxer.Muxer(muxerOpts);
+
+    let encErr = null;
+    const videoEncoder = new VideoEncoder({
+      output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+      error: (e) => { encErr = e; }
+    });
+    videoEncoder.configure(videoConfig);
+
+    // Pre-encode Offline Procedural SFX Audio Track if enabled
+    if (useAudio) {
+      statusEl.textContent = 'Synthesizing timeline SFX audio track (48kHz AAC)...';
+      try {
+        const audioBuf = await SFX.renderOfflineMix(state.duration, 48000);
+        if (audioBuf) {
+          const audioEncoder = new AudioEncoder({
+            output: (chunk, meta) => muxer.addAudioChunk(chunk, meta),
+            error: (e) => { console.warn('AudioEncoder error:', e); }
+          });
+          audioEncoder.configure(audioConfig);
+          const ch0 = audioBuf.getChannelData(0);
+          const ch1 = audioBuf.numberOfChannels > 1 ? audioBuf.getChannelData(1) : ch0;
+          const totalSamples = audioBuf.length;
+          const frameSize = 1024;
+          for (let offset = 0; offset < totalSamples; offset += frameSize) {
+            const count = Math.min(frameSize, totalSamples - offset);
+            const planar = new Float32Array(count * 2);
+            planar.set(ch0.subarray(offset, offset + count), 0);
+            planar.set(ch1.subarray(offset, offset + count), count);
+            const ad = new AudioData({
+              format: 'f32-planar',
+              sampleRate: 48000,
+              numberOfFrames: count,
+              numberOfChannels: 2,
+              timestamp: Math.round((offset / 48000) * 1_000_000),
+              data: planar
+            });
+            audioEncoder.encode(ad);
+            ad.close();
+          }
+          await audioEncoder.flush();
+          audioEncoder.close();
+        }
+      } catch (audioErr) {
+        console.warn('Skipping MP4 SFX track:', audioErr);
+      }
+    }
+
+    const expCanvas = document.createElement('canvas');
+    expCanvas.width = w; expCanvas.height = h;
+    const expCtx = expCanvas.getContext('2d', { alpha: false });
+
+    const totalFrames = Math.max(1, Math.round(state.duration * fps));
+    const frameDurUs = Math.round(1_000_000 / fps);
+    const keyInterval = fps * 2;
+
+    state.exporting = true;
+    state.playing = false;
+    state.viewMode = 'camera';
+
+    try {
+      for (let i = 0; i < totalFrames; i++) {
+        if (exportAborted || encErr) break;
+        const t = i / fps;
+        const cam = getCameraAt(t, true);
+        renderFrame(expCtx, w, h, t, cam, true);
+
+        const frame = new VideoFrame(expCanvas, {
+          timestamp: i * frameDurUs,
+          duration: frameDurUs
+        });
+        videoEncoder.encode(frame, { keyFrame: i % keyInterval === 0 });
+        frame.close();
+
+        // Prevent VRAM overflow during 4K renders
+        while (videoEncoder.encodeQueueSize > 6 && !exportAborted && !encErr) {
+          await new Promise(r => setTimeout(r, 8));
+        }
+
+        if (i % Math.max(1, Math.floor(fps / 6)) === 0 || i === totalFrames - 1) {
+          const pct = Math.min(99, Math.round(((i + 1) / totalFrames) * 100));
+          barEl.style.width = `${pct}%`;
+          statusEl.textContent = `Encoding H.264 MP4 (${w}×${h} @ ${fps}fps)... Frame ${i + 1}/${totalFrames} (${pct}%)`;
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+
+      if (encErr) throw encErr;
+      if (exportAborted) {
+        try { videoEncoder.close(); } catch (_) {}
+        return;
+      }
+
+      statusEl.textContent = 'Finalizing MP4 container (fast-start moov atom)...';
+      await videoEncoder.flush();
+      videoEncoder.close();
+      muxer.finalize();
+
+      const blob = new Blob([target.buffer], { type: 'video/mp4' });
+      const fname = `detective-board-${w}x${h}-${fps}fps.mp4`;
+      downloadBlob(blob, fname);
+      barEl.style.width = '100%';
+      statusEl.textContent = `✅ MP4 Render Complete! Downloaded ${fname} (${(blob.size / 1024 / 1024).toFixed(1)} MB)`;
+    } finally {
+      state.viewMode = prevMode;
+      state.exporting = false;
+      document.getElementById('startRenderBtn').disabled = false;
+    }
+  }
+
+  function exportMediaRecorder(w, h, fps, bitrate, includeAudio, preferMp4 = false) {
     const expCanvas = document.createElement('canvas');
     expCanvas.width = w; expCanvas.height = h;
     const expCtx = expCanvas.getContext('2d');
@@ -3187,13 +3478,20 @@
       }
     }
 
-    const mimeCandidates = [
+    const mp4Candidates = [
+      'video/mp4;codecs=avc1.640033,mp4a.40.2',
+      'video/mp4;codecs=avc1.640028,mp4a.40.2',
+      'video/mp4;codecs=avc1,mp4a.40.2',
+      'video/mp4;codecs=avc1',
+      'video/mp4'
+    ];
+    const webmCandidates = [
       'video/webm;codecs=vp9,opus',
       'video/webm;codecs=vp8,opus',
-      'video/mp4;codecs=avc1',
       'video/webm'
     ];
-    const mimeType = mimeCandidates.find(m => MediaRecorder.isTypeSupported(m)) || 'video/webm';
+    const list = preferMp4 ? [...mp4Candidates, ...webmCandidates] : webmCandidates;
+    const mimeType = list.find(m => MediaRecorder.isTypeSupported(m)) || 'video/webm';
     const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
 
     const chunks = [];
@@ -3202,22 +3500,18 @@
     exportAborted = false;
     state.exporting = true;
     state.playing = false;
-    document.getElementById('startRenderBtn').disabled = true;
 
     rec.ondataavailable = (e) => { if (e.data && e.data.size > 0) chunks.push(e.data); };
     rec.onstop = () => {
       state.exporting = false;
       activeRecorder = null;
+      document.getElementById('startRenderBtn').disabled = false;
       if (exportAborted) return;
       const blob = new Blob(chunks, { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `detective-board-${w}x${h}-${fps}fps.${ext}`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 4000);
-      document.getElementById('exportStatus').textContent = `✅ Render complete! Downloaded ${a.download}`;
-      document.getElementById('startRenderBtn').disabled = false;
+      const fname = `detective-board-${w}x${h}-${fps}fps.${ext}`;
+      downloadBlob(blob, fname);
+      document.getElementById('exportProgressBar').style.width = '100%';
+      document.getElementById('exportStatus').textContent = `✅ Render complete! Downloaded ${fname} (${(blob.size / 1024 / 1024).toFixed(1)} MB)`;
     };
 
     rec.start(100);
@@ -3245,7 +3539,7 @@
 
       const pct = Math.min(100, Math.round((t / state.duration) * 100));
       barEl.style.width = `${pct}%`;
-      statusEl.textContent = `Rendering ${w}×${h} @ ${fps}fps... ${t.toFixed(1)}s / ${state.duration}s (${pct}%)`;
+      statusEl.textContent = `Rendering ${ext.toUpperCase()} (${w}×${h} @ ${fps}fps)... ${t.toFixed(1)}s / ${state.duration}s (${pct}%)`;
 
       if (elapsed < state.duration) {
         requestAnimationFrame(stepExport);
@@ -3255,6 +3549,34 @@
       }
     }
     requestAnimationFrame(stepExport);
+  }
+
+  async function startVideoExport() {
+    const fmt = document.getElementById('exportFormat').value;
+    const res = parseInt(document.getElementById('exportRes').value, 10) || 1080;
+    const fps = parseInt(document.getElementById('exportFps').value, 10) || 30;
+    const bitrate = parseInt(document.getElementById('exportBitrate').value, 10) || 18000000;
+    const includeAudio = document.getElementById('exportAudioMode').value === 'sfx';
+    const { w, h } = getExportDims(res);
+
+    exportAborted = false;
+    document.getElementById('startRenderBtn').disabled = true;
+    document.getElementById('exportProgressBar').style.width = '0%';
+
+    if (fmt === 'mp4') {
+      if (canUseWebCodecsMp4()) {
+        try {
+          await exportMp4WebCodecs(w, h, fps, bitrate, includeAudio);
+          return;
+        } catch (err) {
+          console.warn('WebCodecs MP4 failed, falling back to MediaRecorder:', err);
+          document.getElementById('exportStatus').textContent = `WebCodecs fallback (${err.message}). Switching to MediaRecorder...`;
+        }
+      }
+      exportMediaRecorder(w, h, fps, bitrate, includeAudio, true);
+    } else {
+      exportMediaRecorder(w, h, fps, bitrate, includeAudio, false);
+    }
   }
 
   function exportPNG() {
@@ -3381,6 +3703,9 @@
 
   document.getElementById('exportPngBtn').onclick = exportPNG;
   document.getElementById('openExportBtn').onclick = openExportModal;
+  ['exportFormat', 'exportRes', 'exportFps', 'exportBitrate', 'exportAudioMode'].forEach(id => {
+    document.getElementById(id).addEventListener('change', updateExportModalSummary);
+  });
   document.getElementById('closeExportBtn').onclick =
   document.getElementById('cancelExportBtn').onclick = () => {
     exportAborted = true;
