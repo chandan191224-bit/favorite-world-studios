@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><title>Timeline Animation Studio Pro</title><style>/* @inline:src/fonts.css */</style><style>/* @inline:src/styles.css */</style><style>/* @inline:src/craft.css */</style></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><title>Timeline Animation Studio Pro</title><style>/* @inline:src/fonts.css */</style><style>/* @inline:src/styles.css */</style><style>/* @inline:src/craft.css */</style><style>
+/* @inline:src/mas-cutroom.css */
+</style>
+</head>
 <body>
 <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">↔</span><span>Timeline<span class="brand-light"> Studio</span></span></div><div class="project-meta"><input id="projectName" aria-label="Project name" maxlength="120"><span id="saveStatus">Saved on this device</span></div><div class="top-actions"><button id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button id="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button><button id="open">Open</button><button id="save">Save</button><button id="export" class="primary">Export ↗</button></div></header>
 <main class="workspace" data-mobile="library">
@@ -11,4 +14,7 @@
 <dialog id="dialog"><div class="dialog-head"><h2 id="dialogTitle"></h2><button id="closeDialog" aria-label="Close dialog">×</button></div><div id="dialogBody"></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div><input id="projectFile" type="file" accept=".json,.timeline.json" hidden><input id="csvFile" type="file" accept=".csv,text/csv" hidden><input id="backdropFile" type="file" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm" hidden><input id="photoFile" type="file" accept="image/png,image/jpeg,image/webp" hidden>
 <script>/* @inline:vendor/mediabunny.min.js */</script><script>/* @inline:src/core/util.js */</script><script>/* @inline:src/ui/templates.js */</script><script>/* @inline:src/ui/demo-assets.js */</script><script>/* @inline:src/ui/demo-cutouts.js */</script><script>/* @inline:src/ui/documentary-presets.js */</script><script>/* @inline:src/ui/craft-assets.js */</script><script>/* @inline:src/ui/craft-presets.js */</script><script>/* @inline:src/core/renderer.js */</script><script>/* @inline:src/core/documentary.js */</script><script>/* @inline:src/ui/documentary-ui.js */</script><script>/* @inline:src/ui/references.js */</script><script>/* @inline:src/core/exporter.js */</script><script>/* @inline:src/ui/thumbnails.js */</script><script>/* @inline:src/ui/icons.js */</script><script>/* @inline:src/ui/craft-parts.js */</script><script>/* @inline:src/ui/app.js */</script>
+<script>
+/* @inline:src/ui/mas-cutroom.js */
+</script>
 </body></html>

@@ -515,4 +515,24 @@
   wire(); refreshAll();
   requestAnimationFrame(loop);
   T.ready().then(() => { dirty = true; renderLibrary(); drawTimelineThumbs(); });
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'kinetic-title-studio',
+    engine: ENG,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { range = null; t = U.clamp(+v || 0, 0, ENG.timeline(proj).total); dirty = true; },
+    isPlaying: () => playing,
+    play: () => play(),
+    pause: () => pause(),
+    getDuration: () => ENG.timeline(proj).total,
+    selectLayer: idx => { if (proj.clips[idx]) { sel = { kind: 'clip', i: idx }; afterSelect(); } },
+    addLayer: (id) => { const pr = KT.presets.byId[id] || KT.presets.list[0]; addClipWith(pr); },
+    getAddableTypes: () => KT.presets.list.slice(0, 24).map(p => ({ id: p.id, name: p.name, desc: p.fam, group: p.fam, icon: 'अ' })),
+    getMediaList: () => Object.entries(KT.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: m.kind || 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { for (const f of files) { const id = addMedia(f); proj.bg = Object.assign(proj.bg || {}, { type: 'media', media: id }); } changed(true); renderInspector(); drawTimelineThumbs(); },
+    useMedia: (id) => { proj.bg = Object.assign(proj.bg || {}, { type: 'media', media: id }); changed(true); renderInspector(); drawTimelineThumbs(); },
+    changed: (full) => { changed(Boolean(full)); if (full) refreshAll(); },
+  };
+
 })();

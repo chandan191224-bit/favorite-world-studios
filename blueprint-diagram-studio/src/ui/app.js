@@ -736,4 +736,24 @@
   wire(); refreshAll();
   requestAnimationFrame(loop);
   T.ready().then(() => { dirty = true; renderLibrary(); drawTimelineThumbs(); });
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'blueprint-diagram-studio',
+    engine: ENG,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { range = null; t = U.clamp(+v || 0, 0, ENG.timeline(proj).total); dirty = true; },
+    isPlaying: () => playing,
+    play: () => play(),
+    pause: () => pause(),
+    getDuration: () => ENG.timeline(proj).total,
+    selectLayer: idx => { if (proj.shots[idx]) { sel = { kind: 'shot', i: idx }; afterSelect(); } },
+    addLayer: (id) => { const pr = BD.presets.byId[id] || BD.presets.list[0]; addShotWith(pr); },
+    getAddableTypes: () => BD.presets.list.slice(0, 24).map(p => ({ id: p.id, name: p.name, desc: p.fam, group: p.fam, icon: 'ब' })),
+    getMediaList: () => Object.entries(BD.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: m.kind || 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { for (const f of files) addMedia(f); changed(true); refreshAll(); },
+    useMedia: (id) => { const s = currentShot(); if (s && s.f) { s.f.media = id; changed(true); refreshAll(); } },
+    changed: (full) => { changed(Boolean(full)); if (full) refreshAll(); },
+  };
+
 })();

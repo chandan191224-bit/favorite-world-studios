@@ -348,4 +348,24 @@
     renderLib();
     requestAnimationFrame(frame);
   })();
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'data-chart-studio',
+    engine: E,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { t = U.clamp(+v || 0, 0, tl().total); dirty = true; },
+    isPlaying: () => playing,
+    play: () => { playing = true; setPlay(); },
+    pause: () => { playing = false; setPlay(); },
+    getDuration: () => tl().total,
+    selectLayer: idx => { if (proj.scenes[idx]) { sel = idx; renderScenes(); renderInsp(); dirty = true; } },
+    addLayer: (id) => { const pid = DC.charts.presetById[id] ? id : 'race-gdp'; addScene(pid); },
+    getAddableTypes: () => DC.charts.presets.slice(0, 24).map(p => ({ id: p.id, name: p.name || p.title || p.id, desc: p.chart, group: p.chart, icon: '▮' })),
+    getMediaList: () => Object.entries(DC.media || {}).map(([id, m]) => ({ id, name: id, kind: 'image', src: m.dataUrl || '' })),
+    uploadMedia: async files => { for (const f of files) await takeFile(f); commit({ fast: true }); renderScenes(); renderInsp(); },
+    useMedia: (id) => { const s = scene(); if (s) { s.bgImage = id; commit({ fast: true }); renderInsp(); } },
+    changed: (full) => { commit({ fast: true }); if (full) { renderScenes(); renderInsp(); } },
+  };
+
 })();

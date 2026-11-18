@@ -844,4 +844,24 @@
     }
   }
   boot();
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'photo-parallax-studio',
+    engine: ENG,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { range = null; t = U.clamp(+v || 0, 0, ENG.timeline(proj).total); dirty = true; },
+    isPlaying: () => playing,
+    play: () => play(),
+    pause: () => pause(),
+    getDuration: () => ENG.timeline(proj).total,
+    selectLayer: idx => { if (proj.shots[idx]) { sel = { kind: 'shot', i: idx }; afterSelect(); } },
+    addLayer: (id) => { const pr = PP.fx.presets.find(p => p.id === id) || PP.fx.presets[0]; addShotWith(pr); },
+    getAddableTypes: () => PP.fx.presets.slice(0, 24).map(p => ({ id: p.id, name: p.name, desc: p.family, group: p.family, icon: '▣' })),
+    getMediaList: () => Object.entries(PP.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { for (const f of files) { const id = addMedia(f); proj.shots.push(ENG.newShot({ type: 'media', media: id }, 5)); } changed(true); refreshAll(); },
+    useMedia: (id, asNew) => { if (asNew) proj.shots.push(ENG.newShot({ type: 'media', media: id }, 5)); else if (curShot()) curShot().source = { type: 'media', media: id }; changed(true); refreshAll(); },
+    changed: (full) => { changed(Boolean(full)); if (full) refreshAll(); },
+  };
+
 })();

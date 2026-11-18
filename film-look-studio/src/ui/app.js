@@ -710,4 +710,24 @@
   wire(); refreshAll();
   requestAnimationFrame(loop);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { dirty = true; renderLibrary(); });
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'film-look-studio',
+    engine: ENG,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { range = null; t = U.clamp(+v || 0, 0, proj.duration || 8); dirty = true; },
+    isPlaying: () => playing,
+    play: () => play(),
+    pause: () => pause(),
+    getDuration: () => +proj.duration || 8,
+    selectLayer: idx => { if (proj.layers[idx]) selectLayer(idx); },
+    addLayer: (id) => { const pr = FX.presetById[id] || FX.presets[0]; if (pr) { const L = ENG.layerFromPreset(pr.id, t); if (L) { proj.layers.push(L); selectLayer(proj.layers.length - 1); changed(true); } } },
+    getAddableTypes: () => FX.presets.slice(0, 24).map(p => ({ id: p.id, name: p.name, desc: p.fx, group: p.family || 'Look', icon: 'FL' })),
+    getMediaList: () => Object.entries(FL.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: m.kind || 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { for (const f of files) { const id = addMedia(f); proj.source.media = id; } changed(true); refreshAll(); },
+    useMedia: (id) => { proj.source.media = id; changed(true); refreshAll(); },
+    changed: (full) => { changed(Boolean(full)); if (full) refreshAll(); },
+  };
+
 })();

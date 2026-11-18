@@ -716,4 +716,24 @@
   wire(); refreshAll();
   requestAnimationFrame(loop);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { D.clear(); CS.look.clear(); dirty = true; renderLibrary(); queueTimelineThumbs(); });
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'collage-split-studio',
+    engine: ENG,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { seekTo(U.clamp(+v || 0, 0, ENG.timeline(proj).total)); dirty = true; },
+    isPlaying: () => playing,
+    play: () => play(),
+    pause: () => pause(),
+    getDuration: () => ENG.timeline(proj).total,
+    selectLayer: idx => { if (proj.scenes[idx]) { sel = { kind: 'scene', i: idx }; afterSelect(); } },
+    addLayer: (id) => { const pr = CS.fx.presets.find(p => p.id === id) || CS.fx.presets[0]; addSceneWith(pr); },
+    getAddableTypes: () => CS.fx.presets.slice(0, 24).map(p => ({ id: p.id, name: p.name, desc: p.fx, group: 'Collage', icon: '▦' })),
+    getMediaList: () => Object.entries(CS.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: m.kind || 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { for (const f of files) addMedia(f); changed(true); refreshAll(); },
+    useMedia: (id) => { const s = currentScene(); if (s && s.slots && s.slots[0]) { const empty = s.slots.find(x => !x.m) || s.slots[0]; empty.m = id; changed(true); refreshAll(); } },
+    changed: (full) => { changed(Boolean(full)); if (full) refreshAll(); },
+  };
+
 })();

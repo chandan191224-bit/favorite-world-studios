@@ -631,4 +631,24 @@
   wire(); refreshAll();
   requestAnimationFrame(loop);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { M.clear(); dirty = true; renderLibrary(); drawTimelineThumbs(); });
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'paper-transition-studio',
+    engine: ENG,
+    getProject: () => proj,
+    getTime: () => t,
+    setTime: v => { range = null; t = U.clamp(+v || 0, 0, ENG.timeline(proj).total); dirty = true; },
+    isPlaying: () => playing,
+    play: () => play(),
+    pause: () => pause(),
+    getDuration: () => ENG.timeline(proj).total,
+    selectLayer: idx => { if (proj.shots[idx]) { sel = { kind: 'shot', i: idx }; afterSelect(); } },
+    addLayer: (id) => { const pr = PT.fx.presets.find(p => p.id === id) || PT.fx.presets[0]; addShotWith(pr); },
+    getAddableTypes: () => PT.fx.presets.slice(0, 24).map(p => ({ id: p.id, name: p.name, desc: p.fx, group: 'Paper Rip/Burn', icon: '✂' })),
+    getMediaList: () => Object.entries(PT.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: m.kind || 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { for (const f of files) { const id = addMedia(f); proj.shots.push(ENG.newShot({ type: 'media', media: id }, 2)); } changed(true); refreshAll(); },
+    useMedia: (id, asNew) => { if (asNew) proj.shots.push(ENG.newShot({ type: 'media', media: id }, 2)); else if (proj.shots[sel.i]) proj.shots[sel.i].source = { type: 'media', media: id }; changed(true); refreshAll(); },
+    changed: (full) => { changed(Boolean(full)); if (full) refreshAll(); },
+  };
+
 })();

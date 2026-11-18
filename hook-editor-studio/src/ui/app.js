@@ -1196,4 +1196,42 @@
     applyMobileVisibility();
     if (!window.__HEADLESS) loadDemoBeat(105);
   });
+
+  window.__MAS_BRIDGE_STATE = {
+    id: 'hook-editor-studio',
+    engine: { render: (ctx, p, t, opts) => E.renderAt(ctx, p, t, opts) },
+    getProject: () => state.proj,
+    getTime: () => state.t,
+    setTime: v => seekTo(v),
+    isPlaying: () => state.playing,
+    play: () => togglePlay(true),
+    pause: () => togglePlay(false),
+    getDuration: () => E.resolveTimeline(state.proj).totalDur,
+    selectLayer: idx => {
+      const p = state.proj;
+      if (idx < p.shots.length) { state.selType = 'shot'; state.selId = p.shots[idx].id; state.inspTab = 'shot'; }
+      else if (p.overlays && p.overlays[idx - p.shots.length]) { state.selType = 'overlay'; state.selId = p.overlays[idx - p.shots.length].id; state.inspTab = 'overlay'; }
+      renderAll(); drawStage();
+    },
+    addLayer: (id, atSec) => {
+      mutate(p => {
+        if (OV.TYPES && OV.TYPES[id]) p.overlays.push({ id: U.uid('ov'), type: id, text: 'BREAKING HOOK', sub: 'FAVORITE WORLD', start: atSec, dur: 2.4, color: '#f0a93b' });
+        else p.shots.push({ id: U.uid('shot'), mediaId: Object.keys(p.media || {})[0] || 'm_demo_1', label: 'New Hook Shot', dur: 2.2, motion: M.PRESETS.some(x => x.id === id) ? id : 'pulse-zoom', trIn: 'whip-l', trDur: 0.28, tension: 0.65, zoom: 1, panX: 0, panY: 0, seed: 42 });
+      });
+    },
+    getAddableTypes: () => [
+      ...M.PRESETS.map(m => ({ id: m.id, name: m.name, desc: 'Shot Motion', group: 'Motions', icon: '⚡' })),
+      ...Object.entries(OV.TYPES || {}).map(([k, v]) => ({ id: k, name: v.name || k, desc: 'Screen Overlay', group: 'Overlays', icon: 'T' })),
+    ],
+    getMediaList: () => Object.entries(state.proj?.media || {}).map(([id, m]) => ({ id, name: m.name || id, kind: m.kind || 'image', src: m.dataUrl || m.url || '' })),
+    uploadMedia: async files => { await handleVisualFiles(files); },
+    useMedia: (id, asNew) => {
+      mutate(p => {
+        if (asNew) p.shots.push({ id: U.uid('shot'), mediaId: id, label: (p.media[id]?.name || 'Clip').replace(/\.[^.]+$/, ''), dur: 2.2, motion: 'pulse-zoom', trIn: 'whip-l', trDur: 0.28, tension: 0.6 });
+        else { const s = selectedShot(); if (s) s.mediaId = id; }
+      });
+    },
+    changed: () => { renderAll(); drawStage(); },
+  };
+
 })();

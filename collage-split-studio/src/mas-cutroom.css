@@ -1,0 +1,953 @@
+/* ============================================================================
+   Map Animation Studio Unified Cutroom Stylesheet (mas-cutroom.css)
+   Provides the exact Timeline, Inspector, Media, Stage Preview, Transport,
+   Resizable Splitters, Context Menus, and Export Engine UI from Map Animation Studio.
+   ============================================================================ */
+:root {
+  --mas-bg: #101318;
+  --mas-panel: #171b22;
+  --mas-raise: #20252f;
+  --mas-raise2: #272d39;
+  --mas-line: #2b313d;
+  --mas-fg: #e6e9ef;
+  --mas-muted: #8a93a5;
+  --mas-map: #3fa7b5;
+  --mas-screen: #f0a93b;
+  --mas-audio: #9b84f5;
+  --mas-scene: #5b8cff;
+  --mas-head: #ff5468;
+  --mas-primary: #f0a93b;
+  --mas-onprimary: #1b1405;
+  --mas-ok: #57d18b;
+  --mas-warn: #ffb347;
+  --mas-danger: #ff8a96;
+  --mas-mono: "IBM Plex Mono", ui-monospace, Consolas, Menlo, monospace;
+}
+
+/* ---------- Top Bar Enhancements ---------- */
+.mas-brand-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--mas-head);
+  box-shadow: 0 0 0 3px rgba(255, 84, 104, 0.18);
+  margin-right: 6px;
+  flex: none;
+}
+.mas-chip {
+  font: 600 10px/1.2 var(--mas-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mas-muted);
+  border: 1px solid var(--mas-line);
+  padding: 3px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+  background: rgba(32, 37, 47, 0.6);
+}
+.mas-chip.ok { color: var(--mas-ok); border-color: rgba(87, 209, 139, 0.4); }
+.mas-chip.warn { color: var(--mas-warn); border-color: rgba(255, 179, 71, 0.45); }
+
+.mas-top-ctrls {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: nowrap;
+}
+.mas-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 9px;
+  border-radius: 7px;
+  border: 1px solid var(--mas-line);
+  background: var(--mas-raise);
+  color: var(--mas-fg);
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mas-btn:hover:not(:disabled) {
+  border-color: #3d4556;
+  background: var(--mas-raise2);
+}
+.mas-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.mas-btn.pri {
+  background: var(--mas-primary);
+  color: var(--mas-onprimary);
+  border-color: transparent;
+  font-weight: 600;
+}
+.mas-btn.pri:hover:not(:disabled) {
+  background: #f5b955;
+}
+.mas-btn.ghost {
+  background: transparent;
+  border-color: transparent;
+}
+.mas-btn.ghost:hover:not(:disabled) {
+  background: var(--mas-raise);
+  border-color: var(--mas-line);
+}
+.mas-btn.sm {
+  min-height: 24px;
+  padding: 0 7px;
+  font-size: 11px;
+  border-radius: 6px;
+}
+.mas-btn.icon {
+  width: 26px;
+  min-width: 26px;
+  padding: 0;
+}
+.mas-btn.danger {
+  color: var(--mas-danger);
+}
+.mas-btn.on {
+  border-color: var(--mas-primary);
+  color: #ffd79a;
+  background: rgba(240, 169, 59, 0.14);
+}
+.mas-btn.on.rec {
+  border-color: var(--mas-head);
+  color: #ffd0d6;
+  background: rgba(255, 84, 104, 0.16);
+}
+.mas-btn svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+
+/* ---------- Dropdown Menus ---------- */
+.mas-menu-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.mas-menu {
+  position: fixed;
+  z-index: 9990;
+  min-width: 220px;
+  background: #1d222b;
+  border: 1px solid #3a4252;
+  border-radius: 10px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+  padding: 5px;
+  display: grid;
+  gap: 2px;
+  max-height: 72vh;
+  overflow: auto;
+  color: var(--mas-fg);
+  font-size: 12px;
+}
+.mas-menu button, .mas-menu label.mas-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 6px 9px;
+  border-radius: 7px;
+  white-space: nowrap;
+  color: var(--mas-fg);
+  cursor: pointer;
+  font-size: 12px;
+}
+.mas-menu button:hover, .mas-menu label.mas-menu-item:hover {
+  background: var(--mas-raise2);
+}
+.mas-menu button small {
+  color: var(--mas-muted);
+  margin-left: auto;
+  padding-left: 12px;
+  font-family: var(--mas-mono);
+  font-size: 10.5px;
+}
+.mas-menu hr {
+  border: 0;
+  border-top: 1px solid var(--mas-line);
+  margin: 4px 2px;
+}
+
+/* ---------- Resizable Splitters & Panel Hiding ---------- */
+body.mas-hide-left #panelLib,
+body.mas-hide-left #libraryPanel,
+body.mas-hide-left #panel-lib {
+  display: none !important;
+}
+body.mas-hide-right #panelInsp,
+body.mas-hide-right #inspectorPanel,
+body.mas-hide-right #panel-insp {
+  display: none !important;
+}
+
+/* ---------- Map Animation Studio Multi-Track Timeline (.mas-tlwrap) ---------- */
+.mas-tlwrap {
+  background: var(--mas-panel);
+  border-top: 1px solid var(--mas-line);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--mas-fg);
+}
+.mas-tlhead {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--mas-line);
+  background: #141820;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  flex: none;
+}
+.mas-tlhead .mas-lbl {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mas-muted);
+  margin-right: 4px;
+  font-weight: 700;
+}
+.mas-tl {
+  overflow: auto;
+  position: relative;
+  flex: 1;
+  min-height: 84px;
+  user-select: none;
+  background: #13171e;
+}
+.mas-tlinner {
+  position: relative;
+  min-height: 100%;
+}
+.mas-trow {
+  display: flex;
+  height: 30px;
+  border-bottom: 1px solid #202631;
+  position: relative;
+}
+.mas-trow.ruler {
+  height: 22px;
+  position: sticky;
+  top: 0;
+  z-index: 11;
+  background: var(--mas-panel);
+  border-bottom: 1px solid var(--mas-line);
+}
+.mas-trow.cam {
+  height: 28px;
+  background: #151a22;
+}
+.mas-trow.ghead {
+  height: 25px;
+  background: #171d27;
+}
+.mas-trow.sel {
+  background: rgba(240, 169, 59, 0.06);
+}
+.mas-trow.off .mas-bar {
+  opacity: 0.35;
+}
+.mas-tlabel {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  width: 196px;
+  flex: none;
+  background: var(--mas-panel);
+  border-right: 1px solid var(--mas-line);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 5px 0 8px;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.mas-trow.sel .mas-tlabel {
+  background: #1f2530;
+}
+.mas-trow.cam .mas-tlabel {
+  background: #151a22;
+}
+.mas-trow.ghead .mas-tlabel {
+  background: #171d27;
+  color: #cfe2ff;
+  font-size: 11px;
+}
+.mas-tlabel .mas-nm {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mas-tlabel .mas-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2.5px;
+  flex: none;
+}
+.mas-tlabel .mas-eye {
+  background: none;
+  border: 0;
+  color: var(--mas-muted);
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 18px;
+  height: 18px;
+}
+.mas-tlabel .mas-eye:hover {
+  color: var(--mas-fg);
+  background: var(--mas-raise);
+}
+.mas-lane {
+  position: relative;
+  flex: none;
+  height: 100%;
+}
+.mas-lane.rul {
+  cursor: ew-resize;
+  font: 500 9.5px var(--mas-mono);
+  color: var(--mas-muted);
+}
+.mas-lane.dropok {
+  outline: 2px dashed var(--mas-primary);
+  outline-offset: -2px;
+}
+.mas-tick {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-left: 1px solid var(--mas-line);
+  padding-left: 3px;
+  line-height: 22px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.mas-tick.minor {
+  height: 6px;
+  top: auto;
+  bottom: 0;
+}
+.mas-beyond {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.28) 0 6px, rgba(0, 0, 0, 0.12) 6px 12px);
+  pointer-events: none;
+}
+.mas-endh {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  margin-left: -5px;
+  height: 100%;
+  cursor: ew-resize;
+  z-index: 3;
+}
+.mas-endh::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  bottom: 3px;
+  width: 2px;
+  background: #c4cad6;
+  border-radius: 2px;
+}
+.mas-bar {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 5px;
+  border: 1.5px solid transparent;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: grab;
+}
+.mas-bar:active {
+  cursor: grabbing;
+}
+.mas-bar.sel {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+.mas-bar .mas-edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  cursor: ew-resize;
+  z-index: 2;
+}
+.mas-bar .mas-edge.l { left: 0; }
+.mas-bar .mas-edge.r { right: 0; }
+.mas-bar .mas-edge:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.mas-bar span {
+  pointer-events: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.mas-bar.g-map {
+  background: rgba(63, 167, 181, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(63, 167, 181, 0.55);
+  color: #bdeef4;
+}
+.mas-bar.g-screen {
+  background: rgba(240, 169, 59, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(240, 169, 59, 0.55);
+  color: #ffd79a;
+}
+.mas-bar.g-audio {
+  background: rgba(155, 132, 245, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(155, 132, 245, 0.55);
+  color: #d8cfff;
+}
+.mas-bar.g-scene {
+  background: rgba(91, 140, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(91, 140, 255, 0.6);
+  color: #d3defe;
+}
+.mas-bar.gbar {
+  top: 4px;
+  bottom: 4px;
+  background: rgba(143, 219, 229, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(143, 219, 229, 0.5);
+  color: #bfe9f0;
+  font-size: 10.5px;
+}
+.mas-cam-span {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 4px;
+  background: rgba(143, 219, 229, 0.14);
+  border: 1px solid rgba(143, 219, 229, 0.38);
+  color: #bdeef4;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mas-cam-span.sel {
+  border-color: var(--mas-primary);
+  background: rgba(240, 169, 59, 0.18);
+  color: #ffd79a;
+}
+.mas-kf {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  background: #f4f6fa;
+  border: 1.5px solid #10131a;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  z-index: 4;
+  cursor: ew-resize;
+}
+.mas-kf.sel {
+  background: var(--mas-primary);
+  box-shadow: 0 0 0 2px rgba(240, 169, 59, 0.45);
+}
+.mas-kf.cam {
+  background: #8fdbe5;
+}
+.mas-kf.cam.sel {
+  background: var(--mas-primary);
+}
+.mas-fxchip {
+  position: absolute;
+  bottom: 2px;
+  height: 48%;
+  min-width: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: repeating-linear-gradient(135deg, rgba(240, 169, 59, 0.95) 0 6px, rgba(240, 169, 59, 0.75) 6px 12px);
+  color: #1b1405;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: grab;
+  z-index: 3;
+}
+.mas-fxchip.sel {
+  outline: 2px solid #ffffff;
+}
+.mas-ph {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--mas-head);
+  pointer-events: none;
+  z-index: 9;
+}
+.mas-ph::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -5px;
+  border: 5px solid transparent;
+  border-top: 7px solid var(--mas-head);
+}
+.mas-snapline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #8fdbe5;
+  z-index: 9;
+  pointer-events: none;
+}
+
+/* ---------- Map Animation Studio 4-Tab Inspector & Cards ---------- */
+.mas-insp-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--mas-line);
+  background: #141820;
+  flex: none;
+}
+.mas-insp-tabs button {
+  flex: 1;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 8px 4px;
+  color: var(--mas-muted);
+  font-weight: 600;
+  font-size: 11.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mas-insp-tabs button.on {
+  color: var(--mas-fg);
+  border-bottom-color: var(--mas-primary);
+}
+.mas-box {
+  border: 1px solid var(--mas-line);
+  background: rgba(26, 31, 39, 0.85);
+  border-radius: 9px;
+  padding: 9px;
+  margin-bottom: 10px;
+  display: grid;
+  gap: 7px;
+}
+.mas-fxbox {
+  border: 1px solid rgba(240, 169, 59, 0.45);
+  background: rgba(240, 169, 59, 0.07);
+  border-radius: 9px;
+  padding: 9px;
+  margin-bottom: 10px;
+  display: grid;
+  gap: 7px;
+}
+.mas-fxbox.cam-box {
+  border-color: rgba(143, 219, 229, 0.45);
+  background: rgba(143, 219, 229, 0.06);
+}
+.mas-fxbox h4, .mas-box h4 {
+  margin: 0;
+  font-size: 11px;
+  color: var(--mas-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mas-fxbox.cam-box h4 {
+  color: #8fdbe5;
+}
+.mas-grid2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px;
+}
+.mas-grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.mas-f {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.mas-fl {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--mas-muted);
+}
+.mas-f input, .mas-f select {
+  width: 100%;
+  min-width: 0;
+  background: var(--mas-raise);
+  border: 1px solid var(--mas-line);
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 11.5px;
+  color: var(--mas-fg);
+}
+.mas-card2 {
+  border: 1px solid var(--mas-line);
+  border-radius: 8px;
+  background: #1a1f27;
+  margin-bottom: 6px;
+}
+.mas-card2.sel {
+  border-color: var(--mas-primary);
+}
+.mas-card2 > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 7px 9px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.mas-card2 > summary::-webkit-details-marker {
+  display: none;
+}
+.mas-card2 > .mas-card-body {
+  padding: 4px 9px 9px;
+  display: grid;
+  gap: 7px;
+  border-top: 1px solid rgba(43, 49, 61, 0.5);
+}
+.mas-diamond-ic {
+  width: 9px;
+  height: 9px;
+  background: var(--mas-primary);
+  transform: rotate(45deg);
+  border-radius: 2px;
+  flex: none;
+}
+
+/* ---------- Map Animation Studio Library & Media Panel ---------- */
+.mas-lib-bar {
+  display: flex;
+  border-bottom: 1px solid var(--mas-line);
+  background: #141820;
+  flex: none;
+}
+.mas-lib-bar button {
+  flex: 1;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 7px 3px;
+  color: var(--mas-muted);
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+}
+.mas-lib-bar button.on {
+  color: var(--mas-fg);
+  border-bottom-color: var(--mas-primary);
+}
+.mas-native-hidden {
+  display: none !important;
+}
+.mas-lib-host {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.mas-lib-drawer[hidden] {
+  display: none !important;
+}
+.mas-lib-drawer {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  align-content: start;
+  padding: 10px;
+  background: #151921;
+  overflow: auto;
+  display: grid;
+  gap: 8px;
+}
+.mas-tl-host {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 245px !important;
+  min-height: 215px !important;
+  max-height: 280px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+.mas-tl-host > #mas-timeline-mount {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+.mas-stage-host {
+  overflow: hidden !important;
+}
+.mas-insp-host {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+#mas-insp-tabbar {
+  position: sticky;
+  top: 0;
+  z-index: 12;
+}
+.mas-addmode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--mas-muted);
+}
+.mas-seg {
+  display: inline-flex;
+  border: 1px solid var(--mas-line);
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--mas-raise);
+}
+.mas-seg button {
+  background: transparent;
+  border: 0;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--mas-muted);
+  cursor: pointer;
+}
+.mas-seg button.on {
+  background: var(--mas-primary);
+  color: var(--mas-onprimary);
+}
+.mas-dropzone {
+  border: 1.5px dashed #3a4252;
+  border-radius: 9px;
+  padding: 11px;
+  text-align: center;
+  color: var(--mas-muted);
+  display: grid;
+  gap: 5px;
+  cursor: pointer;
+  background: rgba(32, 37, 47, 0.45);
+  font-size: 11px;
+}
+.mas-dropzone:hover, .mas-dropzone.over {
+  border-color: var(--mas-primary);
+  color: var(--mas-fg);
+  background: rgba(240, 169, 59, 0.08);
+}
+.mas-media-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.mas-mitem {
+  background: var(--mas-raise);
+  border: 1px solid var(--mas-line);
+  border-radius: 7px;
+  overflow: hidden;
+  display: grid;
+  text-align: left;
+  padding: 0;
+  position: relative;
+}
+.mas-mitem:hover {
+  border-color: var(--mas-primary);
+}
+.mas-mthumb {
+  aspect-ratio: 16 / 10;
+  background: #07090c center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mas-muted);
+  overflow: hidden;
+}
+.mas-mthumb img, .mas-mthumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mas-mitem .mas-mname {
+  padding: 4px 6px;
+  font-size: 10.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mas-mitem .mas-macts {
+  display: flex;
+  gap: 3px;
+  padding: 0 4px 4px;
+}
+
+/* ---------- Map Animation Studio Stage Overlay & Fullscreen ---------- */
+.mas-stage-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  pointer-events: auto;
+}
+.mas-stage-badges {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+.mas-badge {
+  background: rgba(10, 12, 16, 0.82);
+  border: 1px solid var(--mas-line);
+  color: var(--mas-fg);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  backdrop-filter: blur(4px);
+}
+.mas-badge.rec {
+  border-color: var(--mas-head);
+  color: #ffd0d6;
+  background: rgba(255, 84, 104, 0.22);
+}
+.mas-stage-pill {
+  background: rgba(16, 19, 24, 0.88);
+  border: 1px solid var(--mas-line);
+  border-radius: 7px;
+  padding: 2px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  backdrop-filter: blur(6px);
+  font-size: 11px;
+}
+.mas-fullscreen-active {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  z-index: 9500 !important;
+  background: #05070a !important;
+  padding: 12px !important;
+}
+.mas-fs-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 9510;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(16, 19, 24, 0.92);
+  border: 1px solid var(--mas-line);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65);
+  min-width: min(660px, 92vw);
+}
+
+/* ---------- Map Animation Studio Export Presets & Result ---------- */
+.mas-export-opts {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.mas-opt {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--mas-line);
+  border-radius: 8px;
+  background: var(--mas-raise);
+  cursor: pointer;
+  text-align: left;
+}
+.mas-opt.sel {
+  border-color: var(--mas-primary);
+  background: rgba(240, 169, 59, 0.09);
+}
+.mas-opt input {
+  grid-row: span 2;
+  accent-color: var(--mas-primary);
+  width: 15px;
+  height: 15px;
+  margin: 0;
+}
+.mas-opt b {
+  font-size: 12px;
+  color: var(--mas-fg);
+}
+.mas-opt small {
+  font-size: 10.5px;
+  color: var(--mas-muted);
+}
+
+@media (max-width: 900px) {
+  .mas-top-ctrls .mas-hide-mob,
+  .mas-stage-overlay .mas-hide-mob {
+    display: none !important;
+  }
+  .mas-tlabel {
+    width: 132px;
+    font-size: 10.5px;
+  }
+  .mas-stage-overlay {
+    top: 4px;
+    right: 4px;
+    gap: 3px;
+  }
+}

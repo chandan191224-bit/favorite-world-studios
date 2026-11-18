@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101318"><meta name="description" content="Offline detective board animation editor with editable clues, red strings, templates and cinematic camera shots."><title>Detective Board Studio Pro</title><style>/* @inline:src/styles.css */</style></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#101318"><meta name="description" content="Offline detective board animation editor with editable clues, red strings, templates and cinematic camera shots."><title>Detective Board Studio Pro</title><style>/* @inline:src/styles.css */</style><style>
+/* @inline:src/mas-cutroom.css */
+</style>
+</head>
 <body>
 <header class="top"><div class="brand"><span class="logo" aria-hidden="true">⌖</span><b>Detective Board <em>Studio</em></b><span class="badge">PRO</span></div><div class="project-meta"><input id="projName" class="pname" aria-label="Project name"><span id="saveState" class="save-state" role="status">Local project</span></div><div class="sp"></div><div class="top-actions"><button class="btn icon" id="btnUndo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="btn icon" id="btnRedo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button><button class="btn" id="btnOpen">Open</button><button class="btn" id="btnSave">Save</button><button class="btn pri" id="btnExport">Export <span aria-hidden="true">↗</span></button></div></header>
 <main class="work" id="work">
@@ -20,4 +23,7 @@
 /* @inline:src/core/renderer.js */
 /* @inline:src/core/exporter.js */
 /* @inline:src/ui/app.js */</script>
+<script>
+/* @inline:src/ui/mas-cutroom.js */
+</script>
 </body></html>
