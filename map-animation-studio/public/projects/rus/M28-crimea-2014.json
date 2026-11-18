@@ -1,0 +1,139 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "45, 34",
+   "zoom": 3.75,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 8,
+   "place": "45, 34",
+   "zoom": 4.1,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "क्रीमिया",
+   "type": "highlight",
+   "startSec": 0.4,
+   "endSec": 8,
+   "places": [
+    "Autonomous Republic of Crimea"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "क्रीमिया",
+   "subtext": "2014"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.0,
+   "endSec": 8,
+   "places": [
+    "44.62, 33.52"
+   ],
+   "text": "सेवस्तोपोल",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 2014",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 7.4,
+   "text": "2014",
+   "subtext": "क्रीमिया",
+   "anchor": "bottom-left",
+   "size": 60,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 6.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 6.6000000000000005,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

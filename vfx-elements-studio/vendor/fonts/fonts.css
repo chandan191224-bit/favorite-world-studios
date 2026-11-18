@@ -1,0 +1,6 @@
+/* Bundled fonts (OFL). Inlined as base64 by build.mjs. */
+@font-face{font-family:"Mukta";font-weight:500;font-style:normal;font-display:block;src:url(@font:Mukta-Medium-subset.woff2) format("woff2")}
+@font-face{font-family:"Mukta";font-weight:800;font-style:normal;font-display:block;src:url(@font:Mukta-ExtraBold-subset.woff2) format("woff2")}
+@font-face{font-family:"Kalam";font-weight:400;font-style:normal;font-display:block;src:url(@font:Kalam-Regular-subset.woff2) format("woff2")}
+@font-face{font-family:"Khand";font-weight:600;font-style:normal;font-display:block;src:url(@font:Khand-SemiBold-subset.woff2) format("woff2")}
+@font-face{font-family:"Bebas Neue";font-weight:400;font-style:normal;font-display:block;src:url(@font:BebasNeue-Regular-subset.woff2) format("woff2")}

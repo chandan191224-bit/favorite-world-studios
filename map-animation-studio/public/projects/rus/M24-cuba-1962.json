@@ -1,0 +1,191 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "38, -30",
+   "zoom": 1.75,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 8,
+   "place": "38, -30",
+   "zoom": 1.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "क्यूबा",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 8,
+   "places": [
+    "Cuba"
+   ],
+   "level": "country",
+   "highlightStyle": "glow",
+   "color": "#a3141a",
+   "text": "क्यूबा",
+   "subtext": ""
+  },
+  {
+   "name": "मिसाइल",
+   "type": "route",
+   "startSec": 0.8,
+   "endSec": 7.2,
+   "places": [
+    "55.75, 37.62",
+    "50.0, 0.0",
+    "40.0, -40.0",
+    "23.11, -82.37"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 38
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.8,
+   "endSec": 8,
+   "places": [
+    "23.11, -82.37"
+   ],
+   "text": "हवाना",
+   "subtext": "1962",
+   "color": "#a3141a",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.4,
+   "endSec": 8,
+   "places": [
+    "38.90, -77.04"
+   ],
+   "text": "वॉशिंगटन",
+   "subtext": "",
+   "color": "#1f4e8c",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 1962",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 7.4,
+   "text": "1962",
+   "subtext": "क्यूबा मिसाइल संकट",
+   "anchor": "top-right",
+   "size": 60,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 154,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 6.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 6.6000000000000005,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

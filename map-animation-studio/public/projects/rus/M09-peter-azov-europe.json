@@ -1,0 +1,211 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 12,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "50, 35",
+   "zoom": 2.95,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4,
+   "place": "47, 39",
+   "zoom": 3.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7,
+   "place": "52, 15",
+   "zoom": 2.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 12,
+   "place": "52, 8",
+   "zoom": 2.3,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "अज़ोव अभियान",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 4.6,
+   "places": [
+    "55.75, 37.62",
+    "51.67, 39.18",
+    "47.11, 39.42"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 42
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.8,
+   "endSec": 12,
+   "places": [
+    "47.11, 39.42"
+   ],
+   "text": "अज़ोव",
+   "subtext": "1696",
+   "color": "#a3141a",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "यूरोप दौरा",
+   "type": "route",
+   "startSec": 5.0,
+   "endSec": 9.5,
+   "places": [
+    "55.75, 37.62",
+    "54.5, 30.0",
+    "54.0, 20.0",
+    "52.37, 4.90"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#1f4e8c",
+   "size": 40
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 8.4,
+   "endSec": 12,
+   "places": [
+    "52.37, 4.90"
+   ],
+   "text": "एम्स्टर्डम",
+   "subtext": "1697",
+   "color": "#1f4e8c",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title समुद्र की तलाश",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 11.4,
+   "text": "समुद्र की तलाश",
+   "subtext": "अज़ोव · यूरोप दौरा",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 10.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 10.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

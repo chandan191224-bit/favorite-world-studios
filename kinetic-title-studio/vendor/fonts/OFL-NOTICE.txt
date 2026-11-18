@@ -1,0 +1,20 @@
+All fonts in this folder are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org) and were downloaded from Google Fonts.
+- Noto Sans Devanagari
+- Noto Serif Devanagari
+- Hind
+- Mukta
+- Tiro Devanagari Hindi
+- Rozha One
+- Khand
+- Teko
+- Yatra One
+- Kalam
+- Bebas Neue
+- Cinzel
+- Anton
+- Playfair Display
+- Montserrat
+- Inter
+- Oswald
+- Special Elite
+- Roboto Mono

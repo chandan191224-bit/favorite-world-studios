@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#cc0000"/>
+  <g fill="#ffd700" transform="translate(88,52) scale(1.15)">
+    <!-- Star -->
+    <polygon points="56,4 61,19 77,19 64,28 69,43 56,34 43,43 48,28 35,19 51,19"/>
+    <!-- Hammer and Sickle -->
+    <path d="M56 54c-26 0-46 20-46 46 0 21 14 39 34 44l-8 14 14 8 10-16c24-2 42-22 42-46 0-26-20-50-46-50zm0 14c18 0 32 15 32 34 0 18-13 32-30 34l18-31-12-7-20 34c-11-5-18-16-18-30 0-19 14-34 30-34z"/>
+    <rect x="44" y="64" width="12" height="78" rx="3" transform="rotate(-40 50 103)"/>
+    <rect x="26" y="62" width="32" height="14" rx="2" transform="rotate(-40 42 69)"/>
+  </g>
+</svg>

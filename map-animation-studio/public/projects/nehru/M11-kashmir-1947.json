@@ -1,0 +1,145 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "34.6, 75.6",
+   "zoom": 4.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "34.2, 75.0",
+   "zoom": 4.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 10,
+   "places": [
+    "Jammu and Kashmir"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "जम्मू-कश्मीर रियासत",
+   "subtext": "1947"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 10,
+   "places": [
+    "Ladakh"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": ""
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 10,
+   "places": [
+    "file:areas/pak-held-jk.geojson"
+   ],
+   "level": "auto",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": ""
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.2,
+   "endSec": 10,
+   "places": [
+    "Abbottabad (34.15, 73.21)",
+    "Muzaffarabad (34.37, 73.47)",
+    "Uri (34.08, 74.03)",
+    "Baramulla (34.20, 74.34)",
+    "Srinagar (34.05, 74.72)"
+   ],
+   "color": "#a3141a",
+   "text": "कबायली हमलावर",
+   "size": 64
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 5.4,
+   "endSec": 9.0,
+   "places": [
+    "28.61, 77.21",
+    "34.05, 74.72"
+   ],
+   "mode": "flight",
+   "vehicle": "plane",
+   "routeStyle": "glow",
+   "color": "#1f4e8c",
+   "size": 50
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 8.4,
+   "endSec": 10,
+   "places": [
+    "Srinagar"
+   ],
+   "text": "श्रीनगर",
+   "subtext": "27 अक्टूबर 1947 · सेना पहुँची",
+   "color": "#1f4e8c",
+   "size": 72,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

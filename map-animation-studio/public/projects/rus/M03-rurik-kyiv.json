@@ -1,0 +1,177 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "56.5, 31.5",
+   "zoom": 3.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "52.0, 30.8",
+   "zoom": 3.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "ओलेग का रास्ता",
+   "type": "route",
+   "startSec": 0.3,
+   "endSec": 4.6,
+   "places": [
+    "58.52, 31.27",
+    "56.34, 30.52",
+    "54.78, 32.05",
+    "50.45, 30.52"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#1f4e8c",
+   "size": 42
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.6,
+   "endSec": 10,
+   "places": [
+    "58.52, 31.27"
+   ],
+   "text": "रुरिक",
+   "subtext": "862",
+   "color": "#3a2a1a",
+   "size": 56,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.2,
+   "endSec": 10,
+   "places": [
+    "50.45, 30.52"
+   ],
+   "text": "कीव",
+   "subtext": "882",
+   "color": "#a3141a",
+   "size": 62,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title कीवन रूस",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 9.4,
+   "text": "कीवन रूस",
+   "subtext": "नदियों का राज्य",
+   "anchor": "bottom-left",
+   "size": 60,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 8.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 8.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

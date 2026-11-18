@@ -1,0 +1,98 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 6,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "Patna (25.61, 85.14)",
+   "zoom": 5.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 6,
+   "place": "Nalanda (25.14, 85.44)",
+   "zoom": 7.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 6,
+   "places": [
+    "Bihar"
+   ],
+   "level": "state",
+   "highlightStyle": "outline-draw",
+   "color": "#3a2a1a",
+   "text": ""
+  },
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 2.6,
+   "endSec": 6,
+   "places": [
+    "Nalanda (25.14, 85.44)"
+   ],
+   "color": "#a3141a",
+   "size": 70
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.8,
+   "endSec": 6,
+   "places": [
+    "Nalanda (25.14, 85.44)"
+   ],
+   "text": "नालंदा महाविहार",
+   "subtext": "पाँचवीं सदी",
+   "color": "#a3141a",
+   "size": 78,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

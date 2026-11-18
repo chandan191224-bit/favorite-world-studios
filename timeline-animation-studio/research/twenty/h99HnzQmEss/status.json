@@ -1,0 +1,16 @@
+{
+  "rank": 15,
+  "id": "h99HnzQmEss",
+  "title": "Create Timeline Animation to Show Years From the Past | Adobe After Effects",
+  "url": "https://www.youtube.com/watch?v=h99HnzQmEss",
+  "channel": "Azam Ray",
+  "duration": 631,
+  "whyRelevant": "Year chronology for showing dates in the past.",
+  "watchStatus": "searchOnly",
+  "searchQuery": "timeline animation after effects",
+  "metadataSource": "YouTube search result via yt-dlp; no visual inspection claimed yet",
+  "sampleRequested": "0–36 seconds",
+  "reviewed": false,
+  "sampleStatus": "unavailable",
+  "error": "[https @ 000002ad786a1080] HTTP error 500 Internal Server Error\n[in#0 @ 000002ad786a7580] Error opening input: Server returned 5XX Server Error reply\nError opening input file https://rr5---sn-gwpa-a3ve7.googlevideo.com/videoplayback?expire=1793386357&ei=FZPkasS1H9La9fwP-s-xoQY&ip=49.36.168.99&id=o-AM6u-qOZpJvjh04_--5zfIw2Td2UTEp5wLCKqwas0nwZ&itag=243&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&cps=327&met=1793364757%2C&mh=1e&mm=31%2C29&mn=sn-gwpa-a3ve7%2Csn-gwpa-qxae7&ms=au%2Crdu&mv=m&mvi=5&pl=22&rms=au%2Cau&initcwndbps=656500&bui=AZFAFb-Ye5xahDJa2TUFdxyvMYJX0-p-jw73MAGEBmpEFE5pvLF_nSbcsOcNRJ5xqnbA-nTbdBH1Ongf&spc=mpRQ_7qONfjv-2BHheUhy2Zc5fHun7rYJtSj6zC9FzmGzuhQloBdxt_q4Rdb&vprv=1&svpuc=1&mime=video%2Fwebm&rqh=1&gir=yes&clen=6789944&dur=630.300&lmt=1769074159980028&mt=1793364338&fvip=5&epbp=1&keepalive=yes&fexp=51565115%2C52184236%2C52271469&c=VISIONOS&txp=6209224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AE0s2JYwRgIhANu67jjiRY5XggYMTjScBzHu7sFUQYGo5zd6wqsqZg9eAiEA_6hq7evOdeI2_xooknkETbtP7AUa4ycZT7GbpO-jJxw%3D&lsparams=cps%2Cmet%2Cmh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Crms%2Cinitcwndbps&lsig=APaTxxMwRQIhAIRugXN0mJKY1ldv2V5MgGsm4K1q6zsuWCLRypT1bkHBAiA2ut3-ZRE42aeAFH1oJ5SVhS67n-0Jr8j7Er2syMp5Jw%3D%3D.\nError opening input files: Server returned 5XX Server Error reply\n\n\nERROR: ffmpeg exited with code 2812791304\n"
+}

@@ -1,0 +1,5140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paper Documentary Studio Pro — Stack Arranger & Voiceover Sync Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- PDF.js & Mammoth.js for Client-Side PDF and DOCX Parsing -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<style>
+  :root {
+    --bg-app: #0b0d11;
+    --bg-panel: #14171f;
+    --bg-card: #10131a;
+    --bg-input: #090b0f;
+    --border: #252a38;
+    --accent: #e5a93c;
+    --accent-hover: #f3bc56;
+    --text-main: #eef0f4;
+    --text-muted: #9198a8;
+    --danger: #ef4444;
+    --success: #22c55e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-app);
+    color: var(--text-main);
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 510px 1fr;
+    overflow: hidden;
+  }
+
+  /* Left Sidebar */
+  .sidebar {
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .sidebar-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebar-header h1 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 10.5px;
+    background: rgba(229, 169, 60, 0.15);
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 99px;
+    font-weight: 700;
+  }
+
+  /* 6-Tab Navigation inside Sidebar */
+  .nav-tabs {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    background: #0d0f14;
+    border-bottom: 1px solid var(--border);
+    padding: 4px;
+    gap: 3px;
+  }
+
+  .nav-tab {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 2px;
+    font-size: 10.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .nav-tab:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .nav-tab.active {
+    background: var(--bg-panel);
+    color: var(--accent);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(229, 169, 60, 0.3);
+  }
+
+  .sidebar-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 16px 36px;
+  }
+
+  .tab-pane {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tab-pane.active {
+    display: flex;
+  }
+
+  .section {
+    background: rgba(10, 12, 16, 0.65);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Drag & Drop Upload Zone */
+  .drop-zone {
+    border: 2px dashed rgba(229, 169, 60, 0.45);
+    background: rgba(229, 169, 60, 0.06);
+    border-radius: 10px;
+    padding: 18px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(229, 169, 60, 0.14);
+    transform: translateY(-1px);
+  }
+
+  .drop-zone-icon { font-size: 24px; }
+  .drop-zone-title { font-size: 12.5px; font-weight: 700; color: var(--text-main); }
+  .drop-zone-sub { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  .auto-status-banner {
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #4ade80;
+    padding: 8px 11px;
+    border-radius: 7px;
+    font-size: 11.5px;
+    font-weight: 600;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  /* Stack Arranger Cards */
+  .stack-arranger-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .stack-layer-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.15s;
+  }
+
+  .stack-layer-card.top-layer {
+    border-color: rgba(229, 169, 60, 0.65);
+  }
+
+  .stack-layer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stack-layer-title {
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Target Cards */
+  .targets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .target-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .target-card.active-target {
+    border-color: rgba(229, 169, 60, 0.85);
+    box-shadow: 0 0 0 1px rgba(229, 169, 60, 0.28);
+  }
+
+  .target-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .target-title-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .target-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-main);
+    background: #232834;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  .target-time-window {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .target-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .icon-btn {
+    background: #1f2430;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 4px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+
+  .icon-btn:hover:not(:disabled) {
+    color: var(--text-main);
+    background: #2b3242;
+  }
+
+  .icon-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .icon-btn.active-mode {
+    background: var(--accent);
+    color: #111318;
+    border-color: var(--accent);
+  }
+
+  .icon-btn.danger:hover:not(:disabled) {
+    color: #fff;
+    background: var(--danger);
+    border-color: var(--danger);
+  }
+
+  .btn-add-target {
+    width: 100%;
+    background: rgba(229, 169, 60, 0.12);
+    color: var(--accent);
+    border: 1px dashed rgba(229, 169, 60, 0.45);
+    padding: 9px 12px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+
+  .btn-add-target:hover {
+    background: rgba(229, 169, 60, 0.22);
+    border-color: var(--accent);
+  }
+
+  /* Page Switcher Tabs */
+  .page-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .page-tab {
+    background: #1c202b;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .page-tab.active {
+    background: var(--accent);
+    color: #111318;
+    border-color: var(--accent);
+  }
+
+  label {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  label span.val {
+    color: var(--text-main);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+
+  input[type="text"], input[type="number"], textarea, select {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 6px;
+    padding: 6px 9px;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 68px;
+    line-height: 1.45;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  input[type="color"] {
+    width: 100%;
+    height: 29px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 2px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-main);
+    cursor: pointer;
+  }
+
+  /* Main Stage */
+  .stage-area {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1b1f2a 0%, #07080b 100%);
+  }
+
+  .canvas-viewport {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .canvas-frame {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    height: min(calc(100vh - 165px), 53vw);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    transition: aspect-ratio 0.2s;
+  }
+
+  canvas#stageCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Stage Overlay Toolbar for Interactive Stack Dragging */
+  .stage-overlay-bar {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .stage-pill-btn {
+    background: rgba(20, 23, 31, 0.85);
+    backdrop-filter: blur(8px);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 6px 11px;
+    border-radius: 99px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+
+  .stage-pill-btn:hover {
+    border-color: var(--accent);
+  }
+
+  .stage-pill-btn.active {
+    background: var(--accent);
+    color: #111318;
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(229, 169, 60, 0.4);
+  }
+
+  .recording-pill {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(239, 68, 68, 0.94);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+  }
+
+  .recording-dot {
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  /* Bottom Transport & Visual Waveform + Keyframe Timeline */
+  .transport-bar {
+    height: 118px;
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border);
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn {
+    background: #232834;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 9px 13px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn:hover { background: #2e3546; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #111318;
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .timeline-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .timeline-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    gap: 10px;
+  }
+
+  /* Combined Waveform + Draggable Target Blocks Track */
+  .visual-track {
+    position: relative;
+    height: 36px;
+    background: #090b0f;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  canvas#waveformCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .track-segment {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    border-radius: 4px;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    cursor: grab;
+    z-index: 3;
+    transition: box-shadow 0.1s;
+  }
+
+  .track-segment:hover {
+    box-shadow: 0 0 0 1px var(--accent);
+    border-color: var(--accent);
+  }
+
+  .track-segment:active {
+    cursor: grabbing;
+  }
+
+  .track-playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #fff;
+    box-shadow: 0 0 8px #fff;
+    pointer-events: none;
+    z-index: 6;
+  }
+
+  .phase-pills {
+    display: flex;
+    gap: 6px;
+    font-size: 10.5px;
+    overflow-x: auto;
+  }
+
+  .phase-pill {
+    color: var(--text-muted);
+    background: #1c202b;
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 99px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: 'Instrument Sans', sans-serif;
+  }
+  .phase-pill:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .match-status {
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .match-ok {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+  }
+  .match-swap {
+    background: rgba(229, 169, 60, 0.18);
+    color: #fbbf24;
+  }
+  .match-pin {
+    background: rgba(56, 189, 248, 0.18);
+    color: #38bdf8;
+  }
+  .match-warn {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+  }
+</style>
+</head>
+<body>
+
+<!-- LEFT SIDEBAR: TABBED PRO CONTROLS -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h1>🗞️ Paper Studio Pro</h1>
+    <span class="badge">Stack Arranger • VO Sync</span>
+  </div>
+
+  <!-- 6-TAB NAVIGATION -->
+  <div class="nav-tabs">
+    <button class="nav-tab" data-tab="tabAutoDoc">⚡ Auto-Doc</button>
+    <button class="nav-tab active" data-tab="tabTargets">🎯 Targets</button>
+    <button class="nav-tab" data-tab="tabStack">📚 Stack/Cam</button>
+    <button class="nav-tab" data-tab="tabCurl">🌓 Curl/Shad</button>
+    <button class="nav-tab" data-tab="tabPages">🗞️ Pages</button>
+    <button class="nav-tab" data-tab="tabExport">🎙️ VO/Exp</button>
+  </div>
+
+  <div class="sidebar-scroll">
+    <!-- TAB 0: AUTOMATIC DOCUMENT & PDF INGESTION ENGINE -->
+    <div id="tabAutoDoc" class="tab-pane">
+      <div class="section">
+        <div class="section-title">
+          <span>Universal Document Auto-Builder</span>
+          <span class="badge">PDF • DOCX • TXT • MD</span>
+        </div>
+
+        <input type="file" id="docUploadInput" accept=".pdf,.docx,.doc,.txt,.md,.rtf,.html" style="display:none" />
+        <div id="docDropZone" class="drop-zone">
+          <div class="drop-zone-icon">📄✨</div>
+          <div class="drop-zone-title">Drop any PDF, Word (.docx), TXT, or MD file here</div>
+          <div class="drop-zone-sub">
+            Automatically splits into stacked newspaper pages, formats headlines & columns, and generates sequential zoom & highlight targets
+          </div>
+        </div>
+
+        <div id="autoStatusBanner" class="auto-status-banner">
+          <span id="autoStatusText">✅ Auto-configured!</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label>Targets Per Page <span id="valAutoTargetsPerPage" class="val">2</span></label>
+            <input type="range" id="autoTargetsPerPage" min="1" max="4" step="1" value="2" />
+          </div>
+          <div>
+            <label>Words Per Newspaper Page <span id="valWordsPerPage" class="val">220</span></label>
+            <input type="range" id="autoWordsPerPage" min="140" max="320" step="20" value="220" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label>Smart Phrase Picker Mode</label>
+            <select id="autoPickerStrategy">
+              <option value="impact" selected>🔥 Documentary Impact (Quotes/Numbers/Bold)</option>
+              <option value="spread">📐 Evenly Spread (Top / Mid / Bottom)</option>
+              <option value="numbers">📊 Statistics, Dates & Claims First</option>
+            </select>
+          </div>
+          <div>
+            <label>Auto Annotation Style</label>
+            <select id="autoAnnotationPreset">
+              <option value="classicMarker" selected>🖍️ Classic Charcoal Highlighter Only</option>
+              <option value="twoToneMarker">🎨 Two-Tone Charcoal & Amber Marker</option>
+              <option value="mixedDoc">🕵️ Mixed Documentary (Marker + Underline + Box)</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="autoExtractPdfSnapshots" checked />
+          For PDFs: Capture visual snapshot of each PDF page as Column Evidence Photo
+        </label>
+
+        <div class="grid-2">
+          <button id="rePickTargetsBtn" class="btn" style="justify-content:center;">🎲 Re-Pick Smart Targets</button>
+          <button id="jumpToTargetsTabBtn" class="btn btn-primary" style="justify-content:center;">🎯 View Generated Targets</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Or Paste Raw Script / Article Text</span>
+          <button id="autoBuildFromPasteBtn" class="icon-btn" style="color:var(--accent); border-color:var(--accent);">⚡ Auto-Build From Text</button>
+        </div>
+        <div>
+          <label>Tip: Wrap phrases in **asterisks** or "quotes" to force them as Highlight Targets</label>
+          <textarea id="rawPasteTextarea" rows="5" placeholder="Paste any multi-paragraph article or documentary script here and click '⚡ Auto-Build From Text'..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: MULTI-TARGET HIGHLIGHT, VOICEOVER SYNC & FOCUS STUDIO -->
+    <div id="tabTargets" class="tab-pane active">
+      <div class="section">
+        <div class="section-title">
+          <span>Highlight & Zoom Targets (Syncable to VO)</span>
+          <span id="targetCountBadge" class="badge">3 Targets</span>
+        </div>
+
+        <div id="targetsContainer" class="targets-list"></div>
+
+        <button id="addTargetBtn" class="btn-add-target">+ Add Highlight & Zoom Target</button>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Global Highlight & Focus Studio</span>
+          <button id="inspectFocusBtn" class="icon-btn" title="Jump playhead to active focus frame">👁️ Inspect Focus</button>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label>Focus Dimming Shape</label>
+            <select id="focusShape">
+              <option value="lineContour" selected>✨ Smart Line-Hugging Contour</option>
+              <option value="softSpotlight">🔦 Elliptical Stage Spotlight</option>
+              <option value="featheredRect">🔲 Feathered Rounded Box</option>
+              <option value="columnStrip">🏛️ Full Column Vertical Strip</option>
+              <option value="horizontalBand">🎬 Cinema Horizontal Band</option>
+              <option value="tornCutout">📜 Torn Paper Deckled Cutout</option>
+              <option value="magnifyingLens">🔍 Optical Magnifying Loupe</option>
+              <option value="none">🚫 Disabled (No Dimming)</option>
+            </select>
+          </div>
+          <div>
+            <label>Focus Reveal Timing</label>
+            <select id="focusSyncMode">
+              <option value="withPan" selected>Fade In as Camera Settles</option>
+              <option value="withSweep">Sweep Cutout with Marker</option>
+              <option value="alwaysOn">Hold Full Cutout Window</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label>Focus Dimming <span id="valDimSurround" class="val">48%</span></label>
+            <input type="range" id="dimSurrounding" min="0" max="90" step="2" value="48" />
+          </div>
+          <div>
+            <label>Edge Feather <span id="valFocusFeather" class="val">16px</span></label>
+            <input type="range" id="focusFeather" min="0" max="60" step="1" value="16" />
+          </div>
+          <div>
+            <label>Out-of-Focus Blur <span id="valFocusBlur" class="val">2.5px</span></label>
+            <input type="range" id="focusBlur" min="0" max="10" step="0.5" value="2.5" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label>Cutout Pad <span id="valFocusPad" class="val">14px</span></label>
+            <input type="range" id="focusPadding" min="4" max="55" step="1" value="14" />
+          </div>
+          <div>
+            <label>Corner Round <span id="valFocusRadius" class="val">14px</span></label>
+            <input type="range" id="focusRadius" min="0" max="45" step="1" value="14" />
+          </div>
+          <div>
+            <label>Rim Outline <span id="valFocusRim" class="val">25%</span></label>
+            <input type="range" id="focusRim" min="0" max="100" step="5" value="25" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label>Dim Overlay Tint</label>
+            <input type="color" id="focusColor" value="#120f0b" />
+          </div>
+          <div>
+            <label>Marker Roughness <span id="valMarkerRough" class="val">45%</span></label>
+            <input type="range" id="markerRoughness" min="0" max="100" step="5" value="45" />
+          </div>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="keepPreviousHighlights" checked />
+          Keep previous highlights inked across all pages
+        </label>
+      </div>
+    </div>
+
+    <!-- TAB 2: INTERACTIVE MULTI-PAGE STACK ARRANGER & CAMERA -->
+    <div id="tabStack" class="tab-pane">
+      <div class="section">
+        <div class="section-title">
+          <span>Interactive Stack Layer Order & Pose Arranger</span>
+          <div style="display:flex; gap:5px;">
+            <button id="toggleDragStackBtn" class="icon-btn" title="Click and drag pages directly on the stage!">🖐️ Drag on Stage</button>
+            <button id="shuffleTiltBtn" class="icon-btn" title="Randomize all page tilts and offsets">🎲 Randomize</button>
+          </div>
+        </div>
+        <div style="font-size:11px; color:var(--text-muted); line-height:1.4;">
+          Arrange which page starts on <strong>Top</strong>, <strong>Middle</strong>, or <strong>Bottom</strong> of the stack using <strong>↑ / ↓</strong>, fine-tune each page's X, Y, and Tilt angle below, or click <strong>🖐️ Drag on Stage</strong> to position pages with your mouse (hold <code>Shift</code> while dragging to rotate).
+        </div>
+
+        <!-- Dynamic List of Pages in Stack Order -->
+        <div id="stackArrangerContainer" class="stack-arranger-list"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Global Stack & Pick-and-Place Physics</span>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Layout Mode</label>
+            <select id="stackMode">
+              <option value="stack" selected>Multi-Page Stacked Mode</option>
+              <option value="single">Single Page Mode Only</option>
+            </select>
+          </div>
+          <div>
+            <label>Pick-and-Place Trajectory</label>
+            <select id="swapStyle">
+              <option value="auto" selected>Smart Alternate (Vice-Versa)</option>
+              <option value="pullRight">Pull Target Out Right → Top</option>
+              <option value="pullLeft">Pull Target Out Left → Top</option>
+              <option value="tuckToBottom">Peel Top Page → Under Bottom</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div>
+            <label>Tilt Scale <span id="valStackTilt" class="val">100%</span></label>
+            <input type="range" id="stackTiltSpread" min="0" max="200" step="5" value="100" />
+          </div>
+          <div>
+            <label>Scatter Scale <span id="valStackScatter" class="val">100%</span></label>
+            <input type="range" id="stackScatter" min="0" max="200" step="5" value="100" />
+          </div>
+          <div>
+            <label>Swap Speed <span id="valSwapDur" class="val">1.45s</span></label>
+            <input type="range" id="swapDuration" min="0.5" max="2.8" step="0.05" value="1.45" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Stack Drop Shadow <span id="valPageShadow" class="val">68%</span></label>
+            <input type="range" id="pageDropShadow" min="0" max="100" step="2" value="68" />
+          </div>
+          <div>
+            <label>Swing Distance <span id="valSwingDist" class="val">840px</span></label>
+            <input type="range" id="swingDistance" min="500" max="1250" step="20" value="840" />
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Camera Rig & Documentary Atmosphere</span>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Stage Background</label>
+            <select id="stageBgStyle">
+              <option value="black" selected>Pure Pitch Black (Video Exact)</option>
+              <option value="vignette">Dark Studio Spotlight</option>
+              <option value="wood">Vintage Detective Wood Desk</option>
+              <option value="grid">Classified Microfilm Grid</option>
+            </select>
+          </div>
+          <div>
+            <label>Camera Easing Curve</label>
+            <select id="camEasing">
+              <option value="cubic" selected>Smooth Documentary Cubic</option>
+              <option value="quart">Snappy Quartic Out</option>
+              <option value="sine">Gentle Sine Glide</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div>
+            <label>Mid-Pan Dip <span id="valArcDip" class="val">35%</span></label>
+            <input type="range" id="arcDip" min="0" max="75" step="5" value="35" />
+          </div>
+          <div>
+            <label>Film Grain <span id="valFilmGrain" class="val">18%</span></label>
+            <input type="range" id="filmGrain" min="0" max="60" step="2" value="18" />
+          </div>
+          <div>
+            <label>Lens Vignette <span id="valVignette" class="val">30%</span></label>
+            <input type="range" id="lensVignette" min="0" max="85" step="5" value="30" />
+          </div>
+        </div>
+        <label class="checkbox-row">
+          <input type="checkbox" id="enableDrift" checked />
+          Enable organic handheld camera drift while holding on text
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" id="zoomOutAtEnd" />
+          Pull camera back out to full stack overview at end of video
+        </label>
+      </div>
+    </div>
+
+    <!-- TAB 3: 3D PAGE CURL & SHADOW PHYSICS STUDIO -->
+    <div id="tabCurl" class="tab-pane">
+      <div class="section">
+        <div class="section-title">
+          <span>3D Page Curl Geometry</span>
+          <button id="previewCurlBtn" class="icon-btn">👁️ Inspect Curl Frame</button>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Active Curl Corner</label>
+            <select id="curlCorner">
+              <option value="TL" selected>Top-Left Corner (Video Exact)</option>
+              <option value="TR">Top-Right Corner</option>
+              <option value="BL">Bottom-Left Corner</option>
+              <option value="BR">Bottom-Right Corner</option>
+            </select>
+          </div>
+          <div>
+            <label>Intro Uncurl Time <span id="valCurlEnd" class="val">1.15s</span></label>
+            <input type="range" id="curlEnd" min="0.0" max="2.5" step="0.05" value="1.15" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Curl Angle <span id="valCurlAngle" class="val">38°</span></label>
+            <input type="range" id="curlAngle" min="22" max="65" step="1" value="38" />
+          </div>
+          <div>
+            <label>Max Curl Depth <span id="valCurlDepth" class="val">660px</span></label>
+            <input type="range" id="curlDepth" min="300" max="950" step="10" value="660" />
+          </div>
+        </div>
+        <label class="checkbox-row">
+          <input type="checkbox" id="uncurlOnSwap" checked />
+          Trigger 3D corner uncurl when a swapped page lands on top
+        </label>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Customizable Cast Shadow & Crease Studio</span>
+        </div>
+        <div class="grid-3">
+          <div>
+            <label>Cast Opacity <span id="valShadOp" class="val">46%</span></label>
+            <input type="range" id="shadowOpacity" min="0" max="95" step="1" value="46" />
+          </div>
+          <div>
+            <label>Soft Blur <span id="valShadBlur" class="val">26px</span></label>
+            <input type="range" id="shadowBlur" min="2" max="70" step="1" value="26" />
+          </div>
+          <div>
+            <label>Shadow Reach <span id="valShadReach" class="val">54px</span></label>
+            <input type="range" id="shadowReach" min="0" max="160" step="2" value="54" />
+          </div>
+        </div>
+        <div class="grid-3">
+          <div>
+            <label>Crease AO <span id="valCreaseAO" class="val">38%</span></label>
+            <input type="range" id="creaseAO" min="0" max="90" step="2" value="38" />
+          </div>
+          <div>
+            <label>3D Roll Shade <span id="valRollShade" class="val">50%</span></label>
+            <input type="range" id="rollShade" min="0" max="100" step="2" value="50" />
+          </div>
+          <div>
+            <label>Flap Specular <span id="valFlapSpec" class="val">55%</span></label>
+            <input type="range" id="flapSpecular" min="0" max="100" step="2" value="55" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Backface Ink Bleed <span id="valBackBleed" class="val">82%</span></label>
+            <input type="range" id="backfaceBleed" min="15" max="100" step="1" value="82" />
+          </div>
+          <div>
+            <label>Cast Shadow Color</label>
+            <input type="color" id="shadowColor" value="#120f0b" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: NEWSPAPER PAGES, MASTHEAD & HALFTONE PHOTO EDITOR -->
+    <div id="tabPages" class="tab-pane">
+      <div class="section">
+        <div class="section-title">
+          <span>Newspaper Pages Manager</span>
+          <span id="pageEditorBadge" class="badge">Page 1 of 3</span>
+        </div>
+        <div class="page-tabs" id="pageTabsContainer"></div>
+
+        <div class="grid-2">
+          <div>
+            <label>Masthead Banner (Optional)</label>
+            <input type="text" id="mastheadTitle" placeholder="e.g. THE INTERNATIONAL CHRONICLE" />
+          </div>
+          <div>
+            <label>Issue / Date Line</label>
+            <input type="text" id="mastheadSub" placeholder="e.g. VOL. CXIV • 1 OCTOBER" />
+          </div>
+        </div>
+
+        <div>
+          <label>Main Article Headline</label>
+          <textarea id="headlineText" rows="2"></textarea>
+        </div>
+        <div>
+          <label>Subheadline / Deck</label>
+          <textarea id="subheadText" rows="2"></textarea>
+        </div>
+        <div>
+          <label>Left Column Paragraphs (blank line between paragraphs)</label>
+          <textarea id="leftColText" rows="5"></textarea>
+        </div>
+        <div>
+          <label>Right Column Paragraphs (blank line between paragraphs)</label>
+          <textarea id="rightColText" rows="5"></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Embedded Halftone Photo & Paper Aging</span>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Column Evidence Photo</label>
+            <select id="pagePhotoType">
+              <option value="none">No Embedded Photo (Text Only)</option>
+              <option value="radar">Flight FZ1073 Radar Track</option>
+              <option value="cockpit">Boeing 737 Cockpit Diagram</option>
+              <option value="stamp">Classified Dossier Exhibit</option>
+              <option value="custom">Custom / Extracted PDF Snapshot</option>
+            </select>
+          </div>
+          <div>
+            <label>Photo Placement</label>
+            <select id="pagePhotoPlacement">
+              <option value="rightTop" selected>Top of Right Column</option>
+              <option value="leftBottom">Bottom of Left Column</option>
+            </select>
+          </div>
+        </div>
+        <div id="customImageRow" style="display:none;">
+          <label>Upload Custom Photo (Converted to Newsprint Halftone)</label>
+          <input type="file" id="customPhotoInput" accept="image/*" />
+        </div>
+        <div>
+          <label>Photo Caption</label>
+          <input type="text" id="pagePhotoCaption" value="FIG 1. Radar telemetry showing rapid descent toward Tabuk." />
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label>Paper Tone</label>
+            <select id="paperTone">
+              <option value="#f1ebd8">Vintage Cream</option>
+              <option value="#e8dec3">Aged Sepia</option>
+              <option value="#f4f3ef">Crisp Newsprint</option>
+              <option value="#dfd3b5">Parchment</option>
+            </select>
+          </div>
+          <div>
+            <label>Font Size <span id="valFontSize" class="val">22px</span></label>
+            <input type="range" id="bodyFontSize" min="18" max="28" step="1" value="22" />
+          </div>
+          <div>
+            <label>Edge Wear <span id="valEdgeWear" class="val">35%</span></label>
+            <input type="range" id="edgeWear" min="0" max="90" step="5" value="35" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <label class="checkbox-row">
+            <input type="checkbox" id="useDropCap" checked />
+            3-Line Drop Cap
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" id="justifyText" checked />
+            Justify Columns
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: VOICEOVER STUDIO, FOLEY SFX & VIDEO EXPORT -->
+    <div id="tabExport" class="tab-pane">
+      <div class="section">
+        <div class="section-title">
+          <span>Voiceover Narration Studio</span>
+          <span id="voBadge" class="badge">No Voiceover Loaded</span>
+        </div>
+
+        <input type="file" id="voUploadInput" accept="audio/*,.mp3,.wav,.m4a,.ogg,.aac,.webm" style="display:none" />
+        <div id="voDropZone" class="drop-zone" style="padding:14px;">
+          <div class="drop-zone-icon">🎙️🔊</div>
+          <div class="drop-zone-title" id="voDropTitle">Click or Drop Voiceover Audio (.mp3, .wav, .m4a)</div>
+          <div class="drop-zone-sub">
+            Renders live waveform on the timeline bar, plays in sync while scrubbing, and mixes directly into your exported video
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label>Voiceover Volume <span id="valVoVol" class="val">100%</span></label>
+            <input type="range" id="voVolume" min="0" max="150" step="5" value="100" />
+          </div>
+          <div>
+            <label>VO Start Offset <span id="valVoOffset" class="val">0.0s</span></label>
+            <input type="range" id="voStartOffset" min="0" max="5" step="0.1" value="0" />
+          </div>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="lockDurationToVO" checked />
+          Lock total video duration to match Voiceover length when loaded
+        </label>
+
+        <div class="grid-2">
+          <button id="evenSpreadTargetsToVoBtn" class="btn" style="justify-content:center;" disabled>📏 Spread Targets Across VO</button>
+          <button id="clearVoBtn" class="btn" style="justify-content:center;" disabled>✕ Remove Voiceover</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Procedural Foley Sound Effects (Web Audio)</span>
+          <span class="badge">Mixed with VO</span>
+        </div>
+        <label class="checkbox-row">
+          <input type="checkbox" id="sfxEnabled" checked />
+          Enable real-time Foley SFX during playback & video export
+        </label>
+        <div class="grid-3">
+          <div>
+            <label>Paper Flip <span id="valSfxPaper" class="val">70%</span></label>
+            <input type="range" id="sfxPaperVol" min="0" max="100" step="5" value="70" />
+          </div>
+          <div>
+            <label>Marker Ink <span id="valSfxMarker" class="val">65%</span></label>
+            <input type="range" id="sfxMarkerVol" min="0" max="100" step="5" value="65" />
+          </div>
+          <div>
+            <label>Cam Whoosh <span id="valSfxWhoosh" class="val">50%</span></label>
+            <input type="range" id="sfxWhooshVol" min="0" max="100" step="5" value="50" />
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          <span>Video Resolution, Aspect Ratio & Project Save</span>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label>Output Aspect Ratio</label>
+            <select id="aspectRatio">
+              <option value="16:9" selected>16:9 YouTube (1920×1080)</option>
+              <option value="9:16">9:16 Shorts / Reels (1080×1920)</option>
+              <option value="1:1">1:1 Square Post (1080×1080)</option>
+            </select>
+          </div>
+          <div>
+            <label>Video Bitrate</label>
+            <select id="videoBitrate">
+              <option value="12000000">12 Mbps (Standard HD)</option>
+              <option value="18000000" selected>18 Mbps (High Sharpness)</option>
+              <option value="28000000">28 Mbps (Archival Master)</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <button id="snapshotBtn" class="btn">📸 Save PNG Frame</button>
+          <button id="saveJsonBtn" class="btn">💾 Save Project JSON</button>
+        </div>
+        <div>
+          <label>Load Saved Project JSON</label>
+          <input type="file" id="loadJsonInput" accept=".json" />
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- RIGHT AREA: LIVE STAGE + WAVEFORM TIMELINE TRANSPORT -->
+<main class="stage-area">
+  <div class="canvas-viewport">
+    <div id="canvasFrame" class="canvas-frame">
+      <!-- Top-Left Quick Overlay for Interactive Stack Arrange Mode -->
+      <div class="stage-overlay-bar">
+        <button id="stageArrangeToggleBtn" class="stage-pill-btn" title="Click to drag and rotate stacked pages directly on the canvas">
+          🖐️ Arrange Stack on Stage: OFF
+        </button>
+      </div>
+
+      <canvas id="stageCanvas" width="1920" height="1080"></canvas>
+      <div id="recordingPill" class="recording-pill">
+        <div class="recording-dot"></div>
+        <span id="recordingText">EXPORTING VIDEO...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="transport-bar">
+    <button id="playBtn" class="btn btn-primary">▶ Play</button>
+    <button id="restartBtn" class="btn">↺ Restart</button>
+    <button id="quickVoUploadBtn" class="btn" title="Upload Voiceover Audio (.mp3, .wav, .m4a)">🎙️ + Voiceover</button>
+
+    <div class="timeline-wrap">
+      <div class="timeline-meta">
+        <span id="timeReadout">00:00.00 / 00:15.00</span>
+        <div id="phasePillsContainer" class="phase-pills"></div>
+      </div>
+
+      <!-- Visual Multi-Track Keyframe Bar + Voiceover Waveform Canvas -->
+      <div id="visualTrack" class="visual-track" title="Click to scrub timeline, or drag Target blocks left/right to align with Voiceover waveform">
+        <canvas id="waveformCanvas" width="1000" height="36"></canvas>
+        <div id="trackSegmentsContainer"></div>
+        <div id="trackPlayhead" class="track-playhead" style="left:0%"></div>
+      </div>
+
+      <input type="range" id="scrubber" min="0" max="15" step="0.01" value="0" />
+    </div>
+
+    <button id="exportBtn" class="btn btn-primary">⬇ Export Video</button>
+  </div>
+</main>
+
+<script>
+(() => {
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+
+  // ============================================================================
+  // 1. STUDIO STATE, STACK ORDER, PAGES & MULTI-TARGET MODEL
+  // ============================================================================
+  const stageCanvas = document.getElementById('stageCanvas');
+  const ctx = stageCanvas.getContext('2d');
+  const canvasFrame = document.getElementById('canvasFrame');
+  const waveformCanvas = document.getElementById('waveformCanvas');
+  const waveCtx = waveformCanvas.getContext('2d');
+
+  const PAGE_W = 1240;
+  const PAGE_H = 1560;
+
+  const noiseCanvas = document.createElement('canvas');
+  noiseCanvas.width = PAGE_W;
+  noiseCanvas.height = PAGE_H;
+  const noiseCtx = noiseCanvas.getContext('2d');
+
+  const compPageCanvas = document.createElement('canvas');
+  compPageCanvas.width = PAGE_W;
+  compPageCanvas.height = PAGE_H;
+  const compCtx = compPageCanvas.getContext('2d');
+
+  const focusMaskCanvas = document.createElement('canvas');
+  focusMaskCanvas.width = PAGE_W;
+  focusMaskCanvas.height = PAGE_H;
+  const focusMaskCtx = focusMaskCanvas.getContext('2d');
+
+  const shadowScratchCanvas = document.createElement('canvas');
+  shadowScratchCanvas.width = PAGE_W;
+  shadowScratchCanvas.height = PAGE_H;
+  const shadowScratchCtx = shadowScratchCanvas.getContext('2d');
+
+  const PAPER_TONES_CYCLE = ['#f1ebd8', '#e8dec3', '#dfd3b5', '#f4f3ef'];
+
+  // Explicit initial stack order array: index 0 is Top Layer, index 1 is 2nd Layer, etc.
+  // Each page also stores explicit `posX` (px), `posY` (px), and `tiltDeg` (degrees) for full manual arrangement!
+  let pages = [
+    {
+      id: 1,
+      title: "Page 1",
+      paperTone: "#f1ebd8",
+      mastheadTitle: "",
+      mastheadSub: "",
+      photoType: "none",
+      photoPlacement: "rightTop",
+      photoCaption: "FIG 1. Radar telemetry showing rapid descent toward Tabuk.",
+      customPhotoImg: null,
+      posX: -4,
+      posY: -3,
+      tiltDeg: -0.8,
+      headline: "FLYDUBAI HIJACK SCARE: HOW PASSENGERS AND OFF-DUTY PILOTS ACTED AND STOPPED THE PLANE FROM CRASHING",
+      subhead: "From cockpit chaos to a passenger-led rescue with the assistance of off-duty pilots ensured FZ1073 landed safely in Saudi Arabia",
+      leftCol: `On the morning of 30 September, Flydubai flight FZ1073, carrying 174 passengers from Dubai to Tel Aviv, sent out an emergency signal that first looked like a hijacking. Israel scrambled fighter jets. The aircraft instead landed safely at Tabuk in Saudi Arabia. The cause, it emerged, was a violent struggle inside the cockpit.
+
+According to Israeli officials and reports, the Omani co-pilot, identified as Hamam al-Hammami, attacked the Indian captain, Smit Machchhar, with the cockpit crash axe. Israeli intelligence reportedly believes he meant to kill the captain and crash the plane into Tel Aviv before fighter jets could react. Flydubai confirmed a fight between the pilots but said the reasons were not yet known. Emirati investigators later described it as an attempted terrorist attack.
+
+Inside the cabin, the plane then dropped by well over 10,000 feet in seconds, with some estimates ranging from about 14,000 to 27,000 feet. Passengers thought it had simply hit severe turbulence, followed by screams.`,
+      rightCol: `The badly injured captain managed to open the cockpit door and raise the alarm. A passenger, Tali Manes, screamed to alert others, and Israeli passengers rushed forward. They entered the cockpit and overpowered the co-pilot. Two off-duty Flydubai pilots travelling as passengers took the controls, steadied the aircraft and landed it in Saudi Arabia.
+
+Prime Minister Benjamin Netanyahu praised the passengers and said the captain's resistance, despite serious injuries, prevented a catastrophe. He also ordered tighter security checks on pilots flying into Israel. Passengers later said some crew members urged them to release the co-pilot, which made them suspicious, so they kept him restrained until authorities took custody.
+
+After more than ten hours in Saudi Arabia, the passengers were flown to Tel Aviv on a replacement aircraft. Several said they were deeply shaken, and some did not want to fly again with the airline. Investigations into the attacker's motives and background are continuing.`,
+      canvas: null,
+      words: []
+    },
+    {
+      id: 2,
+      title: "Page 2",
+      paperTone: "#e8dec3",
+      mastheadTitle: "THE AVIATION DISPATCH",
+      mastheadSub: "SPECIAL INVESTIGATION • SECTION B",
+      photoType: "radar",
+      photoPlacement: "rightTop",
+      photoCaption: "FIG 2. Flight FZ1073 altitude drop and diversion to Tabuk.",
+      customPhotoImg: null,
+      posX: 28,
+      posY: 18,
+      tiltDeg: 4.2,
+      headline: "INSIDE THE 10,000-FOOT PLUNGE: EYEWITNESS ACCOUNTS FROM FLIGHT FZ1073 CABIN",
+      subhead: "How two off-duty commercial pilots sitting in economy class took over the flight deck in mid-air",
+      leftCol: `Moments after the cockpit voice recorder captured the sound of a violent struggle, the Boeing 737 pitched sharply downward over northern Saudi airspace. Oxygen masks deployed across the cabin as terrified passengers were thrown against their seatbelts during the steep dive.
+
+Despite deep lacerations from the crash axe, Captain Smit Machchhar fought off the co-pilot long enough to unlatch the reinforced security door. Seeing the captain bleeding at the threshold, four passengers immediately leaped from the front rows and pinned the attacker to the galley floor.
+
+With the captain incapacitated and losing blood rapidly, two off-duty Flydubai captains who happened to be commuting on the flight stepped into the cockpit, disengaged the erratic descent, and declared a Mayday to Saudi air traffic controllers.`,
+      rightCol: `Radar telemetry recorded by regional aviation monitors showed the aircraft arresting its dive just below 13,000 feet before banking west toward Tabuk Regional Airport. Emergency military responders surrounded the runway upon touchdown.
+
+Passengers interviewed at Ben Gurion Airport later recalled that several cabin crew members appeared confused during the restraint of the co-pilot, prompting the passengers to guard the cockpit entrance themselves until Saudi security forces boarded the jet.`,
+      canvas: null,
+      words: []
+    },
+    {
+      id: 3,
+      title: "Page 3",
+      paperTone: "#dfd3b5",
+      mastheadTitle: "SECURITY BRIEFING ARCHIVE",
+      mastheadSub: "DECLASSIFIED SUMMARY • EXHIBIT C",
+      photoType: "stamp",
+      photoPlacement: "leftBottom",
+      photoCaption: "EXHIBIT C. Mandatory flight deck screening directive.",
+      customPhotoImg: null,
+      posX: -32,
+      posY: 26,
+      tiltDeg: -4.8,
+      headline: "SECURITY REVIEW ORDERED ACROSS REGIONAL CARRIERS AFTER COCKPIT BREACH",
+      subhead: "Investigators examine background screening protocols and psychological evaluations for flight crew",
+      leftCol: `Following the emergency landing at Tabuk, joint aviation task forces launched an immediate audit of flight deck security procedures and crew pairing logs on sensitive regional routes into Tel Aviv.
+
+Officials familiar with the preliminary inquiry stated that the crash axe—standard firefighting equipment required aboard commercial airliners—was removed from its bracket behind the first officer's seat less than forty minutes after departure from Dubai International Airport.`,
+      rightCol: `In a formal statement issued late Tuesday, transport regulators announced mandatory secondary background vetting for all flight deck personnel assigned to cross-border corridors.
+
+Meanwhile, Captain Machchhar underwent reconstructive surgery at a specialized medical center and is expected to make a full recovery. Passenger groups have petitioned for both the captain and the intervening passengers to receive civil aviation bravery citations.
+
+Black box flight data and cockpit audio recordings have been transferred to investigators to establish a complete second-by-second timeline of the incident.`,
+      canvas: null,
+      words: []
+    }
+  ];
+
+  // User-customizable initial stack order (stores page indices from Top to Bottom)
+  let initialStackOrder = [0, 1, 2];
+
+  let activeEditPageIndex = 0;
+  let nextPageId = 4;
+  let randomPickSeed = 1;
+  let isArrangeStackMode = false; // When true, camera shows full stack and user can drag/rotate pages on canvas
+
+  // Targets support optional `cueTime` (pinned start timestamp synced to Voiceover!)
+  let targets = [
+    {
+      id: 1,
+      phrase: "The cause, it emerged, was a violent struggle inside the cockpit.",
+      pageSelect: "auto",
+      style: "marker",
+      focusOverride: "global",
+      color: "#545452",
+      opacity: 58,
+      zoom: 2.45,
+      panDur: 1.35,
+      sweepDur: 0.95,
+      holdDur: 1.35,
+      cueTime: null // null = Auto-Chain after previous target; number = Pinned VO timestamp (seconds)
+    },
+    {
+      id: 2,
+      phrase: "two off-duty Flydubai captains who happened to be commuting on the flight stepped into the cockpit",
+      pageSelect: "auto",
+      style: "marker",
+      focusOverride: "global",
+      color: "#c7912c",
+      opacity: 54,
+      zoom: 2.40,
+      panDur: 1.25,
+      sweepDur: 1.05,
+      holdDur: 1.40,
+      cueTime: null
+    },
+    {
+      id: 3,
+      phrase: "attacked the Indian captain, Smit Machchhar, with the cockpit crash axe.",
+      pageSelect: "auto",
+      style: "underline",
+      focusOverride: "global",
+      color: "#b92b27",
+      opacity: 85,
+      zoom: 2.55,
+      panDur: 1.25,
+      sweepDur: 0.95,
+      holdDur: 1.60,
+      cueTime: null
+    }
+  ];
+  let nextTargetId = 4;
+
+  const ui = {
+    docUploadInput: document.getElementById('docUploadInput'),
+    docDropZone: document.getElementById('docDropZone'),
+    autoStatusBanner: document.getElementById('autoStatusBanner'),
+    autoStatusText: document.getElementById('autoStatusText'),
+    autoTargetsPerPage: document.getElementById('autoTargetsPerPage'),
+    autoWordsPerPage: document.getElementById('autoWordsPerPage'),
+    autoPickerStrategy: document.getElementById('autoPickerStrategy'),
+    autoAnnotationPreset: document.getElementById('autoAnnotationPreset'),
+    autoExtractPdfSnapshots: document.getElementById('autoExtractPdfSnapshots'),
+    rePickTargetsBtn: document.getElementById('rePickTargetsBtn'),
+    jumpToTargetsTabBtn: document.getElementById('jumpToTargetsTabBtn'),
+    rawPasteTextarea: document.getElementById('rawPasteTextarea'),
+    autoBuildFromPasteBtn: document.getElementById('autoBuildFromPasteBtn'),
+
+    targetsContainer: document.getElementById('targetsContainer'),
+    targetCountBadge: document.getElementById('targetCountBadge'),
+    addTargetBtn: document.getElementById('addTargetBtn'),
+    inspectFocusBtn: document.getElementById('inspectFocusBtn'),
+    focusShape: document.getElementById('focusShape'),
+    focusSyncMode: document.getElementById('focusSyncMode'),
+    dimSurrounding: document.getElementById('dimSurrounding'),
+    focusFeather: document.getElementById('focusFeather'),
+    focusBlur: document.getElementById('focusBlur'),
+    focusPadding: document.getElementById('focusPadding'),
+    focusRadius: document.getElementById('focusRadius'),
+    focusRim: document.getElementById('focusRim'),
+    focusColor: document.getElementById('focusColor'),
+    markerRoughness: document.getElementById('markerRoughness'),
+    keepPreviousHighlights: document.getElementById('keepPreviousHighlights'),
+
+    stackArrangerContainer: document.getElementById('stackArrangerContainer'),
+    toggleDragStackBtn: document.getElementById('toggleDragStackBtn'),
+    stageArrangeToggleBtn: document.getElementById('stageArrangeToggleBtn'),
+    shuffleTiltBtn: document.getElementById('shuffleTiltBtn'),
+    stackMode: document.getElementById('stackMode'),
+    swapStyle: document.getElementById('swapStyle'),
+    stackTiltSpread: document.getElementById('stackTiltSpread'),
+    stackScatter: document.getElementById('stackScatter'),
+    swapDuration: document.getElementById('swapDuration'),
+    pageDropShadow: document.getElementById('pageDropShadow'),
+    swingDistance: document.getElementById('swingDistance'),
+    stageBgStyle: document.getElementById('stageBgStyle'),
+    camEasing: document.getElementById('camEasing'),
+    arcDip: document.getElementById('arcDip'),
+    filmGrain: document.getElementById('filmGrain'),
+    lensVignette: document.getElementById('lensVignette'),
+    enableDrift: document.getElementById('enableDrift'),
+    zoomOutAtEnd: document.getElementById('zoomOutAtEnd'),
+
+    previewCurlBtn: document.getElementById('previewCurlBtn'),
+    curlCorner: document.getElementById('curlCorner'),
+    curlEnd: document.getElementById('curlEnd'),
+    curlAngle: document.getElementById('curlAngle'),
+    curlDepth: document.getElementById('curlDepth'),
+    uncurlOnSwap: document.getElementById('uncurlOnSwap'),
+    shadowOpacity: document.getElementById('shadowOpacity'),
+    shadowBlur: document.getElementById('shadowBlur'),
+    shadowReach: document.getElementById('shadowReach'),
+    creaseAO: document.getElementById('creaseAO'),
+    rollShade: document.getElementById('rollShade'),
+    flapSpecular: document.getElementById('flapSpecular'),
+    backfaceBleed: document.getElementById('backfaceBleed'),
+    shadowColor: document.getElementById('shadowColor'),
+
+    pageTabsContainer: document.getElementById('pageTabsContainer'),
+    pageEditorBadge: document.getElementById('pageEditorBadge'),
+    mastheadTitle: document.getElementById('mastheadTitle'),
+    mastheadSub: document.getElementById('mastheadSub'),
+    headlineText: document.getElementById('headlineText'),
+    subheadText: document.getElementById('subheadText'),
+    leftColText: document.getElementById('leftColText'),
+    rightColText: document.getElementById('rightColText'),
+    pagePhotoType: document.getElementById('pagePhotoType'),
+    pagePhotoPlacement: document.getElementById('pagePhotoPlacement'),
+    customImageRow: document.getElementById('customImageRow'),
+    customPhotoInput: document.getElementById('customPhotoInput'),
+    pagePhotoCaption: document.getElementById('pagePhotoCaption'),
+    paperTone: document.getElementById('paperTone'),
+    bodyFontSize: document.getElementById('bodyFontSize'),
+    edgeWear: document.getElementById('edgeWear'),
+    useDropCap: document.getElementById('useDropCap'),
+    justifyText: document.getElementById('justifyText'),
+
+    // Voiceover & Export Elements
+    voUploadInput: document.getElementById('voUploadInput'),
+    voDropZone: document.getElementById('voDropZone'),
+    voDropTitle: document.getElementById('voDropTitle'),
+    voBadge: document.getElementById('voBadge'),
+    voVolume: document.getElementById('voVolume'),
+    voStartOffset: document.getElementById('voStartOffset'),
+    lockDurationToVO: document.getElementById('lockDurationToVO'),
+    evenSpreadTargetsToVoBtn: document.getElementById('evenSpreadTargetsToVoBtn'),
+    clearVoBtn: document.getElementById('clearVoBtn'),
+    quickVoUploadBtn: document.getElementById('quickVoUploadBtn'),
+
+    sfxEnabled: document.getElementById('sfxEnabled'),
+    sfxPaperVol: document.getElementById('sfxPaperVol'),
+    sfxMarkerVol: document.getElementById('sfxMarkerVol'),
+    sfxWhooshVol: document.getElementById('sfxWhooshVol'),
+    aspectRatio: document.getElementById('aspectRatio'),
+    videoBitrate: document.getElementById('videoBitrate'),
+    snapshotBtn: document.getElementById('snapshotBtn'),
+    saveJsonBtn: document.getElementById('saveJsonBtn'),
+    loadJsonInput: document.getElementById('loadJsonInput'),
+
+    scrubber: document.getElementById('scrubber'),
+    visualTrack: document.getElementById('visualTrack'),
+    trackSegmentsContainer: document.getElementById('trackSegmentsContainer'),
+    trackPlayhead: document.getElementById('trackPlayhead'),
+    playBtn: document.getElementById('playBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    exportBtn: document.getElementById('exportBtn'),
+    timeReadout: document.getElementById('timeReadout'),
+    phasePillsContainer: document.getElementById('phasePillsContainer'),
+    recordingPill: document.getElementById('recordingPill'),
+    recordingText: document.getElementById('recordingText')
+  };
+
+  let computedSchedule = [];
+  let totalSequenceDuration = 15;
+  let currentTime = 0;
+  let isPlaying = false;
+  let isExporting = false;
+  let lastFrameWall = 0;
+
+  // ============================================================================
+  // 2. VOICEOVER AUDIO ENGINE, WAVEFORM RENDERER & FOLEY SYNTHESIZER
+  // ============================================================================
+  let audioCtx = null;
+  let audioDestNode = null;
+  let noiseBuffer = null;
+  let triggeredSoundKeys = new Set();
+
+  // Voiceover state
+  let voiceoverBuffer = null;
+  let voiceoverFileName = '';
+  let voSourceNode = null;
+  let voGainNode = null;
+  let voPeaks = [];
+
+  function ensureAudioEngine() {
+    if (!audioCtx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AC();
+      audioDestNode = audioCtx.createMediaStreamDestination();
+      voGainNode = audioCtx.createGain();
+      voGainNode.connect(audioCtx.destination);
+      voGainNode.connect(audioDestNode);
+
+      const sr = audioCtx.sampleRate;
+      noiseBuffer = audioCtx.createBuffer(1, sr * 2, sr);
+      const data = noiseBuffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < data.length; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+        b6 = white * 0.115926;
+      }
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  async function handleVoiceoverUpload(file) {
+    if (!file) return;
+    ensureAudioEngine();
+    ui.voBadge.textContent = 'Decoding Audio...';
+
+    try {
+      const arrayBuf = await file.arrayBuffer();
+      voiceoverBuffer = await audioCtx.decodeAudioData(arrayBuf);
+      voiceoverFileName = file.name;
+
+      // Extract 400 normalized peaks for fast waveform rendering
+      const rawData = voiceoverBuffer.getChannelData(0);
+      const buckets = 400;
+      const step = Math.max(1, Math.floor(rawData.length / buckets));
+      voPeaks = [];
+      let maxPeak = 0.01;
+      for (let i = 0; i < buckets; i++) {
+        let sum = 0;
+        const start = i * step;
+        for (let j = 0; j < step && start + j < rawData.length; j += 4) {
+          const v = Math.abs(rawData[start + j]);
+          if (v > sum) sum = v;
+        }
+        voPeaks.push(sum);
+        if (sum > maxPeak) maxPeak = sum;
+      }
+      voPeaks = voPeaks.map(p => p / maxPeak);
+
+      ui.voBadge.textContent = `${voiceoverBuffer.duration.toFixed(1)}s Loaded`;
+      ui.voDropTitle.textContent = `🎙️ ${file.name} (${voiceoverBuffer.duration.toFixed(2)}s)`;
+      ui.quickVoUploadBtn.textContent = `🎙️ VO (${voiceoverBuffer.duration.toFixed(1)}s)`;
+      ui.quickVoUploadBtn.style.borderColor = 'var(--accent)';
+      ui.quickVoUploadBtn.style.color = 'var(--accent)';
+      ui.evenSpreadTargetsToVoBtn.disabled = false;
+      ui.clearVoBtn.disabled = false;
+
+      syncLabelsAndRender(false);
+    } catch (err) {
+      console.error(err);
+      ui.voBadge.textContent = 'Audio Load Error';
+      alert('Could not decode audio file. Please use MP3, WAV, M4A, or OGG.');
+    }
+  }
+
+  function startVoiceoverAt(timelineSec) {
+    stopVoiceoverPlayback();
+    if (!voiceoverBuffer || !audioCtx) return;
+
+    const voOffset = parseFloat(ui.voStartOffset.value) || 0;
+    const bufferOffset = timelineSec - voOffset;
+    if (bufferOffset >= voiceoverBuffer.duration) return;
+
+    voGainNode.gain.value = parseInt(ui.voVolume.value, 10) / 100;
+    voSourceNode = audioCtx.createBufferSource();
+    voSourceNode.buffer = voiceoverBuffer;
+    voSourceNode.connect(voGainNode);
+
+    if (bufferOffset >= 0) {
+      voSourceNode.start(0, bufferOffset);
+    } else {
+      voSourceNode.start(audioCtx.currentTime + Math.abs(bufferOffset), 0);
+    }
+  }
+
+  function stopVoiceoverPlayback() {
+    if (voSourceNode) {
+      try { voSourceNode.stop(); } catch (_) {}
+      try { voSourceNode.disconnect(); } catch (_) {}
+      voSourceNode = null;
+    }
+  }
+
+  function drawVoiceoverWaveform() {
+    const W = waveformCanvas.width;
+    const H = waveformCanvas.height;
+    waveCtx.clearRect(0, 0, W, H);
+
+    if (!voiceoverBuffer || voPeaks.length === 0 || totalSequenceDuration <= 0) return;
+
+    const voOffset = parseFloat(ui.voStartOffset.value) || 0;
+    const voDur = voiceoverBuffer.duration;
+    const startX = (voOffset / totalSequenceDuration) * W;
+    const endX = ((voOffset + voDur) / totalSequenceDuration) * W;
+    const waveW = Math.max(10, endX - startX);
+
+    waveCtx.fillStyle = 'rgba(229, 169, 60, 0.36)';
+    const barW = waveW / voPeaks.length;
+
+    for (let i = 0; i < voPeaks.length; i++) {
+      const bx = startX + i * barW;
+      if (bx > W) break;
+      const bh = Math.max(2, voPeaks[i] * (H - 6));
+      waveCtx.fillRect(bx, (H - bh) / 2, Math.max(1.2, barW - 0.8), bh);
+    }
+  }
+
+  // Spread all targets evenly across the loaded Voiceover duration
+  ui.evenSpreadTargetsToVoBtn.addEventListener('click', () => {
+    if (!voiceoverBuffer || targets.length === 0) return;
+    const curlEnd = parseFloat(ui.curlEnd.value);
+    const voDur = voiceoverBuffer.duration + (parseFloat(ui.voStartOffset.value) || 0);
+    const usableStart = Math.max(0.5, curlEnd);
+    const usableSpan = Math.max(2, voDur - usableStart - 1.2);
+    const slot = usableSpan / targets.length;
+
+    targets.forEach((t, idx) => {
+      t.cueTime = +(usableStart + idx * slot).toFixed(2);
+    });
+    renderTargetCardsDOM();
+    syncLabelsAndRender(false);
+  });
+
+  ui.clearVoBtn.addEventListener('click', () => {
+    stopVoiceoverPlayback();
+    voiceoverBuffer = null;
+    voPeaks = [];
+    ui.voBadge.textContent = 'No Voiceover Loaded';
+    ui.voDropTitle.textContent = 'Click or Drop Voiceover Audio (.mp3, .wav, .m4a)';
+    ui.quickVoUploadBtn.textContent = '🎙️ + Voiceover';
+    ui.quickVoUploadBtn.style.borderColor = '';
+    ui.quickVoUploadBtn.style.color = '';
+    ui.evenSpreadTargetsToVoBtn.disabled = true;
+    ui.clearVoBtn.disabled = true;
+    syncLabelsAndRender(false);
+  });
+
+  ui.quickVoUploadBtn.addEventListener('click', () => ui.voUploadInput.click());
+  ui.voDropZone.addEventListener('click', () => ui.voUploadInput.click());
+  ui.voDropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    ui.voDropZone.classList.add('dragover');
+  });
+  ui.voDropZone.addEventListener('dragleave', () => ui.voDropZone.classList.remove('dragover'));
+  ui.voDropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    ui.voDropZone.classList.remove('dragover');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleVoiceoverUpload(e.dataTransfer.files[0]);
+    }
+  });
+  ui.voUploadInput.addEventListener('change', e => {
+    if (e.target.files && e.target.files[0]) {
+      handleVoiceoverUpload(e.target.files[0]);
+    }
+  });
+
+  function playFoleySound(type, durationSec = 0.8) {
+    if (!ui.sfxEnabled.checked) return;
+    ensureAudioEngine();
+    if (!audioCtx || !noiseBuffer) return;
+
+    const now = audioCtx.currentTime;
+    const src = audioCtx.createBufferSource();
+    src.buffer = noiseBuffer;
+    src.loop = true;
+
+    const filter = audioCtx.createBiquadFilter();
+    const gain = audioCtx.createGain();
+
+    if (type === 'paper') {
+      const vol = (parseInt(ui.sfxPaperVol.value, 10) / 100) * 0.45;
+      if (vol <= 0.01) return;
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(950, now);
+      filter.frequency.exponentialRampToValueAtTime(1850, now + durationSec * 0.45);
+      filter.frequency.exponentialRampToValueAtTime(700, now + durationSec);
+      filter.Q.value = 1.6;
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(vol, now + durationSec * 0.25);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + durationSec);
+    } else if (type === 'marker') {
+      const vol = (parseInt(ui.sfxMarkerVol.value, 10) / 100) * 0.35;
+      if (vol <= 0.01) return;
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(2600, now);
+      filter.frequency.linearRampToValueAtTime(3200, now + durationSec);
+      filter.Q.value = 2.8;
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(vol, now + 0.06);
+      gain.gain.setValueAtTime(vol * 0.85, now + Math.max(0.08, durationSec - 0.08));
+      gain.gain.exponentialRampToValueAtTime(0.001, now + durationSec);
+    } else if (type === 'whoosh') {
+      const vol = (parseInt(ui.sfxWhooshVol.value, 10) / 100) * 0.32;
+      if (vol <= 0.01) return;
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(180, now);
+      filter.frequency.exponentialRampToValueAtTime(520, now + durationSec * 0.5);
+      filter.frequency.exponentialRampToValueAtTime(140, now + durationSec);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(vol, now + durationSec * 0.45);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + durationSec);
+    }
+
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+    gain.connect(audioDestNode);
+
+    src.start(now);
+    src.stop(now + durationSec + 0.05);
+  }
+
+  function checkAndTriggerRealtimeSFX(t) {
+    if (!isPlaying && !isExporting) return;
+
+    const curlEnd = parseFloat(ui.curlEnd.value);
+    if (curlEnd > 0.1 && t >= 0.02 && t < 0.25 && !triggeredSoundKeys.has('intro_curl')) {
+      triggeredSoundKeys.add('intro_curl');
+      playFoleySound('paper', Math.min(1.1, curlEnd));
+    }
+
+    computedSchedule.forEach((sched, idx) => {
+      if (sched.needsSwap && t >= sched.swapStart && t < sched.swapStart + 0.2) {
+        const key = `swap_${idx}`;
+        if (!triggeredSoundKeys.has(key)) {
+          triggeredSoundKeys.add(key);
+          playFoleySound('paper', Math.min(1.2, sched.swapEnd - sched.swapStart));
+        }
+      }
+
+      if (t >= sched.panStart && t < sched.panStart + 0.2) {
+        const key = `pan_${idx}`;
+        if (!triggeredSoundKeys.has(key)) {
+          triggeredSoundKeys.add(key);
+          playFoleySound('whoosh', Math.min(1.1, sched.panEnd - sched.panStart));
+        }
+      }
+
+      if (sched.found && t >= sched.hlStart && t < sched.hlStart + 0.2) {
+        const key = `hl_${idx}`;
+        if (!triggeredSoundKeys.has(key)) {
+          triggeredSoundKeys.add(key);
+          playFoleySound('marker', Math.min(1.5, sched.hlEnd - sched.hlStart));
+        }
+      }
+    });
+  }
+
+  // ============================================================================
+  // 3. INTERACTIVE STACK ARRANGER & ON-STAGE MOUSE DRAGGING
+  // ============================================================================
+  function sanitizeStackOrder() {
+    // Ensure initialStackOrder contains each valid page index [0 .. pages.length-1] exactly once
+    const valid = initialStackOrder.filter(idx => idx >= 0 && idx < pages.length);
+    for (let i = 0; i < pages.length; i++) {
+      if (!valid.includes(i)) valid.push(i);
+    }
+    initialStackOrder = valid;
+  }
+
+  function renderStackArrangerDOM() {
+    sanitizeStackOrder();
+    ui.stackArrangerContainer.innerHTML = '';
+
+    initialStackOrder.forEach((pageIdx, stackDepth) => {
+      const p = pages[pageIdx];
+      if (!p) return;
+
+      const card = document.createElement('div');
+      card.className = `stack-layer-card ${stackDepth === 0 ? 'top-layer' : ''}`;
+
+      const layerLabel = stackDepth === 0
+        ? '🔝 TOP OF STACK (Layer 1)'
+        : stackDepth === initialStackOrder.length - 1
+          ? `⬇️ BOTTOM (Layer ${stackDepth + 1})`
+          : `📄 MIDDLE (Layer ${stackDepth + 1})`;
+
+      card.innerHTML = `
+        <div class="stack-layer-header">
+          <div class="stack-layer-title">
+            <span class="badge">${layerLabel}</span>
+            <span>Page ${pageIdx + 1}</span>
+          </div>
+          <div class="target-actions">
+            <button class="icon-btn" data-saction="top" title="Bring to Very Top of Stack" ${stackDepth === 0 ? 'disabled' : ''}>🔝 Top</button>
+            <button class="icon-btn" data-saction="up" title="Move Higher in Stack" ${stackDepth === 0 ? 'disabled' : ''}>↑</button>
+            <button class="icon-btn" data-saction="down" title="Move Lower in Stack" ${stackDepth === initialStackOrder.length - 1 ? 'disabled' : ''}>↓</button>
+            <button class="icon-btn" data-saction="reset" title="Reset X/Y/Tilt of this page">↺</button>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div>
+            <label>X Offset <span class="val" data-sval="posX">${Math.round(p.posX)}px</span></label>
+            <input type="range" data-sfield="posX" min="-160" max="160" step="2" value="${p.posX}" />
+          </div>
+          <div>
+            <label>Y Offset <span class="val" data-sval="posY">${Math.round(p.posY)}px</span></label>
+            <input type="range" data-sfield="posY" min="-140" max="140" step="2" value="${p.posY}" />
+          </div>
+          <div>
+            <label>Tilt Angle <span class="val" data-sval="tiltDeg">${p.tiltDeg.toFixed(1)}°</span></label>
+            <input type="range" data-sfield="tiltDeg" min="-18" max="18" step="0.5" value="${p.tiltDeg}" />
+          </div>
+        </div>
+      `;
+
+      card.querySelectorAll('input[type="range"]').forEach(slider => {
+        slider.addEventListener('input', () => {
+          const f = slider.dataset.sfield;
+          p[f] = parseFloat(slider.value);
+          const span = card.querySelector(`[data-sval="${f}"]`);
+          if (span) {
+            span.textContent = f === 'tiltDeg' ? `${p.tiltDeg.toFixed(1)}°` : `${Math.round(p[f])}px`;
+          }
+          syncLabelsAndRender(false);
+        });
+      });
+
+      card.querySelectorAll('button[data-saction]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const act = btn.dataset.saction;
+          if (act === 'up' && stackDepth > 0) {
+            [initialStackOrder[stackDepth - 1], initialStackOrder[stackDepth]] =
+              [initialStackOrder[stackDepth], initialStackOrder[stackDepth - 1]];
+          } else if (act === 'down' && stackDepth < initialStackOrder.length - 1) {
+            [initialStackOrder[stackDepth + 1], initialStackOrder[stackDepth]] =
+              [initialStackOrder[stackDepth], initialStackOrder[stackDepth + 1]];
+          } else if (act === 'top' && stackDepth > 0) {
+            const item = initialStackOrder.splice(stackDepth, 1)[0];
+            initialStackOrder.unshift(item);
+          } else if (act === 'reset') {
+            p.posX = 0;
+            p.posY = 0;
+            p.tiltDeg = 0;
+          }
+          renderStackArrangerDOM();
+          syncLabelsAndRender(false);
+        });
+      });
+
+      ui.stackArrangerContainer.appendChild(card);
+    });
+  }
+
+  function setArrangeStackMode(enabled) {
+    isArrangeStackMode = enabled;
+    if (enabled) pausePlayback();
+    ui.toggleDragStackBtn.classList.toggle('active-mode', enabled);
+    ui.stageArrangeToggleBtn.classList.toggle('active', enabled);
+    ui.stageArrangeToggleBtn.textContent = enabled
+      ? '🖐️ Arrange Stack Mode: ON (Drag Pages / Shift+Drag to Tilt)'
+      : '🖐️ Arrange Stack on Stage: OFF';
+    stageCanvas.style.cursor = enabled ? 'grab' : 'default';
+    syncLabelsAndRender(false);
+  }
+
+  ui.toggleDragStackBtn.addEventListener('click', () => setArrangeStackMode(!isArrangeStackMode));
+  ui.stageArrangeToggleBtn.addEventListener('click', () => setArrangeStackMode(!isArrangeStackMode));
+
+  // Direct On-Canvas Mouse Dragging & Rotating of Stacked Pages
+  let draggingPageState = null;
+
+  stageCanvas.addEventListener('pointerdown', e => {
+    if (!isArrangeStackMode || isExporting) return;
+    const rect = stageCanvas.getBoundingClientRect();
+    const scaleX = stageCanvas.width / rect.width;
+    const scaleY = stageCanvas.height / rect.height;
+    const canvasX = (e.clientX - rect.left) * scaleX;
+    const canvasY = (e.clientY - rect.top) * scaleY;
+
+    const W = stageCanvas.width;
+    const H = stageCanvas.height;
+    const fitDim = Math.min(W * 1.15, (H - 2 * (window.__BAND || 0)) * 0.94);
+    const baseScale = (fitDim / PAGE_H) * 0.92;
+
+    // Convert stage click into stack world coordinates
+    const worldX = (canvasX - W / 2) / baseScale + PAGE_W * 0.5;
+    const worldY = (canvasY - H / 2) / baseScale + PAGE_H * 0.45;
+
+    // Hit-test pages from Top of stack to Bottom of stack
+    let hitPageIdx = initialStackOrder[0];
+    for (let d = 0; d < initialStackOrder.length; d++) {
+      const pIdx = initialStackOrder[d];
+      const pose = getPageStackRestPose(pIdx, d);
+      const dx = worldX - (PAGE_W / 2 + pose.x);
+      const dy = worldY - (PAGE_H / 2 + pose.y);
+      if (Math.abs(dx) <= PAGE_W * 0.52 && Math.abs(dy) <= PAGE_H * 0.52) {
+        hitPageIdx = pIdx;
+        break;
+      }
+    }
+
+    const pageObj = pages[hitPageIdx];
+    if (!pageObj) return;
+
+    draggingPageState = {
+      pageIdx: hitPageIdx,
+      startClientX: e.clientX,
+      startClientY: e.clientY,
+      origPosX: pageObj.posX,
+      origPosY: pageObj.posY,
+      origTilt: pageObj.tiltDeg,
+      worldScale: baseScale * (rect.width / stageCanvas.width)
+    };
+    stageCanvas.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (!draggingPageState) return;
+    const p = pages[draggingPageState.pageIdx];
+    if (!p) return;
+
+    const dxClient = e.clientX - draggingPageState.startClientX;
+    const dyClient = e.clientY - draggingPageState.startClientY;
+
+    if (e.shiftKey) {
+      // Shift + Drag rotates the page tilt angle!
+      p.tiltDeg = Math.max(-18, Math.min(18, +(draggingPageState.origTilt + dxClient * 0.08).toFixed(1)));
+    } else {
+      const invScale = 1 / Math.max(0.15, draggingPageState.worldScale);
+      p.posX = Math.max(-160, Math.min(160, Math.round(draggingPageState.origPosX + dxClient * invScale)));
+      p.posY = Math.max(-140, Math.min(140, Math.round(draggingPageState.origPosY + dyClient * invScale)));
+    }
+
+    renderStackArrangerDOM();
+    syncLabelsAndRender(false);
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (draggingPageState) {
+      draggingPageState = null;
+      stageCanvas.style.cursor = isArrangeStackMode ? 'grab' : 'default';
+    }
+  });
+
+  // ============================================================================
+  // 4. UNIVERSAL DOCUMENT & PDF AUTO-INGESTION ENGINE
+  // ============================================================================
+  function switchSidebarTab(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(b => {
+      b.classList.toggle('active', b.dataset.tab === tabId);
+    });
+    document.querySelectorAll('.tab-pane').forEach(p => {
+      p.classList.toggle('active', p.id === tabId);
+    });
+  }
+
+  document.querySelectorAll('.nav-tab').forEach(btn => {
+    btn.addEventListener('click', () => switchSidebarTab(btn.dataset.tab));
+  });
+
+  ui.jumpToTargetsTabBtn.addEventListener('click', () => switchSidebarTab('tabTargets'));
+
+  ui.docDropZone.addEventListener('click', () => ui.docUploadInput.click());
+  ui.docDropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    ui.docDropZone.classList.add('dragover');
+  });
+  ui.docDropZone.addEventListener('dragleave', () => ui.docDropZone.classList.remove('dragover'));
+  ui.docDropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    ui.docDropZone.classList.remove('dragover');
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleUploadedDocumentFile(e.dataTransfer.files[0]);
+    }
+  });
+  ui.docUploadInput.addEventListener('change', e => {
+    if (e.target.files && e.target.files.length > 0) {
+      handleUploadedDocumentFile(e.target.files[0]);
+    }
+  });
+
+  ui.autoBuildFromPasteBtn.addEventListener('click', () => {
+    const raw = ui.rawPasteTextarea.value.trim();
+    if (!raw) {
+      showAutoStatus('⚠️ Please paste some article or script text first.', true);
+      return;
+    }
+    autoConfigureStudioFromText(raw, 'PASTED DOCUMENT', []);
+  });
+
+  ui.rePickTargetsBtn.addEventListener('click', () => {
+    randomPickSeed += 7;
+    autoGenerateSmartTargetsFromCurrentPages([]);
+    renderTargetCardsDOM();
+    syncLabelsAndRender(false);
+    currentTime = 0;
+    startPlayback();
+    showAutoStatus(`🎲 Re-picked ${targets.length} smart highlight targets across ${pages.length} pages!`);
+  });
+
+  function showAutoStatus(msg, isError = false) {
+    ui.autoStatusBanner.style.display = 'flex';
+    ui.autoStatusBanner.style.borderColor = isError ? 'rgba(239,68,68,0.45)' : 'rgba(34,197,94,0.35)';
+    ui.autoStatusBanner.style.background = isError ? 'rgba(239,68,68,0.14)' : 'rgba(34,197,94,0.12)';
+    ui.autoStatusBanner.style.color = isError ? '#f87171' : '#4ade80';
+    ui.autoStatusText.textContent = msg;
+  }
+
+  async function handleUploadedDocumentFile(file) {
+    const ext = file.name.split('.').pop().toLowerCase();
+    const docBaseTitle = file.name.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').toUpperCase();
+    showAutoStatus(`⏳ Analyzing "${file.name}" and building newspaper stack...`);
+
+    try {
+      if (ext === 'pdf') {
+        await parsePdfAndAutoBuild(file, docBaseTitle);
+      } else if (ext === 'docx') {
+        await parseDocxAndAutoBuild(file, docBaseTitle);
+      } else {
+        const rawText = await file.text();
+        const cleaned = ext === 'rtf' ? stripRtfFormatting(rawText) : rawText;
+        autoConfigureStudioFromText(cleaned, docBaseTitle, []);
+      }
+    } catch (err) {
+      console.error(err);
+      showAutoStatus(`⚠️ Could not parse ${file.name}: ${err.message}`, true);
+    }
+  }
+
+  function stripRtfFormatting(rtf) {
+    return rtf
+      .replace(/\\par[d]?/g, '\n\n')
+      .replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, '')
+      .trim();
+  }
+
+  async function parsePdfAndAutoBuild(file, docBaseTitle) {
+    if (!window.pdfjsLib) {
+      throw new Error('PDF.js library failed to load.');
+    }
+    const arrayBuf = await file.arrayBuffer();
+    const pdf = await window.pdfjsLib.getDocument({ data: arrayBuf }).promise;
+    const maxPagesToImport = Math.min(pdf.numPages, 8);
+    const extractedSections = [];
+
+    for (let pNum = 1; pNum <= maxPagesToImport; pNum++) {
+      const pdfPage = await pdf.getPage(pNum);
+      const textContent = await pdfPage.getTextContent();
+
+      let lastY = null;
+      let lines = [];
+      let currentLine = '';
+
+      for (const item of textContent.items) {
+        const str = item.str;
+        if (!str) continue;
+        const y = item.transform ? item.transform[5] : 0;
+        if (lastY !== null && Math.abs(y - lastY) > 6) {
+          if (currentLine.trim()) lines.push(currentLine.trim());
+          currentLine = str;
+        } else {
+          currentLine += (currentLine && !currentLine.endsWith(' ') && !str.startsWith(' ') ? ' ' : '') + str;
+        }
+        lastY = y;
+      }
+      if (currentLine.trim()) lines.push(currentLine.trim());
+
+      const pageText = lines.join('\n');
+
+      let snapshotImg = null;
+      if (ui.autoExtractPdfSnapshots.checked) {
+        try {
+          const viewport = pdfPage.getViewport({ scale: 1.0 });
+          const tempCanvas = document.createElement('canvas');
+          tempCanvas.width = viewport.width;
+          tempCanvas.height = viewport.height;
+          const tempCtx = tempCanvas.getContext('2d');
+          await pdfPage.render({ canvasContext: tempCtx, viewport }).promise;
+
+          const cropCanvas = document.createElement('canvas');
+          cropCanvas.width = 600;
+          cropCanvas.height = 340;
+          const cropCtx = cropCanvas.getContext('2d');
+          cropCtx.drawImage(
+            tempCanvas,
+            viewport.width * 0.08,
+            viewport.height * 0.22,
+            viewport.width * 0.84,
+            viewport.height * 0.42,
+            0, 0, 600, 340
+          );
+          snapshotImg = cropCanvas;
+        } catch (_) {}
+      }
+
+      if (pageText.trim().length > 20) {
+        extractedSections.push({ rawText: pageText, snapshotImg, pageNum: pNum });
+      }
+    }
+
+    if (extractedSections.length === 0) {
+      throw new Error('No readable text layer found in this PDF.');
+    }
+
+    const combinedText = extractedSections.map(s => s.rawText).join('\n\n');
+    const snapshots = extractedSections.map(s => s.snapshotImg).filter(Boolean);
+    autoConfigureStudioFromText(combinedText, docBaseTitle, [], snapshots);
+  }
+
+  async function parseDocxAndAutoBuild(file, docBaseTitle) {
+    if (!window.mammoth) {
+      throw new Error('Mammoth.js DOCX parser not loaded.');
+    }
+    const arrayBuf = await file.arrayBuffer();
+    const htmlRes = await window.mammoth.convertToHtml({ arrayBuffer: arrayBuf });
+    const rawRes = await window.mammoth.extractRawText({ arrayBuffer: arrayBuf });
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlRes.value || '';
+    const priorityPhrases = [];
+    tempDiv.querySelectorAll('strong, b, mark, em').forEach(el => {
+      const txt = el.textContent.trim();
+      const wc = txt.split(/\s+/).length;
+      if (wc >= 4 && wc <= 26) priorityPhrases.push(txt);
+    });
+
+    autoConfigureStudioFromText(rawRes.value || tempDiv.textContent, docBaseTitle, priorityPhrases);
+  }
+
+  function autoConfigureStudioFromText(rawText, docBaseTitle, priorityPhrases = [], pdfSnapshots = []) {
+    const mdMatches = [...rawText.matchAll(/(?:\*\*|==)([^*=\n]{18,160})(?:\*\*|==)/g)];
+    mdMatches.forEach(m => priorityPhrases.push(m[1].trim()));
+
+    const cleanText = rawText
+      .replace(/\r\n/g, '\n')
+      .replace(/(?:\*\*|==)/g, '')
+      .replace(/^#+\s*/gm, '')
+      .trim();
+
+    let rawParas = cleanText
+      .split(/\n\s*\n+/)
+      .map(p => p.replace(/\s+/g, ' ').trim())
+      .filter(p => p.length > 0);
+
+    const normalizedParas = [];
+    let extractedHeadlines = [];
+
+    for (const p of rawParas) {
+      const wordCount = p.split(/\s+/).length;
+      if (wordCount <= 16 && !p.endsWith('.')) {
+        extractedHeadlines.push(p.toUpperCase());
+        continue;
+      }
+      if (wordCount > 95) {
+        const sents = p.match(/[^.!?]+[.!?]+/g) || [p];
+        let chunk = [];
+        for (const s of sents) {
+          chunk.push(s.trim());
+          if (chunk.join(' ').split(/\s+/).length >= 55) {
+            normalizedParas.push(chunk.join(' '));
+            chunk = [];
+          }
+        }
+        if (chunk.length > 0) normalizedParas.push(chunk.join(' '));
+      } else {
+        normalizedParas.push(p);
+      }
+    }
+
+    if (normalizedParas.length === 0) normalizedParas.push(cleanText);
+
+    const targetWordsPerPage = parseInt(ui.autoWordsPerPage.value, 10) || 220;
+    const pageBuckets = [];
+    let currentBucket = [];
+    let currentWords = 0;
+
+    for (const para of normalizedParas) {
+      const wc = para.split(/\s+/).length;
+      if (currentBucket.length >= 2 && currentWords + wc > targetWordsPerPage && pageBuckets.length < 7) {
+        pageBuckets.push(currentBucket);
+        currentBucket = [para];
+        currentWords = wc;
+      } else {
+        currentBucket.push(para);
+        currentWords += wc;
+      }
+    }
+    if (currentBucket.length > 0) pageBuckets.push(currentBucket);
+
+    const newPages = pageBuckets.map((bucket, idx) => {
+      if (bucket.length === 1) {
+        const sents = bucket[0].match(/[^.!?]+[.!?]+/g) || [bucket[0]];
+        const mid = Math.max(1, Math.ceil(sents.length / 2));
+        bucket = [
+          sents.slice(0, mid).join(' ').trim(),
+          sents.slice(mid).join(' ').trim() || bucket[0]
+        ];
+      }
+
+      const totalW = bucket.reduce((acc, p) => acc + p.split(/\s+/).length, 0);
+      let leftParas = [];
+      let rightParas = [];
+      let accW = 0;
+
+      bucket.forEach((p, pIdx) => {
+        if (pIdx === 0 || (accW + p.split(/\s+/).length * 0.5 < totalW * 0.52 && pIdx < bucket.length - 1)) {
+          leftParas.push(p);
+          accW += p.split(/\s+/).length;
+        } else {
+          rightParas.push(p);
+        }
+      });
+
+      if (rightParas.length === 0 && leftParas.length > 1) {
+        rightParas.push(leftParas.pop());
+      }
+
+      const rawHeadline = extractedHeadlines[idx] ||
+        buildHeadlineFromParagraph(leftParas[0], docBaseTitle, idx);
+      const rawSubhead = buildSubheadFromParagraph(rightParas[0] || leftParas[0], idx);
+
+      const sign = idx % 2 === 0 ? -1 : 1;
+      const hasSnapshot = Boolean(pdfSnapshots[idx]);
+
+      return {
+        id: nextPageId++,
+        title: `Page ${idx + 1}`,
+        paperTone: PAPER_TONES_CYCLE[idx % PAPER_TONES_CYCLE.length],
+        mastheadTitle: idx === 0 ? "" : `${docBaseTitle.slice(0, 28)} • ARCHIVE`,
+        mastheadSub: idx === 0 ? "" : `DOCUMENT DOSSIER • PAGE ${idx + 1} OF ${pageBuckets.length}`,
+        photoType: hasSnapshot ? "custom" : (idx === 1 ? "stamp" : "none"),
+        photoPlacement: idx % 2 === 1 ? "rightTop" : "leftBottom",
+        photoCaption: hasSnapshot
+          ? `EXHIBIT ${idx + 1}. Visual extract from source document page ${idx + 1}.`
+          : `EXHIBIT ${idx + 1}. Archival verification record.`,
+        customPhotoImg: pdfSnapshots[idx] || null,
+        posX: idx === 0 ? -4 : -sign * (22 + idx * 8),
+        posY: idx === 0 ? -3 : (12 + idx * 9),
+        tiltDeg: idx === 0 ? -0.8 : sign * (3.2 + (idx % 3) * 1.4),
+        headline: rawHeadline,
+        subhead: rawSubhead,
+        leftCol: leftParas.join('\n\n'),
+        rightCol: rightParas.join('\n\n'),
+        canvas: null,
+        words: []
+      };
+    });
+
+    pages = newPages;
+    initialStackOrder = pages.map((_, idx) => idx);
+    activeEditPageIndex = 0;
+
+    ui.stackMode.value = pages.length > 1 ? 'stack' : 'single';
+
+    autoGenerateSmartTargetsFromCurrentPages(priorityPhrases);
+
+    renderPageTabsDOM();
+    renderStackArrangerDOM();
+    loadActivePageIntoInputs();
+    renderTargetCardsDOM();
+    syncLabelsAndRender(true);
+
+    currentTime = 0;
+    ui.scrubber.value = 0;
+    startPlayback();
+
+    showAutoStatus(`✅ Auto-built ${pages.length} ${pages.length === 1 ? 'page' : 'stacked pages'} & ${targets.length} highlight targets!`);
+  }
+
+  function buildHeadlineFromParagraph(para, fallbackTitle, pageIdx) {
+    if (!para) return `${fallbackTitle}: SECTION ${pageIdx + 1}`;
+    const firstSent = (para.match(/[^.!?]+/) || [para])[0].trim();
+    const words = firstSent.split(/\s+/).slice(0, 12);
+    if (words.length >= 4) {
+      return words.join(' ').replace(/[,:;]+$/, '').toUpperCase();
+    }
+    return `${fallbackTitle} — PART ${pageIdx + 1}`;
+  }
+
+  function buildSubheadFromParagraph(para, pageIdx) {
+    if (!para) return `Special documentary investigation and archival transcript analysis — Section ${pageIdx + 1}`;
+    const sents = para.match(/[^.!?]+[.!?]+/g) || [para];
+    const pick = (sents[1] || sents[0] || para).trim();
+    const words = pick.split(/\s+/).slice(0, 18);
+    return words.join(' ').replace(/[.!?]+$/, '');
+  }
+
+  function autoGenerateSmartTargetsFromCurrentPages(priorityPhrases = []) {
+    const targetsPerPage = parseInt(ui.autoTargetsPerPage.value, 10) || 2;
+    const strategy = ui.autoPickerStrategy.value;
+    const preset = ui.autoAnnotationPreset.value;
+
+    const newTargets = [];
+    const normPriority = priorityPhrases.map(p => p.toLowerCase().trim()).filter(Boolean);
+
+    pages.forEach((p, pageIdx) => {
+      const fullPageText = `${p.leftCol}\n\n${p.rightCol}`;
+      const rawSentences = fullPageText.match(/[^.!?\n]+[.!?]+/g) || fullPageText.split(/\n+/);
+
+      const candidates = [];
+      rawSentences.forEach((rawS, sIdx) => {
+        const cleanS = rawS.replace(/\s+/g, ' ').trim();
+        const words = cleanS.split(' ').filter(Boolean);
+        if (words.length < 5) return;
+
+        let phrase = cleanS;
+        if (words.length > 20) phrase = words.slice(0, 16).join(' ');
+        if (sIdx === 0 && ui.useDropCap.checked && words.length > 7) {
+          phrase = words.slice(2, Math.min(18, words.length)).join(' ');
+        }
+
+        let score = 10;
+        const lower = phrase.toLowerCase();
+
+        if (normPriority.some(prio => lower.includes(prio) || prio.includes(lower))) {
+          score += 100;
+        }
+
+        if (strategy === 'impact' || strategy === 'numbers') {
+          if (/\d+/.test(phrase)) score += (strategy === 'numbers' ? 40 : 18);
+          if (/["“”]/.test(phrase)) score += 22;
+          if (/\b(attacked|secret|emergency|crash|killed|classified|investigators|revealed|confirmed|warning|critical|suddenly|discovered|evidence|million|billion|percent)\b/i.test(phrase)) {
+            score += 25;
+          }
+        }
+
+        const relativePos = sIdx / Math.max(1, rawSentences.length);
+        if (relativePos > 0.15 && relativePos < 0.85) score += 12;
+
+        const jitter = ((sIdx * 37 + pageIdx * 19 + randomPickSeed * 13) % 17);
+        score += jitter;
+
+        candidates.push({ phrase, score, sIdx });
+      });
+
+      if (candidates.length === 0) return;
+
+      let chosen = [];
+      if (strategy === 'spread') {
+        const step = Math.max(1, Math.floor(candidates.length / targetsPerPage));
+        for (let k = 0; k < targetsPerPage && k * step < candidates.length; k++) {
+          chosen.push(candidates[(k * step + randomPickSeed) % candidates.length]);
+        }
+      } else {
+        candidates.sort((a, b) => b.score - a.score);
+        chosen = candidates.slice(0, targetsPerPage).sort((a, b) => a.sIdx - b.sIdx);
+      }
+
+      chosen.forEach(c => {
+        const globalIdx = newTargets.length;
+        let style = 'marker';
+        let color = '#545452';
+        let opacity = 58;
+
+        if (preset === 'twoToneMarker') {
+          color = globalIdx % 2 === 0 ? '#545452' : '#c7912c';
+          opacity = globalIdx % 2 === 0 ? 58 : 54;
+        } else if (preset === 'mixedDoc') {
+          const styles = ['marker', 'underline', 'box', 'circle'];
+          const colors = ['#545452', '#b92b27', '#c7912c', '#b92b27'];
+          const opacities = [58, 85, 80, 82];
+          const pickIdx = globalIdx % styles.length;
+          style = styles[pickIdx];
+          color = colors[pickIdx];
+          opacity = opacities[pickIdx];
+        }
+
+        newTargets.push({
+          id: nextTargetId++,
+          phrase: c.phrase,
+          pageSelect: String(pageIdx),
+          style,
+          focusOverride: 'global',
+          color,
+          opacity,
+          zoom: 2.40 + ((globalIdx % 3) * 0.08),
+          panDur: 1.30,
+          sweepDur: 0.95,
+          holdDur: 1.45,
+          cueTime: null
+        });
+      });
+    });
+
+    if (pages.length >= 2 && newTargets.length >= 2) {
+      const p0Text = `${pages[0].leftCol}\n\n${pages[0].rightCol}`;
+      const p0Sents = (p0Text.match(/[^.!?\n]+[.!?]+/g) || []).map(s => s.trim()).filter(s => s.split(/\s+/).length >= 6);
+      const lastSent = p0Sents[p0Sents.length - 1];
+      if (lastSent && !newTargets.some(t => t.phrase === lastSent)) {
+        const words = lastSent.split(/\s+/);
+        newTargets.push({
+          id: nextTargetId++,
+          phrase: words.slice(0, 15).join(' '),
+          pageSelect: "0",
+          style: preset === 'mixedDoc' ? 'underline' : 'marker',
+          focusOverride: 'global',
+          color: preset === 'classicMarker' ? '#545452' : '#b92b27',
+          opacity: preset === 'classicMarker' ? 58 : 80,
+          zoom: 2.50,
+          panDur: 1.30,
+          sweepDur: 0.95,
+          holdDur: 1.55,
+          cueTime: null
+        });
+      }
+    }
+
+    if (newTargets.length > 0) targets = newTargets;
+  }
+
+  // ============================================================================
+  // 5. PAGE TABS & MULTI-TARGET UI BUILDER (WITH VOICEOVER CUE SYNC)
+  // ============================================================================
+  function renderPageTabsDOM() {
+    ui.pageTabsContainer.innerHTML = '';
+    pages.forEach((p, idx) => {
+      const btn = document.createElement('button');
+      btn.className = `page-tab ${idx === activeEditPageIndex ? 'active' : ''}`;
+      btn.textContent = `📄 Page ${idx + 1}`;
+      btn.addEventListener('click', () => {
+        activeEditPageIndex = idx;
+        loadActivePageIntoInputs();
+        renderPageTabsDOM();
+      });
+      ui.pageTabsContainer.appendChild(btn);
+    });
+
+    const addBtn = document.createElement('button');
+    addBtn.className = 'icon-btn';
+    addBtn.textContent = '+ Add Page';
+    addBtn.addEventListener('click', () => {
+      const src = pages[activeEditPageIndex] || pages[0];
+      const sign = pages.length % 2 === 0 ? 1 : -1;
+      pages.push({
+        id: nextPageId++,
+        title: `Page ${pages.length + 1}`,
+        paperTone: src.paperTone,
+        mastheadTitle: "ARCHIVE SUPPLEMENT",
+        mastheadSub: `DOSSIER PAGE ${pages.length + 1}`,
+        photoType: "none",
+        photoPlacement: "rightTop",
+        photoCaption: src.photoCaption,
+        customPhotoImg: null,
+        posX: sign * 28,
+        posY: 20,
+        tiltDeg: sign * 4.5,
+        headline: `SUPPLEMENTAL DOSSIER PAGE ${pages.length + 1}: AVIATION INCIDENT ARCHIVE`,
+        subhead: src.subhead,
+        leftCol: src.leftCol,
+        rightCol: src.rightCol,
+        canvas: null,
+        words: []
+      });
+      initialStackOrder.push(pages.length - 1);
+      activeEditPageIndex = pages.length - 1;
+      loadActivePageIntoInputs();
+      renderPageTabsDOM();
+      renderStackArrangerDOM();
+      renderTargetCardsDOM();
+      syncLabelsAndRender(true);
+    });
+    ui.pageTabsContainer.appendChild(addBtn);
+
+    if (pages.length > 1) {
+      const delBtn = document.createElement('button');
+      delBtn.className = 'icon-btn danger';
+      delBtn.textContent = '✕';
+      delBtn.title = 'Delete current page';
+      delBtn.addEventListener('click', () => {
+        pages.splice(activeEditPageIndex, 1);
+        initialStackOrder = pages.map((_, i) => i);
+        activeEditPageIndex = Math.max(0, activeEditPageIndex - 1);
+        loadActivePageIntoInputs();
+        renderPageTabsDOM();
+        renderStackArrangerDOM();
+        renderTargetCardsDOM();
+        syncLabelsAndRender(true);
+      });
+      ui.pageTabsContainer.appendChild(delBtn);
+    }
+
+    ui.pageEditorBadge.textContent = `Page ${activeEditPageIndex + 1} of ${pages.length}`;
+  }
+
+  function loadActivePageIntoInputs() {
+    const p = pages[activeEditPageIndex];
+    if (!p) return;
+    ui.mastheadTitle.value = p.mastheadTitle || '';
+    ui.mastheadSub.value = p.mastheadSub || '';
+    ui.headlineText.value = p.headline;
+    ui.subheadText.value = p.subhead;
+    ui.leftColText.value = p.leftCol;
+    ui.rightColText.value = p.rightCol;
+    ui.paperTone.value = p.paperTone;
+    ui.pagePhotoType.value = p.photoType || 'none';
+    ui.pagePhotoPlacement.value = p.photoPlacement || 'rightTop';
+    ui.pagePhotoCaption.value = p.photoCaption || '';
+    ui.customImageRow.style.display = p.photoType === 'custom' ? 'block' : 'none';
+    ui.pageEditorBadge.textContent = `Page ${activeEditPageIndex + 1} of ${pages.length}`;
+  }
+
+  function renderTargetCardsDOM() {
+    ui.targetsContainer.innerHTML = '';
+    ui.targetCountBadge.textContent = `${targets.length} ${targets.length === 1 ? 'Target' : 'Targets'}`;
+
+    targets.forEach((t, idx) => {
+      const card = document.createElement('div');
+      card.className = 'target-card';
+      card.dataset.id = t.id;
+
+      const pageOptionsHtml = [
+        `<option value="auto" ${t.pageSelect === 'auto' ? 'selected' : ''}>Auto-Find</option>`,
+        ...pages.map((p, pIdx) =>
+          `<option value="${pIdx}" ${String(t.pageSelect) === String(pIdx) ? 'selected' : ''}>Page ${pIdx + 1}</option>`
+        )
+      ].join('');
+
+      const focusOverrideVal = t.focusOverride || 'global';
+      const hasCuePin = typeof t.cueTime === 'number' && !isNaN(t.cueTime);
+
+      card.innerHTML = `
+        <div class="target-card-header">
+          <div class="target-title-group">
+            <span class="target-num">#${idx + 1}</span>
+            <span class="match-status match-ok" data-role="badge">PAGE 1</span>
+            <span class="match-status match-swap" data-role="swapBadge" style="display:none">⇅ SWAP</span>
+            <span class="match-status match-pin" data-role="pinBadge" style="display:${hasCuePin ? 'inline-block' : 'none'}">📌 VO SYNC</span>
+            <span class="target-time-window" data-role="timeWindow">0.0s – 0.0s</span>
+          </div>
+          <div class="target-actions">
+            <button class="icon-btn" data-action="syncPlayhead" title="Pin this target's highlight to the current Voiceover Playhead time!">📍 Sync Here</button>
+            <button class="icon-btn" data-action="jump" title="Jump camera to this target">🎯</button>
+            <button class="icon-btn" data-action="up" title="Move Up" ${idx === 0 ? 'disabled' : ''}>↑</button>
+            <button class="icon-btn" data-action="down" title="Move Down" ${idx === targets.length - 1 ? 'disabled' : ''}>↓</button>
+            <button class="icon-btn danger" data-action="delete" title="Remove Target" ${targets.length <= 1 ? 'disabled' : ''}>✕</button>
+          </div>
+        </div>
+
+        <div>
+          <label>Exact Phrase to Zoom & Annotate</label>
+          <input type="text" data-field="phrase" value="${escapeHtml(t.phrase)}" placeholder="Paste phrase from any page..." />
+        </div>
+        <div>
+          <label>Source tag (bottom-right while highlighted, e.g. IIC Japan)</label>
+          <input type="text" data-field="source" value="${escapeHtml(t.source || '')}" placeholder="Optional - shows SOURCE: ... in the corner" />
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label>Annotation Style</label>
+            <select data-field="style">
+              <option value="marker" ${t.style === 'marker' ? 'selected' : ''}>🖍️ Highlighter</option>
+              <option value="underline" ${t.style === 'underline' ? 'selected' : ''}>✒️ Underline</option>
+              <option value="circle" ${t.style === 'circle' ? 'selected' : ''}>⭕ Pen Loop</option>
+              <option value="box" ${t.style === 'box' ? 'selected' : ''}>🔲 Box Frame</option>
+              <option value="redact" ${t.style === 'redact' ? 'selected' : ''}>⬛ Redact Bar</option>
+              <option value="invert" ${t.style === 'invert' ? 'selected' : ''}>⬛ Black Bar, White Text</option>
+            </select>
+          </div>
+          <div>
+            <label>Focus Cutout</label>
+            <select data-field="focusOverride">
+              <option value="global" ${focusOverrideVal === 'global' ? 'selected' : ''}>🌐 Use Global</option>
+              <option value="lineContour" ${focusOverrideVal === 'lineContour' ? 'selected' : ''}>✨ Line Contour</option>
+              <option value="softSpotlight" ${focusOverrideVal === 'softSpotlight' ? 'selected' : ''}>🔦 Spotlight</option>
+              <option value="featheredRect" ${focusOverrideVal === 'featheredRect' ? 'selected' : ''}>🔲 Soft Box</option>
+              <option value="columnStrip" ${focusOverrideVal === 'columnStrip' ? 'selected' : ''}>🏛️ Col Strip</option>
+              <option value="horizontalBand" ${focusOverrideVal === 'horizontalBand' ? 'selected' : ''}>🎬 Horiz Band</option>
+              <option value="tornCutout" ${focusOverrideVal === 'tornCutout' ? 'selected' : ''}>📜 Torn Edge</option>
+              <option value="magnifyingLens" ${focusOverrideVal === 'magnifyingLens' ? 'selected' : ''}>🔍 Loupe Lens</option>
+              <option value="none" ${focusOverrideVal === 'none' ? 'selected' : ''}>🚫 No Dimming</option>
+            </select>
+          </div>
+          <div>
+            <label>Target Page</label>
+            <select data-field="pageSelect">${pageOptionsHtml}</select>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label>Ink Color</label>
+            <input type="color" data-field="color" value="${t.color}" />
+          </div>
+          <div>
+            <label>Opacity <span class="val" data-val="opacity">${t.opacity}%</span></label>
+            <input type="range" data-field="opacity" min="20" max="95" value="${t.opacity}" />
+          </div>
+          <div>
+            <label>Zoom <span class="val" data-val="zoom">${t.zoom.toFixed(2)}x</span></label>
+            <input type="range" data-field="zoom" min="1.25" max="3.6" step="0.05" value="${t.zoom}" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div>
+            <label>Cam Pan <span class="val" data-val="panDur">${t.panDur.toFixed(2)}s</span></label>
+            <input type="range" data-field="panDur" min="0.3" max="3.5" step="0.05" value="${t.panDur}" />
+          </div>
+          <div>
+            <label>Draw Sweep <span class="val" data-val="sweepDur">${t.sweepDur.toFixed(2)}s</span></label>
+            <input type="range" data-field="sweepDur" min="0.2" max="3.0" step="0.05" value="${t.sweepDur}" />
+          </div>
+          <div>
+            <label>Read Hold <span class="val" data-val="holdDur">${t.holdDur.toFixed(2)}s</span></label>
+            <input type="range" data-field="holdDur" min="0.2" max="8.0" step="0.1" value="${t.holdDur}" />
+          </div>
+        </div>
+
+        <div class="grid-2" style="grid-template-columns: 1fr auto; align-items: end;">
+          <div>
+            <label>VO Cue Start Time (s) — Leave blank for Auto-Chain</label>
+            <input type="number" step="0.1" min="0" data-field="cueTime" value="${hasCuePin ? t.cueTime : ''}" placeholder="Auto-chained after previous target" />
+          </div>
+          <button class="icon-btn" data-action="clearCue" style="height:29px;" title="Reset to automatic chaining">🔓 Auto-Chain</button>
+        </div>
+      `;
+
+      card.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('input', () => {
+          const field = el.dataset.field;
+          if (['phrase', 'color', 'pageSelect', 'style', 'focusOverride', 'source'].includes(field)) {
+            t[field] = el.value;
+          } else if (field === 'cueTime') {
+            const rawVal = el.value.trim();
+            t.cueTime = rawVal === '' ? null : Math.max(0, parseFloat(rawVal));
+            const pinBadge = card.querySelector('[data-role="pinBadge"]');
+            if (pinBadge) pinBadge.style.display = t.cueTime !== null ? 'inline-block' : 'none';
+          } else {
+            t[field] = parseFloat(el.value);
+          }
+
+          const valSpan = card.querySelector(`[data-val="${field}"]`);
+          if (valSpan) {
+            if (field === 'opacity') valSpan.textContent = `${t.opacity}%`;
+            if (field === 'zoom') valSpan.textContent = `${t.zoom.toFixed(2)}x`;
+            if (field === 'panDur' || field === 'sweepDur' || field === 'holdDur') {
+              valSpan.textContent = `${t[field].toFixed(2)}s`;
+            }
+          }
+
+          syncLabelsAndRender(false);
+        });
+      });
+
+      card.querySelectorAll('button[data-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.action;
+          if (action === 'delete' && targets.length > 1) {
+            targets.splice(idx, 1);
+            renderTargetCardsDOM();
+            syncLabelsAndRender(false);
+          } else if (action === 'up' && idx > 0) {
+            [targets[idx - 1], targets[idx]] = [targets[idx], targets[idx - 1]];
+            renderTargetCardsDOM();
+            syncLabelsAndRender(false);
+          } else if (action === 'down' && idx < targets.length - 1) {
+            [targets[idx + 1], targets[idx]] = [targets[idx], targets[idx + 1]];
+            renderTargetCardsDOM();
+            syncLabelsAndRender(false);
+          } else if (action === 'jump') {
+            pausePlayback();
+            const sched = computedSchedule[idx];
+            if (sched) {
+              currentTime = sched.hlEnd;
+              ui.scrubber.value = currentTime;
+              syncLabelsAndRender(false);
+            }
+          } else if (action === 'syncPlayhead') {
+            // Pin this target so its action starts right at currentTime!
+            t.cueTime = +currentTime.toFixed(2);
+            renderTargetCardsDOM();
+            syncLabelsAndRender(false);
+          } else if (action === 'clearCue') {
+            t.cueTime = null;
+            renderTargetCardsDOM();
+            syncLabelsAndRender(false);
+          }
+        });
+      });
+
+      ui.targetsContainer.appendChild(card);
+    });
+  }
+
+  ui.addTargetBtn.addEventListener('click', () => {
+    const samplePool = [
+      "Officials familiar with the preliminary inquiry stated that the crash axe",
+      "Inside the cabin, the plane then dropped by well over 10,000 feet in seconds",
+      "Radar telemetry recorded by regional aviation monitors showed the aircraft arresting its dive"
+    ];
+    targets.push({
+      id: nextTargetId++,
+      phrase: samplePool[targets.length % samplePool.length],
+      pageSelect: "auto",
+      style: "marker",
+      focusOverride: "global",
+      color: "#545452",
+      opacity: 58,
+      zoom: 2.45,
+      panDur: 1.30,
+      sweepDur: 1.00,
+      holdDur: 1.45,
+      cueTime: null
+    });
+    renderTargetCardsDOM();
+    syncLabelsAndRender(false);
+  });
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // ============================================================================
+  // 6. PROCEDURAL NEWSPRINT TEXTURE, MASTHEAD & HALFTONE PHOTO ENGINE
+  // ============================================================================
+  function buildPaperGrainTexture() {
+    const imgData = noiseCtx.createImageData(PAGE_W, PAGE_H);
+    const data = imgData.data;
+    let seed = 1337;
+    const rand = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+
+    for (let y = 0; y < PAGE_H; y++) {
+      const ny = y / PAGE_H - 0.5;
+      for (let x = 0; x < PAGE_W; x++) {
+        const dx = x / PAGE_W - 0.5;
+        const dist = Math.sqrt(dx * dx + ny * ny);
+        const edgeShade = Math.max(0, (dist - 0.35) * 38);
+        const grain = (rand() - 0.5) * 18;
+        const idx = (y * PAGE_W + x) * 4;
+        const delta = grain - edgeShade;
+        data[idx]     = delta < 0 ? 35 : 245;
+        data[idx + 1] = delta < 0 ? 28 : 235;
+        data[idx + 2] = delta < 0 ? 15 : 210;
+        data[idx + 3] = Math.min(55, Math.abs(delta));
+      }
+    }
+    noiseCtx.putImageData(imgData, 0, 0);
+
+    noiseCtx.strokeStyle = 'rgba(110, 95, 70, 0.06)';
+    noiseCtx.lineWidth = 1;
+    for (let i = 0; i < 380; i++) {
+      const fx = rand() * PAGE_W;
+      const fy = rand() * PAGE_H;
+      const len = 8 + rand() * 24;
+      const ang = rand() * Math.PI * 2;
+      noiseCtx.beginPath();
+      noiseCtx.moveTo(fx, fy);
+      noiseCtx.lineTo(fx + Math.cos(ang) * len, fy + Math.sin(ang) * len);
+      noiseCtx.stroke();
+    }
+  }
+
+  function renderAllStaticPages() {
+    const fontSize = parseInt(ui.bodyFontSize.value, 10);
+    const lineHeight = Math.round(fontSize * 1.56);
+    const paragraphGap = Math.round(fontSize * 1.05);
+    const dropCap = ui.useDropCap.checked;
+    const justify = ui.justifyText.checked;
+    const edgeWear = parseInt(ui.edgeWear.value, 10) / 100;
+
+    pages.forEach((p, pageIdx) => {
+      if (!p.canvas) {
+        p.canvas = document.createElement('canvas');
+        p.canvas.width = PAGE_W;
+        p.canvas.height = PAGE_H;
+      }
+      const pCtx = p.canvas.getContext('2d');
+      p.words = [];
+
+      pCtx.fillStyle = p.paperTone || '#f1ebd8';
+      pCtx.fillRect(0, 0, PAGE_W, PAGE_H);
+      pCtx.drawImage(noiseCanvas, 0, 0);
+
+      if (edgeWear > 0.01) {
+        const radGrad = pCtx.createRadialGradient(
+          PAGE_W * 0.5, PAGE_H * 0.5, PAGE_W * 0.35,
+          PAGE_W * 0.5, PAGE_H * 0.5, PAGE_W * 0.78
+        );
+        radGrad.addColorStop(0, 'rgba(90, 68, 38, 0)');
+        radGrad.addColorStop(0.75, `rgba(90, 68, 38, ${(edgeWear * 0.18).toFixed(3)})`);
+        radGrad.addColorStop(1, `rgba(55, 38, 18, ${(edgeWear * 0.48).toFixed(3)})`);
+        pCtx.fillStyle = radGrad;
+        pCtx.fillRect(0, 0, PAGE_W, PAGE_H);
+      }
+
+      pCtx.strokeStyle = 'rgba(40, 32, 22, 0.25)';
+      pCtx.lineWidth = 2;
+      pCtx.strokeRect(1, 1, PAGE_W - 2, PAGE_H - 2);
+
+      const marginX = 95;
+      const contentW = PAGE_W - marginX * 2;
+      let cursorY = 92;
+
+      if (p.mastheadTitle && p.mastheadTitle.trim()) {
+        pCtx.fillStyle = '#181715';
+        pCtx.font = '800 38px "Playfair Display", Georgia, serif';
+        pCtx.textAlign = 'center';
+        pCtx.textBaseline = 'top';
+        pCtx.fillText(p.mastheadTitle.trim(), PAGE_W / 2, cursorY);
+        cursorY += 46;
+
+        pCtx.strokeStyle = '#22201d';
+        pCtx.lineWidth = 1.5;
+        pCtx.beginPath();
+        pCtx.moveTo(marginX, cursorY);
+        pCtx.lineTo(PAGE_W - marginX, cursorY);
+        pCtx.moveTo(marginX, cursorY + 24);
+        pCtx.lineTo(PAGE_W - marginX, cursorY + 24);
+        pCtx.stroke();
+
+        if (p.mastheadSub) {
+          pCtx.font = '700 12px "Instrument Sans", sans-serif';
+          pCtx.fillStyle = '#33302b';
+          pCtx.fillText(p.mastheadSub.trim(), PAGE_W / 2, cursorY + 6);
+        }
+        cursorY += 40;
+      } else {
+        cursorY = 105;
+      }
+
+      pCtx.fillStyle = '#181715';
+      pCtx.font = '700 32px "Libre Baskerville", Georgia, serif';
+      pCtx.textAlign = 'center';
+      pCtx.textBaseline = 'top';
+
+      const headlineLines = wrapCenteredLines(pCtx, p.headline.trim(), contentW - 60);
+      for (const line of headlineLines) {
+        pCtx.fillText(line, PAGE_W / 2, cursorY);
+        cursorY += 42;
+      }
+
+      cursorY += 10;
+
+      pCtx.font = 'italic 400 20px "Libre Baskerville", Georgia, serif';
+      pCtx.fillStyle = '#2c2a26';
+      const subLines = wrapCenteredLines(pCtx, p.subhead.trim(), contentW - 100);
+      for (const line of subLines) {
+        pCtx.fillText(line, PAGE_W / 2, cursorY);
+        cursorY += 29;
+      }
+
+      cursorY += 18;
+
+      pCtx.strokeStyle = '#22201d';
+      pCtx.lineWidth = 2.2;
+      pCtx.beginPath();
+      pCtx.moveTo(marginX, cursorY);
+      pCtx.lineTo(PAGE_W - marginX, cursorY);
+      pCtx.stroke();
+
+      cursorY += 26;
+
+      const colGap = 54;
+      const colW = (contentW - colGap) / 2;
+      const leftColX = marginX;
+      const rightColX = marginX + colW + colGap;
+
+      let leftStartY = cursorY;
+      let rightStartY = cursorY;
+
+      if (p.photoType && p.photoType !== 'none') {
+        const boxH = 265;
+        if (p.photoPlacement === 'rightTop') {
+          drawHalftoneEvidenceBox(pCtx, p, rightColX, rightStartY, colW, boxH);
+          rightStartY += boxH + 28;
+        }
+      }
+
+      const leftEndY = typesetColumnOnPage({
+        pCtx,
+        outWords: p.words,
+        pageIdx,
+        paragraphs: p.leftCol.split(/\n\s*\n/),
+        colX: leftColX,
+        startY: leftStartY,
+        colW,
+        fontSize,
+        lineHeight,
+        paragraphGap,
+        dropCap,
+        justify,
+        colIndex: 0
+      });
+
+      if (p.photoType && p.photoType !== 'none' && p.photoPlacement === 'leftBottom') {
+        drawHalftoneEvidenceBox(pCtx, p, leftColX, leftEndY + 8, colW, 250);
+      }
+
+      typesetColumnOnPage({
+        pCtx,
+        outWords: p.words,
+        pageIdx,
+        paragraphs: p.rightCol.split(/\n\s*\n/),
+        colX: rightColX,
+        startY: rightStartY,
+        colW,
+        fontSize,
+        lineHeight,
+        paragraphGap,
+        dropCap: false,
+        justify,
+        colIndex: 1
+      });
+    });
+  }
+
+  function drawHalftoneEvidenceBox(pCtx, pageObj, x, y, w, h) {
+    const imgH = h - 32;
+    pCtx.save();
+    pCtx.fillStyle = 'rgba(28, 26, 22, 0.08)';
+    pCtx.strokeStyle = '#22201d';
+    pCtx.lineWidth = 1.5;
+    pCtx.fillRect(x, y, w, imgH);
+    pCtx.strokeRect(x, y, w, imgH);
+
+    pCtx.beginPath();
+    pCtx.rect(x + 2, y + 2, w - 4, imgH - 4);
+    pCtx.clip();
+
+    if (pageObj.photoType === 'custom' && pageObj.customPhotoImg) {
+      pCtx.filter = 'grayscale(100%) contrast(125%) sepia(25%)';
+      pCtx.drawImage(pageObj.customPhotoImg, x, y, w, imgH);
+      pCtx.filter = 'none';
+    } else if (pageObj.photoType === 'radar') {
+      pCtx.fillStyle = '#23211d';
+      pCtx.fillRect(x, y, w, imgH);
+      pCtx.strokeStyle = 'rgba(241, 235, 216, 0.22)';
+      pCtx.lineWidth = 1;
+      for (let r = 35; r < w; r += 45) {
+        pCtx.beginPath();
+        pCtx.arc(x + w * 0.5, y + imgH * 0.55, r, 0, Math.PI * 2);
+        pCtx.stroke();
+      }
+      pCtx.strokeStyle = '#f1ebd8';
+      pCtx.lineWidth = 2.5;
+      pCtx.setLineDash([6, 4]);
+      pCtx.beginPath();
+      pCtx.moveTo(x + 40, y + imgH - 35);
+      pCtx.quadraticCurveTo(x + w * 0.48, y + 25, x + w - 55, y + imgH * 0.48);
+      pCtx.stroke();
+      pCtx.setLineDash([]);
+
+      pCtx.fillStyle = '#f1ebd8';
+      pCtx.font = '700 13px "JetBrains Mono", monospace';
+      pCtx.fillText('FZ1073 • ALT -14,200 FT', x + 18, y + 24);
+      pCtx.fillText('TABUK DIVERSION', x + w - 165, y + imgH - 18);
+    } else if (pageObj.photoType === 'cockpit') {
+      pCtx.strokeStyle = '#1f1d1a';
+      pCtx.lineWidth = 1.8;
+      pCtx.strokeRect(x + 24, y + 20, w - 48, imgH - 40);
+      pCtx.beginPath();
+      pCtx.moveTo(x + w / 2, y + 20);
+      pCtx.lineTo(x + w / 2, y + imgH - 20);
+      pCtx.stroke();
+      pCtx.font = '700 13px "Instrument Sans", sans-serif';
+      pCtx.fillStyle = '#1f1d1a';
+      pCtx.fillText('CAPT. SEAT', x + 48, y + 52);
+      pCtx.fillText('F/O SEAT', x + w / 2 + 28, y + 52);
+      pCtx.fillText('[REINFORCED BULKHEAD DOOR]', x + w * 0.23, y + imgH - 32);
+    } else {
+      pCtx.strokeStyle = '#2b2823';
+      pCtx.lineWidth = 3;
+      pCtx.strokeRect(x + 35, y + 35, w - 70, imgH - 70);
+      pCtx.font = '800 28px "Instrument Sans", sans-serif';
+      pCtx.fillStyle = '#2b2823';
+      pCtx.textAlign = 'center';
+      pCtx.fillText('DECLASSIFIED', x + w / 2, y + imgH * 0.38);
+      pCtx.font = '600 13px "JetBrains Mono", monospace';
+      pCtx.fillText('ARCHIVAL RECORD EXHIBIT', x + w / 2, y + imgH * 0.62);
+    }
+
+    pCtx.fillStyle = 'rgba(24, 22, 18, 0.14)';
+    for (let hy = y + 3; hy < y + imgH; hy += 6) {
+      for (let hx = x + 3; hx < x + w; hx += 6) {
+        pCtx.fillRect(hx, hy, 2, 2);
+      }
+    }
+    pCtx.restore();
+
+    if (pageObj.photoCaption) {
+      pCtx.fillStyle = '#2c2a26';
+      pCtx.font = 'italic 400 14px "Libre Baskerville", Georgia, serif';
+      pCtx.textAlign = 'left';
+      pCtx.textBaseline = 'top';
+      pCtx.fillText(pageObj.photoCaption, x, y + imgH + 8, w);
+    }
+  }
+
+  function wrapCenteredLines(context, text, maxWidth) {
+    const words = text.split(/\s+/).filter(Boolean);
+    const lines = [];
+    let current = '';
+    for (const w of words) {
+      const test = current ? current + ' ' + w : w;
+      if (context.measureText(test).width > maxWidth && current) {
+        lines.push(current);
+        current = w;
+      } else {
+        current = test;
+      }
+    }
+    if (current) lines.push(current);
+    return lines;
+  }
+
+  function typesetColumnOnPage({
+    pCtx,
+    outWords,
+    pageIdx,
+    paragraphs,
+    colX,
+    startY,
+    colW,
+    fontSize,
+    lineHeight,
+    paragraphGap,
+    dropCap,
+    justify,
+    colIndex
+  }) {
+    let y = startY;
+    pCtx.textAlign = 'left';
+    pCtx.textBaseline = 'top';
+    pCtx.fillStyle = '#1b1916';
+
+    paragraphs.forEach((rawPara, pIdx) => {
+      const cleanPara = rawPara.replace(/\s+/g, ' ').trim();
+      if (!cleanPara) return;
+
+      let words = cleanPara.split(' ');
+      let dropCapIndentW = 0;
+      let dropCapLinesRemaining = 0;
+
+      if (dropCap && pIdx === 0 && words[0].length > 0) {
+        const firstChar = words[0][0];
+        const restOfFirstWord = words[0].slice(1);
+        const dcSize = Math.round(fontSize * 3.35);
+
+        pCtx.save();
+        pCtx.font = `700 ${dcSize}px "Libre Baskerville", Georgia, serif`;
+        const dcWidth = pCtx.measureText(firstChar).width;
+        pCtx.fillText(firstChar, colX, y - fontSize * 0.22);
+        pCtx.restore();
+
+        dropCapIndentW = dcWidth + 12;
+        dropCapLinesRemaining = 2;
+
+        if (restOfFirstWord.length > 0) {
+          words[0] = restOfFirstWord;
+        } else {
+          words.shift();
+        }
+      }
+
+      pCtx.font = `400 ${fontSize}px "Libre Baskerville", Georgia, serif`;
+      const spaceW = pCtx.measureText(' ').width;
+
+      let idx = 0;
+      while (idx < words.length) {
+        const isIndented = dropCapLinesRemaining > 0;
+        const lineX = isIndented ? colX + dropCapIndentW : colX;
+        const availW = isIndented ? colW - dropCapIndentW : colW;
+
+        const lineWords = [];
+        let wordsW = 0;
+
+        while (idx < words.length) {
+          const w = words[idx];
+          const wWidth = pCtx.measureText(w).width;
+          const nextTotal = lineWords.length === 0
+            ? wWidth
+            : wordsW + lineWords.length * spaceW + wWidth;
+
+          if (nextTotal > availW && lineWords.length > 0) {
+            break;
+          }
+          lineWords.push({ text: w, width: wWidth });
+          wordsW += wWidth;
+          idx++;
+        }
+
+        const isLastLineOfPara = idx >= words.length;
+        const extraSpace = (!isLastLineOfPara && justify && lineWords.length > 1)
+          ? (availW - wordsW) / (lineWords.length - 1)
+          : spaceW;
+
+        let curX = lineX;
+        for (let wIdx = 0; wIdx < lineWords.length; wIdx++) {
+          const lw = lineWords[wIdx];
+          pCtx.fillText(lw.text, curX, y);
+
+          outWords.push({
+            text: lw.text,
+            norm: normalizeToken(lw.text),
+            x: curX,
+            y: y,
+            w: lw.width,
+            h: fontSize * 1.18,
+            colIndex,
+            pageIdx
+          });
+
+          curX += lw.width + extraSpace;
+        }
+
+        y += lineHeight;
+        if (dropCapLinesRemaining > 0) dropCapLinesRemaining--;
+      }
+
+      y += paragraphGap;
+    });
+
+    return y;
+  }
+
+  function normalizeToken(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  // ============================================================================
+  // 7. MULTI-PAGE PHRASE DETECTOR & VOICEOVER-SYNCED SCHEDULER
+  // ============================================================================
+  function locatePhraseAcrossPages(phraseText, pageSelectPref) {
+    const queryTokens = phraseText
+      .trim()
+      .split(/\s+/)
+      .map(normalizeToken)
+      .filter(Boolean);
+
+    const isSingleMode = ui.stackMode.value === 'single';
+    const topPageIdx = initialStackOrder[0] || 0;
+    const candidatePageIndices = isSingleMode
+      ? [topPageIdx]
+      : (pageSelectPref !== 'auto' && pages[parseInt(pageSelectPref, 10)])
+        ? [parseInt(pageSelectPref, 10), ...initialStackOrder]
+        : [...initialStackOrder];
+
+    if (queryTokens.length === 0) {
+      return { found: false, pageIdx: topPageIdx, colIndex: 0, lineBoxes: [], bounds: null, center: { x: PAGE_W * 0.5, y: PAGE_H * 0.44 } };
+    }
+
+    for (const pIdx of candidatePageIndices) {
+      const pageWords = pages[pIdx]?.words;
+      if (!pageWords || pageWords.length < queryTokens.length) continue;
+
+      let matchStart = -1;
+      for (let i = 0; i <= pageWords.length - queryTokens.length; i++) {
+        let ok = true;
+        for (let j = 0; j < queryTokens.length; j++) {
+          const pw = pageWords[i + j].norm;
+          const tw = queryTokens[j];
+          if (pw !== tw && !tw.endsWith(pw)) {
+            ok = false;
+            break;
+          }
+        }
+        if (ok) {
+          matchStart = i;
+          break;
+        }
+      }
+
+      if (matchStart !== -1) {
+        const matchedWords = pageWords.slice(matchStart, matchStart + queryTokens.length);
+        const primaryColIndex = matchedWords[0].colIndex || 0;
+        const linesMap = new Map();
+        for (const w of matchedWords) {
+          const key = `${w.colIndex}_${Math.round(w.y)}`;
+          if (!linesMap.has(key)) {
+            linesMap.set(key, { x1: w.x, x2: w.x + w.w, y: w.y, h: w.h, colIndex: w.colIndex });
+          } else {
+            const box = linesMap.get(key);
+            box.x1 = Math.min(box.x1, w.x);
+            box.x2 = Math.max(box.x2, w.x + w.w);
+          }
+        }
+
+        let totalLen = 0;
+        const lineBoxes = Array.from(linesMap.values()).map(b => {
+          const width = b.x2 - b.x1;
+          totalLen += width;
+          return { ...b, width };
+        });
+
+        let acc = 0;
+        for (const b of lineBoxes) {
+          b.startFrac = acc / totalLen;
+          acc += b.width;
+          b.endFrac = acc / totalLen;
+        }
+
+        const minX = Math.min(...lineBoxes.map(b => b.x1));
+        const maxX = Math.max(...lineBoxes.map(b => b.x2));
+        const minY = Math.min(...lineBoxes.map(b => b.y));
+        const maxY = Math.max(...lineBoxes.map(b => b.y + b.h));
+
+        const rawCenterX = (minX + maxX) / 2;
+        const rawCenterY = (minY + maxY) / 2;
+
+        return {
+          found: true,
+          pageIdx: pIdx,
+          colIndex: primaryColIndex,
+          lineBoxes,
+          bounds: { x: minX, y: minY, w: maxX - minX, h: maxY - minY },
+          center: {
+            x: rawCenterX * 0.68 + (PAGE_W * 0.5) * 0.32,
+            y: rawCenterY - 12
+          }
+        };
+      }
+    }
+
+    const fallbackPage = (pageSelectPref !== 'auto' && !isSingleMode) ? parseInt(pageSelectPref, 10) : topPageIdx;
+    return {
+      found: false,
+      pageIdx: Math.min(fallbackPage, pages.length - 1),
+      colIndex: 0,
+      lineBoxes: [],
+      bounds: null,
+      center: { x: PAGE_W * 0.5, y: PAGE_H * 0.44 }
+    };
+  }
+
+  function buildScheduleAndUpdateBadges() {
+    sanitizeStackOrder();
+    const curlEnd = parseFloat(ui.curlEnd.value);
+    const swapDurSetting = parseFloat(ui.swapDuration.value);
+    const isSingleMode = ui.stackMode.value === 'single';
+    const swapStyle = ui.swapStyle.value;
+
+    // Start with the user's arranged initialStackOrder!
+    let currentStackOrder = isSingleMode ? [initialStackOrder[0] || 0] : [...initialStackOrder];
+    let cursorT = Math.max(0.15, curlEnd);
+
+    computedSchedule = targets.map((t, idx) => {
+      const geom = locatePhraseAcrossPages(t.phrase, t.pageSelect);
+      const targetPageIdx = isSingleMode ? (initialStackOrder[0] || 0) : geom.pageIdx;
+      const currentTopPageIdx = currentStackOrder[0];
+
+      const needsSwap = !isSingleMode && pages.length > 1 && targetPageIdx !== currentTopPageIdx;
+      const stackBefore = [...currentStackOrder];
+      let stackAfter = [...currentStackOrder];
+      let effectiveSwapMode = 'pullRight';
+
+      if (needsSwap) {
+        if (swapStyle === 'tuckToBottom') {
+          effectiveSwapMode = 'tuckToBottom';
+        } else if (swapStyle === 'pullLeft') {
+          effectiveSwapMode = 'pullLeft';
+        } else if (swapStyle === 'pullRight') {
+          effectiveSwapMode = 'pullRight';
+        } else {
+          effectiveSwapMode = (idx % 2 === 1) ? 'pullRight' : 'pullLeft';
+        }
+
+        stackAfter = [
+          targetPageIdx,
+          ...stackBefore.filter(p => p !== targetPageIdx)
+        ];
+        currentStackOrder = [...stackAfter];
+      }
+
+      // Check if user pinned this target to a specific Voiceover cueTime
+      const hasCuePin = typeof t.cueTime === 'number' && !isNaN(t.cueTime);
+      const swapStart = hasCuePin ? Math.max(0.05, t.cueTime) : cursorT;
+      const swapEnd = needsSwap ? swapStart + swapDurSetting : swapStart;
+
+      const panStart = swapEnd;
+      const panEnd = panStart + t.panDur;
+      const hlStart = panStart + t.panDur * 0.80;
+      const hlEnd = hlStart + t.sweepDur;
+      const holdEnd = Math.max(panEnd, hlEnd) + t.holdDur;
+
+      cursorT = Math.max(cursorT, holdEnd);
+
+      return {
+        target: t,
+        index: idx,
+        found: geom.found,
+        pageIdx: targetPageIdx,
+        colIndex: geom.colIndex,
+        lineBoxes: geom.lineBoxes,
+        bounds: geom.bounds,
+        center: geom.center,
+        needsSwap,
+        effectiveSwapMode,
+        stackBefore,
+        stackAfter,
+        swapStart,
+        swapEnd,
+        panStart,
+        panEnd,
+        hlStart,
+        hlEnd,
+        holdEnd
+      };
+    });
+
+    const outroExtra = ui.zoomOutAtEnd.checked ? 1.5 : 0;
+    let calcDur = Math.max(2, +(cursorT + outroExtra + 1.0).toFixed(2));
+
+    // If Voiceover is loaded and "Lock duration to VO" is checked, match or encompass VO length
+    if (voiceoverBuffer && ui.lockDurationToVO.checked) {
+      const voTotal = voiceoverBuffer.duration + (parseFloat(ui.voStartOffset.value) || 0);
+      calcDur = Math.max(calcDur, +voTotal.toFixed(2));
+    }
+
+    totalSequenceDuration = calcDur;
+
+    const cardEls = ui.targetsContainer.querySelectorAll('.target-card');
+    cardEls.forEach((card, idx) => {
+      const sched = computedSchedule[idx];
+      if (!sched) return;
+      const badge = card.querySelector('[data-role="badge"]');
+      const swapBadge = card.querySelector('[data-role="swapBadge"]');
+      const timeWin = card.querySelector('[data-role="timeWindow"]');
+
+      if (sched.found) {
+        badge.textContent = `PAGE ${sched.pageIdx + 1}`;
+        badge.className = 'match-status match-ok';
+      } else {
+        badge.textContent = 'NOT FOUND';
+        badge.className = 'match-status match-warn';
+      }
+
+      if (sched.needsSwap) {
+        swapBadge.style.display = 'inline-block';
+        swapBadge.textContent = `⇅ P${sched.pageIdx + 1} TO TOP`;
+      } else {
+        swapBadge.style.display = 'none';
+      }
+
+      timeWin.textContent = `${sched.swapStart.toFixed(1)}s–${sched.holdEnd.toFixed(1)}s`;
+    });
+
+    rebuildPhasePillsAndVisualTrack(curlEnd);
+    drawVoiceoverWaveform();
+  }
+
+  function rebuildPhasePillsAndVisualTrack(curlEnd) {
+    ui.phasePillsContainer.innerHTML = '';
+    ui.trackSegmentsContainer.innerHTML = '';
+
+    const addSeg = (start, end, color, label, targetIdx = -1) => {
+      if (end <= start) return;
+      const div = document.createElement('div');
+      div.className = 'track-segment';
+      div.style.left = `${(start / totalSequenceDuration) * 100}%`;
+      div.style.width = `${((end - start) / totalSequenceDuration) * 100}%`;
+      div.style.background = color;
+      div.textContent = label;
+
+      // Allow dragging Target segments directly left/right on the Waveform Track!
+      if (targetIdx >= 0) {
+        div.title = `Drag left/right to sync Target #${targetIdx + 1} with your Voiceover waveform`;
+        div.addEventListener('pointerdown', e => {
+          e.stopPropagation();
+          if (isExporting) return;
+          pausePlayback();
+          const tObj = targets[targetIdx];
+          const origStart = computedSchedule[targetIdx].swapStart;
+          const startX = e.clientX;
+          const rect = ui.visualTrack.getBoundingClientRect();
+
+          const onMove = ev => {
+            const dt = ((ev.clientX - startX) / rect.width) * totalSequenceDuration;
+            tObj.cueTime = +Math.max(0.1, origStart + dt).toFixed(2);
+            currentTime = tObj.cueTime;
+            ui.scrubber.value = currentTime;
+            syncLabelsAndRender(false);
+          };
+          const onUp = () => {
+            window.removeEventListener('pointermove', onMove);
+            window.removeEventListener('pointerup', onUp);
+            renderTargetCardsDOM();
+          };
+          window.addEventListener('pointermove', onMove);
+          window.addEventListener('pointerup', onUp);
+        });
+      }
+
+      ui.trackSegmentsContainer.appendChild(div);
+    };
+
+    if (curlEnd > 0.05) {
+      addSeg(0, curlEnd, 'rgba(99, 102, 241, 0.45)', '3D Uncurl');
+    }
+
+    const pills = [
+      { label: '[00:00 Curl]', time: Math.min(0.45, curlEnd * 0.42) },
+      { label: '[Stack View]', time: curlEnd }
+    ];
+
+    computedSchedule.forEach((sched, idx) => {
+      if (sched.needsSwap) {
+        addSeg(sched.swapStart, sched.swapEnd, 'rgba(245, 158, 11, 0.68)', `⇅ Swap P${sched.pageIdx + 1}`, idx);
+        pills.push({
+          label: `[⇅ Swap P${sched.pageIdx + 1}]`,
+          time: (sched.swapStart + sched.swapEnd) * 0.5
+        });
+      }
+      addSeg(sched.panStart, sched.holdEnd, 'rgba(34, 197, 94, 0.52)', `#${idx + 1} P${sched.pageIdx + 1}`, idx);
+      pills.push({
+        label: `[#${idx + 1} P${sched.pageIdx + 1}]`,
+        time: sched.hlEnd
+      });
+    });
+
+    pills.forEach(p => {
+      const span = document.createElement('span');
+      span.className = 'phase-pill';
+      span.textContent = p.label;
+      span.addEventListener('click', () => {
+        if (isExporting) return;
+        pausePlayback();
+        setArrangeStackMode(false);
+        currentTime = p.time;
+        ui.scrubber.value = currentTime;
+        syncLabelsAndRender(false);
+      });
+      ui.phasePillsContainer.appendChild(span);
+    });
+  }
+
+  ui.visualTrack.addEventListener('pointerdown', e => {
+    if (isExporting) return;
+    pausePlayback();
+    const scrubFromEvent = ev => {
+      const rect = ui.visualTrack.getBoundingClientRect();
+      const frac = clamp01((ev.clientX - rect.left) / rect.width);
+      currentTime = frac * totalSequenceDuration;
+      ui.scrubber.value = currentTime;
+      syncLabelsAndRender(false);
+    };
+    scrubFromEvent(e);
+    const onMove = ev => scrubFromEvent(ev);
+    const onUp = () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+  });
+
+  // ============================================================================
+  // 8. CAMERA & STACK PICK-AND-PLACE KINEMATICS ENGINE
+  // ============================================================================
+  function easeCurve(u) {
+    const mode = ui.camEasing.value;
+    if (mode === 'quart') return 1 - Math.pow(1 - u, 4);
+    if (mode === 'sine') return -(Math.cos(Math.PI * u) - 1) / 2;
+    return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+  }
+
+  function easeOutQuart(x) {
+    return 1 - Math.pow(1 - x, 4);
+  }
+
+  function clamp01(v) {
+    return Math.max(0, Math.min(1, v));
+  }
+
+  // Uses each page's explicit `posX`, `posY`, and `tiltDeg` from the Stack Arranger!
+  function getPageStackRestPose(pageIdx, stackDepth) {
+    const isSingleMode = ui.stackMode.value === 'single' || pages.length <= 1;
+    if (isSingleMode) {
+      return { x: 0, y: 0, rot: 0, scale: 1 };
+    }
+
+    const p = pages[pageIdx] || pages[0];
+    const tiltScale = parseFloat(ui.stackTiltSpread.value) / 100;
+    const scatterScale = parseFloat(ui.stackScatter.value) / 100;
+
+    const deg = (p.tiltDeg || 0) * tiltScale;
+    const ox = (p.posX || 0) * scatterScale;
+    const oy = (p.posY || 0) * scatterScale;
+
+    return {
+      x: ox,
+      y: oy,
+      rot: (deg * Math.PI) / 180,
+      scale: 1
+    };
+  }
+
+  function evaluateSceneStateAtTime(t) {
+    sanitizeStackOrder();
+    const isSingleMode = ui.stackMode.value === 'single' || pages.length <= 1;
+    const fullStackCam = {
+      x: PAGE_W * 0.5,
+      y: PAGE_H * 0.45,
+      zoom: isSingleMode ? 1.0 : 0.92,
+      rot: 0
+    };
+
+    // If user toggled "🖐️ Arrange Stack on Stage", lock camera to wide stack overview so they can drag/rotate pages freely!
+    if (isArrangeStackMode) {
+      const arrangeOrder = isSingleMode ? [initialStackOrder[0] || 0] : [...initialStackOrder];
+      const pageTransforms = arrangeOrder.map((pIdx, depth) => {
+        const rest = getPageStackRestPose(pIdx, depth);
+        return {
+          pageIdx: pIdx,
+          zOrder: arrangeOrder.length - depth,
+          x: rest.x,
+          y: rest.y,
+          rot: rest.rot,
+          scale: 1,
+          liftShadowBoost: 0,
+          curlProgress: 1.0
+        };
+      });
+      return {
+        cam: fullStackCam,
+        activeTargetIndex: -1,
+        focusDimProgress: 0,
+        pageTransforms
+      };
+    }
+
+    const curlEnd = parseFloat(ui.curlEnd.value);
+
+    if (computedSchedule.length === 0 || t <= computedSchedule[0].swapStart) {
+      const initOrder = isSingleMode ? [initialStackOrder[0] || 0] : [...initialStackOrder];
+      const introCurlProg = (curlEnd > 0.05 && t < curlEnd)
+        ? easeOutQuart(clamp01(t / curlEnd))
+        : 1.0;
+
+      const stackIntroEase = easeOutQuart(clamp01(t / Math.max(0.4, curlEnd * 0.75)));
+
+      const pageTransforms = initOrder.map((pIdx, depth) => {
+        const rest = getPageStackRestPose(pIdx, depth);
+        const entryOffset = depth === 0 ? 0 : (1 - stackIntroEase) * (depth * 40);
+        return {
+          pageIdx: pIdx,
+          zOrder: initOrder.length - depth,
+          x: rest.x + entryOffset,
+          y: rest.y + entryOffset * 0.6,
+          rot: rest.rot * (0.45 + 0.55 * stackIntroEase),
+          scale: 1,
+          liftShadowBoost: 0,
+          curlProgress: depth === 0 ? introCurlProg : 1.0
+        };
+      });
+
+      return {
+        cam: fullStackCam,
+        activeTargetIndex: -1,
+        focusDimProgress: 0,
+        pageTransforms
+      };
+    }
+
+    const arcDipStrength = parseInt(ui.arcDip.value, 10) / 100;
+    const swingDist = parseFloat(ui.swingDistance.value);
+
+    for (let i = 0; i < computedSchedule.length; i++) {
+      const curr = computedSchedule[i];
+      const prevTopPose = i === 0 ? { x: 0, y: 0, rot: 0 } : getPageStackRestPose(computedSchedule[i - 1].pageIdx, 0);
+      const prevCam = i === 0
+        ? fullStackCam
+        : {
+            x: computedSchedule[i - 1].center.x + prevTopPose.x,
+            y: computedSchedule[i - 1].center.y + prevTopPose.y,
+            zoom: computedSchedule[i - 1].target.zoom,
+            rot: prevTopPose.rot
+          };
+
+      // Waiting in between targets if user pinned a later Voiceover cueTime on Target i
+      if (i > 0 && t > computedSchedule[i - 1].holdEnd && t < curr.swapStart) {
+        const prevSched = computedSchedule[i - 1];
+        const waitTransforms = prevSched.stackAfter.map((pIdx, depth) => {
+          const pose = getPageStackRestPose(pIdx, depth);
+          return {
+            pageIdx: pIdx,
+            zOrder: prevSched.stackAfter.length - depth,
+            x: pose.x,
+            y: pose.y,
+            rot: pose.rot,
+            scale: 1,
+            liftShadowBoost: 0,
+            curlProgress: 1.0
+          };
+        });
+        return {
+          cam: prevCam,
+          activeTargetIndex: i - 1,
+          focusDimProgress: 1.0,
+          pageTransforms: waitTransforms
+        };
+      }
+
+      const targetRestTop = getPageStackRestPose(curr.pageIdx, 0);
+      const targetCam = {
+        x: curr.center.x + targetRestTop.x,
+        y: curr.center.y + targetRestTop.y,
+        zoom: curr.target.zoom,
+        rot: targetRestTop.rot
+      };
+
+      // PHASE 1: STACK PICK-AND-PLACE SWAP
+      if (curr.needsSwap && t >= curr.swapStart && t <= curr.swapEnd) {
+        const u = clamp01((t - curr.swapStart) / Math.max(0.05, curr.swapEnd - curr.swapStart));
+        const e = easeCurve(u);
+
+        const overviewCam = {
+          x: PAGE_W * 0.52,
+          y: PAGE_H * 0.46,
+          zoom: 0.90,
+          rot: 0
+        };
+
+        const cam = {
+          x: prevCam.x + (overviewCam.x - prevCam.x) * e,
+          y: prevCam.y + (overviewCam.y - prevCam.y) * e,
+          zoom: prevCam.zoom + (overviewCam.zoom - prevCam.zoom) * e,
+          rot: prevCam.rot + (overviewCam.rot - prevCam.rot) * e
+        };
+
+        const movingPageIdx = curr.effectiveSwapMode === 'tuckToBottom'
+          ? curr.stackBefore[0]
+          : curr.pageIdx;
+
+        const pageTransforms = pages.map((_, pIdx) => {
+          const oldDepth = curr.stackBefore.indexOf(pIdx);
+          const newDepth = curr.stackAfter.indexOf(pIdx);
+          const oldPose = getPageStackRestPose(pIdx, oldDepth);
+          const newPose = getPageStackRestPose(pIdx, newDepth);
+
+          if (pIdx === movingPageIdx) {
+            const swingSin = Math.sin(u * Math.PI);
+            const pullDir = curr.effectiveSwapMode === 'pullLeft'
+              ? -1
+              : curr.effectiveSwapMode === 'tuckToBottom' ? -1 : 1;
+
+            const arcX = swingSin * swingDist * pullDir;
+            const arcY = -swingSin * 155;
+            const arcRot = swingSin * (0.16 * pullDir);
+            const liftScale = 1 + swingSin * 0.065;
+
+            const baseX = oldPose.x + (newPose.x - oldPose.x) * e;
+            const baseY = oldPose.y + (newPose.y - oldPose.y) * e;
+            const baseRot = oldPose.rot + (newPose.rot - oldPose.rot) * e;
+
+            const effectiveDepth = u < 0.48 ? oldDepth : newDepth;
+
+            let curlProgress = 1.0;
+            if (ui.uncurlOnSwap.checked && curr.effectiveSwapMode !== 'tuckToBottom' && u > 0.38) {
+              curlProgress = easeOutQuart(clamp01((u - 0.38) / 0.60));
+            }
+
+            return {
+              pageIdx: pIdx,
+              zOrder: pages.length - effectiveDepth + (u >= 0.48 && curr.effectiveSwapMode !== 'tuckToBottom' ? 2 : 0),
+              x: baseX + arcX,
+              y: baseY + arcY,
+              rot: baseRot + arcRot,
+              scale: liftScale,
+              liftShadowBoost: swingSin,
+              curlProgress
+            };
+          } else {
+            const effectiveDepth = u < 0.48 ? oldDepth : newDepth;
+            return {
+              pageIdx: pIdx,
+              zOrder: pages.length - effectiveDepth,
+              x: oldPose.x + (newPose.x - oldPose.x) * e,
+              y: oldPose.y + (newPose.y - oldPose.y) * e,
+              rot: oldPose.rot + (newPose.rot - oldPose.rot) * e,
+              scale: 1,
+              liftShadowBoost: 0,
+              curlProgress: 1.0
+            };
+          }
+        });
+
+        return {
+          cam,
+          activeTargetIndex: i,
+          focusDimProgress: 0,
+          pageTransforms
+        };
+      }
+
+      const panOriginCam = curr.needsSwap
+        ? { x: PAGE_W * 0.52, y: PAGE_H * 0.46, zoom: 0.90, rot: 0 }
+        : prevCam;
+
+      const staticPageTransforms = curr.stackAfter.map((pIdx, depth) => {
+        const pose = getPageStackRestPose(pIdx, depth);
+        return {
+          pageIdx: pIdx,
+          zOrder: curr.stackAfter.length - depth,
+          x: pose.x,
+          y: pose.y,
+          rot: pose.rot,
+          scale: 1,
+          liftShadowBoost: 0,
+          curlProgress: 1.0
+        };
+      });
+
+      // PHASE 2: CAMERA PAN & ZOOM
+      if (t >= curr.panStart && t <= curr.panEnd) {
+        const u = clamp01((t - curr.panStart) / Math.max(0.05, curr.panEnd - curr.panStart));
+        const e = easeCurve(u);
+
+        const x = panOriginCam.x + (targetCam.x - panOriginCam.x) * e;
+        const y = panOriginCam.y + (targetCam.y - panOriginCam.y) * e;
+        const rot = panOriginCam.rot + (targetCam.rot - panOriginCam.rot) * e;
+        let zoom = panOriginCam.zoom + (targetCam.zoom - panOriginCam.zoom) * e;
+
+        if (!curr.needsSwap && i > 0 && arcDipStrength > 0) {
+          const dist = Math.hypot(targetCam.x - panOriginCam.x, targetCam.y - panOriginCam.y);
+          const distFactor = clamp01(dist / 550);
+          const midParabola = Math.sin(u * Math.PI);
+          const minMidZoom = Math.max(1.15, Math.min(panOriginCam.zoom, targetCam.zoom) * (1 - arcDipStrength * distFactor));
+          zoom = zoom * (1 - midParabola * 0.45 * arcDipStrength * distFactor) +
+                 minMidZoom * (midParabola * 0.45 * arcDipStrength * distFactor);
+        }
+
+        const syncMode = ui.focusSyncMode.value;
+        const dimEnv = syncMode === 'alwaysOn' ? 1.0 : clamp01((u - 0.55) / 0.45);
+
+        return {
+          cam: { x, y, zoom, rot },
+          activeTargetIndex: i,
+          focusDimProgress: dimEnv,
+          pageTransforms: staticPageTransforms
+        };
+      }
+
+      // PHASE 3: HIGHLIGHT SWEEP & READING HOLD
+      if (t > curr.panEnd && t <= curr.holdEnd) {
+        let driftX = 0;
+        let driftY = 0;
+        let driftZoom = 1.0;
+
+        if (ui.enableDrift.checked) {
+          const dt = t - curr.panEnd;
+          driftZoom = 1 + dt * 0.0055;
+          driftX = Math.sin(dt * 0.8 + i) * 3.0;
+          driftY = Math.cos(dt * 0.65 + i) * 2.2;
+        }
+
+        const fadeOutRem = curr.holdEnd - t;
+        const dimEnv = (i < computedSchedule.length - 1 && fadeOutRem < 0.25)
+          ? clamp01(fadeOutRem / 0.25)
+          : 1.0;
+
+        return {
+          cam: {
+            x: targetCam.x + driftX,
+            y: targetCam.y + driftY,
+            zoom: targetCam.zoom * driftZoom,
+            rot: targetCam.rot
+          },
+          activeTargetIndex: i,
+          focusDimProgress: dimEnv,
+          pageTransforms: staticPageTransforms
+        };
+      }
+    }
+
+    const last = computedSchedule[computedSchedule.length - 1];
+    const lastTopPose = getPageStackRestPose(last.pageIdx, 0);
+    const lastTransforms = last.stackAfter.map((pIdx, depth) => {
+      const pose = getPageStackRestPose(pIdx, depth);
+      return {
+        pageIdx: pIdx,
+        zOrder: last.stackAfter.length - depth,
+        x: pose.x,
+        y: pose.y,
+        rot: pose.rot,
+        scale: 1,
+        liftShadowBoost: 0,
+        curlProgress: 1.0
+      };
+    });
+
+    const lastCam = {
+      x: last.center.x + lastTopPose.x,
+      y: last.center.y + lastTopPose.y,
+      zoom: last.target.zoom,
+      rot: lastTopPose.rot
+    };
+
+    if (ui.zoomOutAtEnd.checked && t > last.holdEnd) {
+      const u = clamp01((t - last.holdEnd) / 1.35);
+      const e = easeCurve(u);
+      return {
+        cam: {
+          x: lastCam.x + (fullStackCam.x - lastCam.x) * e,
+          y: lastCam.y + (fullStackCam.y - lastCam.y) * e,
+          zoom: lastCam.zoom + (fullStackCam.zoom - lastCam.zoom) * e,
+          rot: lastCam.rot + (fullStackCam.rot - lastCam.rot) * e
+        },
+        activeTargetIndex: computedSchedule.length - 1,
+        focusDimProgress: 1 - e,
+        pageTransforms: lastTransforms
+      };
+    }
+
+    return {
+      cam: lastCam,
+      activeTargetIndex: computedSchedule.length - 1,
+      focusDimProgress: 1,
+      pageTransforms: lastTransforms
+    };
+  }
+
+  // ============================================================================
+  // 9. ADVANCED MULTI-SHAPE FOCUS DIMMING & DEPTH-OF-FIELD BLUR ENGINE
+  // ============================================================================
+  function traceFocusCutoutPath(c, shapeMode, activeSched, pad, radius, sweepFrac) {
+    const b = activeSched.bounds;
+    if (!b) return;
+
+    c.beginPath();
+
+    if (shapeMode === 'lineContour') {
+      for (const box of activeSched.lineBoxes) {
+        let lineFrac = 1.0;
+        if (sweepFrac < 1.0) {
+          if (sweepFrac <= box.startFrac) continue;
+          lineFrac = easeOutQuart(clamp01((sweepFrac - box.startFrac) / (box.endFrac - box.startFrac)));
+        }
+        const lx = box.x1 - pad;
+        const ly = box.y - pad * 0.72;
+        const lw = (box.width * lineFrac) + pad * 2;
+        const lh = box.h + pad * 1.44;
+        const r = Math.min(radius, lh / 2, lw / 2);
+        c.roundRect(lx, ly, Math.max(4, lw), lh, r);
+      }
+    } else if (shapeMode === 'softSpotlight') {
+      const cx = b.x + b.w / 2;
+      const cy = b.y + b.h / 2;
+      const scaleW = sweepFrac < 1.0 ? (0.35 + 0.65 * easeOutQuart(sweepFrac)) : 1.0;
+      const rx = (b.w / 2 + pad * 2.2) * scaleW;
+      const ry = b.h / 2 + pad * 2.0;
+      c.ellipse(cx, cy, Math.max(12, rx), Math.max(12, ry), -0.03, 0, Math.PI * 2);
+    } else if (shapeMode === 'featheredRect' || shapeMode === 'magnifyingLens') {
+      const scaleW = sweepFrac < 1.0 ? easeOutQuart(sweepFrac) : 1.0;
+      const rx = b.x - pad;
+      const ry = b.y - pad;
+      const rw = (b.w * scaleW) + pad * 2;
+      const rh = b.h + pad * 2;
+      const r = shapeMode === 'magnifyingLens' ? Math.min(36, rh / 2) : Math.min(radius, rh / 2);
+      c.roundRect(rx, ry, Math.max(8, rw), rh, r);
+    } else if (shapeMode === 'columnStrip') {
+      const marginX = 95;
+      const colGap = 54;
+      const colW = (PAGE_W - marginX * 2 - colGap) / 2;
+      const colX = activeSched.colIndex === 0 ? marginX : marginX + colW + colGap;
+      c.roundRect(colX - pad, 240, colW + pad * 2, PAGE_H - 290, radius);
+    } else if (shapeMode === 'horizontalBand') {
+      const ry = b.y - pad * 1.15;
+      const rh = b.h + pad * 2.3;
+      c.rect(0, ry, PAGE_W, rh);
+    } else if (shapeMode === 'tornCutout') {
+      for (const box of activeSched.lineBoxes) {
+        let lineFrac = 1.0;
+        if (sweepFrac < 1.0) {
+          if (sweepFrac <= box.startFrac) continue;
+          lineFrac = easeOutQuart(clamp01((sweepFrac - box.startFrac) / (box.endFrac - box.startFrac)));
+        }
+        const x1 = box.x1 - pad;
+        const x2 = box.x1 + box.width * lineFrac + pad;
+        const y1 = box.y - pad * 0.85;
+        const y2 = box.y + box.h + pad * 0.85;
+
+        c.moveTo(x1, y1);
+        const steps = 14;
+        for (let s = 1; s <= steps; s++) {
+          const px = x1 + ((x2 - x1) * s) / steps;
+          const jitter = Math.sin(s * 7.3 + box.y) * 4.5;
+          c.lineTo(px, y1 + jitter);
+        }
+        for (let s = steps; s >= 0; s--) {
+          const px = x1 + ((x2 - x1) * s) / steps;
+          const jitter = Math.cos(s * 5.9 + box.y) * 4.5;
+          c.lineTo(px, y2 + jitter);
+        }
+        c.closePath();
+      }
+    }
+  }
+
+  function applyAdvancedFocusDimmingAndBlur(targetCtx, pageObj, activeSched, envProgress, hlSweepProgress) {
+    const rawShape = activeSched.target.focusOverride && activeSched.target.focusOverride !== 'global'
+      ? activeSched.target.focusOverride
+      : ui.focusShape.value;
+
+    if (rawShape === 'none') return;
+
+    const maxDimPct = parseInt(ui.dimSurrounding.value, 10) / 100;
+    const blurPx = parseFloat(ui.focusBlur.value);
+    if (maxDimPct <= 0.01 && blurPx <= 0.1) return;
+
+    const featherPx = parseFloat(ui.focusFeather.value);
+    const pad = parseFloat(ui.focusPadding.value);
+    const radius = parseFloat(ui.focusRadius.value);
+    const rimPct = parseInt(ui.focusRim.value, 10) / 100;
+    const dimHex = ui.focusColor.value;
+    const syncMode = ui.focusSyncMode.value;
+
+    const sweepFrac = syncMode === 'withSweep' ? Math.max(0.08, hlSweepProgress) : 1.0;
+
+    focusMaskCtx.clearRect(0, 0, PAGE_W, PAGE_H);
+
+    if (blurPx > 0.1) {
+      focusMaskCtx.save();
+      focusMaskCtx.filter = `blur(${blurPx}px)`;
+      focusMaskCtx.drawImage(pageObj.canvas, 0, 0);
+      focusMaskCtx.restore();
+    }
+
+    if (maxDimPct > 0.01) {
+      focusMaskCtx.fillStyle = hexToRgba(dimHex, maxDimPct * 0.85);
+      focusMaskCtx.fillRect(0, 0, PAGE_W, PAGE_H);
+    }
+
+    focusMaskCtx.save();
+    focusMaskCtx.globalCompositeOperation = 'destination-out';
+    if (featherPx > 0.5) {
+      focusMaskCtx.filter = `blur(${featherPx}px)`;
+    }
+    focusMaskCtx.fillStyle = '#000000';
+    traceFocusCutoutPath(focusMaskCtx, rawShape, activeSched, pad, radius, sweepFrac);
+    focusMaskCtx.fill();
+    focusMaskCtx.restore();
+
+    targetCtx.save();
+    targetCtx.globalAlpha = envProgress;
+    targetCtx.drawImage(focusMaskCanvas, 0, 0);
+
+    if (rawShape === 'magnifyingLens' && activeSched.bounds) {
+      const b = activeSched.bounds;
+      const cx = b.x + b.w / 2;
+      const cy = b.y + b.h / 2;
+
+      targetCtx.save();
+      traceFocusCutoutPath(targetCtx, rawShape, activeSched, pad, radius, sweepFrac);
+      targetCtx.clip();
+
+      targetCtx.translate(cx, cy);
+      targetCtx.scale(1.10, 1.10);
+      targetCtx.translate(-cx, -cy);
+      targetCtx.drawImage(pageObj.canvas, 0, 0);
+      drawAnnotationByStyle(targetCtx, activeSched, hlSweepProgress);
+
+      const glassGrad = targetCtx.createLinearGradient(b.x, b.y - pad, b.x + b.w, b.y + b.h + pad);
+      glassGrad.addColorStop(0, 'rgba(255, 255, 255, 0.22)');
+      glassGrad.addColorStop(0.45, 'rgba(255, 255, 255, 0.0)');
+      glassGrad.addColorStop(1, 'rgba(255, 255, 255, 0.12)');
+      targetCtx.fillStyle = glassGrad;
+      targetCtx.fillRect(b.x - pad * 2, b.y - pad * 2, b.w + pad * 4, b.h + pad * 4);
+      targetCtx.restore();
+    }
+
+    if (rimPct > 0.02 || rawShape === 'magnifyingLens') {
+      const effectiveRim = rawShape === 'magnifyingLens' ? Math.max(0.55, rimPct) : rimPct;
+      targetCtx.save();
+      targetCtx.strokeStyle = hexToRgba(activeSched.target.color || '#e5a93c', effectiveRim * 0.75);
+      targetCtx.lineWidth = rawShape === 'magnifyingLens' ? 3.5 : 2.2;
+      traceFocusCutoutPath(targetCtx, rawShape, activeSched, pad, radius, sweepFrac);
+      targetCtx.stroke();
+      targetCtx.restore();
+    }
+
+    targetCtx.restore();
+  }
+
+  // ============================================================================
+  // 10. MAIN STAGE COMPOSITOR, 5 ANNOTATION STYLES & 4-CORNER 3D CURL
+  // ============================================================================
+  function drawStageBackground(W, H) {
+    const mode = ui.stageBgStyle.value;
+    if (mode === 'black') {
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, W, H);
+    } else if (mode === 'vignette') {
+      const g = ctx.createRadialGradient(W / 2, H / 2, W * 0.1, W / 2, H / 2, W * 0.65);
+      g.addColorStop(0, '#1e222d');
+      g.addColorStop(1, '#050608');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    } else if (mode === 'wood') {
+      const g = ctx.createRadialGradient(W / 2, H / 2, W * 0.1, W / 2, H / 2, W * 0.7);
+      g.addColorStop(0, '#2b1d12');
+      g.addColorStop(1, '#0e0804');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = 'rgba(0,0,0,0.22)';
+      ctx.lineWidth = 2;
+      for (let y = 0; y < H; y += 28) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(W, y + 6);
+        ctx.stroke();
+      }
+    } else if (mode === 'grid') {
+      ctx.fillStyle = '#0a0e14';
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = 'rgba(229, 169, 60, 0.08)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < W; x += 60) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = 0; y < H; y += 60) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+    }
+  }
+
+  function renderFrameAtTime(t) {
+    const W = stageCanvas.width;
+    const H = stageCanvas.height;
+
+    drawStageBackground(W, H);
+    checkAndTriggerRealtimeSFX(t);
+
+    const scene = evaluateSceneStateAtTime(t);
+
+    const cardEls = ui.targetsContainer.querySelectorAll('.target-card');
+    cardEls.forEach((c, idx) => {
+      c.classList.toggle('active-target', idx === scene.activeTargetIndex);
+    });
+
+    const fitDim = Math.min(W * 1.15, (H - 2 * (window.__BAND || 0)) * 0.94);
+    const baseScale = fitDim / PAGE_H;
+    const currentScale = baseScale * scene.cam.zoom;
+    const keepPrev = ui.keepPreviousHighlights.checked;
+    const pageShadowAlpha = (parseInt(ui.pageDropShadow.value, 10) / 100) * 0.78;
+
+    const sortedPages = [...scene.pageTransforms].sort((a, b) => a.zOrder - b.zOrder);
+
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    ctx.scale(currentScale, currentScale);
+    ctx.rotate(-scene.cam.rot);
+    ctx.translate(-scene.cam.x, -scene.cam.y);
+
+    for (const pt of sortedPages) {
+      const pageObj = pages[pt.pageIdx];
+      if (!pageObj || !pageObj.canvas) continue;
+
+      const activeHighlightsForPage = isArrangeStackMode
+        ? []
+        : computedSchedule.filter((sched, idx) => {
+            if (sched.pageIdx !== pt.pageIdx) return false;
+            if (!sched.found || sched.lineBoxes.length === 0) return false;
+            if (t <= sched.hlStart) return false;
+            if (!keepPrev && t > sched.holdEnd && idx !== scene.activeTargetIndex) return false;
+            return true;
+          });
+
+      const activeSchedOnThisPage = computedSchedule[scene.activeTargetIndex];
+      const hasFocusFX = !isArrangeStackMode &&
+        (scene.focusDimProgress > 0.01) &&
+        activeSchedOnThisPage &&
+        activeSchedOnThisPage.pageIdx === pt.pageIdx &&
+        activeSchedOnThisPage.bounds;
+
+      let sourceCanvas = pageObj.canvas;
+      if (activeHighlightsForPage.length > 0 || hasFocusFX) {
+        compCtx.clearRect(0, 0, PAGE_W, PAGE_H);
+        compCtx.drawImage(pageObj.canvas, 0, 0);
+
+        for (const sched of activeHighlightsForPage) {
+          const prog = clamp01((t - sched.hlStart) / Math.max(0.05, sched.hlEnd - sched.hlStart));
+          if (prog > 0) {
+            drawAnnotationByStyle(compCtx, sched, prog);
+          }
+        }
+
+        if (hasFocusFX) {
+          const activeHlProg = clamp01(
+            (t - activeSchedOnThisPage.hlStart) /
+            Math.max(0.05, activeSchedOnThisPage.hlEnd - activeSchedOnThisPage.hlStart)
+          );
+          applyAdvancedFocusDimmingAndBlur(
+            compCtx,
+            pageObj,
+            activeSchedOnThisPage,
+            scene.focusDimProgress,
+            activeHlProg
+          );
+        }
+
+        sourceCanvas = compPageCanvas;
+      }
+
+      ctx.save();
+      ctx.translate(PAGE_W / 2 + pt.x, PAGE_H / 2 + pt.y);
+      ctx.rotate(pt.rot);
+      ctx.scale(pt.scale, pt.scale);
+      ctx.translate(-PAGE_W / 2, -PAGE_H / 2);
+
+      if (pageShadowAlpha > 0.01 && pt.curlProgress >= 0.999) {
+        ctx.save();
+        const boost = pt.liftShadowBoost || 0;
+        ctx.shadowColor = `rgba(0, 0, 0, ${Math.min(0.92, pageShadowAlpha + boost * 0.22)})`;
+        ctx.shadowBlur = 28 + boost * 42;
+        ctx.shadowOffsetX = 6 + boost * 18;
+        ctx.shadowOffsetY = 12 + boost * 28;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(2, 2, PAGE_W - 4, PAGE_H - 4);
+        ctx.restore();
+      }
+
+      if (pt.curlProgress < 0.999) {
+        drawPageWith4Corner3DCurl(ctx, sourceCanvas, pt.curlProgress, pageShadowAlpha, pageObj.paperTone);
+      } else {
+        ctx.drawImage(sourceCanvas, 0, 0);
+      }
+
+      // If in Arrange Stack Mode, draw a subtle interactive selection badge on each page corner
+      if (isArrangeStackMode) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(229, 169, 60, 0.85)';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, PAGE_W, PAGE_H);
+        ctx.fillStyle = 'rgba(20, 23, 31, 0.88)';
+        ctx.fillRect(24, 24, 340, 56);
+        ctx.fillStyle = '#e5a93c';
+        ctx.font = '700 24px "Instrument Sans", sans-serif';
+        ctx.fillText(`🖐️ Page ${pt.pageIdx + 1} (Drag / Shift+Rotate)`, 40, 60);
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
+    ctx.restore();
+
+    drawPostProcessEffects(W, H, t);
+    fwDrawSourceBadge(W, H, t);
+  }
+
+  /* fw-patch:invert-source v1 */
+  // SOURCE badge (bottom-right) while a target with a source tag is highlighted. Screen space, above cinema bars.
+  function fwDrawSourceBadge(W, H, t) {
+    let best = null, bestA = 0;
+    for (const sched of computedSchedule) {
+      if (!sched || !sched.target || !sched.found) continue;
+      const src = String(sched.target.source || '').trim();
+      if (!src) continue;
+      const t0 = sched.hlStart - 0.1, t1 = sched.holdEnd;
+      if (t < t0 || t > t1 + 0.35) continue;
+      const a = Math.min(1, Math.max(0, (t - t0) / 0.35)) * Math.min(1, Math.max(0, (t1 + 0.35 - t) / 0.35));
+      if (a > bestA) { bestA = a; best = src; }
+    }
+    if (!best || bestA <= 0.01) return;
+    const label = /^source\s*:/i.test(best) ? best.toUpperCase() : ('SOURCE: ' + best.toUpperCase());
+    const band = window.__BAND || 0;
+    const size = Math.round(H * 0.0205);
+    ctx.save();
+    ctx.globalAlpha = bestA;
+    ctx.font = `600 ${size}px "Instrument Sans", sans-serif`;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '1.5px';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'right';
+    const tw = ctx.measureText(label).width;
+    const padX = size * 0.6, ph = size * 1.7;
+    const x2 = W - Math.round(W * 0.022), cy = H - band - Math.round(H * 0.035) - ph / 2;
+    ctx.fillStyle = 'rgba(8, 8, 10, 0.62)';
+    ctx.fillRect(x2 - tw - padX * 2, cy - ph / 2, tw + padX * 2, ph);
+    ctx.fillStyle = '#f4f2ec';
+    ctx.fillText(label, x2 - padX, cy + 1);
+    ctx.restore();
+  }
+
+  function drawAnnotationByStyle(targetCtx, sched, progress) {
+    const style = sched.target.style || 'marker';
+    const hexColor = sched.target.color;
+    const opacityPct = sched.target.opacity;
+    const alpha = opacityPct / 100;
+    const rough = parseInt(ui.markerRoughness.value, 10) / 100;
+
+    targetCtx.save();
+
+    if (style === 'marker' || style === 'redact') {
+      targetCtx.globalCompositeOperation = style === 'redact' ? 'source-over' : 'multiply';
+      targetCtx.fillStyle = hexToRgba(hexColor, style === 'redact' ? 0.95 : alpha);
+
+      for (const box of sched.lineBoxes) {
+        if (progress <= box.startFrac) continue;
+        const lineLocal = clamp01((progress - box.startFrac) / (box.endFrac - box.startFrac));
+        const easedLine = easeOutQuart(lineLocal);
+
+        const padX = 7;
+        const padY = 4;
+        const drawW = (box.width + padX * 2) * easedLine;
+        const drawX = box.x1 - padX;
+        const drawY = box.y - padY;
+        const drawH = box.h + padY * 1.4;
+
+        drawMarkerStrokeRect(targetCtx, drawX, drawY, drawW, drawH, rough);
+
+        if (style === 'marker') {
+          targetCtx.fillStyle = hexToRgba(hexColor, alpha * 0.35);
+          targetCtx.fillRect(drawX + 2, drawY + 3, Math.max(0, drawW - 4), drawH - 6);
+          targetCtx.fillStyle = hexToRgba(hexColor, alpha);
+        }
+      }
+    } else if (style === 'invert') {
+      // Black bar + white text (Dhruv-style): invert the paper under a straight bar that wipes each line,
+      // then strip the hue so any paper tone becomes black and the ink becomes white.
+      for (const box of sched.lineBoxes) {
+        if (progress <= box.startFrac) continue;
+        const lineLocal = clamp01((progress - box.startFrac) / (box.endFrac - box.startFrac));
+        const easedLine = easeOutQuart(lineLocal);
+        const padX = 6;
+        const padY = 3;
+        const bx = box.x1 - padX;
+        const by = box.y - padY;
+        const bw = (box.width + padX * 2) * easedLine;
+        const bh = box.h + padY * 1.6;
+        if (bw <= 0.5) continue;
+        targetCtx.globalCompositeOperation = 'difference';
+        targetCtx.fillStyle = '#ffffff';
+        targetCtx.fillRect(bx, by, bw, bh);
+        targetCtx.globalCompositeOperation = 'saturation';
+        targetCtx.fillStyle = '#808080';
+        targetCtx.fillRect(bx, by, bw, bh);
+      }
+    } else if (style === 'underline') {
+      targetCtx.strokeStyle = hexToRgba(hexColor, alpha);
+      targetCtx.lineWidth = 4.2;
+      targetCtx.lineCap = 'round';
+
+      for (const box of sched.lineBoxes) {
+        if (progress <= box.startFrac) continue;
+        const lineLocal = clamp01((progress - box.startFrac) / (box.endFrac - box.startFrac));
+        const easedLine = easeOutQuart(lineLocal);
+        const drawW = box.width * easedLine;
+        const uy = box.y + box.h + 2;
+
+        targetCtx.beginPath();
+        targetCtx.moveTo(box.x1, uy);
+        targetCtx.quadraticCurveTo(box.x1 + drawW * 0.5, uy - 2.5 * rough, box.x1 + drawW, uy + 1);
+        targetCtx.stroke();
+      }
+    } else if (style === 'box' && sched.bounds) {
+      const b = sched.bounds;
+      const pad = 10;
+      const bx = b.x - pad;
+      const by = b.y - pad;
+      const bw = b.w + pad * 2;
+      const bh = b.h + pad * 2;
+      const perim = (bw + bh) * 2;
+
+      targetCtx.strokeStyle = hexToRgba(hexColor, alpha);
+      targetCtx.lineWidth = 4;
+      targetCtx.setLineDash([perim * easeOutQuart(progress), perim]);
+      targetCtx.strokeRect(bx, by, bw, bh);
+      targetCtx.setLineDash([]);
+    } else if (style === 'circle' && sched.bounds) {
+      const b = sched.bounds;
+      const cx = b.x + b.w / 2;
+      const cy = b.y + b.h / 2;
+      const rx = b.w / 2 + 18;
+      const ry = b.h / 2 + 14;
+
+      targetCtx.strokeStyle = hexToRgba(hexColor, alpha);
+      targetCtx.lineWidth = 4.2;
+      targetCtx.lineCap = 'round';
+      targetCtx.beginPath();
+      const endAngle = -Math.PI * 0.5 + Math.PI * 2.12 * easeOutQuart(progress);
+      targetCtx.ellipse(cx, cy, rx, ry, -0.02, -Math.PI * 0.5, endAngle);
+      targetCtx.stroke();
+    }
+
+    targetCtx.restore();
+  }
+
+  function drawMarkerStrokeRect(c, x, y, w, h, rough = 0.5) {
+    const r = Math.min(4, w / 2);
+    const j = rough * 2.2;
+    c.beginPath();
+    c.moveTo(x + r, y + j);
+    c.lineTo(x + w - r, y - j * 0.6);
+    c.quadraticCurveTo(x + w, y, x + w, y + r);
+    c.lineTo(x + w - j, y + h - r);
+    c.quadraticCurveTo(x + w, y + h, x + w - r, y + h + j * 0.6);
+    c.lineTo(x + r, y + h - j * 0.4);
+    c.quadraticCurveTo(x, y + h, x, y + h - r);
+    c.lineTo(x + j * 0.7, y + r);
+    c.quadraticCurveTo(x, y, x + r, y + j);
+    c.closePath();
+    c.fill();
+  }
+
+  // ============================================================================
+  // 11. 4-CORNER 3D PAGE-PEEL & CUSTOMIZABLE SHADOW ENGINE
+  // ============================================================================
+  function drawPageImageInCornerSpace(targetCtx, srcCanvas, flipX, flipY) {
+    targetCtx.save();
+    targetCtx.translate(flipX ? PAGE_W : 0, flipY ? PAGE_H : 0);
+    targetCtx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
+    targetCtx.drawImage(srcCanvas, 0, 0);
+    targetCtx.restore();
+  }
+
+  function drawPageWith4Corner3DCurl(targetCtx, srcCanvas, progress, stackShadowAlpha, paperBaseHex) {
+    const corner = ui.curlCorner.value;
+    const flipX = corner === 'TR' || corner === 'BR';
+    const flipY = corner === 'BL' || corner === 'BR';
+
+    const deg = parseFloat(ui.curlAngle.value);
+    const angle = (deg * Math.PI) / 180;
+    const nx = Math.cos(angle);
+    const ny = Math.sin(angle);
+
+    const maxD = parseFloat(ui.curlDepth.value);
+    const d = maxD * (1 - progress);
+
+    if (d <= 2) {
+      targetCtx.drawImage(srcCanvas, 0, 0);
+      return;
+    }
+
+    const v1x = d / nx;
+    const v1y = 0;
+    const v2x = 0;
+    const v2y = d / ny;
+
+    const tipX = 2 * d * nx;
+    const tipY = 2 * d * ny;
+
+    const fx = nx * d;
+    const fy = ny * d;
+    const tx = -ny;
+    const ty = nx;
+
+    const shadOpacity = parseInt(ui.shadowOpacity.value, 10) / 100;
+    const shadBlur = parseFloat(ui.shadowBlur.value);
+    const shadReach = parseFloat(ui.shadowReach.value) * (1 - progress * 0.45);
+    const creaseAO = parseInt(ui.creaseAO.value, 10) / 100;
+    const rollShadeIntensity = parseInt(ui.rollShade.value, 10) / 100;
+    const specIntensity = parseInt(ui.flapSpecular.value, 10) / 100;
+    const backBleed = parseInt(ui.backfaceBleed.value, 10) / 100;
+    const shadColorHex = ui.shadowColor.value;
+
+    targetCtx.save();
+    targetCtx.translate(flipX ? PAGE_W : 0, flipY ? PAGE_H : 0);
+    targetCtx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
+
+    targetCtx.save();
+    targetCtx.beginPath();
+    targetCtx.moveTo(fx - tx * 3000, fy - ty * 3000);
+    targetCtx.lineTo(fx + tx * 3000, fy + ty * 3000);
+    targetCtx.lineTo(fx + tx * 3000 + nx * 3000, fy + ty * 3000 + ny * 3000);
+    targetCtx.lineTo(fx - tx * 3000 + nx * 3000, fy - ty * 3000 + ny * 3000);
+    targetCtx.closePath();
+    targetCtx.clip();
+
+    if (stackShadowAlpha > 0.01) {
+      targetCtx.save();
+      targetCtx.shadowColor = `rgba(0, 0, 0, ${stackShadowAlpha})`;
+      targetCtx.shadowBlur = 28;
+      targetCtx.shadowOffsetX = 6;
+      targetCtx.shadowOffsetY = 12;
+      drawPageImageInCornerSpace(targetCtx, srcCanvas, flipX, flipY);
+      targetCtx.restore();
+    } else {
+      drawPageImageInCornerSpace(targetCtx, srcCanvas, flipX, flipY);
+    }
+
+    if (shadOpacity > 0.01 || creaseAO > 0.01) {
+      targetCtx.save();
+      targetCtx.beginPath();
+      targetCtx.rect(0, 0, PAGE_W, PAGE_H);
+      targetCtx.clip();
+
+      if (shadOpacity > 0.01) {
+        shadowScratchCtx.clearRect(0, 0, PAGE_W, PAGE_H);
+        shadowScratchCtx.save();
+        shadowScratchCtx.filter = `blur(${shadBlur}px)`;
+
+        const projTipX = tipX + nx * shadReach;
+        const projTipY = tipY + ny * shadReach;
+
+        const sGrad = shadowScratchCtx.createLinearGradient(fx, fy, projTipX, projTipY);
+        sGrad.addColorStop(0, hexToRgba(shadColorHex, Math.min(1, shadOpacity * 1.15)));
+        sGrad.addColorStop(0.65, hexToRgba(shadColorHex, shadOpacity * 0.72));
+        sGrad.addColorStop(1, hexToRgba(shadColorHex, 0));
+
+        shadowScratchCtx.fillStyle = sGrad;
+        shadowScratchCtx.beginPath();
+        shadowScratchCtx.moveTo(v1x, v1y);
+        shadowScratchCtx.lineTo(projTipX, projTipY);
+        shadowScratchCtx.lineTo(v2x, v2y);
+        shadowScratchCtx.closePath();
+        shadowScratchCtx.fill();
+        shadowScratchCtx.restore();
+
+        targetCtx.drawImage(shadowScratchCanvas, 0, 0);
+      }
+
+      if (creaseAO > 0.01) {
+        const aoGrad = targetCtx.createLinearGradient(fx, fy, fx + nx * 24, fy + ny * 24);
+        aoGrad.addColorStop(0, hexToRgba(shadColorHex, creaseAO * 0.55));
+        aoGrad.addColorStop(1, hexToRgba(shadColorHex, 0));
+        targetCtx.fillStyle = aoGrad;
+        targetCtx.beginPath();
+        targetCtx.moveTo(v1x, v1y);
+        targetCtx.lineTo(v1x + nx * 24, v1y + ny * 24);
+        targetCtx.lineTo(v2x + nx * 24, v2y + ny * 24);
+        targetCtx.lineTo(v2x, v2y);
+        targetCtx.closePath();
+        targetCtx.fill();
+      }
+
+      targetCtx.restore();
+    }
+
+    targetCtx.restore();
+
+    targetCtx.save();
+    targetCtx.beginPath();
+    targetCtx.moveTo(fx - tx * 3000, fy - ty * 3000);
+    targetCtx.lineTo(fx + tx * 3000, fy + ty * 3000);
+    targetCtx.lineTo(fx + tx * 3000 + nx * 3000, fy + ty * 3000 + ny * 3000);
+    targetCtx.lineTo(fx - tx * 3000 + nx * 3000, fy - ty * 3000 + ny * 3000);
+    targetCtx.closePath();
+    targetCtx.clip();
+
+    targetCtx.translate(fx, fy);
+    targetCtx.rotate(angle);
+    targetCtx.scale(-1, 1);
+    targetCtx.rotate(-angle);
+    targetCtx.translate(-fx, -fy);
+
+    targetCtx.beginPath();
+    targetCtx.moveTo(0, 0);
+    targetCtx.lineTo(v1x, 0);
+    targetCtx.lineTo(0, v2y);
+    targetCtx.closePath();
+    targetCtx.clip();
+
+    drawPageImageInCornerSpace(targetCtx, srcCanvas, flipX, flipY);
+
+    if (backBleed < 0.99) {
+      targetCtx.fillStyle = hexToRgba(paperBaseHex || '#f1ebd8', 1 - backBleed);
+      targetCtx.fillRect(0, 0, v1x + 10, v2y + 10);
+    }
+
+    const cylGrad = targetCtx.createLinearGradient(fx, fy, 0, 0);
+    cylGrad.addColorStop(0, `rgba(28, 24, 18, ${(0.42 * rollShadeIntensity).toFixed(3)})`);
+    cylGrad.addColorStop(0.16, `rgba(255, 253, 246, ${(0.58 * specIntensity).toFixed(3)})`);
+    cylGrad.addColorStop(0.52, `rgba(242, 235, 218, ${(0.18 * specIntensity).toFixed(3)})`);
+    cylGrad.addColorStop(1, `rgba(18, 15, 11, ${(0.48 * rollShadeIntensity).toFixed(3)})`);
+
+    targetCtx.fillStyle = cylGrad;
+    targetCtx.fillRect(0, 0, v1x + 10, v2y + 10);
+
+    targetCtx.restore();
+    targetCtx.restore();
+  }
+
+  function drawPostProcessEffects(W, H, t) {
+    const vigAmt = parseInt(ui.lensVignette.value, 10) / 100;
+    if (vigAmt > 0.01) {
+      const g = ctx.createRadialGradient(W / 2, H / 2, W * 0.28, W / 2, H / 2, W * 0.72);
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(1, `rgba(0,0,0,${(vigAmt * 0.75).toFixed(3)})`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    const grainAmt = parseInt(ui.filmGrain.value, 10) / 100;
+    if (grainAmt > 0.01) {
+      ctx.save();
+      ctx.fillStyle = `rgba(255, 250, 235, ${(grainAmt * 0.07).toFixed(3)})`;
+      const seedOffset = Math.floor(t * 24) * 97;
+      for (let i = 0; i < 65; i++) {
+        const gx = ((i * 7919 + seedOffset * 131) % W);
+        const gy = ((i * 6271 + seedOffset * 257) % H);
+        ctx.fillRect(gx, gy, 2, 2);
+      }
+      ctx.restore();
+    }
+  }
+
+  function hexToRgba(hex, alpha) {
+    const clean = (hex || '#000000').replace('#', '');
+    const r = parseInt(clean.substring(0, 2), 16) || 0;
+    const g = parseInt(clean.substring(2, 4), 16) || 0;
+    const b = parseInt(clean.substring(4, 6), 16) || 0;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  // ============================================================================
+  // 12. PLAYBACK, BINDINGS, PROJECT JSON & VIDEO+VOICEOVER EXPORT
+  // ============================================================================
+  function formatTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = (sec % 60).toFixed(2).padStart(5, '0');
+    return `${String(m).padStart(2, '0')}:${s}`;
+  }
+
+  function syncLabelsAndRender(rebuildPages = false) {
+    document.getElementById('valAutoTargetsPerPage').textContent = ui.autoTargetsPerPage.value;
+    document.getElementById('valWordsPerPage').textContent = ui.autoWordsPerPage.value;
+
+    document.getElementById('valDimSurround').textContent = `${ui.dimSurrounding.value}%`;
+    document.getElementById('valFocusFeather').textContent = `${ui.focusFeather.value}px`;
+    document.getElementById('valFocusBlur').textContent = `${parseFloat(ui.focusBlur.value).toFixed(1)}px`;
+    document.getElementById('valFocusPad').textContent = `${ui.focusPadding.value}px`;
+    document.getElementById('valFocusRadius').textContent = `${ui.focusRadius.value}px`;
+    document.getElementById('valFocusRim').textContent = `${ui.focusRim.value}%`;
+    document.getElementById('valMarkerRough').textContent = `${ui.markerRoughness.value}%`;
+
+    document.getElementById('valCurlEnd').textContent = `${parseFloat(ui.curlEnd.value).toFixed(2)}s`;
+    document.getElementById('valCurlAngle').textContent = `${ui.curlAngle.value}°`;
+    document.getElementById('valCurlDepth').textContent = `${ui.curlDepth.value}px`;
+    document.getElementById('valShadOp').textContent = `${ui.shadowOpacity.value}%`;
+    document.getElementById('valShadBlur').textContent = `${ui.shadowBlur.value}px`;
+    document.getElementById('valShadReach').textContent = `${ui.shadowReach.value}px`;
+    document.getElementById('valCreaseAO').textContent = `${ui.creaseAO.value}%`;
+    document.getElementById('valRollShade').textContent = `${ui.rollShade.value}%`;
+    document.getElementById('valFlapSpec').textContent = `${ui.flapSpecular.value}%`;
+    document.getElementById('valBackBleed').textContent = `${ui.backfaceBleed.value}%`;
+
+    document.getElementById('valStackTilt').textContent = `${ui.stackTiltSpread.value}%`;
+    document.getElementById('valStackScatter').textContent = `${ui.stackScatter.value}%`;
+    document.getElementById('valSwapDur').textContent = `${parseFloat(ui.swapDuration.value).toFixed(2)}s`;
+    document.getElementById('valPageShadow').textContent = `${ui.pageDropShadow.value}%`;
+    document.getElementById('valSwingDist').textContent = `${ui.swingDistance.value}px`;
+    document.getElementById('valArcDip').textContent = `${ui.arcDip.value}%`;
+    document.getElementById('valFilmGrain').textContent = `${ui.filmGrain.value}%`;
+    document.getElementById('valVignette').textContent = `${ui.lensVignette.value}%`;
+
+    document.getElementById('valFontSize').textContent = `${ui.bodyFontSize.value}px`;
+    document.getElementById('valEdgeWear').textContent = `${ui.edgeWear.value}%`;
+
+    document.getElementById('valVoVol').textContent = `${ui.voVolume.value}%`;
+    document.getElementById('valVoOffset').textContent = `${parseFloat(ui.voStartOffset.value).toFixed(1)}s`;
+    if (voGainNode) {
+      voGainNode.gain.value = parseInt(ui.voVolume.value, 10) / 100;
+    }
+
+    document.getElementById('valSfxPaper').textContent = `${ui.sfxPaperVol.value}%`;
+    document.getElementById('valSfxMarker').textContent = `${ui.sfxMarkerVol.value}%`;
+    document.getElementById('valSfxWhoosh').textContent = `${ui.sfxWhooshVol.value}%`;
+
+    if (rebuildPages) {
+      renderAllStaticPages();
+    }
+
+    buildScheduleAndUpdateBadges();
+
+    ui.scrubber.max = totalSequenceDuration;
+    if (currentTime > totalSequenceDuration) {
+      currentTime = totalSequenceDuration;
+    }
+
+    const pct = totalSequenceDuration > 0 ? (currentTime / totalSequenceDuration) * 100 : 0;
+    ui.trackPlayhead.style.left = `${pct}%`;
+    ui.timeReadout.textContent = `${formatTime(currentTime)} / ${formatTime(totalSequenceDuration)}`;
+    renderFrameAtTime(currentTime);
+  }
+
+  function animationLoop(now) {
+    if (!isPlaying) return;
+    const dt = (now - lastFrameWall) / 1000;
+    lastFrameWall = now;
+
+    currentTime += dt;
+
+    if (currentTime >= totalSequenceDuration) {
+      currentTime = totalSequenceDuration;
+      pausePlayback();
+    }
+
+    ui.scrubber.value = currentTime;
+    const pct = totalSequenceDuration > 0 ? (currentTime / totalSequenceDuration) * 100 : 0;
+    ui.trackPlayhead.style.left = `${pct}%`;
+    ui.timeReadout.textContent = `${formatTime(currentTime)} / ${formatTime(totalSequenceDuration)}`;
+    renderFrameAtTime(currentTime);
+
+    if (isPlaying) {
+      requestAnimationFrame(animationLoop);
+    }
+  }
+
+  function startPlayback() {
+    ensureAudioEngine();
+    if (isArrangeStackMode) setArrangeStackMode(false);
+    if (currentTime >= totalSequenceDuration) {
+      currentTime = 0;
+      triggeredSoundKeys.clear();
+    }
+    isPlaying = true;
+    ui.playBtn.textContent = '⏸ Pause';
+    lastFrameWall = performance.now();
+    startVoiceoverAt(currentTime);
+    requestAnimationFrame(animationLoop);
+  }
+
+  function pausePlayback() {
+    isPlaying = false;
+    stopVoiceoverPlayback();
+    ui.playBtn.textContent = '▶ Play';
+  }
+
+  ui.playBtn.addEventListener('click', () => {
+    if (isExporting) return;
+    if (isPlaying) pausePlayback();
+    else startPlayback();
+  });
+
+  ui.restartBtn.addEventListener('click', () => {
+    if (isExporting) return;
+    currentTime = 0;
+    triggeredSoundKeys.clear();
+    ui.scrubber.value = 0;
+    syncLabelsAndRender(false);
+    startPlayback();
+  });
+
+  ui.scrubber.addEventListener('input', () => {
+    if (isExporting) return;
+    pausePlayback();
+    currentTime = parseFloat(ui.scrubber.value);
+    syncLabelsAndRender(false);
+  });
+
+  ui.inspectFocusBtn.addEventListener('click', () => {
+    pausePlayback();
+    setArrangeStackMode(false);
+    if (computedSchedule.length > 0) {
+      currentTime = computedSchedule[0].hlEnd;
+      ui.scrubber.value = currentTime;
+      syncLabelsAndRender(false);
+    }
+  });
+
+  ui.previewCurlBtn.addEventListener('click', () => {
+    pausePlayback();
+    setArrangeStackMode(false);
+    const curlEnd = parseFloat(ui.curlEnd.value);
+    currentTime = Math.max(0.25, curlEnd * 0.38);
+    ui.scrubber.value = currentTime;
+    syncLabelsAndRender(false);
+  });
+
+  ui.shuffleTiltBtn.addEventListener('click', () => {
+    pages.forEach((p, idx) => {
+      const sign = idx % 2 === 0 ? -1 : 1;
+      p.tiltDeg = +(sign * (2.5 + Math.random() * 6.5)).toFixed(1);
+      p.posX = Math.round((Math.random() - 0.5) * 85);
+      p.posY = Math.round((Math.random() - 0.5) * 65);
+    });
+    renderStackArrangerDOM();
+    syncLabelsAndRender(false);
+  });
+
+  ui.aspectRatio.addEventListener('change', () => {
+    const val = ui.aspectRatio.value;
+    if (val === '16:9') {
+      stageCanvas.width = 1920;
+      stageCanvas.height = 1080;
+      canvasFrame.style.aspectRatio = '16 / 9';
+    } else if (val === '9:16') {
+      stageCanvas.width = 1080;
+      stageCanvas.height = 1920;
+      canvasFrame.style.aspectRatio = '9 / 16';
+    } else if (val === '1:1') {
+      stageCanvas.width = 1080;
+      stageCanvas.height = 1080;
+      canvasFrame.style.aspectRatio = '1 / 1';
+    }
+    syncLabelsAndRender(false);
+  });
+
+  [
+    { el: ui.mastheadTitle, key: 'mastheadTitle' },
+    { el: ui.mastheadSub, key: 'mastheadSub' },
+    { el: ui.headlineText, key: 'headline' },
+    { el: ui.subheadText, key: 'subhead' },
+    { el: ui.leftColText, key: 'leftCol' },
+    { el: ui.rightColText, key: 'rightCol' },
+    { el: ui.paperTone, key: 'paperTone' },
+    { el: ui.pagePhotoType, key: 'photoType' },
+    { el: ui.pagePhotoPlacement, key: 'photoPlacement' },
+    { el: ui.pagePhotoCaption, key: 'photoCaption' }
+  ].forEach(({ el, key }) => {
+    el.addEventListener('input', () => {
+      const p = pages[activeEditPageIndex];
+      if (!p) return;
+      p[key] = el.value;
+      if (key === 'photoType') {
+        ui.customImageRow.style.display = p.photoType === 'custom' ? 'block' : 'none';
+      }
+      syncLabelsAndRender(true);
+    });
+  });
+
+  ui.customPhotoInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const img = new Image();
+    img.onload = () => {
+      pages[activeEditPageIndex].customPhotoImg = img;
+      syncLabelsAndRender(true);
+    };
+    img.src = URL.createObjectURL(file);
+  });
+
+  [ui.bodyFontSize, ui.edgeWear, ui.useDropCap, ui.justifyText].forEach(el => {
+    el.addEventListener('input', () => syncLabelsAndRender(true));
+  });
+
+  [
+    ui.autoTargetsPerPage,
+    ui.autoWordsPerPage,
+    ui.autoPickerStrategy,
+    ui.autoAnnotationPreset,
+    ui.focusShape,
+    ui.focusSyncMode,
+    ui.dimSurrounding,
+    ui.focusFeather,
+    ui.focusBlur,
+    ui.focusPadding,
+    ui.focusRadius,
+    ui.focusRim,
+    ui.focusColor,
+    ui.markerRoughness,
+    ui.keepPreviousHighlights,
+    ui.curlCorner,
+    ui.curlEnd,
+    ui.curlAngle,
+    ui.curlDepth,
+    ui.uncurlOnSwap,
+    ui.shadowOpacity,
+    ui.shadowBlur,
+    ui.shadowReach,
+    ui.creaseAO,
+    ui.rollShade,
+    ui.flapSpecular,
+    ui.backfaceBleed,
+    ui.shadowColor,
+    ui.stackMode,
+    ui.swapStyle,
+    ui.stackTiltSpread,
+    ui.stackScatter,
+    ui.swapDuration,
+    ui.pageDropShadow,
+    ui.swingDistance,
+    ui.stageBgStyle,
+    ui.camEasing,
+    ui.arcDip,
+    ui.filmGrain,
+    ui.lensVignette,
+    ui.enableDrift,
+    ui.zoomOutAtEnd,
+    ui.voVolume,
+    ui.voStartOffset,
+    ui.lockDurationToVO,
+    ui.sfxPaperVol,
+    ui.sfxMarkerVol,
+    ui.sfxWhooshVol
+  ].forEach(el => {
+    el.addEventListener('input', () => syncLabelsAndRender(false));
+  });
+
+  ui.snapshotBtn.addEventListener('click', () => {
+    const url = stageCanvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `paper-studio-frame-${currentTime.toFixed(2)}s.png`;
+    a.click();
+  });
+
+  ui.saveJsonBtn.addEventListener('click', () => {
+    const cleanPages = pages.map(p => ({
+      ...p,
+      canvas: null,
+      words: [],
+      customPhotoImg: null
+    }));
+    const payload = JSON.stringify({ pages: cleanPages, initialStackOrder, targets }, null, 2);
+    const blob = new Blob([payload], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'paper-studio-project.json';
+    a.click();
+  });
+
+  ui.loadJsonInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (Array.isArray(data.pages) && data.pages.length > 0) {
+          pages = data.pages;
+          activeEditPageIndex = 0;
+        }
+        if (Array.isArray(data.initialStackOrder)) {
+          initialStackOrder = data.initialStackOrder;
+        } else {
+          initialStackOrder = pages.map((_, i) => i);
+        }
+        if (Array.isArray(data.targets) && data.targets.length > 0) {
+          targets = data.targets;
+        }
+        renderPageTabsDOM();
+        renderStackArrangerDOM();
+        loadActivePageIntoInputs();
+        renderTargetCardsDOM();
+        syncLabelsAndRender(true);
+      } catch (err) {
+        alert('Invalid project JSON file.');
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  // 1080p 60fps Video + Voiceover + Foley SFX Exporter
+  ui.exportBtn.addEventListener('click', async () => {
+    if (isExporting) return;
+    pausePlayback();
+    setArrangeStackMode(false);
+    ensureAudioEngine();
+    triggeredSoundKeys.clear();
+    isExporting = true;
+
+    ui.exportBtn.disabled = true;
+    ui.playBtn.disabled = true;
+    ui.restartBtn.disabled = true;
+    ui.recordingPill.style.display = 'flex';
+
+    const mimeCandidates = [
+      'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+      'video/mp4',
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm'
+    ];
+    const mimeType = mimeCandidates.find(m => MediaRecorder.isTypeSupported(m)) || 'video/webm';
+    const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+
+    const videoStream = stageCanvas.captureStream(60);
+    // Attach combined Audio Stream (Voiceover + Foley SFX) if either is active
+    if ((voiceoverBuffer || ui.sfxEnabled.checked) && audioDestNode) {
+      const audioTracks = audioDestNode.stream.getAudioTracks();
+      if (audioTracks.length > 0) {
+        videoStream.addTrack(audioTracks[0]);
+      }
+    }
+
+    const recorder = new MediaRecorder(videoStream, {
+      mimeType,
+      videoBitsPerSecond: parseInt(ui.videoBitrate.value, 10)
+    });
+
+    const chunks = [];
+    recorder.ondataavailable = e => {
+      if (e.data && e.data.size > 0) chunks.push(e.data);
+    };
+
+    recorder.onstop = () => {
+      stopVoiceoverPlayback();
+      const blob = new Blob(chunks, { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `paper-studio-pro-export.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      isExporting = false;
+      ui.exportBtn.disabled = false;
+      ui.playBtn.disabled = false;
+      ui.restartBtn.disabled = false;
+      ui.recordingPill.style.display = 'none';
+    };
+
+    const totalDur = totalSequenceDuration;
+    const startExportTime = performance.now();
+    recorder.start();
+    startVoiceoverAt(0);
+
+    function recordTick(now) {
+      const elapsed = (now - startExportTime) / 1000;
+      currentTime = Math.min(totalDur, elapsed);
+      ui.scrubber.value = currentTime;
+      const pct = totalDur > 0 ? (currentTime / totalDur) * 100 : 0;
+      ui.trackPlayhead.style.left = `${pct}%`;
+      ui.timeReadout.textContent = `${formatTime(currentTime)} / ${formatTime(totalDur)}`;
+      ui.recordingText.textContent = `EXPORTING ${Math.round(pct)}%`;
+
+      renderFrameAtTime(currentTime);
+
+      if (elapsed < totalDur) {
+        requestAnimationFrame(recordTick);
+      } else {
+        recorder.stop();
+      }
+    }
+
+    requestAnimationFrame(recordTick);
+  });
+
+
+  // ---- headless hook (added by studios/paper-animation-studio/make_headless.py) ----
+  window.__paper = {
+    async load(data) {
+      pausePlayback();
+      window.__BAND = data.band || 0;  // px hidden by cinema bars top+bottom: fit the page inside
+      const settings = data.settings || {};
+      for (const [id, val] of Object.entries(settings)) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.type === 'checkbox') el.checked = !!val; else el.value = String(val);
+        el.dispatchEvent(new Event('change'));
+      }
+      pages = data.pages.map(p => ({ ...p, canvas: null, words: [], customPhotoImg: null }));
+      for (let i = 0; i < data.pages.length; i++) {
+        const src = data.pages[i].photoDataUrl;
+        if (src) {
+          const img = new Image();
+          await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = src; });
+          pages[i].customPhotoImg = img;
+          pages[i].photoType = 'custom';
+        }
+      }
+      initialStackOrder = Array.isArray(data.initialStackOrder) ? data.initialStackOrder : pages.map((_, i) => i);
+      targets = data.targets;
+      activeEditPageIndex = 0;
+      renderPageTabsDOM(); renderStackArrangerDOM(); loadActivePageIntoInputs(); renderTargetCardsDOM();
+      await document.fonts.ready;
+      syncLabelsAndRender(true);
+      pausePlayback();
+      return { duration: totalSequenceDuration, w: stageCanvas.width, h: stageCanvas.height,
+               missing: computedSchedule.map((s, i) => (s && s.found === false) ? targets[i].phrase : null).filter(Boolean) };
+    },
+    duration() { return totalSequenceDuration; },
+    frame(t, q) { currentTime = t; renderFrameAtTime(t); return stageCanvas.toDataURL('image/jpeg', q || 0.93); },
+    schedule() { return computedSchedule; }
+  };
+  // Initialize Studio
+  buildPaperGrainTexture();
+  renderPageTabsDOM();
+  renderStackArrangerDOM();
+  loadActivePageIntoInputs();
+  renderTargetCardsDOM();
+  document.fonts.ready.then(() => {
+    syncLabelsAndRender(true);
+    if (!window.__HEADLESS) startPlayback();
+  });
+})();
+</script>
+</body>
+</html>

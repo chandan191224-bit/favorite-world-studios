@@ -1,0 +1,247 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "52, 15",
+   "zoom": 2.25,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 9,
+   "place": "55, 25",
+   "zoom": 2.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "सीलबंद ट्रेन",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 7.5,
+   "places": [
+    "47.37, 8.54",
+    "52.52, 13.40",
+    "59.33, 18.07",
+    "59.93, 30.31"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 40
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.6,
+   "endSec": 9,
+   "places": [
+    "47.37, 8.54"
+   ],
+   "text": "ज़्यूरिख",
+   "subtext": "",
+   "color": "#6b6257",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.0,
+   "endSec": 9,
+   "places": [
+    "52.52, 13.40"
+   ],
+   "text": "बर्लिन",
+   "subtext": "",
+   "color": "#6b6257",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.0,
+   "endSec": 9,
+   "places": [
+    "59.33, 18.07"
+   ],
+   "text": "स्टॉकहोम",
+   "subtext": "",
+   "color": "#6b6257",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.4,
+   "endSec": 9,
+   "places": [
+    "59.93, 30.31"
+   ],
+   "text": "पेट्रोग्राद",
+   "subtext": "1917",
+   "color": "#a3141a",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title सीलबंद ट्रेन",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 8.4,
+   "text": "सीलबंद ट्रेन",
+   "subtext": "लेनिन की वापसी",
+   "anchor": "bottom-left",
+   "size": 56,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 7.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 7.6000000000000005,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

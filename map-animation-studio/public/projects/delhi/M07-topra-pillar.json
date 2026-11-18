@@ -1,0 +1,133 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "parchment",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "29.5, 77.0",
+   "zoom": 5.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.4,
+   "place": "30.0, 77.2",
+   "zoom": 7.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "29.2, 77.2",
+   "zoom": 7.1,
+   "bearing": 8,
+   "pitch": 35,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.0,
+   "endSec": 8,
+   "places": [
+    "Topra (30.12, 77.16)"
+   ],
+   "text": "TOPRA",
+   "subtext": "near Ambala",
+   "color": "#3a2a1a",
+   "size": 78,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.8,
+   "endSec": 6.6,
+   "places": [
+    "30.12, 77.16",
+    "30.0, 77.35",
+    "29.4, 77.2",
+    "28.636, 77.243"
+   ],
+   "mode": "straight",
+   "vehicle": "boat",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 40
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.2,
+   "endSec": 8,
+   "places": [
+    "Feroz Shah Kotla (28.636, 77.243)"
+   ],
+   "text": "FEROZ SHAH KOTLA",
+   "subtext": "the pillar still stands",
+   "color": "#a3141a",
+   "size": 84,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

@@ -1,0 +1,3 @@
+# Templates brief
+
+Create and own ONE file, src/ui/templates.js. Read CONTRACT.md. Provide at least 12 complete editable, fictional projects across cork/noir/maps/timelines/relationships/dossiers/archives/whiteboard/forensics, plus 12 or more editable camera presets and node defaults. Every clue, connection and shot is JSON data. Layouts must have varied paper types/rotations, readable titles, intentional spacing, continuous shot endpoints and reveal timing before targeted shots. No copied paid assets or real accusations. Parent owns UI and exports; do not edit its files. Validate serialization, bounds, edge endpoints and camera continuity; parent visually reviews all presets and tests real playback.

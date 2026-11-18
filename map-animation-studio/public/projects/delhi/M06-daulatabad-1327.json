@@ -1,0 +1,142 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "26.0, 79.0",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "Delhi (28.61, 77.21)",
+   "zoom": 5.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6.0,
+   "place": "23.6, 76.4",
+   "zoom": 4.6,
+   "bearing": 0,
+   "pitch": 30,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "21.5, 75.8",
+   "zoom": 4.9,
+   "bearing": 0,
+   "pitch": 35,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 8,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "capital",
+   "color": "#3a2a1a",
+   "size": 78,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.4,
+   "endSec": 6.6,
+   "places": [
+    "28.61, 77.21",
+    "26.22, 78.18",
+    "23.18, 75.78",
+    "19.94, 75.21"
+   ],
+   "mode": "straight",
+   "vehicle": "walker",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.2,
+   "endSec": 8,
+   "places": [
+    "Daulatabad (19.94, 75.21)"
+   ],
+   "text": "DAULATABAD",
+   "subtext": "~1,100 km south",
+   "color": "#a3141a",
+   "size": 89,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "vishal_hindi_documentary_e5c6",
+    "name": "Vishal Hindi Documentary",
+    "lang": "hi",
+    "engine": "chatterbox",
+    "ref_path": "studios/voiceover-studio/voices/vishal_hindi_documentary_e5c6/master_ref.wav",
+    "clips_count": 133,
+    "duration_sec": 929.0,
+    "appended_to_dataset": 133,
+    "badge": "Custom · 133 Clips (929.0s)",
+    "description": "Trained from 1 uploaded voiceover file(s).",
+    "created_at": "2026-11-16T13:00:02"
+  }
+]

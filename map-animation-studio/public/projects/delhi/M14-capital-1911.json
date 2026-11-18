@@ -1,0 +1,132 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "23.0, 82.0",
+   "zoom": 2.8,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "22.57, 88.36",
+   "zoom": 5.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "26.5, 81.5",
+   "zoom": 4.2,
+   "bearing": 0,
+   "pitch": 30,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 8,
+   "places": [
+    "Calcutta (22.57, 88.36)"
+   ],
+   "text": "CALCUTTA",
+   "subtext": "capital till 1911",
+   "color": "#3a2a1a",
+   "size": 78,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.6,
+   "endSec": 6.2,
+   "places": [
+    "22.57, 88.36",
+    "25.4, 83.0",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "train",
+   "routeStyle": "glow",
+   "color": "#a3141a",
+   "size": 42
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 5.8,
+   "endSec": 8,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "new capital · 12 Dec 1911",
+   "color": "#a3141a",
+   "size": 89,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

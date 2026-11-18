@@ -1,0 +1,237 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 11,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "55, 55",
+   "zoom": 2.15,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 11,
+   "place": "55, 55",
+   "zoom": 2.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.5,
+   "endSec": 11,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "लाल",
+   "subtext": "मास्को",
+   "color": "#a3141a",
+   "size": 56,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.0,
+   "endSec": 11,
+   "places": [
+    "54.99, 73.37"
+   ],
+   "text": "सफ़ेद",
+   "subtext": "ओम्स्क",
+   "color": "#1f4e8c",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.5,
+   "endSec": 11,
+   "places": [
+    "44.72, 37.77"
+   ],
+   "text": "सफ़ेद",
+   "subtext": "नोवोरोस्सिएस्क",
+   "color": "#1f4e8c",
+   "size": 50,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.0,
+   "endSec": 11,
+   "places": [
+    "54.99, 73.37",
+    "55.5, 60.0",
+    "55.79, 49.12"
+   ],
+   "text": "",
+   "color": "#1f4e8c",
+   "size": 46
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.0,
+   "endSec": 11,
+   "places": [
+    "44.72, 37.77",
+    "47.5, 36.0",
+    "49.99, 36.23"
+   ],
+   "text": "",
+   "color": "#1f4e8c",
+   "size": 46
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 4.0,
+   "endSec": 11,
+   "places": [
+    "64.54, 40.54",
+    "61.0, 35.0",
+    "59.93, 30.31"
+   ],
+   "text": "",
+   "color": "#1f4e8c",
+   "size": 46
+  },
+  {
+   "name": "title गृह युद्ध",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 10.4,
+   "text": "गृह युद्ध",
+   "subtext": "1918–21",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

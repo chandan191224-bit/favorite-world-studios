@@ -1,0 +1,314 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "52, 15",
+   "zoom": 2.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "52, 15",
+   "zoom": 2.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "United Kingdom"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "France"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Italy"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Norway"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Netherlands"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Belgium"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Portugal"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Greece"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Turkey"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#1f4e8c",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Russia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Poland"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Czechia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Slovakia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Hungary"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Romania"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 10,
+   "places": [
+    "Bulgaria"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "title शीत युद्ध",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 9.4,
+   "text": "शीत युद्ध",
+   "subtext": "NATO बनाम वारसा संधि",
+   "anchor": "bottom-left",
+   "size": 56,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 8.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 8.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

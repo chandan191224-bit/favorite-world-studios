@@ -1,0 +1,143 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 6,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "India",
+   "zoom": 3.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 3.4,
+   "place": "Lahore",
+   "zoom": 6.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6,
+   "place": "Lahore",
+   "zoom": 6.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 3.2,
+   "endSec": 6,
+   "places": [
+    "Lahore"
+   ],
+   "color": "#a3141a",
+   "size": 80
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.4,
+   "endSec": 6,
+   "places": [
+    "Lahore"
+   ],
+   "text": "लाहौर",
+   "subtext": "रावी तट · 31 दिसंबर 1929",
+   "color": "#a3141a",
+   "size": 80,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "title पूर्ण स्वराज",
+   "type": "text",
+   "startSec": 0.4,
+   "endSec": 3.2,
+   "text": "पूर्ण स्वराज",
+   "subtext": "कांग्रेस अधिवेशन, लाहौर",
+   "anchor": "top",
+   "size": 64,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 2.35,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 2.75,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

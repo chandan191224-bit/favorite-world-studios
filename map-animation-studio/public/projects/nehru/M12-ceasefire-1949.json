@@ -1,0 +1,131 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "34.6, 75.6",
+   "zoom": 5.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 8,
+   "place": "34.6, 75.6",
+   "zoom": 5.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 8,
+   "places": [
+    "Jammu and Kashmir"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#e07b1f",
+   "text": "भारत के नियंत्रण में",
+   "subtext": ""
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 8,
+   "places": [
+    "Ladakh"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#e07b1f",
+   "text": ""
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 1.4,
+   "endSec": 8,
+   "places": [
+    "file:areas/pak-held-jk.geojson"
+   ],
+   "level": "auto",
+   "highlightStyle": "hatch",
+   "color": "#2e7d4f",
+   "text": "पाकिस्तान के कब्ज़े में",
+   "subtext": ""
+  },
+  {
+   "name": "title 1 जनवरी 1949 · युद्धविराम",
+   "type": "text",
+   "startSec": 0.4,
+   "endSec": 8,
+   "text": "1 जनवरी 1949 · युद्धविराम",
+   "subtext": "विवाद आज तक अनसुलझा",
+   "anchor": "top",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 7.1499999999999995,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 7.55,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

@@ -1,0 +1,143 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "52.0, 24.0",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "52.0, 23.0",
+   "zoom": 3.05,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "पोलैंड",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 10,
+   "places": [
+    "Poland"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "पोलैंड",
+   "subtext": ""
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.2,
+   "endSec": 10,
+   "places": [
+    "53.90, 27.57",
+    "52.23, 21.01"
+   ],
+   "text": "रूस",
+   "color": "#a3141a",
+   "size": 46
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.4,
+   "endSec": 10,
+   "places": [
+    "54.71, 20.51",
+    "52.23, 21.01"
+   ],
+   "text": "प्रशिया",
+   "color": "#1f4e8c",
+   "size": 46
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.6,
+   "endSec": 10,
+   "places": [
+    "49.84, 24.03",
+    "52.23, 21.01"
+   ],
+   "text": "ऑस्ट्रिया",
+   "color": "#b8862b",
+   "size": 46
+  },
+  {
+   "name": "title तीन बार बँटवारा",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 9.4,
+   "text": "तीन बार बँटवारा",
+   "subtext": "1772 · 1793 · 1795",
+   "anchor": "bottom-left",
+   "size": 56,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 8.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 8.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

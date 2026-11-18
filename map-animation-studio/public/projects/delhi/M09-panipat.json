@@ -1,0 +1,128 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "military",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.0, 78.0",
+   "zoom": 4.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 3.0,
+   "place": "29.2, 77.0",
+   "zoom": 7.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "29.2, 77.0",
+   "zoom": 7.5,
+   "bearing": -15,
+   "pitch": 45,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 2.8,
+   "endSec": 8,
+   "places": [
+    "Panipat (29.39, 76.97)"
+   ],
+   "color": "#a3141a",
+   "size": 80
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.8,
+   "endSec": 8,
+   "places": [
+    "Panipat (29.39, 76.97)"
+   ],
+   "text": "PANIPAT",
+   "subtext": "1526 · 1556",
+   "color": "#a3141a",
+   "size": 94,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.6,
+   "endSec": 8,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "~90 km south",
+   "color": "#3a2a1a",
+   "size": 70,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

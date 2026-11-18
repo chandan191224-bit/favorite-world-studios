@@ -1,0 +1,106 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "24.5, 80.5",
+   "zoom": 3.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 8,
+   "place": "24.5, 80.5",
+   "zoom": 3.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 8,
+   "places": [
+    "Bihar"
+   ],
+   "level": "state",
+   "highlightStyle": "glow",
+   "color": "#e07b1f",
+   "text": "बिहार"
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.0,
+   "endSec": 8,
+   "places": [
+    "25.6, 85.1",
+    "28.61, 77.21"
+   ],
+   "color": "#a3141a",
+   "text": "दिल्ली",
+   "size": 54
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.6,
+   "endSec": 8,
+   "places": [
+    "25.6, 85.1",
+    "30.9, 75.85"
+   ],
+   "color": "#a3141a",
+   "text": "पंजाब",
+   "size": 54
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.2,
+   "endSec": 8,
+   "places": [
+    "25.6, 85.1",
+    "19.08, 72.88"
+   ],
+   "color": "#a3141a",
+   "text": "मुंबई",
+   "size": 54
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.8,
+   "endSec": 8,
+   "places": [
+    "25.6, 85.1",
+    "22.57, 88.36"
+   ],
+   "color": "#a3141a",
+   "text": "कोलकाता",
+   "size": 54
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

@@ -1,0 +1,223 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 11,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "53.5, 38",
+   "zoom": 3.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 11,
+   "place": "53.5, 37",
+   "zoom": 3.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.5,
+   "endSec": 11,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.2,
+   "endSec": 11,
+   "places": [
+    "55.75, 37.62",
+    "53.65, 38.65"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 48
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.2,
+   "endSec": 11,
+   "places": [
+    "53.65, 38.65"
+   ],
+   "text": "कुलिकोवो",
+   "subtext": "1380",
+   "color": "#a3141a",
+   "size": 58,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "उग्रा",
+   "type": "route",
+   "startSec": 5.2,
+   "endSec": 9.5,
+   "places": [
+    "55.75, 37.62",
+    "54.60, 35.40"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#1f4e8c",
+   "size": 40
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 5.8,
+   "endSec": 11,
+   "places": [
+    "54.60, 35.40"
+   ],
+   "text": "उग्रा नदी",
+   "subtext": "1480",
+   "color": "#1f4e8c",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title गुलामी का अंत",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 10.4,
+   "text": "गुलामी का अंत",
+   "subtext": "1380 · 1480",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

@@ -1,0 +1,183 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 14,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "30, 60",
+   "zoom": 1.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4,
+   "place": "63, 98",
+   "zoom": 1.15,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 14,
+   "place": "63, 98",
+   "zoom": 1.22,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "रूस",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 14,
+   "places": [
+    "Russia"
+   ],
+   "level": "country",
+   "highlightStyle": "outline-draw",
+   "color": "#a3141a",
+   "text": "रूस",
+   "subtext": ""
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.0,
+   "endSec": 14,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#a3141a",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.2,
+   "endSec": 14,
+   "places": [
+    "56.0, 159.0"
+   ],
+   "text": "कामचटका",
+   "subtext": "",
+   "color": "#b8862b",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title रूस",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 13.6,
+   "text": "रूस",
+   "subtext": "17 मिलियन वर्ग किमी · 11 टाइम ज़ोन",
+   "anchor": "bottom-left",
+   "size": 62,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 12.35,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 12.799999999999999,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

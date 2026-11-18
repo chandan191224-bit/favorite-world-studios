@@ -1,0 +1,99 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "dark",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.70, 77.30",
+   "zoom": 8.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4.0,
+   "place": "28.64, 77.21",
+   "zoom": 9.9,
+   "bearing": -12,
+   "pitch": 38,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "28.62, 77.20",
+   "zoom": 10.3,
+   "bearing": -24,
+   "pitch": 45,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 2.4,
+   "endSec": 9,
+   "places": [
+    "Delhi Ridge (28.62, 77.165)"
+   ],
+   "level": "radius",
+   "radiusKm": 4,
+   "highlightStyle": "hatch",
+   "color": "#b8862b",
+   "text": "ARAVALLI RIDGE",
+   "subtext": "a natural wall"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.6,
+   "endSec": 9,
+   "places": [
+    "Yamuna (28.66, 77.26)"
+   ],
+   "text": "YAMUNA RIVER",
+   "subtext": "water · farming · trade",
+   "color": "#1f4e8c",
+   "size": 81,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

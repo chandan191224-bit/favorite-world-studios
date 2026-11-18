@@ -1,0 +1,1 @@
+{"name":"timeline-animation-studio-pro","version":"1.0.0","private":true,"type":"module","scripts":{"build":"node build.mjs","start":"node serve.mjs","phone":"node phone.mjs","test":"node qa.mjs"}}

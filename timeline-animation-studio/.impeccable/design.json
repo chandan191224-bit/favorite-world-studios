@@ -1,0 +1,503 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T20:04:35.006757+00:00",
+  "title": "Design System: Timeline Animation Studio Pro",
+  "extensions": {
+    "colorMeta": {
+      "amber": {
+        "role": "primary",
+        "displayName": "Control Amber",
+        "tonalRamp": [
+          "oklch(15% 0.13635 79.12)",
+          "oklch(26% 0.13635 79.12)",
+          "oklch(38% 0.13635 79.12)",
+          "oklch(49% 0.13635 79.12)",
+          "oklch(61% 0.13635 79.12)",
+          "oklch(72% 0.13635 79.12)",
+          "oklch(84% 0.13635 79.12)",
+          "oklch(95% 0.13635 79.12)"
+        ]
+      },
+      "amber-hover": {
+        "role": "primary",
+        "displayName": "Light Amber",
+        "tonalRamp": [
+          "oklch(15% 0.12606 79.91)",
+          "oklch(26% 0.12606 79.91)",
+          "oklch(38% 0.12606 79.91)",
+          "oklch(49% 0.12606 79.91)",
+          "oklch(61% 0.12606 79.91)",
+          "oklch(72% 0.12606 79.91)",
+          "oklch(84% 0.12606 79.91)",
+          "oklch(95% 0.12606 79.91)"
+        ]
+      },
+      "on-amber": {
+        "role": "primary",
+        "displayName": "Amber Ink",
+        "tonalRamp": [
+          "oklch(15% 0.02236 81.99)",
+          "oklch(26% 0.02236 81.99)",
+          "oklch(38% 0.02236 81.99)",
+          "oklch(49% 0.02236 81.99)",
+          "oklch(61% 0.02236 81.99)",
+          "oklch(72% 0.02236 81.99)",
+          "oklch(84% 0.02236 81.99)",
+          "oklch(95% 0.02236 81.99)"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Canvas Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.00881 264.33)",
+          "oklch(26% 0.00881 264.33)",
+          "oklch(38% 0.00881 264.33)",
+          "oklch(49% 0.00881 264.33)",
+          "oklch(61% 0.00881 264.33)",
+          "oklch(72% 0.00881 264.33)",
+          "oklch(84% 0.00881 264.33)",
+          "oklch(95% 0.00881 264.33)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.01254 264.28)",
+          "oklch(26% 0.01254 264.28)",
+          "oklch(38% 0.01254 264.28)",
+          "oklch(49% 0.01254 264.28)",
+          "oklch(61% 0.01254 264.28)",
+          "oklch(72% 0.01254 264.28)",
+          "oklch(84% 0.01254 264.28)",
+          "oklch(95% 0.01254 264.28)"
+        ]
+      },
+      "input": {
+        "role": "neutral",
+        "displayName": "Input Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.01122 260.65)",
+          "oklch(26% 0.01122 260.65)",
+          "oklch(38% 0.01122 260.65)",
+          "oklch(49% 0.01122 260.65)",
+          "oklch(61% 0.01122 260.65)",
+          "oklch(72% 0.01122 260.65)",
+          "oklch(84% 0.01122 260.65)",
+          "oklch(95% 0.01122 260.65)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline Slate",
+        "tonalRamp": [
+          "oklch(15% 0.01692 266.42)",
+          "oklch(26% 0.01692 266.42)",
+          "oklch(38% 0.01692 266.42)",
+          "oklch(49% 0.01692 266.42)",
+          "oklch(61% 0.01692 266.42)",
+          "oklch(72% 0.01692 266.42)",
+          "oklch(84% 0.01692 266.42)",
+          "oklch(95% 0.01692 266.42)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Soft Chalk",
+        "tonalRamp": [
+          "oklch(15% 0.00626 255.48)",
+          "oklch(26% 0.00626 255.48)",
+          "oklch(38% 0.00626 255.48)",
+          "oklch(49% 0.00626 255.48)",
+          "oklch(61% 0.00626 255.48)",
+          "oklch(72% 0.00626 255.48)",
+          "oklch(84% 0.00626 255.48)",
+          "oklch(95% 0.00626 255.48)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Secondary Slate",
+        "tonalRamp": [
+          "oklch(15% 0.02251 259.19)",
+          "oklch(26% 0.02251 259.19)",
+          "oklch(38% 0.02251 259.19)",
+          "oklch(49% 0.02251 259.19)",
+          "oklch(61% 0.02251 259.19)",
+          "oklch(72% 0.02251 259.19)",
+          "oklch(84% 0.02251 259.19)",
+          "oklch(95% 0.02251 259.19)"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Control Slate",
+        "tonalRamp": [
+          "oklch(15% 0.01602 264.26)",
+          "oklch(26% 0.01602 264.26)",
+          "oklch(38% 0.01602 264.26)",
+          "oklch(49% 0.01602 264.26)",
+          "oklch(61% 0.01602 264.26)",
+          "oklch(72% 0.01602 264.26)",
+          "oklch(84% 0.01602 264.26)",
+          "oklch(95% 0.01602 264.26)"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Warning Rose",
+        "tonalRamp": [
+          "oklch(15% 0.09800 19.48)",
+          "oklch(26% 0.09800 19.48)",
+          "oklch(38% 0.09800 19.48)",
+          "oklch(49% 0.09800 19.48)",
+          "oklch(61% 0.09800 19.48)",
+          "oklch(72% 0.09800 19.48)",
+          "oklch(84% 0.09800 19.48)",
+          "oklch(95% 0.09800 19.48)"
+        ]
+      },
+      "button-hover": {
+        "role": "neutral",
+        "displayName": "Hover Slate",
+        "tonalRamp": [
+          "oklch(15% 0.01992 260.64)",
+          "oklch(26% 0.01992 260.64)",
+          "oklch(38% 0.01992 260.64)",
+          "oklch(49% 0.01992 260.64)",
+          "oklch(61% 0.01992 260.64)",
+          "oklch(72% 0.01992 260.64)",
+          "oklch(84% 0.01992 260.64)",
+          "oklch(95% 0.01992 260.64)"
+        ]
+      },
+      "button-active": {
+        "role": "neutral",
+        "displayName": "Pressed Slate",
+        "tonalRamp": [
+          "oklch(15% 0.02368 258.37)",
+          "oklch(26% 0.02368 258.37)",
+          "oklch(38% 0.02368 258.37)",
+          "oklch(49% 0.02368 258.37)",
+          "oklch(61% 0.02368 258.37)",
+          "oklch(72% 0.02368 258.37)",
+          "oklch(84% 0.02368 258.37)",
+          "oklch(95% 0.02368 258.37)"
+        ]
+      },
+      "preset-surface": {
+        "role": "neutral",
+        "displayName": "Preset Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.01103 260.67)",
+          "oklch(26% 0.01103 260.67)",
+          "oklch(38% 0.01103 260.67)",
+          "oklch(49% 0.01103 260.67)",
+          "oklch(61% 0.01103 260.67)",
+          "oklch(72% 0.01103 260.67)",
+          "oklch(84% 0.01103 260.67)",
+          "oklch(95% 0.01103 260.67)"
+        ]
+      },
+      "hold-surface": {
+        "role": "neutral",
+        "displayName": "Camera Slate",
+        "tonalRamp": [
+          "oklch(15% 0.02569 253.23)",
+          "oklch(26% 0.02569 253.23)",
+          "oklch(38% 0.02569 253.23)",
+          "oklch(49% 0.02569 253.23)",
+          "oklch(61% 0.02569 253.23)",
+          "oklch(72% 0.02569 253.23)",
+          "oklch(84% 0.02569 253.23)",
+          "oklch(95% 0.02569 253.23)"
+        ]
+      },
+      "hold-selected": {
+        "role": "neutral",
+        "displayName": "Selected Camera Umber",
+        "tonalRamp": [
+          "oklch(15% 0.02393 82.84)",
+          "oklch(26% 0.02393 82.84)",
+          "oklch(38% 0.02393 82.84)",
+          "oklch(49% 0.02393 82.84)",
+          "oklch(61% 0.02393 82.84)",
+          "oklch(72% 0.02393 82.84)",
+          "oklch(84% 0.02393 82.84)",
+          "oklch(95% 0.02393 82.84)"
+        ]
+      },
+      "event-surface": {
+        "role": "neutral",
+        "displayName": "Event Slate",
+        "tonalRamp": [
+          "oklch(15% 0.02160 254.17)",
+          "oklch(26% 0.02160 254.17)",
+          "oklch(38% 0.02160 254.17)",
+          "oklch(49% 0.02160 254.17)",
+          "oklch(61% 0.02160 254.17)",
+          "oklch(72% 0.02160 254.17)",
+          "oklch(84% 0.02160 254.17)",
+          "oklch(95% 0.02160 254.17)"
+        ]
+      },
+      "event-selected": {
+        "role": "neutral",
+        "displayName": "Selected Event Umber",
+        "tonalRamp": [
+          "oklch(15% 0.02898 81.76)",
+          "oklch(26% 0.02898 81.76)",
+          "oklch(38% 0.02898 81.76)",
+          "oklch(49% 0.02898 81.76)",
+          "oklch(61% 0.02898 81.76)",
+          "oklch(72% 0.02898 81.76)",
+          "oklch(84% 0.02898 81.76)",
+          "oklch(95% 0.02898 81.76)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Compact brand",
+        "purpose": "Editor name only; not a hero headline."
+      },
+      "title": {
+        "displayName": "Inspector title",
+        "purpose": "Current contextual panel title."
+      },
+      "body": {
+        "displayName": "Editor body",
+        "purpose": "Default compact UI font."
+      },
+      "label": {
+        "displayName": "Control label",
+        "purpose": "Field and navigation labels."
+      },
+      "supporting": {
+        "displayName": "Supporting note",
+        "purpose": "Explanations beneath headings and controls."
+      },
+      "button": {
+        "displayName": "Neutral action",
+        "purpose": "Base action typography; Export overrides weight to 650."
+      },
+      "preset-title": {
+        "displayName": "Preset title",
+        "purpose": "Readable wrapping title below complete media."
+      },
+      "export": {
+        "displayName": "Export action",
+        "purpose": "Filled primary action uses the stronger weight of 650."
+      }
+    },
+    "shadows": [
+      {
+        "name": "stage",
+        "value": "0 10px 40px #0005",
+        "purpose": "Preview composition elevation."
+      },
+      {
+        "name": "selected-preset",
+        "value": "0 0 0 1px #dfa64a25",
+        "purpose": "Selection reinforcement."
+      },
+      {
+        "name": "dialog",
+        "value": "0 20px 100px #000a",
+        "purpose": "Modal isolation; backdrop #05070bd9."
+      },
+      {
+        "name": "toast",
+        "value": "0 8px 30px #0006",
+        "purpose": "Transient feedback."
+      },
+      {
+        "name": "crop-focus",
+        "value": "0 0 0 1px #0008",
+        "purpose": "Crosshair contrast over media."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "background-color .16s, border-color .16s",
+        "purpose": "Source control feedback; CSS default easing applies."
+      },
+      {
+        "name": "toast-transition",
+        "value": ".2s",
+        "purpose": "Inherited toast opacity/translation transition."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media(prefers-reduced-motion:reduce){*{transition:none!important}}",
+        "purpose": "Removes CSS transitions; does not claim to stop user-controlled Canvas playback."
+      },
+      {
+        "name": "documentary-pacing",
+        "value": "travel → arrival → hold",
+        "purpose": "Source behavior: selectable cinematic/smooth/linear/ease-out easing, explicit stop/continuous camera paths and optional wide ending. Full live-motion approval is not claimed."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-desktop",
+        "value": "min-width:1600px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "min-width:901px and max-width:1250px"
+      },
+      {
+        "name": "phone-layout",
+        "value": "max-width:900px"
+      },
+      {
+        "name": "narrow-phone",
+        "value": "max-width:430px"
+      }
+    ],
+    "focus": {
+      "selector": "button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,canvas:focus-visible",
+      "value": "outline:2px solid var(--amber);outline-offset:2px",
+      "source": "src/styles.css",
+      "notes": "Preserved inherited focus treatment. Native details summaries have browser focus behavior; no bespoke summary ring is asserted."
+    },
+    "icons": {
+      "source": "src/ui/icons.js",
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "strokeWidth": 1.7,
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round",
+      "sizes": "13px lanes; 14–18px tools; 16px play; 19px phone navigation",
+      "accessibility": "Inline SVG is aria-hidden; adjacent text or aria-label supplies meaning."
+    },
+    "tonalRampMethod": "Display-only synthesized OKLCH ramps: source hue/chroma, lightness 15–95%. These are not implemented CSS tokens or an approved expanded palette.",
+    "evidence": {
+      "authority": "Pinned dark/amber family; code-led corrective refinement. Descriptive North Star only; no newly approved brand, UI comp or seed.",
+      "sources": [
+        "PRODUCT.md",
+        "DOCUMENTARY_CONTRACT.md",
+        "src/styles.css",
+        "src/craft.css",
+        "src/fonts.css",
+        "src/ui/craft-parts.js",
+        "src/ui/documentary-ui.js",
+        "src/ui/craft-presets.js",
+        "src/ui/icons.js",
+        "research/CRAFT_VERDICT.md",
+        "VERIFICATION.md"
+      ],
+      "reviewScope": "Eight listed fixes resolved in static captures; 18/18 correction checks, 11/11 final-artifact checks and five decoded silent video exports reported. Physical-phone behavior, whole-surface approval and continuous-motion approval are unconfirmed."
+    }
+  },
+  "components": [
+    {
+      "name": "Export Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The filled primary action; export uses stronger weight than neutral controls.",
+      "html": "<button class=\"ds-export\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6\"/></svg>Export</button>",
+      "css": ".ds-export{font-family:Inter,'Segoe UI',sans-serif;font-size:12px;font-weight:550;min-height:32px;padding:7px 10px;border:1px solid #343a45;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background-color .16s,border-color .16s;padding:7px 14px;background:var(--amber,#efb54d);border-color:var(--amber,#efb54d);color:#1a1409;font-weight:650}.ds-export:hover{background:#ffca6d;border-color:var(--amber,#efb54d)}.ds-export:active{background:var(--amber,#efb54d)}.ds-export:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;}.ds-export:disabled{opacity:.35} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Neutral Action",
+      "kind": "button",
+      "refersTo": "button-neutral",
+      "description": "Compact neutral actions remain subordinate to Export.",
+      "html": "<button class=\"ds-neutral\">Replace image</button>",
+      "css": ".ds-neutral{font-family:Inter,'Segoe UI',sans-serif;font-size:12px;font-weight:550;min-height:32px;padding:7px 10px;border:1px solid #343a45;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background-color .16s,border-color .16s;background:var(--soft,#22262e);color:var(--text,#edf0f4)}.ds-neutral:hover{background:#2a303a;border-color:#616b7c}.ds-neutral:active{background:#323a46}.ds-neutral:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;}.ds-neutral:disabled{opacity:.35} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Undo Icon Button",
+      "kind": "button",
+      "refersTo": "button-neutral",
+      "description": "Quiet top-bar icon control with an accessible name.",
+      "html": "<button class=\"ds-undo\" aria-label=\"Undo\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 5 4 10l5 5M4 10h10a6 6 0 0 1 0 12\"/></svg></button>",
+      "css": ".ds-undo{font-family:Inter,'Segoe UI',sans-serif;font-size:12px;font-weight:550;min-height:32px;padding:7px 10px;border:1px solid #343a45;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background-color .16s,border-color .16s;width:32px;height:32px;padding:0;background:transparent;color:var(--text,#edf0f4)}.ds-undo:hover{background:transparent;border-color:#616b7c}.ds-undo:active{background:transparent}.ds-undo:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Timing Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Labeled timing field uses the native number control and tabular timing context.",
+      "html": "<label class=\"ds-field\"><span>Hold for (s)</span><input type=\"number\" value=\"3.2\" min=\"0.1\" max=\"60\" step=\"0.1\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:7px;font:11px Inter,\"Segoe UI\",sans-serif;color:#c3cddb}.ds-field input{font:12px Inter,\"Segoe UI\",sans-serif;color:var(--text,#edf0f4);background:var(--input,#111419);padding:9px 10px;min-height:35px;border:1px solid #3a424f;border-radius:6px;caret-color:var(--amber,#efb54d);transition:background-color .16s,border-color .16s}.ds-field input:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;}@media(max-width:900px){.ds-field{font-size:12px}.ds-field input{font-size:13px;min-height:39px}} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Inspector Tabs",
+      "kind": "nav",
+      "refersTo": "button-neutral",
+      "description": "Active panel uses a warm label and two-pixel underline.",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"Inspector\"><button class=\"ds-tab ds-current\" aria-current=\"page\">Edit</button><button class=\"ds-tab\">Style</button><button class=\"ds-tab\">Motion</button><button class=\"ds-tab\">Project</button></nav>",
+      "css": ".ds-tabs{display:flex;gap:2px;padding:8px 9px 0;border-bottom:1px solid var(--line,#30343d);background:var(--panel,#191c22)}.ds-tab{flex:1;border:0;border-radius:0;min-height:37px;padding:8px 4px;background:transparent;color:#b5bfcd;font:550 11px Inter,\"Segoe UI\",sans-serif;transition:background-color .16s,border-color .16s}.ds-current{color:#efc075;border-bottom:2px solid var(--amber,#efb54d)}.ds-tab:hover{background:#2a303a}.ds-tab:active{background:#323a46}.ds-tab:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Preset Card",
+      "kind": "card",
+      "refersTo": "preset-card",
+      "description": "Media-first library row; sample inline artwork only stands in for preview content.",
+      "html": "<button class=\"ds-preset\"><svg class=\"ds-thumb\" viewBox=\"0 0 320 180\" aria-label=\"Sample timeline preview\" role=\"img\"><rect width=\"320\" height=\"180\" fill=\"#11151a\"/><path d=\"M20 135H300M60 125v20M230 125v20\" stroke=\"#d9b473\"/><rect x=\"95\" y=\"25\" width=\"130\" height=\"90\" fill=\"#27313d\"/><path d=\"M110 95l35-45 25 30 15-12 25 27\" fill=\"none\" stroke=\"#a6afbd\"/></svg><span class=\"ds-info\"><strong>The space age</strong><small>Photo journey</small><span class=\"ds-description\">Large images along a continuous chronology.</span></span></button>",
+      "css": ".ds-preset{display:block;text-align:left;width:240px;min-width:0;padding:0;overflow:hidden;border:1px solid #383f4b;border-radius:6px;background:#14171c;box-shadow:none;color:var(--text,#edf0f4);font-family:Inter,\"Segoe UI\",sans-serif;cursor:pointer;transition:background-color .16s,border-color .16s}.ds-thumb{display:block;width:100%;aspect-ratio:16/9}.ds-info{display:block;padding:10px 11px 11px}.ds-info strong{display:block;font-size:12px;font-weight:600;line-height:1.4}.ds-info small{display:block;font-size:10px;color:#b0bac8;margin-top:3px}.ds-description{display:block;margin-top:6px;color:#a1adbe;font-size:10px;font-weight:400;line-height:1.5}.ds-preset:hover{background:#2a303a;border-color:#616b7c}.ds-preset:active{background:#323a46}.ds-preset:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;}.ds-preset[aria-pressed=true]{border-color:#dfa64a;box-shadow:0 0 0 1px #dfa64a25} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Camera Hold",
+      "kind": "custom",
+      "refersTo": "hold-block",
+      "description": "A selected held-camera span with a right-edge resize affordance.",
+      "html": "<button class=\"ds-hold\"><strong>1969</strong><small>3.2s</small><span class=\"ds-handle\" title=\"Drag to change this hold\"></span></button>",
+      "css": ".ds-hold{position:relative;display:flex;align-items:center;gap:5px;height:38px;min-width:130px;overflow:hidden;white-space:nowrap;padding:5px 8px;border:1px solid #b28b49;border-radius:4px;background:#3b3427;color:#f4dab1;font:10px Inter,\"Segoe UI\",sans-serif;cursor:pointer;transition:background-color .16s,border-color .16s}.ds-hold strong{font-size:11px;font-weight:600}.ds-hold small{font-size:9px;color:#becbda}.ds-handle{position:absolute;right:0;top:0;height:100%;width:8px;border-left:1px solid #687789;background:#4b5b6b60;cursor:ew-resize;touch-action:none}.ds-hold:hover{border-color:#b28b49}.ds-handle:hover{background:var(--amber,#efb54d)}.ds-hold:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;}.ds-hold:active{background:#3b3427} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    },
+    {
+      "name": "Event List Row",
+      "kind": "card",
+      "refersTo": "button-neutral",
+      "description": "Selected stop coordinates with the stage, inspector and timing lanes.",
+      "html": "<button class=\"ds-event\"><span class=\"ds-date\">1969</span><span><strong>Apollo 11</strong><small>Arrive 0.0s · hold 3.2s</small></span><span class=\"ds-order\">1</span></button>",
+      "css": ".ds-event{display:flex;gap:11px;align-items:center;text-align:left;min-height:58px;padding:12px 10px;border:1px solid #b38c48;border-radius:5px;background:#2b281f;color:var(--text,#edf0f4);font-family:Inter,\"Segoe UI\",sans-serif;transition:background-color .16s,border-color .16s}.ds-date{min-width:46px;max-width:75px;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;color:#e4bd7a}.ds-event strong{display:block;font-size:12px;line-height:1.4}.ds-event small{display:block;font-size:10px;margin-top:4px;color:#aebbd0}.ds-order{margin-left:auto;color:#96a5bb;font-size:10px}.ds-event:hover{border-color:#b38c48}.ds-event:active{background:#2b281f}.ds-event:focus-visible{outline:2px solid var(--amber,#efb54d);outline-offset:2px;} @media(prefers-reduced-motion:reduce){[class^=\"ds-\"]{transition:none!important}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Documentary Editing Desk",
+    "overview": "The established dark-panel and amber-control family is a quiet editing desk for documentary work. The media and chronology lead; the editor supplies legible controls, precise timing and a substantial preview. This is a code-led refinement of the pinned Clausd studio family after the user's rejection of the previous craft. It records the implementation, not a newly approved brand identity, seed or interface comp.\n\nOffline use on a Windows laptop and a phone constrains the system: bundled fonts and inline icons must work without a runtime CDN, controls must preserve portable projects and imported media, and expanded preview must make the output inspectable beyond a small embedded stage. Output palettes belong to individual documentary families; they do not recolor the editor.",
+    "keyCharacteristics": [
+      "Charcoal surfaces, restrained rules and purposeful amber state cues.",
+      "Large media with distinct date, heading and caption hierarchy.",
+      "Directly readable camera holds, travel spans and linked event selection.",
+      "Grouped contextual editing, with timing promoted on phones."
+    ],
+    "rules": [
+      {
+        "name": "Amber Has a Job",
+        "body": "Use filled amber for Export and the play transport, and amber accents for selection, focus and the playhead. Keep inactive editor controls neutral.",
+        "section": "colors"
+      },
+      {
+        "name": "Dates Are Not Timing",
+        "body": "Keep calendar labels distinct from video arrival and hold values; use tabular numerals for editable timing and playback readouts.",
+        "section": "typography"
+      },
+      {
+        "name": "Flat Editing Desk",
+        "body": "Use tonal layers and one-pixel rules for the editor. Reserve substantial shadows for the composition stage, transient feedback and dialogs.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the pinned dark/amber editor family and use bundled fonts and inline SVG icons.",
+      "Do retain complete preset previews, readable multiword titles and distinct date/title/caption baselines.",
+      "Do show arrival, hold, travel and event-media spans as meaningful timing relationships.",
+      "Do keep the phone selection summary and timing fields ahead of content and collapsed media management.",
+      "Do preserve editable content, source credits, portable projects and the exact renderer shared by preview and export."
+    ],
+    "donts": [
+      "Don't introduce a PRO badge, emoji controls, a chip wall or decorative editor glow.",
+      "Don't flatten the documentary families into color swaps or fit every offscreen event into the default shot.",
+      "Don't treat generated illustrative cutout artwork as historical photography or an approved UI comp.",
+      "Don't describe static browser captures as physical-phone approval, continuous-motion approval or optical depth-of-field validation."
+    ]
+  }
+}

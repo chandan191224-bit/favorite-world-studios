@@ -1,0 +1,119 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 7,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "Allahabad",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4.4,
+   "place": "47.1, 7.1",
+   "zoom": 5.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7,
+   "place": "47.0, 7.0",
+   "zoom": 5.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 0.3,
+   "endSec": 4.4,
+   "places": [
+    "25.46, 81.84",
+    "18.94, 72.84",
+    "12.6, 45.0",
+    "13.0, 43.3",
+    "29.97, 32.55",
+    "31.4, 32.3",
+    "36.5, 15.5",
+    "44.4, 8.9",
+    "47.80, 7.67"
+   ],
+   "mode": "straight",
+   "vehicle": "ship",
+   "routeStyle": "ink",
+   "color": "#3a2a1a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.0,
+   "endSec": 7,
+   "places": [
+    "Badenweiler (47.80, 7.67)"
+   ],
+   "text": "बादेनवाइलर",
+   "subtext": "इलाज · 1935",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 56
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.6,
+   "endSec": 7,
+   "places": [
+    "Lausanne"
+   ],
+   "text": "लोज़ान, स्विट्ज़रलैंड",
+   "subtext": "28 फ़रवरी 1936",
+   "color": "#a3141a",
+   "size": 70,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

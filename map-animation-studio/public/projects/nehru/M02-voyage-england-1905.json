@@ -1,0 +1,191 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "Mumbai",
+   "zoom": 3.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 6.2,
+   "place": "Malta (35.9, 14.5)",
+   "zoom": 2.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "51.9, -0.2",
+   "zoom": 6.1,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 6.6,
+   "places": [
+    "बंबई (18.94, 72.84)",
+    "अदन (12.78, 45.01)",
+    "13.0, 43.3",
+    "स्वेज़ (29.97, 32.55)",
+    "31.4, 32.3",
+    "35.9, 14.5",
+    "37.2, 10.5",
+    "36.0, -5.5",
+    "38.0, -9.8",
+    "43.6, -9.6",
+    "48.6, -5.6",
+    "50.1, -1.0",
+    "51.0, 1.4"
+   ],
+   "mode": "straight",
+   "vehicle": "ship",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "year",
+   "type": "text",
+   "startSec": 0.4,
+   "endSec": 6.4,
+   "text": "1905",
+   "subtext": "बंबई से इंग्लैंड",
+   "anchor": "top-left",
+   "size": 70,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 5.6,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 6.0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 7.2,
+   "endSec": 9,
+   "places": [
+    "Cambridge"
+   ],
+   "text": "कैम्ब्रिज",
+   "subtext": "साइंस",
+   "color": "#3a2a1a",
+   "size": 62,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 7.6,
+   "endSec": 9,
+   "places": [
+    "London"
+   ],
+   "text": "लंदन",
+   "subtext": "हैरो स्कूल · कानून",
+   "color": "#a3141a",
+   "size": 66,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

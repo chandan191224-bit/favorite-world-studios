@@ -1,0 +1,179 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "30.0, 60.0",
+   "zoom": 2.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "32.65, 51.67",
+   "zoom": 3.8,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6.5,
+   "place": "31.0, 68.0",
+   "zoom": 3.6,
+   "bearing": 0,
+   "pitch": 20,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "29.4, 75.5",
+   "zoom": 5.0,
+   "bearing": 0,
+   "pitch": 38,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 9,
+   "places": [
+    "Isfahan (32.65, 51.67)"
+   ],
+   "text": "PERSIA",
+   "subtext": "Nadir Shah",
+   "color": "#3a2a1a",
+   "size": 73,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.4,
+   "endSec": 7.4,
+   "places": [
+    "32.65, 51.67",
+    "31.61, 65.71",
+    "34.53, 69.17",
+    "34.0, 71.5",
+    "31.55, 74.34",
+    "29.69, 76.99",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "glow",
+   "color": "#a3141a",
+   "size": 46
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.6,
+   "endSec": 9,
+   "places": [
+    "Karnal (29.69, 76.99)"
+   ],
+   "text": "KARNAL",
+   "subtext": "Feb 1739",
+   "color": "#a3141a",
+   "size": 70,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 7.4,
+   "endSec": 9,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "March 1739",
+   "color": "#a3141a",
+   "size": 89,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

@@ -1,0 +1,108 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 7,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "26.6, 81.5",
+   "zoom": 5.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 7,
+   "place": "26.5, 81.6",
+   "zoom": 5.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.3,
+   "endSec": 7,
+   "places": [
+    "Awadh (26.6, 81.5)"
+   ],
+   "level": "radius",
+   "radiusKm": 150,
+   "highlightStyle": "hatch",
+   "color": "#b8862b",
+   "text": "अवध",
+   "subtext": "(लगभग क्षेत्र)"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 7,
+   "places": [
+    "Pratapgarh (25.9, 81.95)"
+   ],
+   "text": "प्रतापगढ़",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 52
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.0,
+   "endSec": 7,
+   "places": [
+    "Rae Bareli (26.23, 81.23)"
+   ],
+   "text": "रायबरेली",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 52
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.4,
+   "endSec": 7,
+   "places": [
+    "Lucknow"
+   ],
+   "text": "लखनऊ",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 52
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.8,
+   "endSec": 7,
+   "places": [
+    "Faizabad (26.78, 82.13)"
+   ],
+   "text": "फ़ैज़ाबाद",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 52
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

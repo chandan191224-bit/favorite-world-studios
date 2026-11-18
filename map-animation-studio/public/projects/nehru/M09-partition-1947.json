@@ -1,0 +1,172 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "25.5, 80.0",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 9,
+   "place": "25.5, 80.0",
+   "zoom": 3.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.4,
+   "endSec": 9,
+   "places": [
+    "Pakistan"
+   ],
+   "level": "country",
+   "highlightStyle": "hatch",
+   "color": "#2e7d4f",
+   "text": "पाकिस्तान",
+   "subtext": "(पश्चिमी)"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.9,
+   "endSec": 9,
+   "places": [
+    "Bangladesh"
+   ],
+   "level": "country",
+   "highlightStyle": "hatch",
+   "color": "#2e7d4f",
+   "text": "पूर्वी पाकिस्तान",
+   "subtext": ""
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 1.4,
+   "endSec": 9,
+   "places": [
+    "India"
+   ],
+   "level": "country",
+   "highlightStyle": "glow",
+   "color": "#e07b1f",
+   "text": "भारत"
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.0,
+   "endSec": 9,
+   "places": [
+    "Lahore",
+    "Amritsar",
+    "Delhi"
+   ],
+   "color": "#a3141a",
+   "text": "",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.6,
+   "endSec": 9,
+   "places": [
+    "Ludhiana (30.9, 75.85)",
+    "Lahore (31.75, 74.0)",
+    "Lyallpur (31.42, 73.08)"
+   ],
+   "color": "#2e7d4f",
+   "text": "",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 4.2,
+   "endSec": 9,
+   "places": [
+    "Dhaka (23.8, 90.4)",
+    "Kolkata (22.6, 88.4)"
+   ],
+   "color": "#a3141a",
+   "text": "",
+   "size": 50
+  },
+  {
+   "name": "title करोड़ों लोग उजड़े",
+   "type": "text",
+   "startSec": 5.0,
+   "endSec": 9,
+   "text": "करोड़ों लोग उजड़े",
+   "subtext": "बंटवारा · अगस्त 1947",
+   "anchor": "bottom",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 3.55,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 3.9499999999999997,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

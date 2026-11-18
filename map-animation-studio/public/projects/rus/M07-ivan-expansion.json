@@ -1,0 +1,190 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 14,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "55, 50",
+   "zoom": 2.65,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 5,
+   "place": "55, 52",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 14,
+   "place": "55, 55",
+   "zoom": 2.75,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.5,
+   "endSec": 14,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 50,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.0,
+   "endSec": 14,
+   "places": [
+    "55.75, 37.62",
+    "55.79, 49.12"
+   ],
+   "text": "कज़ान · 1552",
+   "color": "#a3141a",
+   "size": 54
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.6,
+   "endSec": 14,
+   "places": [
+    "55.75, 37.62",
+    "46.35, 48.04"
+   ],
+   "text": "अस्त्रख़ान · 1556",
+   "color": "#a3141a",
+   "size": 54
+  },
+  {
+   "name": "लीवोनिया",
+   "type": "route",
+   "startSec": 4.6,
+   "endSec": 9.0,
+   "places": [
+    "55.75, 37.62",
+    "57.0, 32.0",
+    "59.38, 28.19"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#6b6257",
+   "size": 38
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 7.6,
+   "endSec": 14,
+   "places": [
+    "55.75, 37.62",
+    "58.0, 50.0",
+    "58.20, 68.30"
+   ],
+   "text": "साइबेरिया · 1581",
+   "color": "#b8862b",
+   "size": 54
+  },
+  {
+   "name": "title इवान चौथा",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 13.4,
+   "text": "इवान चौथा",
+   "subtext": "वोल्गा से साइबेरिया",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 12.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 12.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

@@ -1,0 +1,115 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "45.0, 85.0",
+   "zoom": 1.8,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 3.0,
+   "place": "40.0, 74.0",
+   "zoom": 2.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "36.5, 72.0",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 12,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 8,
+   "places": [
+    "Central Asia (44.0, 68.0)"
+   ],
+   "level": "radius",
+   "radiusKm": 900,
+   "highlightStyle": "hatch",
+   "color": "#a3141a",
+   "text": "MONGOL LANDS",
+   "subtext": "13th century"
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 3.2,
+   "endSec": 6.8,
+   "places": [
+    "39.77, 64.42",
+    "34.53, 69.17",
+    "31.55, 74.34",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "glow",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.4,
+   "endSec": 8,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "raids 1297–1303",
+   "color": "#a3141a",
+   "size": 81,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

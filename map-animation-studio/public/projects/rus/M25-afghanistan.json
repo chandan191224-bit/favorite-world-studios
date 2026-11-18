@@ -1,0 +1,190 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "35, 68",
+   "zoom": 2.65,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 9,
+   "place": "35, 69",
+   "zoom": 2.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "अफ़ग़ानिस्तान",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 9,
+   "places": [
+    "Afghanistan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "अफ़ग़ानिस्तान",
+   "subtext": ""
+  },
+  {
+   "name": "सोवियत सेना",
+   "type": "route",
+   "startSec": 0.8,
+   "endSec": 6.0,
+   "places": [
+    "37.22, 67.28",
+    "36.5, 68.5",
+    "34.55, 69.21"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 42
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.8,
+   "endSec": 9,
+   "places": [
+    "37.22, 67.28"
+   ],
+   "text": "तेरमेज़",
+   "subtext": "1979",
+   "color": "#6b6257",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.8,
+   "endSec": 9,
+   "places": [
+    "34.55, 69.21"
+   ],
+   "text": "काबुल",
+   "subtext": "",
+   "color": "#a3141a",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 1979–89",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 8.4,
+   "text": "1979–89",
+   "subtext": "अफ़ग़ानिस्तान",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 7.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 7.6000000000000005,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

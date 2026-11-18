@@ -1,0 +1,143 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "26.0, 80.0",
+   "zoom": 3.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "Delhi (28.61, 77.21)",
+   "zoom": 4.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7.0,
+   "place": "20.0, 90.0",
+   "zoom": 3.8,
+   "bearing": 0,
+   "pitch": 20,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "17.5, 95.0",
+   "zoom": 4.8,
+   "bearing": 0,
+   "pitch": 35,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 9,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "1858",
+   "color": "#3a2a1a",
+   "size": 76,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.4,
+   "endSec": 7.4,
+   "places": [
+    "28.61, 77.21",
+    "25.4, 81.9",
+    "22.57, 88.36",
+    "18.5, 92.0",
+    "16.80, 96.16"
+   ],
+   "mode": "straight",
+   "vehicle": "ship",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 42
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 7.0,
+   "endSec": 9,
+   "places": [
+    "Rangoon (16.80, 96.16)"
+   ],
+   "text": "RANGOON, BURMA",
+   "subtext": "exile · died 7 Nov 1862",
+   "color": "#a3141a",
+   "size": 84,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

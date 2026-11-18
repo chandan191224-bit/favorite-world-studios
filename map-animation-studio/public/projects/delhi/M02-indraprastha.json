@@ -1,0 +1,180 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "parchment",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "Hastinapur (29.17, 78.02)",
+   "zoom": 7.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 5.0,
+   "place": "28.9, 77.6",
+   "zoom": 6.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "28.9, 77.6",
+   "zoom": 6.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.3,
+   "endSec": 8,
+   "places": [
+    "Hastinapur (29.17, 78.02)"
+   ],
+   "text": "HASTINAPUR",
+   "subtext": "Kuru capital",
+   "color": "#3a2a1a",
+   "size": 64,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 1.6,
+   "endSec": 4.6,
+   "places": [
+    "29.17, 78.02",
+    "28.61, 77.24"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 40
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.2,
+   "endSec": 8,
+   "places": [
+    "Indraprastha (28.61, 77.24)"
+   ],
+   "text": "INDRAPRASTHA",
+   "subtext": "today's Purana Qila (legend)",
+   "color": "#a3141a",
+   "size": 70,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "title THE MAHABHARATA",
+   "type": "text",
+   "startSec": 0.4,
+   "endSec": 3.4,
+   "text": "THE MAHABHARATA",
+   "subtext": "legend, not proven history",
+   "anchor": "top",
+   "size": 64,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 2.55,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 2.9499999999999997,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

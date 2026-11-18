@@ -1,0 +1,174 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "55, 60",
+   "zoom": 1.75,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 9,
+   "place": "55, 60",
+   "zoom": 1.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 9,
+   "places": [
+    "Russia"
+   ],
+   "level": "country",
+   "highlightStyle": "outline-draw",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.2,
+   "endSec": 9,
+   "places": [
+    "Ukraine"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.7,
+   "endSec": 9,
+   "places": [
+    "Belarus"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.2,
+   "endSec": 9,
+   "places": [
+    "Georgia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.7,
+   "endSec": 9,
+   "places": [
+    "Armenia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 3.2,
+   "endSec": 9,
+   "places": [
+    "Azerbaijan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "title 1922",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 8.4,
+   "text": "1922",
+   "subtext": "सोवियत यूनियन",
+   "anchor": "bottom-left",
+   "size": 62,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 7.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 7.6000000000000005,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

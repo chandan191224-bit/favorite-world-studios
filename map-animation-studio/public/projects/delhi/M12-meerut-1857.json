@@ -1,0 +1,132 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "dark",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.0, 78.5",
+   "zoom": 5.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.6,
+   "place": "28.85, 77.45",
+   "zoom": 8.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "28.78, 77.40",
+   "zoom": 8.5,
+   "bearing": -20,
+   "pitch": 45,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.2,
+   "endSec": 8,
+   "places": [
+    "Meerut (28.98, 77.71)"
+   ],
+   "text": "MEERUT",
+   "subtext": "10 May 1857",
+   "color": "#3a2a1a",
+   "size": 78,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 3.0,
+   "endSec": 6.4,
+   "places": [
+    "28.98, 77.71",
+    "28.80, 77.50",
+    "28.66, 77.26"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "glow",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.0,
+   "endSec": 8,
+   "places": [
+    "Red Fort (28.656, 77.241)"
+   ],
+   "text": "RED FORT, DELHI",
+   "subtext": "11 May 1857",
+   "color": "#a3141a",
+   "size": 86,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": true,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

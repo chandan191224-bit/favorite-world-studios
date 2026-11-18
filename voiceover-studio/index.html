@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Playground | Cartesia — Favorite World Unlimited Cloud Studio</title>
+<style>
+  :root {
+    --bg: #0f100f;
+    --sidebar: #141514;
+    --panel: #161816;
+    --panel2: #1c1e1c;
+    --editor: #0c0d0c;
+    --border: #232623;
+    --border-hi: #343834;
+    --text: #f1f5f9;
+    --muted: #8b928e;
+    --mint: #a8e0a3;
+    --mint-hover: #95d68f;
+    --mint-dark: #14351e;
+    --mint-dark-hover: #1b4628;
+    --mint-dim: rgba(168, 224, 163, 0.14);
+    --amber: #f59e0b;
+    --danger: #f87171;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Devanagari", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%; background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-size: 13.5px; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, select, textarea { font-family: inherit; color: inherit; }
+
+  .app-shell { display: flex; flex-direction: column; height: 100vh; width: 100vw; }
+
+  /* Top status bar (replaces Cartesia credit limit bar with Unlimited Free Cloud status) */
+  .top-banner {
+    height: 38px; background: #141814; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px; flex-shrink: 0; font-size: 12.5px;
+  }
+  .banner-left { display: flex; align-items: center; gap: 10px; color: var(--mint); font-weight: 500; }
+  .banner-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+  .banner-right { display: flex; align-items: center; gap: 10px; }
+  .status-chip {
+    font-size: 11px; padding: 3px 9px; border-radius: 999px;
+    background: #1c201c; border: 1px solid var(--border); color: var(--muted);
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .status-chip.ok { color: var(--mint); border-color: rgba(168,224,163,.35); }
+
+  /* Main layout: Left Sidebar + Right Stage */
+  .main-area { flex: 1; display: flex; min-height: 0; position: relative; }
+
+  /* Cartesia Left Sidebar */
+  .sidebar {
+    width: 235px; background: var(--sidebar); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; justify-content: space-between;
+    flex-shrink: 0; user-select: none;
+  }
+  .sb-top { padding: 14px 12px; overflow-y: auto; flex: 1; }
+  .sb-brand {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 2px 6px 14px 6px;
+  }
+  .sb-logo {
+    display: flex; align-items: center; gap: 8px; font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px; letter-spacing: 0.06em; font-weight: 600; color: #fff;
+  }
+  .sb-logo svg { width: 20px; height: 20px; fill: var(--mint); }
+  .sb-icons { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+  .icon-btn {
+    background: transparent; border: none; color: var(--muted); cursor: pointer;
+    padding: 5px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .icon-btn:hover { background: #202320; color: var(--text); }
+
+  .nav-group-label {
+    font-size: 11.5px; color: var(--muted); padding: 14px 8px 6px 8px; font-weight: 500;
+  }
+  .nav-item {
+    width: 100%; background: transparent; border: none; color: #c8d0cb;
+    padding: 8px 10px; border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500;
+    text-align: left; transition: background 0.12s, color 0.12s; margin-bottom: 2px;
+  }
+  .nav-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+  .nav-item:hover { background: #1e211e; color: #fff; }
+  .nav-item.active { background: #262926; color: #fff; font-weight: 600; }
+  .nav-badge {
+    margin-left: auto; font-size: 10px; padding: 1px 6px; border-radius: 999px;
+    background: var(--mint-dim); color: var(--mint); font-family: var(--mono);
+  }
+
+  .sb-footer {
+    border-top: 1px solid var(--border); padding: 10px 12px; background: #121312;
+  }
+  .user-row {
+    display: flex; align-items: center; gap: 9px; margin-bottom: 10px;
+  }
+  .avatar {
+    width: 28px; height: 28px; border-radius: 50%; background: #2a2e2a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #e2e8f0; flex-shrink: 0;
+  }
+  .user-info { min-width: 0; flex: 1; }
+  .user-name { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .user-org { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mode-switch {
+    display: grid; grid-template-columns: 1fr 1fr; background: #1a1c1a;
+    padding: 3px; border-radius: 7px; border: 1px solid var(--border);
+  }
+  .mode-switch button {
+    background: transparent; border: none; padding: 5px 8px; border-radius: 5px;
+    font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer;
+  }
+  .mode-switch button.active { background: #2a2d2a; color: #fff; }
+
+  /* Center Content Stage */
+  .stage {
+    flex: 1; display: flex; flex-direction: column; min-width: 0; background: var(--bg);
+    position: relative; overflow: hidden;
+  }
+  .stage-header {
+    height: 54px; border-bottom: 1px solid var(--border); padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  }
+  .stage-title {
+    display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600;
+  }
+  .btn-pill {
+    background: #171917; border: 1px solid var(--border-hi); color: var(--text);
+    padding: 6px 13px; border-radius: 7px; font-size: 12.5px; font-weight: 500;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-pill:hover { background: #222522; border-color: #464b46; }
+  .btn-mint {
+    background: var(--mint); color: #0b110c; border: none;
+    padding: 7px 15px; border-radius: 7px; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-mint:hover { background: var(--mint-hover); }
+  .btn-mint:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .view-pane {
+    flex: 1; overflow-y: auto; padding: 20px 26px 90px 26px; display: none;
+  }
+  .view-pane.active { display: flex; flex-direction: column; }
+
+  /* VIEW 1: CARTESIA TEXT-TO-SPEECH PLAYGROUND (exact step_40.png layout) */
+  .voice-selector-trigger {
+    width: 340px; max-width: 100%; background: #141614; border: 1px solid var(--border-hi);
+    border-radius: 7px; padding: 8px 12px; color: var(--text); cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+  }
+  .voice-selector-trigger:hover { border-color: #484d48; background: #181a18; }
+  .vst-left { display: flex; align-items: center; gap: 8px; overflow: hidden; }
+  .vst-name { font-weight: 600; color: #fff; white-space: nowrap; }
+  .vst-sub { color: var(--muted); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .tts-card {
+    flex: 1; min-height: 410px; background: var(--editor); border: 1px solid var(--border);
+    border-radius: 8px; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .tts-textarea {
+    flex: 1; width: 100%; background: transparent; border: none; outline: none;
+    padding: 20px 22px; color: #f1f5f9; font-size: 15px; line-height: 1.65; resize: vertical;
+    min-height: 260px;
+  }
+  .tts-textarea::placeholder { color: #5f6661; }
+
+  /* Preset & Expression chips inside bottom of editor */
+  .tts-chips-bar {
+    padding: 8px 18px 10px 18px; display: flex; align-items: center; gap: 8px;
+    overflow-x: auto; flex-wrap: nowrap;   /* one compact row of tag buttons */
+    scrollbar-width: thin; scrollbar-color: #2c302c transparent;
+  }
+  .tts-chips-bar::-webkit-scrollbar { height: 5px; }
+  .tts-chips-bar::-webkit-scrollbar-track { background: transparent; }
+  .tts-chips-bar::-webkit-scrollbar-thumb { background: #2c302c; border-radius: 3px; }
+  .c-chip {
+    background: #232623; border: 1px solid #303430; color: #d6ded8;
+    padding: 6px 14px; border-radius: 999px; font-size: 12.5px; cursor: pointer;
+    white-space: nowrap; transition: all 0.12s;
+  }
+  .c-chip:hover { background: #2e322e; color: #fff; border-color: #454a45; }
+  .c-chip.expr {
+    background: #19221a; border-color: rgba(168,224,163,.3); color: var(--mint);
+    font-family: var(--mono); font-size: 11.5px; padding: 4px 10px;
+  }
+  .c-chip.expr:hover { background: rgba(168,224,163,.22); }
+
+  /* 3-column bar: Auto | Sonic 3.6 (Latest) | Configure */
+  .tts-control-strip {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--border); height: 44px; background: #101210;
+  }
+  .strip-cell {
+    border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+    gap: 7px; font-size: 13px; color: #d1d5db; cursor: pointer; position: relative;
+    background: transparent; border-top: none; border-bottom: none; border-left: none;
+  }
+  .strip-cell:last-child { border-right: none; }
+  .strip-cell:hover { background: #181b18; color: #fff; }
+  .strip-select {
+    appearance: none; background: transparent; border: none; color: inherit;
+    font-size: 13px; font-weight: 500; cursor: pointer; outline: none; text-align: center;
+    padding: 0 12px; width: 100%; height: 100%;
+  }
+  .strip-select option { background: #181a18; color: #fff; }
+  /* Kaggle GPU row (Claude, 2026-11-16) */
+  .kaggle-select {
+    background: #181a18; border: 1px solid var(--border); color: inherit; border-radius: 6px;
+    font-size: 12.5px; padding: 6px 8px; height: 32px; cursor: pointer; outline: none;
+  }
+
+  /* Full-width green Generate button bar */
+  .tts-generate-bar {
+    width: 100%; height: 44px; background: var(--mint-dark); color: var(--mint);
+    border: none; border-top: 1px solid #1f4d2d; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .tts-generate-bar:hover { background: var(--mint-dark-hover); color: #fff; }
+  .tts-generate-bar:disabled { opacity: 0.55; cursor: wait; }
+  /* Stop / Pause controls (Claude, 2026-11-16) */
+  .tts-stop-bar {
+    width: 100%; height: 38px; background: #3a1d1d; color: #ffb4b4; border: none; border-top: 1px solid #5a2a2a;
+    font-size: 13.5px; font-weight: 600; cursor: pointer;
+  }
+  .tts-stop-bar:hover { background: #4a2222; color: #fff; }
+  .hist-del-btn { background: transparent; border: 1px solid #5a2a2a; color: #ffb4b4; border-radius: 6px;
+    padding: 5px 9px; font-size: 12px; cursor: pointer; }
+  .hist-del-btn:hover { background: #3a1d1d; color: #fff; }
+
+  /* CONFIGS BOTTOM SHEET DRAWER (exact step_42_media_0.png) */
+  .configs-drawer {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 40;
+    background: #141614; border-top: 1px solid var(--border-hi);
+    box-shadow: 0 -16px 40px rgba(0,0,0,0.65); padding: 18px 24px 26px 24px;
+    display: none; max-height: 82vh; overflow-y: auto;
+  }
+  .configs-drawer.open { display: block; }
+  .cfg-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border); margin-bottom: 16px;
+  }
+  .cfg-title { font-size: 14px; font-weight: 600; }
+  .cfg-mono-sec { font-family: var(--mono); font-size: 13px; color: #cbd5e1; margin-bottom: 14px; }
+  .cfg-block { margin-bottom: 18px; }
+  .cfg-label-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 12.5px; color: #cbd5e1; margin-bottom: 8px;
+  }
+  .cfg-range {
+    width: 100%; accent-color: var(--mint); height: 5px; background: #2a2e2a;
+    border-radius: 4px; cursor: pointer;
+  }
+  .cfg-ends {
+    display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px;
+  }
+  .cfg-select, .cfg-input {
+    width: 100%; background: #181a18; border: 1px solid var(--border-hi);
+    border-radius: 6px; padding: 9px 12px; color: var(--text); font-size: 13px; outline: none;
+  }
+  .cfg-select:focus, .cfg-input:focus { border-color: var(--mint); }
+  .cfg-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* HISTORY OVERLAY (exact step_50_media_0.png) */
+  .history-overlay {
+    position: absolute; inset: 0; z-index: 50; background: var(--bg);
+    display: none; flex-direction: column; padding: 18px 24px;
+  }
+  .history-overlay.open { display: flex; }
+  .hist-top { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .hist-search {
+    flex: 1; background: #141614; border: 1px solid var(--border-hi); border-radius: 7px;
+    padding: 9px 14px; color: var(--text); font-size: 13.5px; outline: none;
+  }
+  .hist-list { flex: 1; overflow-y: auto; }
+  .hist-date { font-size: 12px; color: var(--muted); margin: 10px 0 8px 0; }
+  .hist-row {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hist-play-btn {
+    width: 34px; height: 34px; border-radius: 50%; background: #243d27;
+    border: none; color: var(--mint); cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .hist-play-btn:hover { background: #2f5133; }
+  .hist-body { flex: 1; min-width: 0; }
+  .hist-text { font-size: 13.5px; line-height: 1.5; color: #e2e8f0; margin-bottom: 4px; }
+  .hist-sub { font-size: 11.5px; color: var(--muted); }
+  .hist-actions { display: flex; align-items: center; gap: 8px; }
+
+  /* VOICE LIBRARY VIEW (exact step_60_shot_1_step_59_voice_library.png) */
+  .vlib-search-row { margin-bottom: 14px; }
+  .vlib-tabs {
+    display: flex; align-items: center; gap: 18px; border-bottom: 1px solid var(--border);
+    margin-bottom: 14px; padding-bottom: 8px;
+  }
+  .vlib-tab {
+    background: transparent; border: none; color: var(--muted); font-size: 13px;
+    font-weight: 600; cursor: pointer; padding-bottom: 6px; position: relative;
+  }
+  .vlib-tab.active { color: #fff; }
+  .vlib-tab.active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -9px;
+    height: 2px; background: #fff;
+  }
+  .vlib-row {
+    display: flex; align-items: center; gap: 14px; padding: 13px 12px;
+    border-bottom: 1px solid var(--border); border-radius: 7px; cursor: pointer;
+  }
+  .vlib-row:hover { background: #161816; }
+  .vlib-row.selected { background: #19211a; border: 1px solid rgba(168,224,163,.35); }
+  .vlib-play {
+    width: 38px; height: 38px; border-radius: 50%; background: #243d27;
+    border: none; color: var(--mint); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .vlib-info { flex: 1; min-width: 0; }
+  .vlib-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+  .vlib-name { font-weight: 600; color: #fff; font-size: 14px; }
+  .vlib-role { color: var(--muted); font-size: 13px; }
+  .pop-badge {
+    font-size: 11px; padding: 1px 8px; border-radius: 5px;
+    background: rgba(245, 158, 11, 0.16); color: #fbbf24; font-weight: 600;
+  }
+  .vlib-desc { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* INSTANT CLONE & PRO VOICE CLONE (exact final_step_77.png) */
+  .clone-container { max-width: 720px; }
+  .field-bracket {
+    font-family: var(--mono); font-size: 12.5px; color: #cbd5e1; margin-bottom: 7px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .field-bracket::before {
+    content: "┌"; color: var(--muted); margin-right: 3px;
+  }
+  .req-star { color: var(--danger); }
+  .dropzone {
+    border: 1px dashed #383d38; background: #131513; border-radius: 8px;
+    padding: 28px 20px; text-align: center; cursor: pointer; margin-bottom: 18px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .dropzone:hover { border-color: var(--mint); background: #171b17; }
+
+  /* Sticky Bottom Waveform Audio Bar */
+  .sticky-player {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 64px;
+    background: #131513; border-top: 1px solid var(--border-hi);
+    display: flex; align-items: center; gap: 12px; padding: 0 22px; z-index: 30;
+  }
+  .sp-play-btn {
+    width: 38px; height: 38px; border-radius: 50%; border: none;
+    background: var(--mint); color: #0b110c; font-size: 14px; font-weight: 700;
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: transform 0.1s, background 0.15s;
+  }
+  .sp-play-btn:hover { background: var(--mint-hover); transform: scale(1.04); }
+  .sp-play-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .sp-label { width: 190px; min-width: 0; }
+  .sp-title { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-sub { font-size: 11px; color: var(--muted); }
+  .sp-time { font-family: var(--mono); font-size: 11.5px; color: var(--muted); min-width: 82px; text-align: right; flex-shrink: 0; }
+  #wave { flex: 1; height: 42px; background: #0c0d0c; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
+  #audioPlayer { display: none; }
+
+  /* Progress Meter */
+  .gen-progress-wrap {
+    display: none; padding: 9px 16px; background: #101310;
+    border-top: 1px solid var(--border);
+  }
+  .gen-progress-wrap.active { display: block; }
+  .gen-progress-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 11.5px; color: var(--mint); margin-bottom: 6px;
+  }
+  .gen-progress-track {
+    width: 100%; height: 6px; background: #202420; border-radius: 999px; overflow: hidden;
+  }
+  .gen-progress-fill {
+    height: 100%; width: 0%; background: linear-gradient(90deg, #4ade80, #a8e0a3);
+    border-radius: 999px; transition: width 0.25s ease;
+  }
+
+  .toast-bar {
+    margin-bottom: 12px; padding: 9px 14px; border-radius: 7px; font-size: 12.5px; display: none;
+  }
+  .toast-bar.show { display: block; }
+  .toast-bar.ok { background: rgba(168,224,163,.14); border: 1px solid rgba(168,224,163,.4); color: var(--mint); }
+  .toast-bar.err { background: rgba(248,113,113,.15); border: 1px solid rgba(248,113,113,.4); color: #fca5a5; }
+  .toast-bar.info { background: #1c201c; border: 1px solid var(--border-hi); color: #e2e8f0; }
+
+  /* Batch rows */
+  .batch-item {
+    display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center;
+    padding: 11px 14px; background: #141614; border: 1px solid var(--border);
+    border-radius: 7px; margin-bottom: 8px;
+  }
+  .batch-idx {
+    width: 28px; height: 28px; border-radius: 6px; background: #1f241f;
+    color: var(--mint); font-family: var(--mono); font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { width: 68px; }
+    .sb-logo span, .nav-item span, .nav-group-label, .user-info, .mode-switch, .nav-badge { display: none; }
+    .sp-label { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <div class="banner-left">
+      <span class="banner-dot"></span>
+      <span>Unlimited Free Cloud Active — Zero PC Compute · Hindi Numbers Auto-Normalized · 105 Free Hindi Conversations Ready</span>
+    </div>
+    <div class="banner-right">
+      <span class="status-chip ok" id="pillColab">Colab GPU Ready</span>
+      <span class="status-chip ok" id="pillHf">HF Cloud Authenticated</span>
+      <button class="btn-pill" style="padding:3px 10px;font-size:11.5px" id="btnCheckCloud">Check Cloud</button>
+    </div>
+  </div>
+
+  <div class="main-area">
+    <!-- LEFT SIDEBAR (1:1 Cartesia Navigation) -->
+    <aside class="sidebar">
+      <div class="sb-top">
+        <div class="sb-brand">
+          <div class="sb-logo">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15 9L22 9L16 14L18 21L12 17L6 21L8 14L2 9L9 9Z"/></svg>
+            <span>CARTESIA</span>
+          </div>
+        </div>
+
+        <button class="nav-item active" data-view="tts">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Text-to-Speech</span>
+        </button>
+        <button class="nav-item" data-view="batch">
+          <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span>Batch Script (1.wav)</span>
+        </button>
+
+        <div class="nav-group-label">Voices</div>
+        <button class="nav-item" data-view="voices">
+          <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          <span>Voice Library</span>
+        </button>
+        <button class="nav-item" data-view="clone">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <span>Instant Clone</span>
+        </button>
+        <button class="nav-item" data-view="proclone">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Pro Voice Clone</span>
+          <span class="nav-badge">105 HI</span>
+        </button>
+        <button class="nav-item" data-view="pronounce">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Pronunciation</span>
+        </button>
+
+        <div class="nav-group-label">Manage</div>
+        <button class="nav-item" data-view="keys">
+          <svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+          <span>Cloud GPU &amp; Keys</span>
+        </button>
+      </div>
+
+      <div class="sb-footer">
+        <div class="user-row">
+          <div class="avatar">CD</div>
+          <div class="user-info">
+            <div class="user-name">Chandan kumar</div>
+            <div class="user-org">Favorite World Studio</div>
+          </div>
+        </div>
+        <div class="mode-switch">
+          <button class="active">Models</button>
+          <button onclick="switchView('proclone')">Trainer</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN STAGE -->
+    <section class="stage">
+      <!-- TOP STAGE HEADER -->
+      <header class="stage-header">
+        <div class="stage-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <span id="stageHeaderTitle">Text-to-Speech</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="btn-pill" id="btnToggleConfigTop">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+            Configure
+          </button>
+          <button class="btn-pill" id="btnOpenHistory">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            History
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEW 1: TEXT-TO-SPEECH PLAYGROUND (1:1 step_40.png) -->
+      <div class="view-pane active" id="view-tts">
+        <div class="toast-bar" id="toast"></div>
+
+        <!-- Voice Selector Pill -->
+        <button class="voice-selector-trigger" id="btnVoiceTrigger" onclick="switchView('voices')">
+          <div class="vst-left">
+            <span id="activeVoiceFlag">🇮🇳</span>
+            <span class="vst-name" id="activeVoiceName">Aman</span>
+            <span class="vst-sub" id="activeVoiceSub">INDIC_PARLER · Male</span>
+          </div>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <!-- Editor Card -->
+        <div class="tts-card">
+          <textarea class="tts-textarea" id="textInput" placeholder="Write something to say..."></textarea>
+
+          <!-- Preset & Expression Chips Bar -->
+          <div class="tts-chips-bar">
+            <button type="button" class="c-chip expr" data-tag="[breath] ">+ [breath]</button>
+            <button type="button" class="c-chip expr" data-tag="[deep breath] ">+ [deep breath]</button>
+            <button type="button" class="c-chip expr" data-tag="[sigh] ">+ [sigh]</button>
+            <button type="button" class="c-chip expr" data-tag="[pause] ">+ [pause]</button>
+            <button type="button" class="c-chip expr" data-tag="[suspense] ">+ [suspense]</button>
+            <button type="button" class="c-chip expr" data-tag="[serious] ">+ [serious]</button>
+            <button type="button" class="c-chip expr" data-tag="[shocked] ">+ [shocked]</button>
+            <button type="button" class="c-chip expr" data-tag="[excited] ">+ [excited]</button>
+            <button type="button" class="c-chip expr" data-tag="[empathetic] ">+ [empathetic]</button>
+            <button type="button" class="c-chip expr" data-tag="[whisper] ">+ [whisper]</button>
+          </div>
+
+          <!-- 3-Column Strip: Language | Model | Configure -->
+          <div class="tts-control-strip">
+            <div class="strip-cell">
+              <select class="strip-select" id="selLang">
+                <option value="hi">文A Auto · Hindi (हिन्दी)</option>
+                <option value="en">文A English</option>
+                <option value="hinglish">文A Hinglish</option>
+              </select>
+            </div>
+            <div class="strip-cell">
+              <select class="strip-select" id="selEngine">
+                <option value="indic_parler" selected>⚡ Indic-Parler-TTS (Hindi Expressive)</option>
+                <option value="chatterbox">⚡ Sonic 3.6 · Chatterbox Clone</option>
+                <option value="indicf5">⚡ AI4Bharat IndicF5 (Indian Clone)</option>
+                <option value="qwen">⚡ Qwen3-TTS 1.7B (English Pro)</option>
+                <option value="edge">⚡ Edge Neural Cloud (Unlimited)</option>
+              </select>
+            </div>
+            <button type="button" class="strip-cell" id="btnToggleConfig">
+              <span>Configure</span>
+            </button>
+          </div>
+
+          <!-- Progress Meter -->
+          <div class="gen-progress-wrap" id="genProgressWrap">
+            <div class="gen-progress-meta">
+              <span id="genProgressLabel">Preparing cloud synthesis...</span>
+              <span id="genProgressPct">0%</span>
+            </div>
+            <div class="gen-progress-track">
+              <div class="gen-progress-fill" id="genProgressFill"></div>
+            </div>
+          </div>
+
+          <!-- Full-Width Green Generate Bar -->
+          <button type="button" class="tts-generate-bar" id="btnGenerate">
+            Generate
+          </button>
+          <button type="button" class="tts-stop-bar" id="btnStopGen" style="display:none" title="Stop this generation">■ Stop</button>
+        </div>
+      </div>
+
+      <!-- VIEW 2: BATCH SCRIPT (1.wav, 2.wav...) -->
+      <div class="view-pane" id="view-batch">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div>
+            <h3 style="font-size:16px;margin-bottom:4px">Full Script → Numbered Sentence WAVs (<code>1.wav, 2.wav…</code>)</h3>
+            <div style="color:var(--muted);font-size:12.5px">Automatically converts Hindi numbers (`२` → `दो`, `2022` → `दो हज़ार बाईस`) and exports a CapCut-ready folder + merged WAV.</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-pill" id="btnSplit">Split Script Into Sentences</button>
+            <button class="btn-mint" id="btnBatchRun">Generate All Sentences</button>
+            <button class="btn-pill" id="btnBatchStop" style="display:none" title="Pause after stopping the current line; Resume continues where it stopped">⏸ Pause</button>
+            <button class="btn-pill" id="btnBatchZip" disabled>Download ZIP + Merged</button>
+          </div>
+        </div>
+        <!-- Kaggle GPU job (Claude, 2026-11-16): whole script in one free GPU job, best of 2 takes per line -->
+        <div id="kaggleRow" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;border:1px solid var(--border);border-radius:7px;padding:10px 12px;margin-bottom:12px">
+          <span style="font-size:13px;font-weight:600">Kaggle GPU · free</span>
+          <select class="kaggle-select" id="selKaggleVoice">
+            <option value="Aman" selected>Aman (deep male)</option>
+            <option value="Rohit">Rohit (male)</option>
+            <option value="Divya">Divya (female)</option>
+            <option value="Rani">Rani (female)</option>
+            <option value="FavoriteWorld">FavoriteWorld (trained, less steady)</option>
+          </select>
+          <select class="kaggle-select" id="selKaggleTakes" title="Takes per line; Whisper keeps the clearest">
+            <option value="1">1 take</option>
+            <option value="2" selected>2 takes (best kept)</option>
+            <option value="3">3 takes</option>
+          </select>
+          <button class="btn-mint" id="btnKaggleRun">Generate all on Kaggle GPU</button>
+          <button class="btn-pill" id="btnKaggleStop" style="display:none" title="Cancel the Kaggle run (stops using GPU time)">■ Stop Kaggle job</button>
+          <span id="kaggleStatus" style="font-size:12px;color:var(--muted)">Whole script in one job · about 10 min start + ~10 s per line · 1.wav, 2.wav… mastered to −16 LUFS</span>
+        </div>
+        <div class="gen-progress-wrap" id="batchProgressWrap" style="border:1px solid var(--border);border-radius:7px;margin-bottom:12px">
+          <div class="gen-progress-meta">
+            <span id="batchProgressLabel">Batch Progress</span>
+            <span id="batchProgressPct">0%</span>
+          </div>
+          <div class="gen-progress-track">
+            <div class="gen-progress-fill" id="batchProgressFill"></div>
+          </div>
+        </div>
+        <div id="batchList"></div>
+      </div>
+
+      <!-- VIEW 3: VOICE LIBRARY (1:1 step_60_shot_1_step_59_voice_library.png) -->
+      <div class="view-pane" id="view-voices">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <h2 style="font-size:18px;font-weight:600">Voice Library</h2>
+          <button class="btn-mint" onclick="switchView('clone')">+ Create a voice</button>
+        </div>
+        <div class="vlib-search-row">
+          <input type="text" class="hist-search" id="voiceSearchInput" placeholder="🔍 Search voices by name, style, or language..." style="width:100%" />
+        </div>
+        <div class="vlib-tabs">
+          <button class="vlib-tab active" data-vtab="all">Featured &amp; Trained</button>
+          <button class="vlib-tab" data-vtab="custom">My Trained Voices</button>
+          <button class="vlib-tab" data-vtab="builtin">Cloud Voices</button>
+        </div>
+        <div id="voiceLibraryList"></div>
+      </div>
+
+      <!-- VIEW 4: INSTANT CLONE (1:1 final_step_77.png) -->
+      <div class="view-pane" id="view-clone">
+        <div class="clone-container">
+          <h2 style="font-size:18px;font-weight:600;margin-bottom:6px">Instant Clone</h2>
+          <p style="color:var(--muted);margin-bottom:18px;line-height:1.5">
+            Upload a clean Hindi or English voiceover sample (5–60s). Background noise and dead air are automatically removed before cloning.
+          </p>
+
+          <div class="dropzone" onclick="document.getElementById('instantFileInput').click()">
+            <div style="font-weight:600;color:var(--mint);margin-bottom:4px">Drop / paste audio file(s), or click to browse</div>
+            <div style="font-size:12px;color:var(--muted)" id="instantFileLabel">WAV, MP3, M4A, FLAC supported · Auto studio normalization (-16 LUFS)</div>
+            <input type="file" id="instantFileInput" accept="audio/*" multiple style="display:none" />
+          </div>
+
+          <div style="margin-bottom:16px">
+            <div class="field-bracket">name <span class="req-star">*</span></div>
+            <input type="text" class="cfg-input" id="instantVoiceName" value="Vishal Hindi Documentary" placeholder="e.g. Vishal Hindi Pro" />
+          </div>
+
+          <div style="margin-bottom:16px">
+            <div class="field-bracket">description</div>
+            <input type="text" class="cfg-input" id="instantVoiceDesc" placeholder="Deep, expressive Hindi documentary narrator voice" />
+          </div>
+
+          <div style="margin-bottom:18px">
+            <div class="field-bracket">language <span class="req-star">*</span></div>
+            <select class="cfg-select" id="instantVoiceLang">
+              <option value="hi">Hindi (हिन्दी)</option>
+              <option value="en">English</option>
+              <option value="hinglish">Hinglish</option>
+            </select>
+          </div>
+
+          <div class="field-bracket" style="margin-bottom:10px">POST /voices/clone</div>
+          <button class="btn-mint" id="btnInstantClone">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            Clone
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 5: PRO VOICE CLONE + 105 FREE HINDI CONVERSATIONS -->
+      <div class="view-pane" id="view-proclone">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap">
+          <div>
+            <h2 style="font-size:18px;font-weight:600;margin-bottom:4px">Pro Voice Clone &amp; 105 Free Hindi Conversations Dataset</h2>
+            <div style="color:var(--muted);font-size:12.5px">
+              Combined training corpus: <strong>598 Favorite World channel voiceover clips (45.4 min)</strong> + <strong>105 real human Hindi conversational recordings (18.1 min)</strong> downloaded in <code>out/hindi_conversations_100/</code>.
+            </div>
+          </div>
+          <button class="btn-mint" onclick="switchView('clone')">+ Upload More Hindi Voiceovers</button>
+        </div>
+
+        <div id="conversationsStats" style="padding:12px 16px;background:#141814;border:1px solid rgba(168,224,163,.3);border-radius:8px;margin-bottom:16px;font-size:13px;color:var(--mint)">
+          Loading 105 real Hindi conversation clips...
+        </div>
+
+        <div id="conversationsList"></div>
+      </div>
+
+      <!-- VIEW 6: PRONUNCIATION & HINDI NUMBER NORMALIZER -->
+      <div class="view-pane" id="view-pronounce">
+        <div class="clone-container">
+          <h2 style="font-size:18px;font-weight:600;margin-bottom:6px">Automatic Hindi Number &amp; Pronunciation Normalizer</h2>
+          <p style="color:var(--muted);margin-bottom:16px;line-height:1.5">
+            Just like Cartesia Sonic 3.6, Devanagari digits (<code>०-९</code>), years (<code>1991</code>, <code>2022</code>), and symbols (<code>%</code>, <code>₹</code>) are automatically expanded into spoken Hindi words before synthesis — so you never see digit warnings.
+          </p>
+          <div class="field-bracket">Test Input Sentence</div>
+          <input type="text" class="cfg-input" id="pronTestInput" value="कहने के लिए रूस और उक्रेन के बिच जंग,२ हज़ार बाइस में सुरु हुआ था और 1991 में 50% बदला।" style="margin-bottom:14px" />
+          <button class="btn-mint" id="btnTestNormalize">Preview Spoken Normalization</button>
+          <div id="pronTestOutput" style="margin-top:14px;padding:14px;background:#141614;border:1px solid var(--border);border-radius:7px;font-size:14px;color:var(--mint)"></div>
+        </div>
+      </div>
+
+      <!-- VIEW 7: CLOUD GPU & API KEYS -->
+      <div class="view-pane" id="view-keys">
+        <div class="clone-container">
+          <h2 style="font-size:18px;font-weight:600;margin-bottom:6px">Cloud GPU Endpoint &amp; Hugging Face Key</h2>
+          <p style="color:var(--muted);margin-bottom:18px">
+            100% of AI inference runs on Google Colab GPU or Hugging Face Cloud GPU (zero load on your PC). If the Colab URL is closed, requests automatically route to your authenticated Hugging Face account.
+          </p>
+          <div style="margin-bottom:16px">
+            <div class="field-bracket">colab_gradio_url</div>
+            <input type="text" class="cfg-input" id="inpSpaceUrl" value="" placeholder="https://xxxx.gradio.live (optional — paste active Colab URL)" />
+          </div>
+          <div style="margin-bottom:16px">
+            <div class="field-bracket">hf_token (saved in .env)</div>
+            <input type="password" class="cfg-input" id="inpHfToken" placeholder="Configured automatically in .env (hf_...)" />
+          </div>
+          <button class="btn-mint" onclick="switchView('tts');toast('Cloud endpoint saved!','ok')">Save Settings</button>
+        </div>
+      </div>
+
+      <!-- CONFIGS BOTTOM SHEET DRAWER (1:1 step_42_media_0.png) -->
+      <div class="configs-drawer" id="configsDrawer">
+        <div class="cfg-head">
+          <span class="cfg-title">Configs</span>
+          <button class="icon-btn" id="btnCloseConfig">✕</button>
+        </div>
+        <div class="cfg-mono-sec">generation_config</div>
+
+        <div class="cfg-block">
+          <div class="cfg-label-row"><span>speed</span><span id="valSpeed">1.00x</span></div>
+          <input type="range" class="cfg-range" id="rngSpeed" min="0.75" max="1.35" step="0.05" value="1.00" />
+          <div class="cfg-ends"><span>Slow</span><span>Fast</span></div>
+        </div>
+
+        <div class="cfg-block">
+          <div class="cfg-label-row"><span>pitch_depth (chest resonance)</span><span id="valSemitones">0.0 st</span></div>
+          <input type="range" class="cfg-range" id="rngSemitones" min="-3.5" max="3.5" step="0.5" value="0.0" />
+          <div class="cfg-ends"><span>Deep Chest (-3.5 st)</span><span>Bright (+3.5 st)</span></div>
+        </div>
+
+        <div class="cfg-grid-2">
+          <div class="cfg-block">
+            <div class="cfg-label-row"><span>emotion</span></div>
+            <select class="cfg-select" id="selEmotionPreset">
+              <option value="">Auto-Detect from Script</option>
+              <option value="neutral">Neutral</option>
+              <option value="serious">Calm / Serious</option>
+              <option value="empathetic">Content / Empathetic</option>
+              <option value="excited">Excited</option>
+              <option value="suspense">Suspense / Scared</option>
+              <option value="shocked">Angry / Shocked</option>
+              <option value="whisper">Whisper / Intimate</option>
+            </select>
+          </div>
+          <div class="cfg-block">
+            <div class="cfg-label-row"><span>human_breathing</span></div>
+            <select class="cfg-select" id="selBreathMode">
+              <option value="auto">Auto Natural Breathing + [breath] Tags</option>
+              <option value="dramatic">Extra Dramatic Breaths Between Sentences</option>
+              <option value="off">Manual [breath] Tags Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cfg-grid-2">
+          <div class="cfg-block">
+            <div class="cfg-label-row"><span>expressiveness (exaggeration)</span><span id="valExag">0.55</span></div>
+            <input type="range" class="cfg-range" id="rngExag" min="0.25" max="1.20" step="0.05" value="0.55" />
+          </div>
+          <div class="cfg-block">
+            <div class="cfg-label-row"><span>cadence_pace (cfg_weight)</span><span id="valPace">0.50</span></div>
+            <input type="range" class="cfg-range" id="rngPace" min="0.20" max="1.00" step="0.05" value="0.50" />
+          </div>
+        </div>
+
+        <div class="cfg-grid-2">
+          <div class="cfg-block" style="margin-bottom:0">
+            <div class="cfg-label-row"><span>sample_rate</span></div>
+            <select class="cfg-select" id="selSampleRate">
+              <option value="44100">44.1 kHz (Broadcast Master -16 LUFS)</option>
+            </select>
+          </div>
+          <div class="cfg-block" style="margin-bottom:0">
+            <div class="cfg-label-row"><span>active_reference_voice</span></div>
+            <select class="cfg-select" id="refSelect">
+              <option value="">-- Cloud Default Voice --</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hidden auxiliary controls preserved for compatibility -->
+        <input type="hidden" id="rngTemp" value="0.75" />
+        <input type="hidden" id="numSeed" value="0" />
+        <input type="hidden" id="rngRate" value="0" />
+        <input type="hidden" id="rngPitch" value="0" />
+        <input type="hidden" id="inpInstruct" value="" />
+        <input type="hidden" id="inpVoiceDesign" value="" />
+        <input type="hidden" id="refTextInput" value="" />
+        <input type="checkbox" id="chkMaster" checked style="display:none" />
+        <input type="checkbox" id="chkTrim" checked style="display:none" />
+        <input type="checkbox" id="chkFallback" style="display:none" />
+      </div>
+
+      <!-- HISTORY OVERLAY (1:1 step_50_media_0.png) -->
+      <div class="history-overlay" id="historyOverlay">
+        <div class="hist-top">
+          <input type="text" class="hist-search" id="histSearchInput" placeholder="🔍 Search transcripts..." />
+          <button class="hist-del-btn" id="btnDeleteAllHistory" title="Move every voiceover in History to the Trash folder">🗑 Delete all</button>
+          <button class="btn-pill" id="btnCloseHistory">Cancel</button>
+        </div>
+        <div class="hist-date">Recent Generations (44.1 kHz)</div>
+        <div class="hist-list" id="historyList"></div>
+      </div>
+
+      <!-- STICKY BOTTOM WAVEFORM BAR -->
+      <div class="sticky-player">
+        <button type="button" class="sp-play-btn" id="btnPlayPause" disabled title="Play / Pause">▶</button>
+        <div class="sp-label">
+          <div class="sp-title" id="nowPlayingLabel">Ready — Click Generate</div>
+          <div class="sp-sub">44.1 kHz · Broadcast Mastered (-16 LUFS)</div>
+        </div>
+        <canvas id="wave" width="700" height="42" title="Click anywhere on waveform to seek"></canvas>
+        <div class="sp-time" id="spTime">0:00 / 0:00</div>
+        <audio id="audioPlayer"></audio>
+        <a id="btnDownloadWav" class="btn-mint" href="#" download style="display:none;text-decoration:none;padding:6px 12px;font-size:12px">Download WAV</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+const state = {
+  view: 'tts',
+  lang: 'hi',
+  engine: 'indic_parler',
+  voice: 'Aman',
+  voiceLabel: 'Aman · Deep Documentary Male',
+  selectedCustomId: 'cartesia_vishal_clone',
+  voicesMeta: {},
+  customVoices: [],
+  historyItems: [],
+  conversations: [],
+  batchItems: [],
+  batchJobId: '',
+  batchStop: false,
+};
+
+const $ = (id) => document.getElementById(id);
+const toast = (msg, kind = 'info') => {
+  const el = $('toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = `toast-bar show ${kind}`;
+};
+const hideToast = () => { if ($('toast')) $('toast').className = 'toast-bar'; };
+// Opened as a file (file://) there is no server, so every /api call fails - send the user to the real address.
+if (location.protocol === 'file:') {
+  setTimeout(() => toast('This page was opened as a file. Start "Start Voiceover Studio.cmd" and use http://127.0.0.1:7413', 'err'), 300);
+}
+
+function switchView(view) {
+  state.view = view;
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  document.querySelectorAll('.view-pane').forEach(p => p.classList.toggle('active', p.id === 'view-' + view));
+  const titles = {
+    tts: 'Text-to-Speech',
+    batch: 'Batch Script (1.wav, 2.wav…)',
+    voices: 'Voice Library',
+    clone: 'Instant Clone',
+    proclone: 'Pro Voice Clone · 105 Hindi Conversations',
+    pronounce: 'Pronunciation & Hindi Number Normalizer',
+    keys: 'Cloud GPU & API Keys',
+  };
+  $('stageHeaderTitle').textContent = titles[view] || 'Playground';
+  $('historyOverlay').classList.remove('open');
+  if (view === 'proclone' && !state.conversations.length) loadConversations();
+}
+
+document.querySelectorAll('.nav-item').forEach(b => b.onclick = () => switchView(b.dataset.view));
+
+function renderVoiceLibrary(filterTab = 'all', query = '') {
+  const box = $('voiceLibraryList');
+  if (!box) return;
+  const q = query.trim().toLowerCase();
+  const rows = allVoiceRows(filterTab);
+
+  const filtered = rows.filter(r => !q || (r.name + ' ' + r.role + ' ' + r.desc).toLowerCase().includes(q));
+  box.innerHTML = filtered.map(r => `
+    <div class="vlib-row ${r.id === state.selectedCustomId ? 'selected' : ''}" data-rid="${r.id}">
+      <button type="button" class="vlib-play" title="Play a sample of this voice">▶</button>
+      <div class="vlib-info">
+        <div class="vlib-name-row">
+          <span class="vlib-name">${r.name}</span>
+          <span class="vlib-role">- ${r.role}</span>
+          <span class="pop-badge">Popular</span>
+        </div>
+        <div class="vlib-desc">${r.desc}</div>
+      </div>
+      <button type="button" class="btn-pill">Use Voice</button>
+    </div>
+  `).join('');
+
+  // ▶ = hear a sample (does not change the selected voice); row / "Use Voice" = select it
+  box.querySelectorAll('.vlib-play').forEach((btn, i) => {
+    btn.onclick = (ev) => {
+      ev.stopPropagation();
+      previewVoice(filtered[i], btn);
+    };
+  });
+  box.querySelectorAll('.vlib-row').forEach((el, i) => {
+    el.onclick = () => {
+      const item = filtered[i];
+      if (!item) return;
+      applyVoice(item);
+      switchView('tts');
+      toast(`Selected voice: ${item.name} (${item.role})`, 'ok');
+    };
+  });
+}
+
+// ---- Voice choice that sticks (Claude, 2026-11-16) ------------------------------------------------------
+// User: "i always set different voice but it always set to cartesia voice why fix it now".
+// Before: loadMeta() forced Cartesia Vishal on every page load, choosing a built-in voice left the Vishal
+// reference clip selected (so Chatterbox kept cloning Vishal), and nothing remembered the choice.
+const VOICE_KEY = 'fw_voice_choice_v1';
+const DEFAULT_VOICE_ID = 'indic_parler:Aman';     // the user's pick after the male-voice test
+
+async function previewVoice(item, btn) {
+  if (!item || btn.dataset.busy) return;
+  const lang = (state.voicesMeta[item.engine] || []).find(v => v.id === item.voice_id)?.lang || item.lang || 'hi';
+  btn.dataset.busy = '1';
+  const label = btn.textContent;
+  btn.textContent = '…';
+  if (!item.ref_path) toast(`Making a sample of ${item.name}… (first time only; saved after that)`, 'info');
+  try {
+    const r = await fetch('/api/voice-preview', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ engine: item.engine, voice: item.voice_id, ref_path: item.ref_path || '', lang }),
+    });
+    const d = await r.json();
+    if (!r.ok || !d.ok) {
+      throw new Error(d.limit ? `${item.name}'s free cloud is out of GPU time today - sample not available (Aman, Rohit, Divya, Rani and FavoriteWorld work through your Colab link)` : (d.error || 'no sample'));
+    }
+    playClip(d.url, `Sample · ${item.name}`);
+    hideToast();
+  } catch (e) {
+    toast(e.message, 'err');
+  } finally {
+    btn.textContent = label;
+    delete btn.dataset.busy;
+  }
+}
+
+function allVoiceRows(filterTab = 'all') {
+  const rows = [];
+  if (filterTab === 'all' || filterTab === 'custom') {
+    for (const cv of state.customVoices) {
+      rows.push({
+        kind: 'custom',
+        id: cv.id,
+        name: cv.name.split('(')[0].trim(),
+        role: cv.badge || 'Trained Clone',
+        desc: cv.description || 'Custom trained voice profile',
+        engine: cv.engine || 'chatterbox',
+        ref_path: cv.ref_path || '',
+        voice_id: '',
+        preview_url: cv.ref_path ? ('/' + cv.ref_path.replace(/^studios\/voiceover-studio\//, '')) : '',
+      });
+    }
+  }
+  if (filterTab === 'all' || filterTab === 'builtin') {
+    for (const [eng, list] of Object.entries(state.voicesMeta)) {
+      for (const v of list) {
+        rows.push({
+          kind: 'builtin',
+          id: `${eng}:${v.id}`,
+          name: v.name,
+          role: `${eng.toUpperCase()} · ${v.gender}`,
+          desc: v.notes,
+          engine: eng,
+          ref_path: '',
+          voice_id: v.id,
+        });
+      }
+    }
+  }
+  return rows;
+}
+
+function applyVoice(item, remember = true) {
+  state.selectedCustomId = item.id;
+  state.engine = item.engine;
+  state.voice = item.voice_id || 'default';
+  state.voiceLabel = item.name;
+  if ($('selEngine')) $('selEngine').value = state.engine;
+  $('activeVoiceName').textContent = item.name;
+  $('activeVoiceSub').textContent = item.role;
+  const sel = $('refSelect');
+  if (item.ref_path) {
+    if (!Array.from(sel.options).some(o => o.value === item.ref_path)) {
+      const opt = document.createElement('option');
+      opt.value = item.ref_path;
+      opt.textContent = item.name;
+      sel.appendChild(opt);
+    }
+    sel.value = item.ref_path;
+  } else {
+    sel.value = '';            // built-in voice: no clone reference (was leaving Vishal's clip selected)
+  }
+  if (remember) {
+    try { localStorage.setItem(VOICE_KEY, JSON.stringify(item)); } catch (e) {}
+  }
+}
+
+// The free Colab voice-server link (Voice_Server_Colab_Free.ipynb) lives on the studio server, so every browser,
+// the phone and old tabs all use it - pasted once per Colab session, in any browser.
+(async function rememberColabUrl() {
+  const inp = $('inpSpaceUrl');
+  if (!inp) return;
+  try {
+    const d = await (await fetch('/api/colab-url')).json();
+    if (d.ok && d.url) inp.value = d.url;
+  } catch (e) {}
+  inp.addEventListener('change', async () => {
+    try {
+      const r = await fetch('/api/colab-url', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: inp.value.trim() }),
+      });
+      const d = await r.json();
+      if (!r.ok || !d.ok) throw new Error(d.error || 'not saved');
+      toast(inp.value.trim() ? 'Colab voice link saved for every browser - Aman, Rohit, Divya, Rani and FavoriteWorld now generate on your free Colab GPU.'
+                             : 'Colab link cleared.', 'ok');
+    } catch (e) { toast('Colab link: ' + e.message, 'err'); }
+  });
+})();
+
+function restoreVoice() {
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(VOICE_KEY) || 'null'); } catch (e) { saved = null; }
+  const rows = allVoiceRows('all');
+  const pick = (saved && rows.find(r => r.id === saved.id)) || saved
+    || rows.find(r => r.id === DEFAULT_VOICE_ID) || rows[0];
+  if (pick) applyVoice(pick, false);
+}
+
+document.querySelectorAll('.vlib-tab').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.vlib-tab').forEach(x => x.classList.toggle('active', x === b));
+  renderVoiceLibrary(b.dataset.vtab, $('voiceSearchInput').value);
+});
+$('voiceSearchInput').oninput = (e) => renderVoiceLibrary('all', e.target.value);
+
+async function loadMeta() {
+  const r = await fetch('/api/meta');
+  const d = await r.json();
+  state.voicesMeta = d.voices || {};
+  state.customVoices = d.custom_voices || [];
+  const sel = $('refSelect');
+  sel.innerHTML = '<option value="">-- Cloud Default Voice --</option>' +
+    (d.refs || []).map(x => `<option value="${x.path}">${x.label}</option>`).join('');
+  // Restore the voice the user chose last time (default Aman) - no more forcing Cartesia Vishal on every load
+  restoreVoice();
+  renderVoiceLibrary();
+}
+
+async function checkCloud() {
+  // Real status per engine (before: always said "verified online")
+  toast('Checking every voice engine…', 'info');
+  try {
+    const s = await (await fetch('/api/status')).json();
+    const name = { colab: 'Your Colab (Aman, Rohit, Divya, Rani, FavoriteWorld)', edge: 'Edge (unlimited)',
+                   indic_parler: 'AI4Bharat free cloud', chatterbox: 'Chatterbox free cloud', indicf5: 'IndicF5 free cloud', qwen: 'Qwen free cloud' };
+    const parts = Object.keys(name).filter(k => s[k]).map(k => `${s[k].ok ? '✓' : '✗'} ${name[k]}`);
+    const colabDown = s.colab && !s.colab.ok;
+    toast(parts.join(' · ') + (colabDown ? ' — Colab link is not answering: run the Colab notebook again and paste the new link (Aman then goes to Kaggle meanwhile).' : '')
+          + ' (free clouds can still be out of daily GPU time even when online)', colabDown ? 'err' : 'ok');
+  } catch (e) {
+    toast('Could not check: ' + e.message, 'err');
+  }
+}
+
+async function refreshHistory() {
+  const r = await fetch('/api/history');
+  const d = await r.json();
+  state.historyItems = d.items || [];
+  renderHistoryList($('histSearchInput')?.value || '');
+}
+
+function renderHistoryList(query = '') {
+  const box = $('historyList');
+  if (!box) return;
+  const q = query.trim().toLowerCase();
+  const list = state.historyItems.filter(it => !q || (it.text + ' ' + it.name).toLowerCase().includes(q));
+  if (!list.length) {
+    box.innerHTML = '<div style="color:var(--muted);padding:16px">No generations found.</div>';
+    return;
+  }
+  box.innerHTML = list.map(it => `
+    <div class="hist-row">
+      <button class="hist-play-btn" onclick="playClip('${it.url}','${it.name.replace(/'/g, '')}')">▶</button>
+      <div class="hist-body">
+        <div class="hist-text">${it.text || it.name}</div>
+        <div class="hist-sub">${it.voice_label || 'Vishal'} · ${it.time_str || ''} (44.1 kHz · ${it.duration}s)</div>
+      </div>
+      <div class="hist-actions">
+        <a class="btn-pill" href="${it.url}" download="${it.name}" style="text-decoration:none">Download .wav</a>
+        <button class="hist-del-btn" onclick="deleteHistory(['${it.rel.replace(/'/g, "\'")}'])" title="Delete this voiceover (moves it to the Trash folder)">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+$('histSearchInput').oninput = (e) => renderHistoryList(e.target.value);
+
+// Delete voiceovers from History (user, 2026-11-16). The server moves them to outputs/_trash/<time>/ - recoverable.
+window.deleteHistory = async (rels, all = false) => {
+  const what = all ? `ALL ${state.historyItems.length} voiceovers in History` : 'this voiceover';
+  if (!confirm(`Delete ${what}?
+
+They are moved to studios/voiceover-studio/outputs/_trash/ (you can move them back from there).`)) return;
+  try {
+    const r = await fetch('/api/history/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                                   body: JSON.stringify(all ? { all: true } : { rels }) });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || 'delete failed');
+    toast(`Deleted ${d.deleted} voiceover${d.deleted === 1 ? '' : 's'} (moved to ${d.trash}).`, 'ok');
+    refreshHistory();
+  } catch (e) {
+    toast('Delete failed: ' + e.message, 'err');
+  }
+};
+$('btnDeleteAllHistory').onclick = () => deleteHistory([], true);
+$('btnOpenHistory').onclick = () => { refreshHistory(); $('historyOverlay').classList.add('open'); };
+$('btnCloseHistory').onclick = () => $('historyOverlay').classList.remove('open');
+
+let wavePeaks = [];
+let genTimer = null;
+
+function fmtTime(sec) {
+  if (!isFinite(sec) || sec < 0) return '0:00';
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function renderWaveCanvas(ratio = 0) {
+  const canvas = $('wave');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0c0d0c';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  if (!wavePeaks.length) return;
+  const mid = canvas.height / 2;
+  const splitX = Math.floor(Math.max(0, Math.min(1, ratio)) * canvas.width);
+  for (let i = 0; i < wavePeaks.length; i++) {
+    const x = i * 3;
+    const h = wavePeaks[i];
+    ctx.fillStyle = x <= splitX ? '#a8e0a3' : '#2c332d';
+    ctx.fillRect(x, mid - h / 2, 2, h);
+  }
+  if (ratio > 0 && ratio < 1) {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(splitX, 2, 1.5, canvas.height - 4);
+  }
+}
+
+async function drawWaveFromUrl(url) {
+  wavePeaks = [];
+  renderWaveCanvas(0);
+  try {
+    const resp = await fetch(url);
+    const buf = await resp.arrayBuffer();
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const audio = await ac.decodeAudioData(buf);
+    const data = audio.getChannelData(0);
+    const canvas = $('wave');
+    const barCount = Math.floor(canvas.width / 3);
+    const step = Math.max(1, Math.floor(data.length / barCount));
+    for (let b = 0; b < barCount; b++) {
+      let peak = 0;
+      const start = b * step;
+      for (let i = 0; i < step && start + i < data.length; i++) {
+        const v = Math.abs(data[start + i]);
+        if (v > peak) peak = v;
+      }
+      wavePeaks.push(Math.max(3, peak * (canvas.height - 6)));
+    }
+    ac.close();
+    const p = $('audioPlayer');
+    renderWaveCanvas(p.duration ? (p.currentTime / p.duration) : 0);
+  } catch (e) {}
+}
+
+function syncPlayerUI() {
+  const p = $('audioPlayer');
+  const btn = $('btnPlayPause');
+  btn.disabled = !p.src;
+  btn.textContent = p.paused ? '▶' : '❚❚';
+  $('spTime').textContent = `${fmtTime(p.currentTime)} / ${fmtTime(p.duration)}`;
+  renderWaveCanvas(p.duration ? (p.currentTime / p.duration) : 0);
+}
+
+$('btnPlayPause').onclick = () => {
+  const p = $('audioPlayer');
+  if (!p.src) return;
+  if (p.paused) p.play().catch(() => {});
+  else p.pause();
+};
+
+$('wave').onclick = (e) => {
+  const p = $('audioPlayer');
+  if (!p.duration) return;
+  const rect = $('wave').getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  p.currentTime = ratio * p.duration;
+  syncPlayerUI();
+};
+
+['play', 'pause', 'ended', 'timeupdate', 'loadedmetadata'].forEach(ev => {
+  $('audioPlayer').addEventListener(ev, syncPlayerUI);
+});
+
+window.playClip = (url, label) => {
+  const player = $('audioPlayer');
+  player.src = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();   // links like /api/ref-audio?path=… already have a ?
+  player.play().catch(() => {});
+  $('btnPlayPause').disabled = false;
+  $('nowPlayingLabel').textContent = label;
+  const dl = $('btnDownloadWav');
+  dl.href = url;
+  dl.download = label.endsWith('.wav') ? label : (label + '.wav');
+  dl.style.display = 'inline-flex';
+  drawWaveFromUrl(url);
+};
+
+function startGenProgress() {
+  const wrap = $('genProgressWrap');
+  const fill = $('genProgressFill');
+  const pct = $('genProgressPct');
+  const lbl = $('genProgressLabel');
+  wrap.classList.add('active');
+  let val = 8;
+  const stages = [
+    [15, 'Normalizing Hindi script & parsing [breath] / emotion tags...'],
+    [38, 'Synthesizing speech on Cloud GPU...'],
+    [68, 'Rendering vocal expressions & human breathing...'],
+    [88, 'Mastering broadcast audio (-16 LUFS)...'],
+  ];
+  fill.style.width = val + '%';
+  pct.textContent = val + '%';
+  lbl.textContent = stages[0][1];
+  if (genTimer) clearInterval(genTimer);
+  genTimer = setInterval(() => {
+    if (val < 92) {
+      val += val < 45 ? 4 : (val < 75 ? 2 : 1);
+      fill.style.width = val + '%';
+      pct.textContent = val + '%';
+      const st = stages.find(s => val <= s[0]) || stages[stages.length - 1];
+      lbl.textContent = st[1];
+    }
+  }, 450);
+}
+
+function finishGenProgress(ok = true) {
+  if (genTimer) { clearInterval(genTimer); genTimer = null; }
+  const wrap = $('genProgressWrap');
+  const fill = $('genProgressFill');
+  const pct = $('genProgressPct');
+  const lbl = $('genProgressLabel');
+  if (ok) {
+    fill.style.width = '100%';
+    pct.textContent = '100%';
+    lbl.textContent = 'Completed!';
+    setTimeout(() => wrap.classList.remove('active'), 1600);
+  } else {
+    wrap.classList.remove('active');
+  }
+}
+
+function gatherParams(text, jobId, filename) {
+  return {
+    text,
+    engine: $('selEngine').value || state.engine,
+    lang: $('selLang').value || state.lang,
+    voice: state.voice === 'default' || state.voice === 'clone' ? '' : state.voice,
+    voice_label: $('activeVoiceName').textContent || 'Vishal',
+    ref_path: $('refSelect').value || null,
+    ref_text: '',
+    exaggeration: parseFloat($('rngExag').value || '0.55'),
+    pace: parseFloat($('rngPace').value || '0.50'),
+    temperature: 0.75,
+    seed: 0,
+    rate: '+0%',
+    pitch: '+0Hz',
+    instruct: '',
+    voice_description: '',
+    space_url: $('inpSpaceUrl').value.trim(),
+    hf_token: $('inpHfToken').value.trim(),
+    master: true,
+    trim_silence: true,
+    fallback_edge: true,
+    speed: parseFloat($('rngSpeed').value || '1.0'),
+    pitch_semitones: parseFloat($('rngSemitones').value || '0.0'),
+    emotion_preset: $('selEmotionPreset').value || '',
+    breath_mode: $('selBreathMode').value || 'auto',
+    job_id: jobId,
+    filename,
+  };
+}
+
+const PARLER_VOICES = ['Aman', 'Rohit', 'Divya', 'Rani', 'FavoriteWorld'];
+
+// One Kaggle job for the text in the box (split into sentences), then one merged clip to play.
+async function generateOnKaggle(text, voice, onStatus, ctl = {}) {
+  const sp = await (await fetch('/api/split', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }),
+  })).json();
+  const sentences = (sp.sentences || []).map(s => ({ n: s.n, text: s.text }));
+  if (!sentences.length) throw new Error('Nothing to say');
+  const jobId = 'single_kaggle_' + Date.now();
+  const start = await fetch('/api/kaggle-job', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ job_id: jobId, voice, takes: 2, sentences }),
+  });
+  const sd = await start.json();
+  if (!start.ok || !sd.ok) throw new Error(sd.error || 'Kaggle job did not start');
+  ctl.kaggleJob = jobId;
+  for (;;) {
+    for (let i = 0; i < 10 && !ctl.stopped; i++) await new Promise(r => setTimeout(r, 1000));
+    if (ctl.stopped) throw new DOMException('Stopped', 'AbortError');
+    let j;
+    try { j = await (await fetch('/api/kaggle-job?job_id=' + encodeURIComponent(jobId))).json(); } catch (e) { continue; }
+    onStatus && onStatus(kaggleStageText(j));
+    if (j.stage === 'error') throw new Error(kaggleStageText(j));
+    if (j.stage === 'stopped') throw new DOMException('Stopped', 'AbortError');
+    if (j.stage === 'done') {
+      const m = await (await fetch('/api/merge-job', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ job_id: jobId, voice_label: `${voice} (Kaggle GPU)`, text }),
+      })).json();
+      if (!m.ok) throw new Error(m.error || 'merge failed');
+      return { url: m.url, duration: m.duration, redo: j.redo || [] };
+    }
+  }
+}
+
+// ■ Stop: cancels the request in progress; a Kaggle run is cancelled on Kaggle too (no more GPU time used)
+$('btnStopGen').onclick = async () => {
+  const ctl = state.gen;
+  if (!ctl) return;
+  ctl.stopped = true;
+  $('btnStopGen').textContent = 'Stopping…';
+  try { ctl.ctrl.abort(); } catch (e) {}
+  if (ctl.kaggleJob) {
+    try {
+      await fetch('/api/kaggle-job/stop', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ job_id: ctl.kaggleJob }) });
+    } catch (e) {}
+  }
+  setTimeout(() => { $('btnStopGen').textContent = '■ Stop'; }, 1500);
+};
+
+$('btnGenerate').onclick = async () => {
+  const text = $('textInput').value.trim();
+  if (!text) return toast('Write something to say first.', 'err');
+  hideToast();
+  const btn = $('btnGenerate');
+  btn.disabled = true;
+  btn.textContent = 'Generating on Cloud GPU...';
+  const ctl = state.gen = { ctrl: new AbortController(), stopped: false, kaggleJob: null };
+  $('btnStopGen').style.display = 'block';
+  startGenProgress();
+  try {
+    const params = gatherParams(text, 'single', 'voiceover_' + Date.now() + '.wav');
+    // Aman / Rohit / Divya / Rani / FavoriteWorld: never swap in Edge's voice. If the free cloud is out of GPU time
+    // (and no Colab link is set), make the real voice on the Kaggle GPU instead (user: "its not generating in aman voice").
+    const parlerVoice = params.engine === 'indic_parler' && PARLER_VOICES.includes(params.voice);
+    if (parlerVoice) params.fallback_edge = false;
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+      signal: ctl.ctrl.signal,
+    });
+    const d = await res.json();
+    if (parlerVoice && (!res.ok || !d.ok)) {
+      btn.textContent = `Making real ${params.voice} on Kaggle GPU (~5 min)...`;
+      toast(`The free cloud is out of GPU time today, so ${params.voice} is being made on your free Kaggle GPU. Takes about 5 minutes - keep this page open.`, 'info');
+      const k = await generateOnKaggle(text, params.voice, (msg) => { btn.textContent = msg; }, ctl);
+      finishGenProgress(true);
+      playClip(k.url, `${params.voice} (Kaggle GPU) · ${k.duration}s`);
+      toast(`Done: real ${params.voice} voice (Kaggle GPU), ${k.duration}s.` + (k.redo.length ? ` Check sentence ${k.redo.join(', ')}.` : ''), 'ok');
+      refreshHistory();
+      return;
+    }
+    if (!res.ok || !d.ok) throw new Error(d.error || 'Generation failed');
+    finishGenProgress(true);
+    playClip(d.url, `${d.filename} (${d.duration}s · ${d.voice_label || d.engine_used})`);
+    if (d.fallback) {
+      toast(`${state.voiceLabel} is busy on the free cloud (daily GPU limit), so this clip is ${d.voice_label}. For ${state.voiceLabel}: Batch → Kaggle GPU, or paste a free Colab link in Cloud GPU & Keys.`, 'err');
+    } else {
+      toast(`Generated ${d.duration}s audio [${d.voice_label || d.engine_used}]`, 'ok');
+    }
+    refreshHistory();
+  } catch (e) {
+    finishGenProgress(false);
+    if (e.name === 'AbortError' || ctl.stopped) {
+      toast('Stopped.' + (ctl.kaggleJob ? ' The Kaggle run was cancelled too.' : ' (A clip the cloud was already making may still appear in History - delete it there if you don\'t want it.)'), 'info');
+    } else {
+      toast(e.message, 'err');
+    }
+  } finally {
+    $('btnStopGen').style.display = 'none';
+    state.gen = null;
+    btn.disabled = false;
+    btn.textContent = 'Generate';
+  }
+};
+
+// Preset & Expression Chips
+document.querySelectorAll('[data-sample]').forEach(btn => btn.onclick = () => {
+  $('textInput').value = btn.textContent;
+});
+document.querySelectorAll('.c-chip.expr').forEach(btn => btn.onclick = () => {
+  const ta = $('textInput');
+  const tag = btn.dataset.tag || '';
+  const start = ta.selectionStart ?? ta.value.length;
+  const end = ta.selectionEnd ?? ta.value.length;
+  ta.value = ta.value.slice(0, start) + tag + ta.value.slice(end);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + tag.length;
+});
+
+// Configure drawer toggles
+// Engine dropdown: switching engine also switches to a voice that engine has (before: "Aman" stayed on Edge/Qwen and failed)
+$('selEngine').onchange = () => {
+  const eng = $('selEngine').value;
+  if (state.engine === eng) return;
+  const lang = $('selLang').value;
+  const want = {
+    indic_parler: 'Aman',
+    edge: lang === 'en' ? 'en-IN-PrabhatNeural' : (lang === 'hinglish' ? 'en-US-AndrewMultilingualNeural' : 'hi-IN-MadhurNeural'),
+    chatterbox: 'default', qwen: 'Ryan', indicf5: 'clone',
+  }[eng];
+  const rows = allVoiceRows('builtin');
+  const row = rows.find(r => r.engine === eng && r.voice_id === want) || rows.find(r => r.engine === eng);
+  if (!row) return;
+  applyVoice(row);
+  if (eng === 'qwen') {                                                // Qwen3-TTS speaks English only
+    if ($('selLang').value !== 'en') state.langBeforeQwen = $('selLang').value;
+    $('selLang').value = 'en';
+  } else if (state.langBeforeQwen) {                                   // leaving Qwen: back to the language you had
+    $('selLang').value = state.langBeforeQwen;
+    state.langBeforeQwen = '';
+  }
+  if (eng === 'indicf5') {                                             // IndicF5 always clones: use the channel voice
+    const sel = $('refSelect');
+    const ch = (state.customVoices.find(v => v.id === 'fw_channel_master') || {}).ref_path;
+    if (ch) {
+      if (!Array.from(sel.options).some(o => o.value === ch)) sel.add(new Option('Favorite World channel voice', ch));
+      sel.value = ch;
+    }
+  }
+  toast(`Engine changed - voice is now ${row.name}`, 'ok');
+};
+
+const toggleCfg = () => $('configsDrawer').classList.toggle('open');
+$('btnToggleConfig').onclick = toggleCfg;
+$('btnToggleConfigTop').onclick = toggleCfg;
+$('btnCloseConfig').onclick = () => $('configsDrawer').classList.remove('open');
+
+$('rngSpeed').oninput = () => $('valSpeed').textContent = parseFloat($('rngSpeed').value).toFixed(2) + 'x';
+$('rngSemitones').oninput = () => {
+  const v = parseFloat($('rngSemitones').value);
+  $('valSemitones').textContent = (v > 0 ? '+' : '') + v.toFixed(1) + ' st';
+};
+$('rngExag').oninput = () => $('valExag').textContent = parseFloat($('rngExag').value).toFixed(2);
+$('rngPace').oninput = () => $('valPace').textContent = parseFloat($('rngPace').value).toFixed(2);
+
+// Batch Script Mode
+function renderBatchList() {
+  const box = $('batchList');
+  if (!state.batchItems.length) {
+    box.innerHTML = '<div style="color:var(--muted);padding:14px">Enter your script in Text-to-Speech and click "Split Script Into Sentences".</div>';
+    return;
+  }
+  box.innerHTML = state.batchItems.map((it, idx) => `
+    <div class="batch-item">
+      <div class="batch-idx">${it.n}</div>
+      <div>
+        <div style="font-size:14px;line-height:1.5">${it.text}</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:3px">${it.status || 'Ready'} ${it.duration ? `· ${it.duration}s` : ''} ${it.used ? `· ${it.used}` : ''}</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        ${it.url ? `<button class="btn-pill" onclick="playClip('${it.url}','${it.n}.wav')">▶ Play</button>` : ''}
+        <button class="btn-mint" onclick="regenBatchLine(${idx})">Generate</button>
+      </div>
+    </div>
+  `).join('');
+  const doneCount = state.batchItems.filter(x => x.url).length;
+  const totalCount = state.batchItems.length;
+  const pct = totalCount ? Math.round((doneCount / totalCount) * 100) : 0;
+  const bpWrap = $('batchProgressWrap');
+  if (totalCount > 0) {
+    bpWrap.classList.add('active');
+    $('batchProgressLabel').textContent = `Completed ${doneCount} of ${totalCount} sentences`;
+    $('batchProgressPct').textContent = `${pct}%`;
+    $('batchProgressFill').style.width = `${pct}%`;
+  } else {
+    bpWrap.classList.remove('active');
+  }
+  $('btnBatchZip').disabled = doneCount === 0;
+}
+
+$('btnSplit').onclick = async () => {
+  const text = $('textInput').value.trim();
+  if (!text) return toast('Enter your script in Text-to-Speech first.', 'err');
+  const r = await fetch('/api/split', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  });
+  const d = await r.json();
+  state.batchItems = (d.sentences || []).map(s => ({ ...s, status: 'Ready', url: '', duration: 0, used: '' }));
+  state.batchJobId = 'batch_' + Date.now();
+  renderBatchList();
+};
+
+window.regenBatchLine = async (idx) => {
+  const it = state.batchItems[idx];
+  if (!it) return;
+  if (!state.batchJobId) state.batchJobId = 'batch_' + Date.now();
+  it.status = 'Generating on Cloud GPU...';
+  renderBatchList();
+  try {
+    const params = gatherParams(it.text, state.batchJobId, `${it.n}.wav`);
+    const parlerVoice = params.engine === 'indic_parler' && PARLER_VOICES.includes(params.voice);
+    if (parlerVoice) params.fallback_edge = false;     // never swap Aman/Rohit for Edge's voice
+    state.batchAbort = new AbortController();
+    const r = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
+      signal: state.batchAbort.signal,
+    });
+    const d = await r.json();
+    if (parlerVoice && (!r.ok || !d.ok)) throw new Error(`free cloud is out of GPU time - use "Generate all on Kaggle GPU" above for real ${params.voice}`);
+    if (!r.ok || !d.ok) throw new Error(d.error || 'Failed');
+    it.status = 'Done';
+    it.url = d.url;
+    it.duration = d.duration;
+    it.used = d.fallback ? `⚠ ${d.voice_label}` : d.engine_used;
+  } catch (e) {
+    it.status = (e.name === 'AbortError') ? 'Paused' : 'Error: ' + e.message;
+  }
+  renderBatchList();
+  refreshHistory();
+};
+
+$('btnBatchRun').onclick = async () => {
+  if (!state.batchItems.length) await $('btnSplit').onclick();
+  if (!state.batchItems.length) return;
+  // Aman/Rohit/Divya/Rani/FavoriteWorld with no Colab link: the free cloud is usually out of GPU time, so the
+  // whole script goes to the Kaggle GPU in one job (user: "i have to work in studio make it working").
+  const p0 = gatherParams('x', 'j', 'f.wav');
+  if (p0.engine === 'indic_parler' && PARLER_VOICES.includes(p0.voice) && !$('inpSpaceUrl').value.trim()) {
+    $('selKaggleVoice').value = p0.voice;
+    toast(`${p0.voice}: sending the whole script to your free Kaggle GPU (about 5 min + ~10 s per line).`, 'info');
+    return $('btnKaggleRun').onclick();
+  }
+  state.batchStop = false;
+  $('btnBatchRun').disabled = true;
+  $('btnBatchStop').style.display = 'inline-flex';
+  for (let i = 0; i < state.batchItems.length; i++) {
+    if (state.batchStop) break;
+    if (state.batchItems[i].url) continue;
+    await window.regenBatchLine(i);
+  }
+  $('btnBatchRun').disabled = false;
+  $('btnBatchStop').style.display = 'none';
+  const left = state.batchItems.filter(x => !x.url).length;
+  $('btnBatchRun').textContent = (state.batchStop && left) ? `▶ Resume (${left} left)` : 'Generate All Sentences';
+  if (state.batchStop && left) toast(`Paused - ${left} sentences left. Press Resume to continue from where it stopped.`, 'info');
+};
+$('btnBatchStop').onclick = () => {
+  state.batchStop = true;                                    // pause: stop now, Resume continues later
+  try { state.batchAbort && state.batchAbort.abort(); } catch (e) {}
+};
+
+// Kaggle GPU job: send the whole script, poll until the numbered WAVs come back
+$('btnKaggleStop').onclick = async () => {
+  if (!state.kaggleJobId) return;
+  $('btnKaggleStop').textContent = 'Stopping…';
+  try {
+    await fetch('/api/kaggle-job/stop', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                          body: JSON.stringify({ job_id: state.kaggleJobId }) });
+    $('kaggleStatus').textContent = 'Stopping - cancelling the Kaggle run…';
+  } catch (e) { toast('Could not stop: ' + e.message, 'err'); }
+  setTimeout(() => { $('btnKaggleStop').textContent = '■ Stop Kaggle job'; }, 2000);
+};
+const kaggleStageText = (j) => {
+  const i = j.info || {};
+  if (j.stage === 'starting') return 'Sending the script to Kaggle…';
+  if (j.stage === 'pushed') return `On Kaggle (${j.lines} lines) — starting GPU…`;
+  if (j.stage === 'status') return `Kaggle: ${i.kaggle || '…'} · ${i.minutes || 0} min`;
+  if (j.stage === 'saved') return `Saving ${(j.saved || []).length} of ${j.lines}…`;
+  if (j.stage === 'done') return `Done: ${(j.saved || []).length} of ${j.lines} lines` + ((j.redo || []).length ? ` · check lines ${j.redo.join(', ')} (Whisper heard them less clearly)` : '');
+  if (j.stage === 'error') return 'Error: ' + (j.error || 'failed');
+  if (j.stage === 'stopped') return 'Stopped - the Kaggle run was cancelled.' + ((j.saved || []).length ? ` ${(j.saved || []).length} lines were already saved.` : '');
+  return j.stage;
+};
+async function pollKaggleJob(jobId) {
+  try {
+    const r = await fetch('/api/kaggle-job?job_id=' + encodeURIComponent(jobId));
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || 'status failed');
+    $('kaggleStatus').textContent = kaggleStageText(j);
+    const files = j.files || {};
+    state.batchItems.forEach(it => {
+      if (files[it.n]) { it.url = files[it.n]; it.status = 'Done'; it.used = `kaggle · ${j.voice}`; }
+    });
+    renderBatchList();
+    if (j.stage === 'done' || j.stage === 'error' || j.stage === 'stopped') {
+      $('btnKaggleStop').style.display = 'none';
+      $('btnKaggleRun').disabled = false;
+      refreshHistory();
+      toast(kaggleStageText(j), j.stage === 'done' ? 'info' : 'err');
+      return;
+    }
+  } catch (e) {
+    $('kaggleStatus').textContent = 'Status check failed: ' + e.message + ' (retrying)';
+  }
+  setTimeout(() => pollKaggleJob(jobId), 15000);
+}
+$('btnKaggleRun').onclick = async () => {
+  if (!state.batchItems.length) await $('btnSplit').onclick();
+  if (!state.batchItems.length) return;
+  state.batchJobId = 'kaggle_' + Date.now();
+  state.batchItems.forEach(it => { it.url = ''; it.status = 'Waiting for Kaggle…'; it.used = ''; });
+  renderBatchList();
+  $('btnKaggleRun').disabled = true;
+  try {
+    const r = await fetch('/api/kaggle-job', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        job_id: state.batchJobId,
+        voice: $('selKaggleVoice').value,
+        takes: parseInt($('selKaggleTakes').value, 10),
+        sentences: state.batchItems.map(it => ({ n: it.n, text: it.text })),
+      }),
+    });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || 'Failed to start');
+    $('kaggleStatus').textContent = 'Sending the script to Kaggle…';
+    $('btnKaggleStop').style.display = 'inline-flex';
+    state.kaggleJobId = state.batchJobId;
+    pollKaggleJob(state.batchJobId);
+  } catch (e) {
+    $('btnKaggleRun').disabled = false;
+    $('kaggleStatus').textContent = 'Error: ' + e.message;
+    toast('Kaggle job: ' + e.message, 'err');
+  }
+};
+
+$('btnBatchZip').onclick = async () => {
+  const r = await fetch('/api/batch-zip', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ job_id: state.batchJobId, include_merged: true }),
+  });
+  if (!r.ok) return;
+  const blob = await r.blob();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${state.batchJobId}_voiceover.zip`;
+  a.click();
+};
+
+// Instant Clone Multi-File Trainer
+$('instantFileInput').onchange = (e) => {
+  const files = Array.from(e.target.files || []);
+  if (!files.length) return;
+  const mb = (files.reduce((a, f) => a + f.size, 0) / (1024 * 1024)).toFixed(1);
+  $('instantFileLabel').textContent = `${files.length} audio file(s) selected (${mb} MB) — Ready to clone`;
+};
+
+function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve({ filename: file.name, data_b64: r.result });
+    r.onerror = () => reject(new Error('Failed reading ' + file.name));
+    r.readAsDataURL(file);
+  });
+}
+
+$('btnInstantClone').onclick = async () => {
+  const files = Array.from($('instantFileInput').files || []);
+  if (!files.length) return alert('Please select 1 or more Hindi/English voiceover files first.');
+  const btn = $('btnInstantClone');
+  btn.disabled = true;
+  btn.textContent = 'Cloning & Building Voice Model...';
+  try {
+    const encoded = [];
+    for (const f of files) encoded.push(await readFileAsDataURL(f));
+    const r = await fetch('/api/train-voice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        voice_name: $('instantVoiceName').value.trim() || 'Cloned Voice',
+        lang: $('instantVoiceLang').value,
+        description: $('instantVoiceDesc').value.trim(),
+        append_dataset: true,
+        files: encoded,
+      }),
+    });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || 'Clone failed');
+    state.customVoices = d.custom_voices || [];
+    const sel = $('refSelect');
+    sel.innerHTML = '<option value="">-- Cloud Default Voice --</option>' +
+      (d.refs || []).map(x => `<option value="${x.path}">${x.label}</option>`).join('');
+    applyVoice({ kind: 'custom', id: d.voice.id, name: (d.voice.name || '').split('(')[0].trim(), role: d.voice.badge || 'Trained Clone',
+                 desc: d.voice.description || '', engine: d.voice.engine || 'chatterbox', ref_path: d.voice.ref_path || '', voice_id: '' });
+    renderVoiceLibrary();
+    switchView('tts');
+    toast(`Cloned "${d.voice.name}" (${d.voice.clips_count} clips, ${d.voice.duration_sec}s)!`, 'ok');
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Clone';
+  }
+};
+
+// 105 Free Hindi Conversations Browser
+async function loadConversations() {
+  const r = await fetch('/api/conversations');
+  const d = await r.json();
+  state.conversations = d.items || [];
+  $('conversationsStats').innerHTML = `
+    ✓ <strong>${d.total_clips || 0} Real Human Hindi Conversational Recordings (${d.total_duration_min || 0} min)</strong> downloaded in <code>out/hindi_conversations_100/</code> and merged with your <strong>598 Favorite World channel voiceovers</strong> in <code>out/fw_voice_dataset/metadata.jsonl</code>! Click any conversation below to preview or clone its speaker.
+  `;
+  const box = $('conversationsList');
+  box.innerHTML = state.conversations.slice(0, 105).map(c => {
+    const wavName = c.file_name.split('/').pop();
+    return `
+      <div class="hist-row">
+        <button class="hist-play-btn" onclick="playClip('/conv-wavs/${wavName}','Hindi Conversation #${c.id}')">▶</button>
+        <div class="hist-body">
+          <div class="hist-text">${c.transcription}</div>
+          <div class="hist-sub">Conversation #${c.id} · ${c.speaker_gender} · ${c.duration}s · <code>${c.path}</code></div>
+        </div>
+        <div class="hist-actions">
+          <button class="btn-pill" onclick="useConvAsRef('${c.path}','Hindi Conv #${c.id}')">Use as Voice Ref</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+window.useConvAsRef = (path, label) => {
+  // a reference clip is cloned by Chatterbox; remembered like any other voice choice
+  applyVoice({ kind: 'custom', id: 'conv:' + path, name: label, role: 'Real Hindi Conversation Clone', desc: '',
+               engine: 'chatterbox', ref_path: path, voice_id: '' });
+  switchView('tts');
+  toast(`Selected ${label} as active cloning reference!`, 'ok');
+};
+
+// Pronunciation & Hindi Number Normalizer Test
+$('btnTestNormalize').onclick = async () => {
+  const text = $('pronTestInput').value;
+  const r = await fetch('/api/split', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  });
+  const d = await r.json();
+  const sents = (d.sentences || []).map(x => x.text).join(' ');
+  $('pronTestOutput').textContent = sents || 'Enter Hindi text above.';
+};
+
+$('btnCheckCloud').onclick = checkCloud;
+
+loadMeta();
+refreshHistory();
+renderBatchList();
+</script>
+</body>
+</html>

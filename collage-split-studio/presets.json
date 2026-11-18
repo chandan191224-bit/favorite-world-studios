@@ -1,0 +1,420 @@
+{
+ "presets": [
+  {
+   "id": "split-2-slide",
+   "name": "Split 2 – slide in",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "split-2-diagonal",
+   "name": "Split 2 – diagonal",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "split-2-rows",
+   "name": "Split 2 – top / bottom",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "split-3-columns",
+   "name": "Split 3 – columns",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 3
+  },
+  {
+   "id": "split-3-diagonal",
+   "name": "Split 3 – diagonal",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 3
+  },
+  {
+   "id": "split-big-small",
+   "name": "Split – 1 big + 2 small",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 3
+  },
+  {
+   "id": "split-4-grid",
+   "name": "Split 4 – 2 × 2",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 4
+  },
+  {
+   "id": "vs-compare",
+   "name": "Compare A vs B (VS badge)",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "vs-diagonal",
+   "name": "Compare – diagonal VS",
+   "fx": "split",
+   "family": "split",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "split-push-3",
+   "name": "Split push – full → 3",
+   "fx": "splitpush",
+   "family": "split",
+   "dur": 6,
+   "slots": 3
+  },
+  {
+   "id": "split-push-2v",
+   "name": "Split push – full → 2 rows",
+   "fx": "splitpush",
+   "family": "split",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "before-after",
+   "name": "Before / after – slider",
+   "fx": "beforeafter",
+   "family": "compare",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "before-after-sweep",
+   "name": "Before / after – one sweep",
+   "fx": "beforeafter",
+   "family": "compare",
+   "dur": 4,
+   "slots": 2
+  },
+  {
+   "id": "before-after-vertical",
+   "name": "Before / after – vertical",
+   "fx": "beforeafter",
+   "family": "compare",
+   "dur": 4,
+   "slots": 2
+  },
+  {
+   "id": "vs-duel",
+   "name": "A vs B – cut-out duel",
+   "fx": "vsduel",
+   "family": "compare",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "vs-duel-photos",
+   "name": "A vs B – photos",
+   "fx": "vsduel",
+   "family": "compare",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "ab-panel",
+   "name": "Before / after – side panel",
+   "fx": "abpanel",
+   "family": "compare",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "ab-swap",
+   "name": "Compare – angled wipe",
+   "fx": "abswap",
+   "family": "compare",
+   "dur": 4.5,
+   "slots": 2
+  },
+  {
+   "id": "compare-cards",
+   "name": "Compare – two cards",
+   "fx": "comparecards",
+   "family": "compare",
+   "dur": 4.5,
+   "slots": 2
+  },
+  {
+   "id": "grid-2x2-pop",
+   "name": "Grid 2 × 2 – pop",
+   "fx": "grid",
+   "family": "grid",
+   "dur": 5,
+   "slots": 4
+  },
+  {
+   "id": "grid-3x2-cascade",
+   "name": "Grid 3 × 2 – cascade",
+   "fx": "grid",
+   "family": "grid",
+   "dur": 5,
+   "slots": 6
+  },
+  {
+   "id": "grid-3x3-cascade",
+   "name": "Grid 3 × 3 – cascade",
+   "fx": "grid",
+   "family": "grid",
+   "dur": 5.5,
+   "slots": 9
+  },
+  {
+   "id": "grid-4x3-wall",
+   "name": "Grid 4 × 3 – wall",
+   "fx": "grid",
+   "family": "grid",
+   "dur": 5.5,
+   "slots": 12
+  },
+  {
+   "id": "grid-rearrange",
+   "name": "Grid – rearrange",
+   "fx": "grid",
+   "family": "grid",
+   "dur": 6,
+   "slots": 6
+  },
+  {
+   "id": "grid-masonry",
+   "name": "Masonry – mixed grid",
+   "fx": "masonry",
+   "family": "grid",
+   "dur": 5,
+   "slots": 6
+  },
+  {
+   "id": "photo-full",
+   "name": "Full photo",
+   "fx": "photo",
+   "family": "pip",
+   "dur": 4,
+   "slots": 1
+  },
+  {
+   "id": "pip-corner-pop",
+   "name": "PiP – corner pop",
+   "fx": "pip",
+   "family": "pip",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "pip-grow-full",
+   "name": "PiP – grows to full",
+   "fx": "pip",
+   "family": "pip",
+   "dur": 5.5,
+   "slots": 2
+  },
+  {
+   "id": "pip-circle",
+   "name": "PiP – circle window",
+   "fx": "pip",
+   "family": "pip",
+   "dur": 5,
+   "slots": 2
+  },
+  {
+   "id": "pip-panels-news",
+   "name": "PiP – side panels",
+   "fx": "panels",
+   "family": "pip",
+   "dur": 5,
+   "slots": 3
+  },
+  {
+   "id": "wall-zoom-in",
+   "name": "Photo wall – zoom in",
+   "fx": "wall",
+   "family": "wall",
+   "dur": 6,
+   "slots": 9
+  },
+  {
+   "id": "wall-pan-across",
+   "name": "Photo wall – pan across",
+   "fx": "wallpan",
+   "family": "wall",
+   "dur": 6,
+   "slots": 9
+  },
+  {
+   "id": "wall-shuffle",
+   "name": "Photo wall – shuffle",
+   "fx": "wallshuffle",
+   "family": "wall",
+   "dur": 6,
+   "slots": 9
+  },
+  {
+   "id": "wall-gallery",
+   "name": "Photo wall – gallery",
+   "fx": "wall",
+   "family": "wall",
+   "dur": 6,
+   "slots": 12
+  },
+  {
+   "id": "jh-bw-collage",
+   "name": "Scrapbook – B&W on kraft",
+   "fx": "scrap",
+   "family": "scrapbook",
+   "dur": 6,
+   "slots": 5
+  },
+  {
+   "id": "scrapbook-pop-in",
+   "name": "Scrapbook – colour pop-in",
+   "fx": "scrap",
+   "family": "scrapbook",
+   "dur": 6,
+   "slots": 5
+  },
+  {
+   "id": "scrapbook-chaos-order",
+   "name": "Scrapbook – chaos to order",
+   "fx": "scraptidy",
+   "family": "scrapbook",
+   "dur": 6,
+   "slots": 5
+  },
+  {
+   "id": "scrap-annotated",
+   "name": "Scrapbook – annotated",
+   "fx": "scrap",
+   "family": "scrapbook",
+   "dur": 6,
+   "slots": 4
+  },
+  {
+   "id": "vox-halftone",
+   "name": "Scrapbook – print look",
+   "fx": "scrap",
+   "family": "scrapbook",
+   "dur": 6,
+   "slots": 4
+  },
+  {
+   "id": "sticker-pop",
+   "name": "Stickers – pop-in",
+   "fx": "stickers",
+   "family": "sticker",
+   "dur": 5,
+   "slots": 3
+  },
+  {
+   "id": "sticker-lineup",
+   "name": "Stickers – lineup",
+   "fx": "lineup",
+   "family": "sticker",
+   "dur": 5,
+   "slots": 4
+  },
+  {
+   "id": "sticker-fan",
+   "name": "Stickers – fan-out",
+   "fx": "stickerfan",
+   "family": "sticker",
+   "dur": 5,
+   "slots": 4
+  },
+  {
+   "id": "polaroid-deal-fan",
+   "name": "Polaroids – deal + fan",
+   "fx": "deal",
+   "family": "polaroid",
+   "dur": 6,
+   "slots": 4
+  },
+  {
+   "id": "polaroid-slam",
+   "name": "Polaroid – slam",
+   "fx": "slam",
+   "family": "polaroid",
+   "dur": 3.5,
+   "slots": 1
+  },
+  {
+   "id": "polaroid-fan-spread",
+   "name": "Polaroids – fan spread",
+   "fx": "fan",
+   "family": "polaroid",
+   "dur": 6,
+   "slots": 4
+  },
+  {
+   "id": "filmstrip-scroll",
+   "name": "Film strip – scroll",
+   "fx": "filmstrip",
+   "family": "film",
+   "dur": 6,
+   "slots": 4
+  },
+  {
+   "id": "filmstrip-vertical",
+   "name": "Film strip – vertical",
+   "fx": "filmstrip",
+   "family": "film",
+   "dur": 6,
+   "slots": 4
+  },
+  {
+   "id": "contact-sheet-develop",
+   "name": "Contact sheet – develop",
+   "fx": "contact",
+   "family": "film",
+   "dur": 6,
+   "slots": 12
+  },
+  {
+   "id": "contact-sheet-zoom",
+   "name": "Contact sheet – zoom to frame",
+   "fx": "contact",
+   "family": "film",
+   "dur": 6,
+   "slots": 12
+  },
+  {
+   "id": "mosaic-build",
+   "name": "Mosaic – build",
+   "fx": "mosaic",
+   "family": "mosaic",
+   "dur": 5,
+   "slots": 6
+  },
+  {
+   "id": "mosaic-wave",
+   "name": "Mosaic – wave",
+   "fx": "mosaic",
+   "family": "mosaic",
+   "dur": 5,
+   "slots": 6
+  },
+  {
+   "id": "mosaic-reveal",
+   "name": "Mosaic – reveal",
+   "fx": "mosaicreveal",
+   "family": "mosaic",
+   "dur": 6,
+   "slots": 4
+  }
+ ]
+}

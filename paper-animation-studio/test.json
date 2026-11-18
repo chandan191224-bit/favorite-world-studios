@@ -1,0 +1,3 @@
+{"pages":[{"id":1,"title":"Page 1","paperTone":"#f1ebd8","mastheadTitle":"THE TEST TIMES","mastheadSub":"NEW DELHI • TEST","photoType":"none","photoPlacement":"rightTop","photoCaption":"","posX":0,"posY":0,"tiltDeg":-1,
+"headline":"TEST HEADLINE ABOUT INDIA'S PLATE","subhead":"A sub headline for testing","leftCol":"This is the first column. India eats a lot of rice and wheat. Protein comes mostly from cereals and pulses.","rightCol":"This is the second column with more text for the layout test of the renderer."}],
+"targets":[{"id":1,"phrase":"India eats a lot of rice and wheat.","pageSelect":"auto","style":"marker","focusOverride":"global","color":"#c7912c","opacity":55,"zoom":2.4,"panDur":1.2,"sweepDur":1,"holdDur":1.4,"cueTime":null}]}

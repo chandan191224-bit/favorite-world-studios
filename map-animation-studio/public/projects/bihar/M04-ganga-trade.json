@@ -1,0 +1,126 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 7,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "24.5, 86.5",
+   "zoom": 4.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 7,
+   "place": "23.5, 88.0",
+   "zoom": 4.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 5.6,
+   "places": [
+    "25.61, 85.14",
+    "25.25, 86.98",
+    "24.8, 87.9",
+    "23.5, 88.3",
+    "22.57, 88.36",
+    "21.6, 88.3"
+   ],
+   "mode": "straight",
+   "vehicle": "ship",
+   "routeStyle": "ink",
+   "color": "#b8862b",
+   "size": 46
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.3,
+   "endSec": 7,
+   "places": [
+    "Patna (25.61, 85.14)"
+   ],
+   "text": "बिहार",
+   "subtext": "आयरन · बारूद · कॉटन · सिल्क · शुगर",
+   "color": "#3a2a1a",
+   "size": 60,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.8,
+   "endSec": 7,
+   "places": [
+    "Kolkata"
+   ],
+   "text": "बंगाल",
+   "subtext": "पूरे एशिया तक ट्रेड",
+   "color": "#a3141a",
+   "size": 60,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

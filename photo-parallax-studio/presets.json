@@ -1,0 +1,953 @@
+[
+ {
+  "id": "push-doc",
+  "name": "Documentary push",
+  "family": "Push & pull",
+  "note": "The standard move: slow push, layers separate, soft vignette.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.24
+   }
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.45,
+   "grain": 0.12
+  }
+ },
+ {
+  "id": "push-archive",
+  "name": "Archive slow push",
+  "family": "Push & pull",
+  "note": "Gentle push for old stills — grain, warm fade, heavy vignette.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.15
+   }
+  },
+  "dur": 7,
+  "demo": "factory",
+  "grade": {
+   "look": "faded",
+   "vignette": 0.55,
+   "grain": 0.3
+  }
+ },
+ {
+  "id": "push-detail",
+  "name": "Zoom into the detail",
+  "family": "Push & pull",
+  "note": "Hard push into a face or detail, fast start, soft landing.",
+  "move": {
+   "fx": "push-detail",
+   "params": {
+    "amount": 1.8
+   }
+  },
+  "dur": 4,
+  "demo": "factory",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.5,
+   "grain": 0.15
+  },
+  "depth": {
+   "bands": 6,
+   "parallax": 0.7
+  }
+ },
+ {
+  "id": "pull-reveal",
+  "name": "Pull back reveal",
+  "family": "Push & pull",
+  "note": "Start close, pull back and reveal the whole scene.",
+  "move": {
+   "fx": "pull",
+   "params": {
+    "amount": 0.22
+   }
+  },
+  "dur": 5,
+  "demo": "desert",
+  "grade": {
+   "look": "cold",
+   "vignette": 0.4
+  }
+ },
+ {
+  "id": "push-lean",
+  "name": "Push with lean",
+  "family": "Push & pull",
+  "note": "Push in with a slight dutch lean — tension.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.26,
+    "roll": 4.5
+   }
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "sepia",
+   "vignette": 0.5,
+   "grain": 0.2
+  }
+ },
+ {
+  "id": "push-tilt-up",
+  "name": "Push + tilt up",
+  "family": "Push & pull",
+  "note": "Dolly in while tilting up to the sky.",
+  "move": {
+   "fx": "push-tilt",
+   "params": {
+    "amount": 0.22,
+    "tilt": 0.24
+   }
+  },
+  "dur": 5.5,
+  "demo": "ridge",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.35
+  }
+ },
+ {
+  "id": "push-tilt-down",
+  "name": "Push + tilt down",
+  "family": "Push & pull",
+  "note": "Dolly in while tilting down to the ground.",
+  "move": {
+   "fx": "push-tilt",
+   "params": {
+    "amount": 0.2,
+    "tilt": -0.22
+   }
+  },
+  "dur": 5.5,
+  "demo": "ridge",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.35
+  }
+ },
+ {
+  "id": "truck-right",
+  "name": "Truck right",
+  "family": "Truck & pan",
+  "note": "Slide right — foreground sweeps past fastest.",
+  "move": {
+   "fx": "truck",
+   "params": {
+    "dist": 0.17,
+    "dir": "1"
+   }
+  },
+  "dur": 5,
+  "demo": "steps",
+  "grade": {
+   "look": "none",
+   "vignette": 0.4
+  }
+ },
+ {
+  "id": "truck-left",
+  "name": "Truck left",
+  "family": "Truck & pan",
+  "note": "Slide left — foreground sweeps past fastest.",
+  "move": {
+   "fx": "truck",
+   "params": {
+    "dist": 0.17,
+    "dir": "-1"
+   }
+  },
+  "dur": 5,
+  "demo": "steps",
+  "grade": {
+   "look": "none",
+   "vignette": 0.4
+  }
+ },
+ {
+  "id": "truck-occlude",
+  "name": "Truck behind foreground",
+  "family": "Truck & pan",
+  "note": "Strong lateral move where a foreground object passes the camera.",
+  "move": {
+   "fx": "truck",
+   "params": {
+    "dist": 0.3,
+    "dir": "-1",
+    "push": 0.05
+   }
+  },
+  "dur": 6,
+  "demo": "steps",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.45
+  },
+  "depth": {
+   "bands": 6,
+   "parallax": 0.95
+  }
+ },
+ {
+  "id": "pan-slow",
+  "name": "Slow pan (panorama)",
+  "family": "Truck & pan",
+  "note": "Long, near-linear pan across a wide photo.",
+  "move": {
+   "fx": "pan",
+   "params": {
+    "dist": 0.14
+   }
+  },
+  "dur": 6,
+  "demo": "ridge",
+  "grade": {
+   "look": "none",
+   "vignette": 0.35
+  },
+  "depth": {
+   "parallax": 0.35
+  }
+ },
+ {
+  "id": "crane-rise",
+  "name": "Crane rise",
+  "family": "Tilt & crane",
+  "note": "The camera rises and pushes in gently.",
+  "move": {
+   "fx": "crane",
+   "params": {
+    "rise": 0.22
+   }
+  },
+  "dur": 6,
+  "demo": "ridge",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.35
+  }
+ },
+ {
+  "id": "tilt-up-sky",
+  "name": "Tilt up to the sky",
+  "family": "Tilt & crane",
+  "note": "From the ground up to the sky with a soft push.",
+  "move": {
+   "fx": "push-tilt",
+   "params": {
+    "amount": 0.18,
+    "tilt": 0.34
+   }
+  },
+  "dur": 6,
+  "demo": "ridge",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.3
+  },
+  "depth": {
+   "parallax": 0.5
+  }
+ },
+ {
+  "id": "orbit-subject",
+  "name": "Arc around subject",
+  "family": "Orbit & dolly-zoom",
+  "note": "A short orbit around the subject at the focus point.",
+  "move": {
+   "fx": "orbit",
+   "params": {
+    "arc": 26
+   }
+  },
+  "dur": 6,
+  "demo": "horseman",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.45
+  }
+ },
+ {
+  "id": "orbit-wide",
+  "name": "Wide orbit",
+  "family": "Orbit & dolly-zoom",
+  "note": "A bigger arc for wide scenes.",
+  "move": {
+   "fx": "orbit",
+   "params": {
+    "arc": 46,
+    "radius": 0.2
+   }
+  },
+  "dur": 7,
+  "demo": "desert",
+  "grade": {
+   "look": "cold",
+   "vignette": 0.4
+  }
+ },
+ {
+  "id": "vertigo",
+  "name": "Vertigo push",
+  "family": "Orbit & dolly-zoom",
+  "note": "Subject stays constant while the background stretches.",
+  "move": {
+   "fx": "vertigo",
+   "params": {
+    "amount": 0.45,
+    "zoom": 0.05
+   }
+  },
+  "dur": 5,
+  "demo": "street",
+  "grade": {
+   "look": "teal",
+   "vignette": 0.5
+  }
+ },
+ {
+  "id": "vertigo-rev",
+  "name": "Vertigo pull",
+  "family": "Orbit & dolly-zoom",
+  "note": "Reverse dolly zoom — the world compresses.",
+  "move": {
+   "fx": "vertigo",
+   "params": {
+    "amount": 0.45,
+    "zoom": 0.05,
+    "mode": "pull"
+   }
+  },
+  "dur": 5,
+  "demo": "street",
+  "grade": {
+   "look": "teal",
+   "vignette": 0.5
+  }
+ },
+ {
+  "id": "sway",
+  "name": "Pendulum sway",
+  "family": "Sway & drift",
+  "note": "Hand-held sway that settles by the end.",
+  "move": {
+   "fx": "sway",
+   "params": {}
+  },
+  "dur": 6,
+  "demo": "room",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.4
+  }
+ },
+ {
+  "id": "drift",
+  "name": "Ambient drift",
+  "family": "Sway & drift",
+  "note": "The photo never sits still — a slow living drift.",
+  "move": {
+   "fx": "drift",
+   "params": {}
+  },
+  "dur": 8,
+  "demo": "room",
+  "grade": {
+   "look": "warm",
+   "vignette": 0.35
+  }
+ },
+ {
+  "id": "breathe",
+  "name": "Breathing hold",
+  "family": "Sway & drift",
+  "note": "One slow breath. Nearly still.",
+  "move": {
+   "fx": "breathe",
+   "params": {}
+  },
+  "dur": 6,
+  "demo": "desert",
+  "grade": {
+   "look": "cold",
+   "vignette": 0.3
+  }
+ },
+ {
+  "id": "mesh-zoom",
+  "name": "3D zoom (mesh)",
+  "family": "Mesh 3D",
+  "note": "Depth-displaced mesh camera push — the modern look.",
+  "move": {
+   "fx": "mesh-zoom",
+   "params": {}
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.4
+  },
+  "depth": {
+   "renderer": "mesh"
+  }
+ },
+ {
+  "id": "mesh-rush",
+  "name": "Mesh fly-through",
+  "family": "Mesh 3D",
+  "note": "Push through the mesh — for streets, corridors, arches.",
+  "move": {
+   "fx": "mesh-rush",
+   "params": {}
+  },
+  "dur": 5,
+  "demo": "street",
+  "grade": {
+   "look": "teal",
+   "vignette": 0.45
+  },
+  "depth": {
+   "renderer": "mesh"
+  }
+ },
+ {
+  "id": "kid-stays",
+  "name": "Photo comes alive (classic)",
+  "family": "Documentary looks",
+  "note": "The archival cut-out look: strong separation, B/W, grain, vignette.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.34
+   }
+  },
+  "dur": 5,
+  "demo": "factory",
+  "grade": {
+   "look": "bw2",
+   "vignette": 0.6,
+   "grain": 0.3
+  },
+  "depth": {
+   "bands": 4,
+   "parallax": 0.95
+  }
+ },
+ {
+  "id": "teal-embers",
+  "name": "Teal night + embers",
+  "family": "Documentary looks",
+  "note": "Cold teal grade, warm embers rising, letterbox.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.22
+   }
+  },
+  "dur": 6,
+  "demo": "desert",
+  "atmos": [
+   {
+    "kind": "embers"
+   }
+  ],
+  "grade": {
+   "look": "teal",
+   "vignette": 0.55,
+   "letterbox": 2.39
+  }
+ },
+ {
+  "id": "god-rays",
+  "name": "Window light rays",
+  "family": "Documentary looks",
+  "note": "Soft god rays sweep an interior while the camera pushes.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.16
+   }
+  },
+  "dur": 6,
+  "demo": "room",
+  "atmos": [
+   {
+    "kind": "rays"
+   },
+   {
+    "kind": "dust"
+   }
+  ],
+  "grade": {
+   "look": "warm",
+   "vignette": 0.45
+  }
+ },
+ {
+  "id": "fog-valley",
+  "name": "Foggy valley drift",
+  "family": "Documentary looks",
+  "note": "Drifting fog bands behind the subject.",
+  "move": {
+   "fx": "drift",
+   "params": {}
+  },
+  "dur": 8,
+  "demo": "ridge",
+  "atmos": [
+   {
+    "kind": "fog"
+   },
+   {
+    "kind": "haze"
+   }
+  ],
+  "grade": {
+   "look": "cold",
+   "vignette": 0.4
+  }
+ },
+ {
+  "id": "dust-battle",
+  "name": "Dust & smoke",
+  "family": "Documentary looks",
+  "note": "Dark drifting smoke and dust over a warm grade.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.26
+   }
+  },
+  "dur": 6,
+  "demo": "horseman",
+  "atmos": [
+   {
+    "kind": "smoke"
+   },
+   {
+    "kind": "dust"
+   }
+  ],
+  "grade": {
+   "look": "warm",
+   "vignette": 0.55,
+   "grain": 0.18
+  }
+ },
+ {
+  "id": "bokeh-dream",
+  "name": "Bokeh dream",
+  "family": "Documentary looks",
+  "note": "Soft bokeh orbs and a light leak drifting across.",
+  "move": {
+   "fx": "drift",
+   "params": {
+    "amp": 0.03
+   }
+  },
+  "dur": 7,
+  "demo": "room",
+  "atmos": [
+   {
+    "kind": "bokeh"
+   },
+   {
+    "kind": "leak"
+   }
+  ],
+  "grade": {
+   "look": "faded",
+   "vignette": 0.45
+  }
+ },
+ {
+  "id": "year-chip",
+  "name": "Year chip caption",
+  "family": "Documentary looks",
+  "note": "Push with a red year chip and a Hindi caption.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.2
+   }
+  },
+  "dur": 6,
+  "demo": "factory",
+  "overlays": [
+   {
+    "kind": "caption",
+    "text": "कहानी यहीं से बदल गई",
+    "year": "1947"
+   }
+  ],
+  "grade": {
+   "look": "bw",
+   "vignette": 0.5,
+   "grain": 0.22
+  }
+ },
+ {
+  "id": "name-tag",
+  "name": "Name tag lower third",
+  "family": "Documentary looks",
+  "note": "Documentary push with a stacked name tag.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.18
+   }
+  },
+  "dur": 6,
+  "demo": "steps",
+  "overlays": [
+   {
+    "kind": "nametag",
+    "text": "एक महान इंसान",
+    "sub": "1952 – 2020"
+   }
+  ],
+  "grade": {
+   "look": "sepia",
+   "vignette": 0.45
+  }
+ },
+ {
+  "id": "place-marker",
+  "name": "Place label + ring",
+  "family": "Documentary looks",
+  "note": "Push onto a place marker with a pulsing ring.",
+  "move": {
+   "fx": "push-detail",
+   "params": {
+    "amount": 0.6
+   }
+  },
+  "dur": 5,
+  "demo": "desert",
+  "overlays": [
+   {
+    "kind": "place",
+    "text": "रामेश्वरम्",
+    "x": 0.52,
+    "y": 0.5
+   }
+  ],
+  "grade": {
+   "look": "warm",
+   "vignette": 0.45
+  }
+ },
+ {
+  "id": "cutout-rim",
+  "name": "Cut-out + gold rim",
+  "family": "Subject cut-out",
+  "note": "Nitish-style: subject cut out with a warm gold rim glow over a soft, darker background.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.12
+   }
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.55,
+   "grain": 0.1
+  },
+  "subject": {
+   "on": true,
+   "rim": "#ffb547",
+   "rimAmt": 0.9,
+   "rimGlow": 0.5,
+   "rimWidth": 0.35,
+   "bgSat": 0.55,
+   "bgDim": 0.3,
+   "bgBlur": 0.35,
+   "bgTintAmt": 0,
+   "fgSat": 1,
+   "pop": 0.06
+  }
+ },
+ {
+  "id": "cutout-bw",
+  "name": "B&W subject on colour",
+  "family": "Subject cut-out",
+  "note": "Memory look: black-and-white subject with a gold edge over the full-colour scene.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.12
+   }
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.5,
+   "grain": 0.14
+  },
+  "subject": {
+   "on": true,
+   "rim": "#ffbf5e",
+   "rimAmt": 1,
+   "rimGlow": 0.45,
+   "rimWidth": 0.4,
+   "fgSat": 0,
+   "fgContrast": 1.18,
+   "bgSat": 1,
+   "bgDim": 0.22,
+   "bgBlur": 0.25,
+   "bgTintAmt": 0,
+   "pop": 0.05
+  }
+ },
+ {
+  "id": "cutout-teal",
+  "name": "Colour subject, teal background",
+  "family": "Subject cut-out",
+  "note": "Object/person pops in full colour with a cyan rim; the scene behind goes cold teal.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.14
+   }
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.6,
+   "grain": 0.1
+  },
+  "subject": {
+   "on": true,
+   "rim": "#59e3ff",
+   "rimAmt": 0.85,
+   "rimGlow": 0.55,
+   "rimWidth": 0.3,
+   "bgSat": 0.15,
+   "bgDim": 0.35,
+   "bgBlur": 0.3,
+   "bgTint": "#0e3a46",
+   "bgTintAmt": 0.55,
+   "fgSat": 1.1,
+   "pop": 0.07
+  }
+ },
+ {
+  "id": "cutout-name",
+  "name": "Cut-out + stencil name",
+  "family": "Subject cut-out",
+  "note": "Character intro: rim-lit subject with a big worn stencil name beside it.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.1
+   }
+  },
+  "dur": 6,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.5,
+   "grain": 0.12
+  },
+  "subject": {
+   "on": true,
+   "rim": "#ffb547",
+   "rimAmt": 0.8,
+   "rimGlow": 0.45,
+   "rimWidth": 0.3,
+   "bgSat": 0.7,
+   "bgDim": 0.25,
+   "bgBlur": 0.3,
+   "bgTintAmt": 0,
+   "fgSat": 1,
+   "pop": 0.05
+  },
+  "overlays": [
+   {
+    "kind": "stencil",
+    "text": "THE\nSPY",
+    "style": "stencil",
+    "x": 0.07,
+    "y": 0.3,
+    "size": 0.15,
+    "depth": 0.6
+   }
+  ]
+ },
+ {
+  "id": "depth-title",
+  "name": "Giant title behind subject",
+  "family": "Subject cut-out",
+  "note": "Dhruv-style: one huge word sits between the background and the subject.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.1
+   }
+  },
+  "dur": 5,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.4,
+   "grain": 0.08
+  },
+  "subject": {
+   "on": true,
+   "rimAmt": 0,
+   "bgSat": 1,
+   "bgDim": 0.12,
+   "bgBlur": 0.22,
+   "bgTintAmt": 0,
+   "fgSat": 1,
+   "pop": 0.03
+  },
+  "overlays": [
+   {
+    "kind": "stencil",
+    "text": "EMPIRE",
+    "style": "clean",
+    "align": "center",
+    "x": 0.5,
+    "y": 0.08,
+    "size": 0.3,
+    "depth": 0.6,
+    "reveal": "fade"
+   }
+  ]
+ },
+ {
+  "id": "rain-street",
+  "name": "Rain on the street",
+  "family": "Weather & mood",
+  "note": "Cold blue grade with slanting rain.",
+  "move": {
+   "fx": "truck",
+   "params": {
+    "dist": 0.14,
+    "dir": "-1"
+   }
+  },
+  "dur": 6,
+  "demo": "street",
+  "atmos": [
+   {
+    "kind": "rain"
+   }
+  ],
+  "grade": {
+   "look": "cold",
+   "vignette": 0.55,
+   "grain": 0.15
+  }
+ },
+ {
+  "id": "snow-archive",
+  "name": "Snowy archive",
+  "family": "Weather & mood",
+  "note": "Falling snow over a monochrome archive still.",
+  "move": {
+   "fx": "push-soft",
+   "params": {
+    "amount": 0.14
+   }
+  },
+  "dur": 7,
+  "demo": "factory",
+  "atmos": [
+   {
+    "kind": "snow"
+   }
+  ],
+  "grade": {
+   "look": "bw",
+   "vignette": 0.55,
+   "grain": 0.25
+  }
+ },
+ {
+  "id": "lightning-storm",
+  "name": "Lightning storm",
+  "family": "Weather & mood",
+  "note": "Cold flashes with bolts on a dark push.",
+  "move": {
+   "fx": "push",
+   "params": {
+    "amount": 0.2
+   }
+  },
+  "dur": 6,
+  "demo": "ridge",
+  "atmos": [
+   {
+    "kind": "lightning"
+   },
+   {
+    "kind": "rain",
+    "amount": 0.25
+   }
+  ],
+  "grade": {
+   "look": "cold",
+   "vignette": 0.65
+  }
+ },
+ {
+  "id": "kb-push",
+  "name": "Ken Burns push (flat)",
+  "family": "Ken Burns",
+  "note": "Flat zoom with no layer separation.",
+  "move": {
+   "fx": "kb",
+   "params": {
+    "amount": 0.22
+   }
+  },
+  "dur": 6,
+  "demo": "horseman",
+  "grade": {
+   "look": "none",
+   "vignette": 0.3
+  },
+  "depth": {
+   "parallax": 0
+  }
+ },
+ {
+  "id": "kb-pan",
+  "name": "Ken Burns pan (flat)",
+  "family": "Ken Burns",
+  "note": "Flat pan across the photo.",
+  "move": {
+   "fx": "kb",
+   "params": {
+    "amount": 0.05,
+    "x": 0.12
+   }
+  },
+  "dur": 6,
+  "demo": "ridge",
+  "grade": {
+   "look": "none",
+   "vignette": 0.3
+  },
+  "depth": {
+   "parallax": 0
+  }
+ }
+]

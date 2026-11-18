@@ -1,0 +1,154 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "35.2, 79.0",
+   "zoom": 5.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4.6,
+   "place": "35.0, 79.0",
+   "zoom": 5.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7.0,
+   "place": "28.0, 93.8",
+   "zoom": 5.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 10,
+   "place": "28.0, 93.8",
+   "zoom": 5.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.3,
+   "endSec": 6.0,
+   "places": [
+    "file:areas/aksai-chin.geojson"
+   ],
+   "level": "auto",
+   "highlightStyle": "hatch",
+   "color": "#a3141a",
+   "text": "अक्साई चिन",
+   "subtext": "चीन के कब्ज़े में"
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 1.0,
+   "endSec": 5.0,
+   "places": [
+    "37.88, 77.42",
+    "36.43, 77.03",
+    "35.94, 79.37",
+    "35.33, 79.53",
+    "33.38, 79.72"
+   ],
+   "mode": "straight",
+   "vehicle": "truck",
+   "routeStyle": "dashed",
+   "color": "#5a3d26",
+   "size": 40
+  },
+  {
+   "name": "road",
+   "type": "text",
+   "startSec": 2.0,
+   "endSec": 5.6,
+   "text": "चीनी सड़क (1950 का दशक)",
+   "subtext": "रास्ता लगभग",
+   "anchor": "bottom-left",
+   "size": 46,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 3.2,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 3.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 6.8,
+   "endSec": 10,
+   "places": [
+    "Arunachal Pradesh"
+   ],
+   "level": "state",
+   "highlightStyle": "outline-draw",
+   "color": "#e07b1f",
+   "text": "NEFA (आज का अरुणाचल)",
+   "subtext": "मैकमोहन रेखा तक भारत · चीन का दावा अलग"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

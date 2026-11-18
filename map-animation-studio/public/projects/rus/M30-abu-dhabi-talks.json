@@ -1,0 +1,227 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "35, 45",
+   "zoom": 1.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 9,
+   "place": "32, 45",
+   "zoom": 1.68,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "रूस",
+   "type": "route",
+   "startSec": 0.6,
+   "endSec": 7.5,
+   "places": [
+    "55.75, 37.62",
+    "40.0, 45.0",
+    "24.45, 54.38"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 36
+  },
+  {
+   "name": "यूक्रेन",
+   "type": "route",
+   "startSec": 1.2,
+   "endSec": 7.5,
+   "places": [
+    "50.45, 30.52",
+    "42.0, 42.0",
+    "24.45, 54.38"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#1f4e8c",
+   "size": 36
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.6,
+   "endSec": 9,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#a3141a",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.2,
+   "endSec": 9,
+   "places": [
+    "50.45, 30.52"
+   ],
+   "text": "कीव",
+   "subtext": "",
+   "color": "#1f4e8c",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.0,
+   "endSec": 9,
+   "places": [
+    "24.45, 54.38"
+   ],
+   "text": "अबू धाबी",
+   "subtext": "नवंबर 2026",
+   "color": "#b8862b",
+   "size": 58,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title बातचीत",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 8.4,
+   "text": "बातचीत",
+   "subtext": "अबू धाबी · नवंबर 2026",
+   "anchor": "bottom-left",
+   "size": 56,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 7.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 7.6000000000000005,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

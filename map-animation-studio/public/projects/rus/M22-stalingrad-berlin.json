@@ -1,0 +1,187 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 11,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "50, 38",
+   "zoom": 2.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 5,
+   "place": "52, 32",
+   "zoom": 2.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 11,
+   "place": "52, 20",
+   "zoom": 2.8,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "जवाबी हमला",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 8.8,
+   "places": [
+    "48.70, 44.50",
+    "51.73, 36.19",
+    "50.45, 30.52",
+    "52.23, 21.01",
+    "52.52, 13.40"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.8,
+   "endSec": 11,
+   "places": [
+    "48.70, 44.50"
+   ],
+   "text": "स्टालिनग्राद",
+   "subtext": "1943",
+   "color": "#a3141a",
+   "size": 56,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 8.0,
+   "endSec": 11,
+   "places": [
+    "52.52, 13.40"
+   ],
+   "text": "बर्लिन",
+   "subtext": "1945",
+   "color": "#a3141a",
+   "size": 58,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title जंग पलटी",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 10.4,
+   "text": "जंग पलटी",
+   "subtext": "स्टालिनग्राद से बर्लिन",
+   "anchor": "bottom-left",
+   "size": 56,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

@@ -1,0 +1,405 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "55, 65",
+   "zoom": 1.65,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "55, 65",
+   "zoom": 1.78,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "रूस",
+   "type": "highlight",
+   "startSec": 0.4,
+   "endSec": 10,
+   "places": [
+    "Russia"
+   ],
+   "level": "country",
+   "highlightStyle": "outline-draw",
+   "color": "#a3141a",
+   "text": "रूस",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.8,
+   "endSec": 10,
+   "places": [
+    "Ukraine"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.92,
+   "endSec": 10,
+   "places": [
+    "Belarus"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.04,
+   "endSec": 10,
+   "places": [
+    "Kazakhstan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.1600000000000001,
+   "endSec": 10,
+   "places": [
+    "Georgia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.28,
+   "endSec": 10,
+   "places": [
+    "Armenia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.4,
+   "endSec": 10,
+   "places": [
+    "Azerbaijan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.52,
+   "endSec": 10,
+   "places": [
+    "Uzbekistan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.6400000000000001,
+   "endSec": 10,
+   "places": [
+    "Turkmenistan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.76,
+   "endSec": 10,
+   "places": [
+    "Kyrgyzstan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.8800000000000001,
+   "endSec": 10,
+   "places": [
+    "Tajikistan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.0,
+   "endSec": 10,
+   "places": [
+    "Moldova"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.12,
+   "endSec": 10,
+   "places": [
+    "Latvia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.24,
+   "endSec": 10,
+   "places": [
+    "Lithuania"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.3600000000000003,
+   "endSec": 10,
+   "places": [
+    "Estonia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.0,
+   "endSec": 10,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#a3141a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.3,
+   "endSec": 10,
+   "places": [
+    "50.45, 30.52"
+   ],
+   "text": "कीव",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 10,
+   "places": [
+    "43.24, 76.89"
+   ],
+   "text": "अल्माटी",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 44,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 1991",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 9.4,
+   "text": "1991",
+   "subtext": "15 गणराज्य अलग",
+   "anchor": "bottom-left",
+   "size": 60,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 8.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 8.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

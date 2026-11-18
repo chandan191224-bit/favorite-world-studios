@@ -1,0 +1,64 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 6,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "India",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.6,
+   "place": "10.4, 76.4",
+   "zoom": 5.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6,
+   "place": "10.4, 76.4",
+   "zoom": 5.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 2.4,
+   "endSec": 6,
+   "places": [
+    "Kerala"
+   ],
+   "level": "state",
+   "highlightStyle": "pop-out",
+   "color": "#a3141a",
+   "text": "केरल",
+   "subtext": "चुनी हुई सरकार बर्खास्त · 1959"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

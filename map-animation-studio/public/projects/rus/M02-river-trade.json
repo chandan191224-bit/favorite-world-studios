@@ -1,0 +1,234 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 15,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "56, 35",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4,
+   "place": "52, 32",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "46, 31",
+   "zoom": 3.1,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 15,
+   "place": "43, 30",
+   "zoom": 3.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "व्यापार का रास्ता",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 13.2,
+   "places": [
+    "58.52, 31.27",
+    "56.34, 30.52",
+    "54.78, 32.05",
+    "50.45, 30.52",
+    "48.45, 35.05",
+    "46.64, 32.61",
+    "45.30, 33.50",
+    "41.01, 28.98"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#1f4e8c",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.8,
+   "endSec": 15,
+   "places": [
+    "58.52, 31.27"
+   ],
+   "text": "नोवगोरोद",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.8,
+   "endSec": 15,
+   "places": [
+    "50.45, 30.52"
+   ],
+   "text": "कीव",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 9.0,
+   "endSec": 15,
+   "places": [
+    "41.01, 28.98"
+   ],
+   "text": "कॉन्स्टेंटिनोपल",
+   "subtext": "बाइज़ेंटाइन बाज़ार",
+   "color": "#b8862b",
+   "size": 54,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title वाइकिंग्स से ग्रीक्स",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 14.4,
+   "text": "वाइकिंग्स से ग्रीक्स",
+   "subtext": "नदियों का व्यापार",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 13.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 13.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

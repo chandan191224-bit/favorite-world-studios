@@ -1,0 +1,137 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "Lucknow",
+   "zoom": 6.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4.0,
+   "place": "Lucknow",
+   "zoom": 6.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6.4,
+   "place": "Amritsar",
+   "zoom": 6.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 10,
+   "place": "Amritsar",
+   "zoom": 6.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.3,
+   "endSec": 4.6,
+   "places": [
+    "Lucknow"
+   ],
+   "text": "लखनऊ",
+   "subtext": "कांग्रेस अधिवेशन · 1916",
+   "color": "#3a2a1a",
+   "size": 80,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 6.2,
+   "endSec": 10,
+   "places": [
+    "Amritsar"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 80
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.4,
+   "endSec": 10,
+   "places": [
+    "Amritsar"
+   ],
+   "text": "अमृतसर",
+   "subtext": "जलियांवाला बाग · 13 अप्रैल 1919",
+   "color": "#a3141a",
+   "size": 80,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

@@ -1,0 +1,96 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "23.8, 86.3",
+   "zoom": 4.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "24.6, 85.7",
+   "zoom": 4.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.3,
+   "endSec": 10,
+   "places": [
+    "Bihar"
+   ],
+   "level": "state",
+   "highlightStyle": "glow",
+   "color": "#e07b1f",
+   "text": "बिहार"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 1.4,
+   "endSec": 10,
+   "places": [
+    "West Bengal"
+   ],
+   "level": "state",
+   "highlightStyle": "hatch",
+   "color": "#1f4e8c",
+   "text": "बंगाल",
+   "subtext": "ट्रेड का रास्ता"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 3.0,
+   "endSec": 10,
+   "places": [
+    "Odisha"
+   ],
+   "level": "state",
+   "highlightStyle": "hatch",
+   "color": "#2e7d4f",
+   "text": "ओडिशा",
+   "subtext": "माइनिंग"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 4.6,
+   "endSec": 10,
+   "places": [
+    "Jharkhand"
+   ],
+   "level": "state",
+   "highlightStyle": "hatch",
+   "color": "#2e7d4f",
+   "text": "झारखंड",
+   "subtext": "माइनिंग · 2000"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

@@ -1,0 +1,164 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 12,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "54, 30",
+   "zoom": 2.35,
+   "bearing": 0,
+   "pitch": 25,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 12,
+   "place": "54, 30",
+   "zoom": 2.55,
+   "bearing": 0,
+   "pitch": 25,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 0.6,
+   "endSec": 12,
+   "places": [
+    "52.23, 21.01",
+    "55.75, 37.62"
+   ],
+   "text": "नेपोलियन",
+   "color": "#a3141a",
+   "size": 52
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.2,
+   "endSec": 12,
+   "places": [
+    "52.52, 13.40",
+    "55.75, 37.62"
+   ],
+   "text": "हिटलर",
+   "color": "#6b6257",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 4.0,
+   "endSec": 12,
+   "places": [
+    "55.79, 49.12",
+    "55.75, 37.62"
+   ],
+   "text": "मंगोल",
+   "color": "#b8862b",
+   "size": 50
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.8,
+   "endSec": 12,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title उत्तरी यूरोपीय मैदान",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 11.4,
+   "text": "उत्तरी यूरोपीय मैदान",
+   "subtext": "कोई ऊँचा पहाड़ नहीं",
+   "anchor": "bottom-left",
+   "size": 54,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 10.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 10.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

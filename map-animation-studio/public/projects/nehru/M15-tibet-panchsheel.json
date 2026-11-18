@@ -1,0 +1,145 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.5, 84.0",
+   "zoom": 2.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 8,
+   "place": "Lhasa",
+   "zoom": 2.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 0.3,
+   "endSec": 2.8,
+   "places": [
+    "28.61, 77.21",
+    "39.93, 116.39"
+   ],
+   "mode": "flight",
+   "vehicle": "dot",
+   "routeStyle": "glow",
+   "color": "#b8862b",
+   "size": 46
+  },
+  {
+   "name": "1954",
+   "type": "text",
+   "startSec": 0.3,
+   "endSec": 3.6,
+   "text": "1954 · पंचशील",
+   "subtext": "शांतिपूर्ण सह-अस्तित्व",
+   "anchor": "top",
+   "size": 64,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 2.9,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 3.3,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 3.8,
+   "endSec": 8,
+   "places": [
+    "Tibet"
+   ],
+   "level": "state",
+   "highlightStyle": "hatch",
+   "color": "#a3141a",
+   "text": "तिब्बत",
+   "subtext": "1950 से चीन का नियंत्रण"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.3,
+   "endSec": 3.6,
+   "places": [
+    "New Delhi"
+   ],
+   "text": "नई दिल्ली",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 50
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.4,
+   "endSec": 3.6,
+   "places": [
+    "Beijing"
+   ],
+   "text": "बीजिंग",
+   "pinVariant": "dot",
+   "color": "#3a2a1a",
+   "size": 50
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

@@ -1,0 +1,126 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.7, 91.5",
+   "zoom": 5.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 8,
+   "place": "28.3, 91.7",
+   "zoom": 5.75,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.2,
+   "endSec": 8,
+   "places": [
+    "Lhasa"
+   ],
+   "text": "ल्हासा",
+   "subtext": "17 मार्च 1959",
+   "color": "#a3141a",
+   "size": 64,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 0.8,
+   "endSec": 8,
+   "places": [
+    "29.65, 91.10",
+    "29.23, 91.77",
+    "28.43, 92.46",
+    "27.97, 91.95",
+    "27.80, 91.73",
+    "27.59, 91.86"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "solid",
+   "color": "#a3141a",
+   "size": 56
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.4,
+   "endSec": 8,
+   "places": [
+    "Tawang (27.59, 91.86)"
+   ],
+   "text": "भारत में शरण",
+   "subtext": "31 मार्च 1959",
+   "color": "#e07b1f",
+   "size": 68,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

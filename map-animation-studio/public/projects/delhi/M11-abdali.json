@@ -1,0 +1,150 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 8,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "30.0, 70.0",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "31.61, 65.71",
+   "zoom": 4.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 8,
+   "place": "30.0, 73.5",
+   "zoom": 4.4,
+   "bearing": 0,
+   "pitch": 30,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 8,
+   "places": [
+    "Kandahar (31.61, 65.71)"
+   ],
+   "text": "KANDAHAR",
+   "subtext": "Abdali's base",
+   "color": "#3a2a1a",
+   "size": 73,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.4,
+   "endSec": 6.0,
+   "places": [
+    "31.61, 65.71",
+    "34.0, 71.5",
+    "31.55, 74.34",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 3.6,
+   "endSec": 7.2,
+   "places": [
+    "31.61, 65.71",
+    "30.2, 71.4",
+    "29.9, 75.5",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#a3141a",
+   "size": 34
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 5.8,
+   "endSec": 8,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "plundered again and again",
+   "color": "#a3141a",
+   "size": 86,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

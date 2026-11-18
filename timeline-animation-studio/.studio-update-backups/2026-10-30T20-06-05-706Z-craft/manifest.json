@@ -1,0 +1,407 @@
+{
+  "target": "C:\\Users\\chand\\Desktop\\clausd\\timeline-animation-studio",
+  "changedFiles": 65,
+  "bytes": 55835460,
+  "preserves": [
+    "projects/",
+    "browser IndexedDB",
+    "existing episodes",
+    ".claude/",
+    "copied Claude memory"
+  ],
+  "htmlSha256": "00fbd25faf1db05ddb9bf142778192669272d15ad8144f5d03886b87cfdca211",
+  "backup": "C:\\Users\\chand\\Desktop\\clausd\\timeline-animation-studio\\.studio-update-backups\\2026-10-30T20-06-05-706Z-craft",
+  "date": "2026-10-30T20:06:05.802Z",
+  "files": [
+    {
+      "relative": "Timeline Animation Studio Pro.html",
+      "rootFile": false,
+      "before": "0444bbf74e10433271929c7ecb53b8f432e8947078b1aab603dd8f85c6cf973e",
+      "after": "00fbd25faf1db05ddb9bf142778192669272d15ad8144f5d03886b87cfdca211"
+    },
+    {
+      "relative": "README.md",
+      "rootFile": false,
+      "before": "3e3ff64d22361cdedd2f3f2f1bb3670f8573af8513da131f2ec0dd72e97994d7",
+      "after": "9431d60b08a23bf74c73b5dcb3990b05d5fdaeca05757eb2c7fe01f818e4da6e"
+    },
+    {
+      "relative": "VERIFICATION.md",
+      "rootFile": false,
+      "before": "dda72413fb00699e2b7aee8c73aa1857c1561ebe0cf99a4fc3887bce7283abb9",
+      "after": "7c39c69d03885fb9f534717c71e0659651576ca628f82bec01d7636c518a76ee"
+    },
+    {
+      "relative": "PRODUCT.md",
+      "rootFile": false,
+      "before": null,
+      "after": "320a4b3d16b2a5851c0abd10f45076b570c2bc63003d0633584938a03cd6dedf"
+    },
+    {
+      "relative": "DESIGN.md",
+      "rootFile": false,
+      "before": null,
+      "after": "d465e5e51daeae5c2905fd500c72fe8db3b5c02b26c3fbb8c1c35933356900f8"
+    },
+    {
+      "relative": "build.mjs",
+      "rootFile": false,
+      "before": "a4c7152577458030dae4e8c7343c9205480a6e01e378de309e0a8ef6290ac049",
+      "after": "9d643c013241f26b759d846b10a449d5706c1a763379db570736080793426305"
+    },
+    {
+      "relative": "project.mjs",
+      "rootFile": false,
+      "before": "36258363a01620897e70fabd3e7f4017b212fdfb5e767d52cfb45858f3806987",
+      "after": "2835064f8ff7d092dd56c5c6be1e7343f18150f122ad2c7af019d187a0076d46"
+    },
+    {
+      "relative": "qa-craft.mjs",
+      "rootFile": false,
+      "before": null,
+      "after": "77965d986dc2c142e7cf9dba4135c7d9140b35da02ef3b0fc206c62be2817e7d"
+    },
+    {
+      "relative": "qa-craft-finish.mjs",
+      "rootFile": false,
+      "before": null,
+      "after": "3f832c69b62dd5a2a03acd0b3ede3577bf10e073f46ac8fc5751ff4eaa457ade"
+    },
+    {
+      "relative": "qa-installed-craft.mjs",
+      "rootFile": false,
+      "before": null,
+      "after": "88f3d4b4e8bb4354347c202f1af6f2ac4b825354bbc921adef2b5b2dd8f0f3b0"
+    },
+    {
+      "relative": "update-craft.mjs",
+      "rootFile": false,
+      "before": null,
+      "after": "db6217b52a42e016ad0e88827b7b63951e7a36b8d0b738721d39ea6208420ff9"
+    },
+    {
+      "relative": ".impeccable/design.json",
+      "rootFile": false,
+      "before": null,
+      "after": "2394aa76e9025c8b366da7c1522e3f81d83d3e13134fa4c85d3665e444e56567"
+    },
+    {
+      "relative": "src\\core\\documentary.js",
+      "rootFile": false,
+      "before": "05476286999588aa6ce0bf8c53fc7fa8c003533009bc77be8ef9fabb9755a0ce",
+      "after": "4844d6a08cb695ba2279fcc39bdc7c0f2b99c9cfcabae8a998cea54e40ac4603"
+    },
+    {
+      "relative": "src\\craft.css",
+      "rootFile": false,
+      "before": null,
+      "after": "f7413e7a32906fc799055508eba1ad66ed9048a6252aced5a934401519b69a1e"
+    },
+    {
+      "relative": "src\\fonts.css",
+      "rootFile": false,
+      "before": null,
+      "after": "b318be02bdaff596056bfddc9ae4d7fcf411a29b1162b6d6499626d2617add91"
+    },
+    {
+      "relative": "src\\index.html",
+      "rootFile": false,
+      "before": "cff4805e91131fffbd66cdd7e62f63f3fb37e7f7091b96f53821a7a0a925401e",
+      "after": "8179f802a7ff864fa2017b955259f61e8eb33ae61095a2abc3543ed68ecb094c"
+    },
+    {
+      "relative": "src\\ui\\app.js",
+      "rootFile": false,
+      "before": "0720b3329c2fbaca6585760db3031c538340405861483edf412214b62d1ba117",
+      "after": "dbc016002b9414c1e8c2bdf381b154b3ac243205ade81518789ff209a8e308e3"
+    },
+    {
+      "relative": "src\\ui\\craft-assets.js",
+      "rootFile": false,
+      "before": null,
+      "after": "9c251737aa01d34044be48dde1def210f9c3ca49786dc70b1b75f55023c29a5c"
+    },
+    {
+      "relative": "src\\ui\\craft-parts.js",
+      "rootFile": false,
+      "before": null,
+      "after": "164717aa2f6420c220053670a4a996af1dbbe2cc3c1cbbc999fa3d605f7eb0d5"
+    },
+    {
+      "relative": "src\\ui\\craft-presets.js",
+      "rootFile": false,
+      "before": null,
+      "after": "4db3d0b874ab428e04187b1b4a57dcf2c87c406b71624d3955ccb01c0fb05837"
+    },
+    {
+      "relative": "src\\ui\\documentary-ui.js",
+      "rootFile": false,
+      "before": "546c24f3385623e81a392e3010883cef43874457851917c05fb08fbde132c115",
+      "after": "a4d6acd7dea973919243d1980de91625a2729bf91f58ad9c2e2b7e03db5df4c6"
+    },
+    {
+      "relative": "src\\ui\\icons.js",
+      "rootFile": false,
+      "before": null,
+      "after": "5b395302a43b528e7b2554f41124288b61ac0115c703a33b7dfd29ce2a661ebe"
+    },
+    {
+      "relative": "src\\ui\\thumbnails.js",
+      "rootFile": false,
+      "before": "ec4ed4ac8dcb3c6594d103fd39c0de108d30d56492c725ce6c1ac881f31fbe48",
+      "after": "17eb9b6b518f2d5f3d7243e5003f389f280948cb642efccce1ae37cb3ebeab8f"
+    },
+    {
+      "relative": "vendor\\INTER-LICENSE.txt",
+      "rootFile": false,
+      "before": null,
+      "after": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+    },
+    {
+      "relative": "vendor\\Inter.woff2",
+      "rootFile": false,
+      "before": null,
+      "after": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "relative": "vendor\\MONTSERRAT-LICENSE.txt",
+      "rootFile": false,
+      "before": null,
+      "after": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e"
+    },
+    {
+      "relative": "vendor\\Montserrat.woff2",
+      "rootFile": false,
+      "before": null,
+      "after": "06b16db7a969135d48d38c49183be7fb88d4452e2a3011957c7851941f4e4879"
+    },
+    {
+      "relative": ".impeccable\\review\\archive.png",
+      "rootFile": false,
+      "before": null,
+      "after": "fd3c9b67cb577a9d62c53974c7dcc61be62b8b2862ec60d44df9d6d1802418ab"
+    },
+    {
+      "relative": ".impeccable\\review\\counter.png",
+      "rootFile": false,
+      "before": null,
+      "after": "2701b483d69052d63f7f91691564651ee891ade577c8b5736f56557b92fa60bc"
+    },
+    {
+      "relative": ".impeccable\\review\\craft-export.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "7975757b3f7be7575b0afef6c15491b9418f77bd45b8d589609241467c0c28ce"
+    },
+    {
+      "relative": ".impeccable\\review\\craft-export.zip",
+      "rootFile": false,
+      "before": null,
+      "after": "9065080b77f97018d707bcdc2edb4e5cb993ed391c55e9bedfca9edb825bde0c"
+    },
+    {
+      "relative": ".impeccable\\review\\cutout.png",
+      "rootFile": false,
+      "before": null,
+      "after": "8d1e3104f1a7cc771684083e59725b2fd8ac27579a5229b3b3331c3e8b9adef0"
+    },
+    {
+      "relative": ".impeccable\\review\\desktop-1280.png",
+      "rootFile": false,
+      "before": null,
+      "after": "77ff030848c320f090c2b0e11ec8a5c1bbe9df42e8dc84ce7a698ba8164e3965"
+    },
+    {
+      "relative": ".impeccable\\review\\desktop.png",
+      "rootFile": false,
+      "before": null,
+      "after": "4965879eb022adee6965847cd57b4a781fa062390da1a08e802f09413aa42fc7"
+    },
+    {
+      "relative": ".impeccable\\review\\families-1.jpg",
+      "rootFile": false,
+      "before": null,
+      "after": "681e73852f8a11021c71e82b4a9b7cf0bc6e24eb0eaab6b9f3e74bbd7cdeffa6"
+    },
+    {
+      "relative": ".impeccable\\review\\families-2.jpg",
+      "rootFile": false,
+      "before": null,
+      "after": "3586c7f9137a78dbd7f9362770a1ac6460ad0fcc4ca3b32b4094ca83f7af6d34"
+    },
+    {
+      "relative": ".impeccable\\review\\families-3.jpg",
+      "rootFile": false,
+      "before": null,
+      "after": "16d16d9be1a25c138348781baafb4de1d2843d7379f855005bc993af2fa55c58"
+    },
+    {
+      "relative": ".impeccable\\review\\families-4.jpg",
+      "rootFile": false,
+      "before": null,
+      "after": "306874a2cdb40dbe11f4c7aa913de65f6a85f9a6c08b292061090411cb80e5a3"
+    },
+    {
+      "relative": ".impeccable\\review\\long-title-portrait.png",
+      "rootFile": false,
+      "before": null,
+      "after": "39717f72e206f210b5e02e12eb1f8d25735ce9bfed8e6b75c81a6f04db15ed6a"
+    },
+    {
+      "relative": ".impeccable\\review\\long-title-square.png",
+      "rootFile": false,
+      "before": null,
+      "after": "0d4f041f6ce574d460ca53fd24f00d6f908b6d208dec3ffd1775f84ef53f051a"
+    },
+    {
+      "relative": ".impeccable\\review\\luminous.png",
+      "rootFile": false,
+      "before": null,
+      "after": "81ac954debcffe6471e2b1e162a490139428f6395aee4a23155d5e79e57cd166"
+    },
+    {
+      "relative": ".impeccable\\review\\mobile-expanded.png",
+      "rootFile": false,
+      "before": null,
+      "after": "3972c26b180ff0f35894662f5f54cb20a279655140c0b6f77a09420295ba64f8"
+    },
+    {
+      "relative": ".impeccable\\review\\mobile-timeline.png",
+      "rootFile": false,
+      "before": null,
+      "after": "06e30fbc550656f8000f8355b14da22303c35691713818373c761dfcbe8d85f4"
+    },
+    {
+      "relative": ".impeccable\\review\\mobile.png",
+      "rootFile": false,
+      "before": null,
+      "after": "f1a1806c16637eeb2b29c8ee644774268839855e4b6665fec5275ea63fb87df7"
+    },
+    {
+      "relative": ".impeccable\\review\\perspective.png",
+      "rootFile": false,
+      "before": null,
+      "after": "1663d795558c0ec149ce938c4528b6c1c92c8abba61b8dc84b35fffa2c5178b0"
+    },
+    {
+      "relative": ".impeccable\\review\\ruler.png",
+      "rootFile": false,
+      "before": null,
+      "after": "7be9131053816ee31a4ad5662560112d77983e3473654a873f2f8493b3140b28"
+    },
+    {
+      "relative": ".impeccable\\review\\verification.json",
+      "rootFile": false,
+      "before": null,
+      "after": "a1da925effec54feb1cc77554c4b97ce154db1c703f7876d63e4d2b4e55c1978"
+    },
+    {
+      "relative": "test-output\\craft\\Cutout Timeline.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "c31f3fd5bf5146589268831ef65cd2d6d68776e892a8331b26cce0574c79979b"
+    },
+    {
+      "relative": "test-output\\craft\\Luminous Timeline.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "3bd06b8f41e466dd34c5677d113a913e5efe16ad77ccfa90957e1d2668b91a6a"
+    },
+    {
+      "relative": "test-output\\craft\\Photo Journey.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "ea27e99ee4b98405379c8783c353d8fd49fde3b4dedbaa363d255958ec69d113"
+    },
+    {
+      "relative": "test-output\\craft\\showreel.txt",
+      "rootFile": false,
+      "before": null,
+      "after": "40274c9d2c4ec3ec73ccfc14bf30a8de9d8611b30f1c84c5a10e1970395f1a69"
+    },
+    {
+      "relative": "test-output\\craft\\Timeline Studio — Craft Preview.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "5d77834c9bc9cc363b88e1231350af83038f5994236a1b7d908de97bf0befcc2"
+    },
+    {
+      "relative": "test-output\\craft\\verification.json",
+      "rootFile": false,
+      "before": null,
+      "after": "d0dd1cc0c7a71c44f837d2d0530fed114136d2c86f6dcbb78c0ce7599b6d7e3a"
+    },
+    {
+      "relative": "test-output\\craft\\Year Roll.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "7dc64fcb0cdb7c0fda3e98802801cb3368016f3ffb43d64a483e823ea3977acc"
+    },
+    {
+      "relative": "test-output\\craft\\Year Ruler.mp4",
+      "rootFile": false,
+      "before": null,
+      "after": "a9cc6783034152e2148415fb0f368acf97b46f78edaebef1587cf739abbd9503"
+    },
+    {
+      "relative": "assets/cutouts/bellows-camera.png",
+      "rootFile": false,
+      "before": null,
+      "after": "ab75ce5f3ee5989e5c9dbd7be59492f7ff45057a07ce1edad45911b23780f8f4"
+    },
+    {
+      "relative": "assets/cutouts/slr-camera.png",
+      "rootFile": false,
+      "before": null,
+      "after": "11fc36cd31546311f9cac4cde6d77d75ae1bd124c1fdac8954f65aed519135ea"
+    },
+    {
+      "relative": "assets/cutouts/mirrorless-camera.png",
+      "rootFile": false,
+      "before": null,
+      "after": "727080224280d2e7fdd69f2e3360a9ad36e0d02a5353a9f897167d3b2bec7e47"
+    },
+    {
+      "relative": "assets/cutouts/PROVENANCE.md",
+      "rootFile": false,
+      "before": null,
+      "after": "9780ed85fff3f255b71790a078b9825e12d8be809b58d00584c14170c9f5e53c"
+    },
+    {
+      "relative": "assets/cutouts/ALPHA_INSPECTION.json",
+      "rootFile": false,
+      "before": null,
+      "after": "51ae4fb95744bc98dc33cb9794a9311d07c9fa53ab75bd47c69783a7db5b879b"
+    },
+    {
+      "relative": "research/CRAFT_AUDIT.md",
+      "rootFile": false,
+      "before": null,
+      "after": "1698626a90dfb1916477fed4a9bf01a81ffb3e958a6f74b12dfe855c16837698"
+    },
+    {
+      "relative": "research/CRAFT_REVIEW_V2.md",
+      "rootFile": false,
+      "before": null,
+      "after": "a64a65a08a0b11f0464ba2cdf10e9956dc1accbd162f271863143e9ab2b28eca"
+    },
+    {
+      "relative": "research/CRAFT_VERDICT.md",
+      "rootFile": false,
+      "before": null,
+      "after": "97122a7db4c598aeba12d0563da441703d33c123d1da482874cfaee885cca349"
+    },
+    {
+      "relative": "production\\TIMELINE_ANIMATION_STUDIO.md",
+      "rootFile": true,
+      "before": "db4beddca51702624adcedb51b32d4f03f7d6c21bb7d51c1e4157ba78f332722",
+      "after": "76c153144a1c04ddb44390c47885c2f19571b95a71c33ac510400e495d7d4c50"
+    },
+    {
+      "relative": "production\\codex-boss\\CHANGELOG.md",
+      "rootFile": true,
+      "before": "6cd4ded743a7939f47c12b1022fcb0e84bdf0d8e347a685a39de716437dc90ec",
+      "after": "a48371f1e7f080e7293d85a3d8fd01f24b4ec5da26fb44a9496333c49d9cc5af"
+    }
+  ]
+}

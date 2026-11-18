@@ -1,0 +1,314 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "50, 45",
+   "zoom": 1.95,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "50, 45",
+   "zoom": 2.08,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.4,
+   "endSec": 10,
+   "places": [
+    "Russia"
+   ],
+   "level": "country",
+   "highlightStyle": "outline-draw",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.0,
+   "endSec": 10,
+   "places": [
+    "Ukraine"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.3,
+   "endSec": 10,
+   "places": [
+    "Belarus"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.6,
+   "endSec": 10,
+   "places": [
+    "Georgia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 1.9,
+   "endSec": 10,
+   "places": [
+    "Armenia"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 2.2,
+   "endSec": 10,
+   "places": [
+    "Kazakhstan"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.0,
+   "endSec": 10,
+   "places": [
+    "45.30, 34.40"
+   ],
+   "text": "क्रीमिया",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.0,
+   "endSec": 10,
+   "places": [
+    "42.50, 44.00"
+   ],
+   "text": "कॉकस",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.0,
+   "endSec": 10,
+   "places": [
+    "45.00, 65.00"
+   ],
+   "text": "मध्य एशिया",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.0,
+   "endSec": 10,
+   "places": [
+    "52.00, 25.00"
+   ],
+   "text": "पूर्वी यूरोप",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title बफर ज़ोन",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 9.4,
+   "text": "बफर ज़ोन",
+   "subtext": "सुरक्षा की सोच",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 8.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 8.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

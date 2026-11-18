@@ -1,0 +1,339 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 14,
+ "theme": "parchment",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.60, 77.22",
+   "zoom": 8.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "28.578, 77.222",
+   "zoom": 10.3,
+   "bearing": 0,
+   "pitch": 10,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 14,
+   "place": "28.58, 77.222",
+   "zoom": 10.42,
+   "bearing": -6,
+   "pitch": 14,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 14,
+   "places": [
+    "Lal Kot (28.52, 77.18)"
+   ],
+   "text": "LAL KOT",
+   "subtext": "Qila Rai Pithora · 11th–12th c.",
+   "color": "#a3141a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot",
+   "anchor": "left"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.2,
+   "endSec": 14,
+   "places": [
+    "Siri (28.55, 77.22)"
+   ],
+   "text": "SIRI",
+   "subtext": "c. 1303 · Khilji",
+   "color": "#3a2a1a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.800000000000001,
+   "endSec": 14,
+   "places": [
+    "Tughlaqabad (28.51, 77.26)"
+   ],
+   "text": "TUGHLAQABAD",
+   "subtext": "c. 1321 · Tughlaq",
+   "color": "#3a2a1a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.4,
+   "endSec": 14,
+   "places": [
+    "Firozabad (28.636, 77.243)"
+   ],
+   "text": "FIROZABAD",
+   "subtext": "c. 1354 · Feroz Shah Kotla",
+   "color": "#3a2a1a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 8.0,
+   "endSec": 14,
+   "places": [
+    "Dinpanah (28.61, 77.24)"
+   ],
+   "text": "DINPANAH",
+   "subtext": "1533–45 · Purana Qila",
+   "color": "#3a2a1a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 9.6,
+   "endSec": 14,
+   "places": [
+    "Shahjahanabad (28.656, 77.241)"
+   ],
+   "text": "SHAHJAHANABAD",
+   "subtext": "1639–48 · Old Delhi",
+   "color": "#a3141a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 11.200000000000001,
+   "endSec": 14,
+   "places": [
+    "New Delhi (28.6143, 77.1994)"
+   ],
+   "text": "NEW DELHI",
+   "subtext": "1911–31",
+   "color": "#a3141a",
+   "size": 57,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot",
+   "anchor": "left"
+  },
+  {
+   "name": "title THE CITIES OF DELHI",
+   "type": "text",
+   "startSec": 0.2,
+   "endSec": 13.6,
+   "text": "THE CITIES OF DELHI",
+   "subtext": "seven cities + New Delhi on one land",
+   "anchor": "top-left",
+   "size": 54,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 12.950000000000001,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 13.350000000000001,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

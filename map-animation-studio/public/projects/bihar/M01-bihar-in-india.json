@@ -1,0 +1,72 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 7,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "India",
+   "zoom": 2.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "India",
+   "zoom": 2.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6.0,
+   "place": "Patna (25.61, 85.14)",
+   "zoom": 4.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7,
+   "place": "Patna (25.61, 85.14)",
+   "zoom": 4.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.4,
+   "endSec": 7,
+   "places": [
+    "Bihar"
+   ],
+   "level": "state",
+   "highlightStyle": "glow",
+   "color": "#e07b1f",
+   "text": "बिहार"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

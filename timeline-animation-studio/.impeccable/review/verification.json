@@ -1,0 +1,443 @@
+{
+  "date": "2026-10-30T19:58:58.220Z",
+  "checks": [
+    {
+      "name": "Bundled typography and all project schemas",
+      "pass": true,
+      "details": {
+        "fontInter": true,
+        "fontDisplay": true,
+        "uiFont": "Inter, \"Segoe UI\", sans-serif",
+        "bad": [],
+        "version": 2
+      }
+    },
+    {
+      "name": "Editing a hold shifts subsequent arrivals and scene duration",
+      "pass": true
+    },
+    {
+      "name": "Undo preserves original pacing",
+      "pass": true
+    },
+    {
+      "name": "Inspector exposes only relevant animation controls",
+      "pass": true,
+      "details": [
+        {
+          "id": "doc-history-journey",
+          "keys": [
+            "moveDuration",
+            "holdDuration",
+            "ease",
+            "mode",
+            "cameraPath",
+            "zoom",
+            "finalWide",
+            "wideDuration",
+            "spacing",
+            "direction"
+          ]
+        },
+        {
+          "id": "doc-nitish-ruler",
+          "keys": [
+            "moveDuration",
+            "holdDuration",
+            "ease",
+            "mode",
+            "zoom",
+            "tickStep",
+            "labelEvery",
+            "cursorPosition",
+            "cursor",
+            "datePill",
+            "showBigDate"
+          ]
+        },
+        {
+          "id": "doc-year-wheel",
+          "keys": [
+            "moveDuration",
+            "holdDuration",
+            "ease",
+            "counterAxis",
+            "tickStep",
+            "cursorPosition",
+            "datePill"
+          ]
+        },
+        {
+          "id": "doc-cinematic-passage",
+          "keys": [
+            "moveDuration",
+            "holdDuration",
+            "ease",
+            "mode",
+            "cameraPath",
+            "zoom",
+            "depth",
+            "tilt",
+            "finalWide",
+            "spacing",
+            "direction"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hold handle changes actual pacing",
+      "pass": true
+    },
+    {
+      "name": "Compact family filter works",
+      "pass": true
+    },
+    {
+      "name": "Exact keys, transparent corners and custom-colour matte",
+      "pass": true,
+      "details": {
+        "doc-history-journey": {
+          "green": {
+            "corner": [
+              0,
+              255,
+              0,
+              255
+            ],
+            "bad": 0
+          },
+          "blue": {
+            "corner": [
+              0,
+              0,
+              255,
+              255
+            ],
+            "bad": 0
+          },
+          "alpha": {
+            "corner": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "bad": 0
+          },
+          "matte": {
+            "corner": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "bad": 0
+          }
+        },
+        "doc-nitish-ruler": {
+          "green": {
+            "corner": [
+              0,
+              255,
+              0,
+              255
+            ],
+            "bad": 0
+          },
+          "blue": {
+            "corner": [
+              0,
+              0,
+              255,
+              255
+            ],
+            "bad": 0
+          },
+          "alpha": {
+            "corner": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "bad": 0
+          },
+          "matte": {
+            "corner": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "bad": 0
+          }
+        },
+        "doc-vox-cutouts": {
+          "green": {
+            "corner": [
+              0,
+              255,
+              0,
+              255
+            ],
+            "bad": 0
+          },
+          "blue": {
+            "corner": [
+              0,
+              0,
+              255,
+              255
+            ],
+            "bad": 0
+          },
+          "alpha": {
+            "corner": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "bad": 0
+          },
+          "matte": {
+            "corner": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "bad": 0
+          }
+        },
+        "doc-glowing-branches": {
+          "green": {
+            "corner": [
+              0,
+              255,
+              0,
+              255
+            ],
+            "bad": 0
+          },
+          "blue": {
+            "corner": [
+              0,
+              0,
+              255,
+              255
+            ],
+            "bad": 0
+          },
+          "alpha": {
+            "corner": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "bad": 0
+          },
+          "matte": {
+            "corner": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "bad": 0
+          }
+        },
+        "doc-year-wheel": {
+          "green": {
+            "corner": [
+              0,
+              255,
+              0,
+              255
+            ],
+            "bad": 0
+          },
+          "blue": {
+            "corner": [
+              0,
+              0,
+              255,
+              255
+            ],
+            "bad": 0
+          },
+          "alpha": {
+            "corner": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "bad": 0
+          },
+          "matte": {
+            "corner": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "bad": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "Frame-exact deterministic rendering",
+      "pass": true
+    },
+    {
+      "name": "1440px editor has no document overflow",
+      "pass": true
+    },
+    {
+      "name": "Warm render performance stays within 33ms per frame",
+      "pass": true,
+      "details": {
+        "worst": 26.200000002980232
+      }
+    },
+    {
+      "name": "Rebuilt cutout MP4 and transparent sequence exports",
+      "pass": true
+    },
+    {
+      "name": "Actual rebuilt MP4 decodes",
+      "pass": true,
+      "details": ""
+    },
+    {
+      "name": "No desktop browser exceptions",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "1280px editor fits",
+      "pass": true
+    },
+    {
+      "name": "390px phone editor fits",
+      "pass": true
+    },
+    {
+      "name": "Phone expanded preview offers magnified inspection",
+      "pass": true
+    },
+    {
+      "name": "Phone event timing panel fits",
+      "pass": true
+    },
+    {
+      "name": "No phone browser exceptions",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "performance": [
+    {
+      "id": "doc-history-journey",
+      "mean": 0.34000000009934106,
+      "p95": 0.9000000022351742
+    },
+    {
+      "id": "doc-nitish-ruler",
+      "mean": 0.12666666669150192,
+      "p95": 0.30000000074505806
+    },
+    {
+      "id": "doc-nitish-cards",
+      "mean": 0.24000000009934108,
+      "p95": 0.6000000014901161
+    },
+    {
+      "id": "doc-vox-cutouts",
+      "mean": 0.21999999992549418,
+      "p95": 0.6999999992549419
+    },
+    {
+      "id": "doc-vox-yellow",
+      "mean": 0.20333333338300388,
+      "p95": 0.29999999701976776
+    },
+    {
+      "id": "doc-glowing-branches",
+      "mean": 1.9200000000496706,
+      "p95": 26.200000002980232
+    },
+    {
+      "id": "doc-red-evidence",
+      "mean": 1.090000000099341,
+      "p95": 13.099999997764826
+    },
+    {
+      "id": "doc-cinematic-passage",
+      "mean": 0.9033333332588275,
+      "p95": 4.600000001490116
+    },
+    {
+      "id": "doc-archive-dark",
+      "mean": 0.5633333332836628,
+      "p95": 4.300000000745058
+    },
+    {
+      "id": "doc-press-record",
+      "mean": 0.11666666666666667,
+      "p95": 0.20000000298023224
+    },
+    {
+      "id": "doc-loki-slider",
+      "mean": 0.37666666669150195,
+      "p95": 1.199999999254942
+    },
+    {
+      "id": "doc-year-wheel",
+      "mean": 4.059999999900659,
+      "p95": 5.400000002235174
+    },
+    {
+      "id": "doc-year-strip",
+      "mean": 1.6299999999503294,
+      "p95": 2.399999998509884
+    },
+    {
+      "id": "doc-last-dance-date",
+      "mean": 0.0633333332836628,
+      "p95": 0.19999999925494194
+    },
+    {
+      "id": "doc-date-jump",
+      "mean": 0.05333333338300387,
+      "p95": 0.19999999925494194
+    },
+    {
+      "id": "doc-portrait-journey",
+      "mean": 0.13333333333333333,
+      "p95": 0.4000000022351742
+    }
+  ],
+  "captures": [
+    "families-1.jpg",
+    "families-2.jpg",
+    "families-3.jpg",
+    "families-4.jpg",
+    "archive.png",
+    "ruler.png",
+    "cutout.png",
+    "luminous.png",
+    "counter.png",
+    "perspective.png",
+    "long-title-portrait.png",
+    "long-title-square.png",
+    "desktop.png"
+  ],
+  "limitations": [
+    "Physical phone not tested. Perspective is Canvas2D simulated depth. Generated camera art is illustrative, not archival."
+  ]
+}

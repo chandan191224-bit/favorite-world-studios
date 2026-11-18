@@ -1,0 +1,165 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "45, 32",
+   "zoom": 3.15,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "45, 32",
+   "zoom": 3.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "area",
+   "type": "highlight",
+   "startSec": 0.6,
+   "endSec": 10,
+   "places": [
+    "Autonomous Republic of Crimea"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.2,
+   "endSec": 10,
+   "places": [
+    "44.62, 33.52"
+   ],
+   "text": "सेवस्तोपोल",
+   "subtext": "1854",
+   "color": "#a3141a",
+   "size": 56,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.0,
+   "endSec": 10,
+   "places": [
+    "41.01, 28.98",
+    "44.62, 33.52"
+   ],
+   "text": "उस्मानी",
+   "color": "#a3141a",
+   "size": 46
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.0,
+   "endSec": 10,
+   "places": [
+    "44.0, 26.0",
+    "44.62, 33.52"
+   ],
+   "text": "ब्रिटेन · फ्रांस",
+   "color": "#1f4e8c",
+   "size": 46
+  },
+  {
+   "name": "title क्रीमिया युद्ध",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 9.4,
+   "text": "क्रीमिया युद्ध",
+   "subtext": "1853–56",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 8.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 8.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

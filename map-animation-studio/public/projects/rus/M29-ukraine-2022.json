@@ -1,0 +1,250 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 12,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "49, 32",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 12,
+   "place": "48, 34",
+   "zoom": 3.05,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "यूक्रेन",
+   "type": "highlight",
+   "startSec": 0.5,
+   "endSec": 12,
+   "places": [
+    "Ukraine"
+   ],
+   "level": "country",
+   "highlightStyle": "fill",
+   "color": "#b8862b",
+   "text": "यूक्रेन",
+   "subtext": ""
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.0,
+   "endSec": 12,
+   "places": [
+    "52.10, 31.00",
+    "50.45, 30.52"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.0,
+   "endSec": 12,
+   "places": [
+    "47.24, 39.71",
+    "48.00, 37.80",
+    "47.50, 36.50"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.0,
+   "endSec": 12,
+   "places": [
+    "45.30, 34.40",
+    "46.64, 32.61",
+    "46.97, 31.99"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.2,
+   "endSec": 12,
+   "places": [
+    "50.45, 30.52"
+   ],
+   "text": "कीव",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 50,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.2,
+   "endSec": 12,
+   "places": [
+    "48.00, 37.80"
+   ],
+   "text": "डोनेट्स्क",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.2,
+   "endSec": 12,
+   "places": [
+    "46.64, 32.61"
+   ],
+   "text": "खेरसन",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 46,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 24 फ़रवरी 2022",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 11.4,
+   "text": "24 फ़रवरी 2022",
+   "subtext": "यूक्रेन पर हमला",
+   "anchor": "bottom-left",
+   "size": 56,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 10.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 10.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

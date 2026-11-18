@@ -1,0 +1,10 @@
+import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import zlib from 'node:zlib';
+import {fileURLToPath} from 'node:url';
+const root=path.dirname(fileURLToPath(import.meta.url)),lan=process.argv.includes('--lan'),port=+(process.env.TIMELINE_PORT||9852),bind=lan?'0.0.0.0':'127.0.0.1';
+const urls=()=>Object.values(os.networkInterfaces()).flat().filter(x=>x.family==='IPv4'&&!x.internal).map(x=>`http://${x.address}:${port}`);
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml'};
+http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');if(url.pathname==='/api/info'){res.setHeader('Content-Type','application/json');res.end(JSON.stringify({name:'Timeline Animation Studio Pro',lan,urls:lan?urls():[],port}));return;}if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);res.end();return;}let relative;try{relative=decodeURIComponent(url.pathname).replace(/^\/+/, '')||'Timeline Animation Studio Pro.html';}catch{res.writeHead(400);res.end();return;}const target=path.resolve(root,relative);if(!target.startsWith(root+path.sep)||!mime[path.extname(target)]||!fs.existsSync(target)||!fs.statSync(target).isFile()){res.writeHead(404);res.end('Not found');return;}res.setHeader('Content-Type',mime[path.extname(target)]);res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Cache-Control','no-cache');if(req.method==='HEAD'){res.end();return;}if(/gzip/.test(req.headers['accept-encoding']||'')){res.setHeader('Content-Encoding','gzip');res.setHeader('Vary','Accept-Encoding');fs.createReadStream(target).pipe(zlib.createGzip()).pipe(res);}else fs.createReadStream(target).pipe(res);}).listen(port,bind,()=>{console.log(`Timeline Animation Studio Pro\nLaptop: http://localhost:${port}\n${lan?'Phone (same Wi-Fi):\n'+urls().join('\n'):'Run with --lan for your phone on the same Wi-Fi.'}\nKeep this window running. Ctrl+C to stop.`);});

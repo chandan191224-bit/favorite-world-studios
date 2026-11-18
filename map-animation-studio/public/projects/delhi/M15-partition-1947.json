@@ -1,0 +1,145 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "26.0, 76.0",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "29.0, 72.5",
+   "zoom": 4.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "28.9, 73.3",
+   "zoom": 4.4,
+   "bearing": -4,
+   "pitch": 28,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 1.4,
+   "endSec": 9,
+   "places": [
+    "Pakistan"
+   ],
+   "level": "country",
+   "highlightStyle": "hatch",
+   "color": "#2e7d4f",
+   "text": "PAKISTAN",
+   "subtext": "1947"
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.4,
+   "endSec": 6.4,
+   "places": [
+    "31.55, 74.34",
+    "30.9, 75.85",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "walker",
+   "routeStyle": "glow",
+   "color": "#e07b1f",
+   "size": 44
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.8,
+   "endSec": 6.8,
+   "places": [
+    "24.86, 67.0",
+    "26.9, 70.9",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "vehicle": "walker",
+   "routeStyle": "glow",
+   "color": "#e07b1f",
+   "size": 40
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 4.0,
+   "endSec": 8.0,
+   "places": [
+    "28.61, 77.21",
+    "30.4, 75.0",
+    "31.55, 74.34"
+   ],
+   "mode": "straight",
+   "vehicle": "walker",
+   "routeStyle": "dashed",
+   "color": "#2e7d4f",
+   "size": 38
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 5.6,
+   "endSec": 9,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "~5 lakh refugees arrive",
+   "color": "#a3141a",
+   "size": 84,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

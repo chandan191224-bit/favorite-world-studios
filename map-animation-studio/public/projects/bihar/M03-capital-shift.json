@@ -1,0 +1,198 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "26.3, 82.5",
+   "zoom": 4.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "26.6, 81.0",
+   "zoom": 4.45,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.3,
+   "endSec": 10,
+   "places": [
+    "Patna (25.61, 85.14)"
+   ],
+   "text": "पाटलिपुत्र",
+   "subtext": "मगध की राजधानी",
+   "color": "#b8862b",
+   "size": 70,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 1.4,
+   "endSec": 4.4,
+   "places": [
+    "25.61, 85.14",
+    "27.05, 79.92"
+   ],
+   "mode": "straight",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.8,
+   "endSec": 10,
+   "places": [
+    "Kannauj (27.05, 79.92)"
+   ],
+   "text": "कन्नौज",
+   "color": "#a3141a",
+   "size": 64,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 4.4,
+   "endSec": 6.6,
+   "places": [
+    "27.05, 79.92",
+    "28.61, 77.21"
+   ],
+   "mode": "straight",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.2,
+   "endSec": 10,
+   "places": [
+    "Delhi"
+   ],
+   "text": "दिल्ली",
+   "color": "#a3141a",
+   "size": 64,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 7.2,
+   "endSec": 10,
+   "places": [
+    "Agra"
+   ],
+   "text": "आगरा",
+   "color": "#a3141a",
+   "size": 60,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

@@ -1,0 +1,16 @@
+map-animation-studio-backup-2026-11-18/
+**/node_modules/
+**/.venv/
+**/__pycache__/
+*.pyc
+**/.data-cache/
+**/dist/
+**/build/
+**/out/
+**/test-output/
+**/android/app/build/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db

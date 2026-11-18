@@ -1,0 +1,155 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "Buxar (25.56, 83.98)",
+   "zoom": 6.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 3.2,
+   "place": "Buxar (25.56, 83.98)",
+   "zoom": 6.8,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6.2,
+   "place": "23.6, 86.0",
+   "zoom": 4.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "23.6, 86.0",
+   "zoom": 4.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 0.3,
+   "endSec": 4.0,
+   "places": [
+    "Buxar (25.56, 83.98)"
+   ],
+   "color": "#a3141a",
+   "size": 80
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.4,
+   "endSec": 4.6,
+   "places": [
+    "Buxar (25.56, 83.98)"
+   ],
+   "text": "बक्सर",
+   "subtext": "1764 · Battle of Buxar",
+   "color": "#a3141a",
+   "size": 80,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 4.8,
+   "endSec": 9,
+   "places": [
+    "Bihar"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "बिहार"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 5.2,
+   "endSec": 9,
+   "places": [
+    "Jharkhand"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": ""
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 5.6,
+   "endSec": 9,
+   "places": [
+    "West Bengal"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "बंगाल"
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 6.0,
+   "endSec": 9,
+   "places": [
+    "Odisha"
+   ],
+   "level": "state",
+   "highlightStyle": "fill",
+   "color": "#a3141a",
+   "text": "ओडिशा"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-06-21T06:00:00Z"
+}

@@ -1,0 +1,173 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 11,
+ "theme": "parchment",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "India",
+   "zoom": 2.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 4.4,
+   "place": "28.9, 77.5",
+   "zoom": 4.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7.2,
+   "place": "28.63, 77.20",
+   "zoom": 10.2,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 11,
+   "place": "28.63, 77.20",
+   "zoom": 10.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 0.6,
+   "endSec": 4.2,
+   "places": [
+    "31.55, 74.34",
+    "28.61, 77.21",
+    "25.32, 82.99"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#b8862b",
+   "size": 30
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 1.0,
+   "endSec": 4.4,
+   "places": [
+    "26.45, 74.64",
+    "28.61, 77.21",
+    "29.95, 78.16"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#b8862b",
+   "size": 30
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.4,
+   "endSec": 6.6,
+   "places": [
+    "Delhi (28.61, 77.21)"
+   ],
+   "text": "DELHI",
+   "subtext": "crossroads of North India",
+   "color": "#a3141a",
+   "size": 76,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 7.4,
+   "endSec": 11,
+   "places": [
+    "Delhi Ridge (28.62, 77.17)"
+   ],
+   "level": "radius",
+   "radiusKm": 4,
+   "highlightStyle": "hatch",
+   "color": "#b8862b",
+   "text": "ARAVALLI RIDGE",
+   "subtext": "a natural wall"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 8.2,
+   "endSec": 11,
+   "places": [
+    "Yamuna (28.64, 77.255)"
+   ],
+   "text": "YAMUNA",
+   "subtext": "water · farming · trade",
+   "color": "#1f4e8c",
+   "size": 50,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

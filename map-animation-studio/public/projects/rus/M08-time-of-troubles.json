@@ -1,0 +1,152 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 11,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "54, 28",
+   "zoom": 2.65,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 11,
+   "place": "55.75, 37.62",
+   "zoom": 3.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  }
+ ],
+ "layers": [
+  {
+   "name": "पोलैंड की सेना",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 7.0,
+   "places": [
+    "54.69, 25.28",
+    "54.78, 32.05",
+    "55.75, 37.62"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 6.0,
+   "endSec": 11,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "color": "#a3141a",
+   "size": 84
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.2,
+   "endSec": 11,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "1610",
+   "color": "#a3141a",
+   "size": 60,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title पोलैंड का हमला",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 10.4,
+   "text": "पोलैंड का हमला",
+   "subtext": "टाइम ऑफ़ ट्रबल्स",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

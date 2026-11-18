@@ -1,0 +1,282 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 11,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "54, 30",
+   "zoom": 2.65,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 11,
+   "place": "55, 35",
+   "zoom": 2.9,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 0.4,
+   "endSec": 11,
+   "places": [
+    "52.23, 21.01",
+    "53.90, 27.57"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.4,
+   "endSec": 11,
+   "places": [
+    "52.23, 21.01",
+    "50.45, 30.52"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 2.4,
+   "endSec": 11,
+   "places": [
+    "52.23, 21.01",
+    "59.93, 30.31"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.4,
+   "endSec": 11,
+   "places": [
+    "52.23, 21.01",
+    "55.75, 37.62"
+   ],
+   "text": "",
+   "color": "#a3141a",
+   "size": 50
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.8,
+   "endSec": 11,
+   "places": [
+    "53.90, 27.57"
+   ],
+   "text": "मिन्स्क",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.8,
+   "endSec": 11,
+   "places": [
+    "50.45, 30.52"
+   ],
+   "text": "कीव",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.8,
+   "endSec": 11,
+   "places": [
+    "59.93, 30.31"
+   ],
+   "text": "लेनिनग्राद",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.8,
+   "endSec": 11,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "",
+   "color": "#3a2a1a",
+   "size": 48,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 22 जून 1941",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 10.4,
+   "text": "22 जून 1941",
+   "subtext": "बारबरोसा",
+   "anchor": "bottom-left",
+   "size": 58,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": false,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

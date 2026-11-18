@@ -1,0 +1,427 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "28.3, 80.0",
+   "zoom": 4.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 5.4,
+   "place": "28.0, 80.4",
+   "zoom": 4.5,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  },
+  {
+   "t": 8.0,
+   "place": "24.0, 80.5",
+   "zoom": 3.35,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 10,
+   "place": "24.0, 80.5",
+   "zoom": 3.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 0.6,
+   "endSec": 10,
+   "places": [
+    "Lucknow"
+   ],
+   "text": "लखनऊ",
+   "subtext": "1921–22",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.15,
+   "endSec": 10,
+   "places": [
+    "Nabha (30.37, 76.15)"
+   ],
+   "text": "नाभा",
+   "subtext": "1923",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.7000000000000002,
+   "endSec": 10,
+   "places": [
+    "Naini (25.40, 81.87)"
+   ],
+   "text": "नैनी, इलाहाबाद",
+   "subtext": "1930",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.25,
+   "endSec": 10,
+   "places": [
+    "Bareilly"
+   ],
+   "text": "बरेली",
+   "subtext": "1932",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 2.8000000000000003,
+   "endSec": 10,
+   "places": [
+    "Dehra Dun"
+   ],
+   "text": "देहरादून",
+   "subtext": "1932–33, 1941",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.35,
+   "endSec": 10,
+   "places": [
+    "Alipore (22.53, 88.33)"
+   ],
+   "text": "अलीपुर, कलकत्ता",
+   "subtext": "1934",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.9000000000000004,
+   "endSec": 10,
+   "places": [
+    "Almora (29.60, 79.66)"
+   ],
+   "text": "अल्मोड़ा",
+   "subtext": "1935",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 4.45,
+   "endSec": 10,
+   "places": [
+    "Gorakhpur"
+   ],
+   "text": "गोरखपुर",
+   "subtext": "1940",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 5.0,
+   "endSec": 10,
+   "places": [
+    "Ahmednagar"
+   ],
+   "text": "अहमदनगर किला",
+   "subtext": "1942–45",
+   "pinVariant": "target",
+   "color": "#a3141a",
+   "size": 58,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.2,
+   "endSec": 10,
+   "places": [
+    "India"
+   ],
+   "level": "country",
+   "highlightStyle": "outline-draw",
+   "color": "#3a2a1a",
+   "text": ""
+  },
+  {
+   "name": "title नेहरू की कैद",
+   "type": "text",
+   "startSec": 0.4,
+   "endSec": 10,
+   "text": "नेहरू की कैद",
+   "subtext": "प्रमुख जेलें · 9 बार · कुल करीब 9 साल",
+   "anchor": "top-left",
+   "size": 60,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.55,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

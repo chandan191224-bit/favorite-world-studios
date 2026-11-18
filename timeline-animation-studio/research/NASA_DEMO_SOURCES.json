@@ -1,0 +1,52 @@
+[
+  {
+    "id": "demo-shuttle",
+    "query": "STS-1 launch",
+    "title": "STS-1 - LAUNCH - KSC",
+    "nasa_id": "S81-30500",
+    "image": "https://images-assets.nasa.gov/image/S81-30500/S81-30500~medium.jpg",
+    "source": "https://images-api.nasa.gov/search?q=STS-1+launch&media_type=image&page_size=5",
+    "credit": "NASA",
+    "usage": "Illustrative NASA media-library demo; verify event-specific provenance before publishing. NASA imagery may include separately credited material."
+  },
+  {
+    "id": "demo-hubble",
+    "query": "Hubble deployment",
+    "title": "STS-31 pre-deployment checkout of the Hubble Space Telescope (HST) on OV-103",
+    "nasa_id": "s31-10-017",
+    "image": "https://images-assets.nasa.gov/image/s31-10-017/s31-10-017~medium.jpg",
+    "source": "https://images-api.nasa.gov/search?q=Hubble+deployment&media_type=image&page_size=5",
+    "credit": "NASA",
+    "usage": "Illustrative NASA media-library demo; verify event-specific provenance before publishing. NASA imagery may include separately credited material."
+  },
+  {
+    "id": "demo-apollo",
+    "query": "as11-40-5903",
+    "title": "Astronaut Edwin Aldrin walks on lunar surface near leg of Lunar Module",
+    "nasa_id": "as11-40-5903",
+    "image": "https://images-assets.nasa.gov/image/as11-40-5903/as11-40-5903~medium.jpg",
+    "source": "https://images-api.nasa.gov/search?q=as11-40-5903&media_type=image&page_size=5",
+    "credit": "NASA",
+    "usage": "Illustrative NASA media-library demo; verify event-specific provenance before publishing. NASA imagery may include separately credited material."
+  },
+  {
+    "id": "demo-station",
+    "query": "International Space Station orbit",
+    "title": "The International Space Station orbits into a sunset above China",
+    "nasa_id": "iss074e0089785",
+    "image": "https://images-assets.nasa.gov/image/iss074e0089785/iss074e0089785~large.jpg",
+    "source": "https://images-api.nasa.gov/search?q=International+Space+Station+orbit&media_type=image&page_size=5",
+    "credit": "NASA",
+    "usage": "Illustrative NASA media-library demo; verify event-specific provenance before publishing. NASA imagery may include separately credited material."
+  },
+  {
+    "id": "demo-webb",
+    "query": "James Webb Space Telescope mirror",
+    "title": "James Webb Space Telescope Mirror Reveal",
+    "nasa_id": "GSFC_20161102_2016-21507_012",
+    "image": "https://images-assets.nasa.gov/image/GSFC_20161102_2016-21507_012/GSFC_20161102_2016-21507_012~medium.jpg",
+    "source": "https://images-api.nasa.gov/search?q=James+Webb+Space+Telescope+mirror&media_type=image&page_size=5",
+    "credit": "NASA/GSFC/Bill Hrybyk",
+    "usage": "Illustrative NASA media-library demo; verify event-specific provenance before publishing. NASA imagery may include separately credited material."
+  }
+]

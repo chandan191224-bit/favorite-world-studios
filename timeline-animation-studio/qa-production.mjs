@@ -1,0 +1,13 @@
+import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';import {here,toolPath} from './tooling.mjs';
+const run=(script,args=[])=>{const r=spawnSync(process.execPath,[script,...args],{cwd:here,windowsHide:true,encoding:'utf8',timeout:240000,maxBuffer:2*1048576});if(r.status!==0)throw new Error(r.stderr||r.stdout);console.log(r.stdout.trim());};
+run('project.mjs',['create','doc-history-journey','projects/documentary-journey.timeline.json']);
+run('project.mjs',['create','doc-nitish-ruler','projects/documentary-ruler.timeline.json']);
+run('project.mjs',['create','doc-vox-cutouts','projects/documentary-cutouts.timeline.json']);
+run('render.mjs',['projects/documentary-journey.timeline.json','test-output/Documentary Photo Journey.mp4','--height','720','--fps','30']);
+run('render.mjs',['projects/documentary-ruler.timeline.json','test-output/Documentary Year Ruler.mp4','--height','720','--fps','30','--to','8']);
+run('render.mjs',['projects/documentary-cutouts.timeline.json','test-output/Documentary Cutout Timeline.mp4','--height','720','--fps','30','--to','8']);
+run('render.mjs',['projects/documentary-ruler.timeline.json','test-output/documentary-alpha.webm','--mode','alpha','--height','540','--fps','24','--from','3','--to','3.5']);
+const files=['Documentary Photo Journey.mp4','Documentary Year Ruler.mp4','Documentary Cutout Timeline.mp4','documentary-alpha.webm','documentary-browser-mp4.mp4','documentary-browser-webm.webm'];
+const results=[];for(const name of files){const r=spawnSync(toolPath('ffmpeg'),['-hide_banner','-i',path.join(here,'test-output',name),'-map','0:v:0','-f','null','-'],{windowsHide:true,encoding:'utf8',timeout:120000});if(r.status!==0)throw new Error('Decode failed '+name+': '+r.stderr);if(/Audio:/.test(r.stderr))throw new Error(name+' contains audio');results.push({name,decoded:true,silent:true,stream:r.stderr.split('\n').filter(x=>/Duration:|Stream.*Video:/.test(x)).slice(0,2).map(x=>x.trim())});}
+const alpha=spawnSync(toolPath('ffmpeg'),['-v','error','-c:v','libvpx-vp9','-i',path.join(here,'test-output/documentary-alpha.webm'),'-frames:v','1','-vf','alphaextract','-f','rawvideo','-pix_fmt','gray','-'],{windowsHide:true,maxBuffer:10*1048576});if(alpha.status!==0||alpha.stdout[0]!==0||!alpha.stdout.some(x=>x>0))throw new Error('Decoded documentary alpha mask invalid');results.push({name:'documentary-alpha.webm',alphaDecoded:true,transparentCorner:0,hasVisibleElements:true});
+fs.writeFileSync(path.join(here,'test-output/production-verification.json'),JSON.stringify(results,null,2));console.log('All documentary exports decode; silent tracks and actual VP9 alpha verified.');

@@ -1,0 +1,158 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 10,
+ "theme": "military",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "31.0, 87.5",
+   "zoom": 3.25,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 10,
+   "place": "31.0, 87.5",
+   "zoom": 3.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.3,
+   "endSec": 10,
+   "places": [
+    "file:areas/aksai-chin.geojson"
+   ],
+   "level": "auto",
+   "highlightStyle": "hatch",
+   "color": "#d62828",
+   "text": "",
+   "subtext": ""
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.2,
+   "endSec": 10,
+   "places": [
+    "Rutog (33.38, 79.72)",
+    "Chushul (33.58, 78.65)"
+   ],
+   "color": "#d62828",
+   "text": "पश्चिमी मोर्चा",
+   "size": 90
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 1.8,
+   "endSec": 10,
+   "places": [
+    "Tianshuihai (35.33, 79.53)",
+    "Galwan (34.75, 78.2)"
+   ],
+   "color": "#d62828",
+   "text": "",
+   "size": 70
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.0,
+   "endSec": 10,
+   "places": [
+    "Tsona (27.97, 91.95)",
+    "Tawang (27.59, 91.86)",
+    "Se La (27.50, 92.10)",
+    "Bomdila (27.26, 92.42)"
+   ],
+   "color": "#d62828",
+   "text": "पूर्वी मोर्चा",
+   "size": 90
+  },
+  {
+   "name": "arrow",
+   "type": "arrow",
+   "startSec": 3.6,
+   "endSec": 10,
+   "places": [
+    "Rima (28.45, 97.0)",
+    "Walong (28.13, 97.03)"
+   ],
+   "color": "#d62828",
+   "text": "",
+   "size": 70
+  },
+  {
+   "name": "title भारत-चीन युद्ध",
+   "type": "text",
+   "startSec": 0.4,
+   "endSec": 10,
+   "text": "भारत-चीन युद्ध",
+   "subtext": "20 अक्टूबर – 21 नवंबर 1962",
+   "anchor": "top",
+   "size": 62,
+   "color": "auto",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 30,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 9.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 9.55,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

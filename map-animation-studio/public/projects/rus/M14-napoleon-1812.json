@@ -1,0 +1,212 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 15,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "54, 26",
+   "zoom": 2.55,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 5,
+   "place": "55, 32",
+   "zoom": 2.85,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "55.75, 37.62",
+   "zoom": 3.25,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 15,
+   "place": "54, 30",
+   "zoom": 2.7,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "नेपोलियन",
+   "type": "route",
+   "startSec": 0.4,
+   "endSec": 8.6,
+   "places": [
+    "53.90, 23.80",
+    "54.69, 25.28",
+    "54.78, 32.05",
+    "55.52, 35.82",
+    "55.75, 37.62"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "ink",
+   "color": "#a3141a",
+   "size": 46
+  },
+  {
+   "name": "वापसी",
+   "type": "route",
+   "startSec": 9.5,
+   "endSec": 13.6,
+   "places": [
+    "55.75, 37.62",
+    "54.78, 32.05",
+    "54.69, 25.28"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "dashed",
+   "color": "#6b6257",
+   "size": 38
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.0,
+   "endSec": 8.8,
+   "places": [
+    "55.52, 35.82"
+   ],
+   "text": "बोरोदिनो",
+   "subtext": "7 सितंबर",
+   "color": "#3a2a1a",
+   "size": 52,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 9.0,
+   "endSec": 15,
+   "places": [
+    "55.75, 37.62"
+   ],
+   "text": "मास्को",
+   "subtext": "14 सितंबर",
+   "color": "#a3141a",
+   "size": 60,
+   "pinVariant": "pin",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "anchor": "center"
+  },
+  {
+   "name": "title 1812",
+   "type": "text",
+   "startSec": 0.8,
+   "endSec": 14.4,
+   "text": "1812",
+   "subtext": "नेपोलियन का रूस अभियान",
+   "anchor": "bottom-left",
+   "size": 62,
+   "color": "#3a2a1a",
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -106,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-out"
+    },
+    {
+     "t": 13.15,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 13.6,
+     "opacity": 0,
+     "scale": 1,
+     "x": 0,
+     "y": -130,
+     "rotate": 0,
+     "ease": "ease-in"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "2026-11-14T06:00:00Z"
+}

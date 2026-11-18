@@ -1,0 +1,154 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 9,
+ "theme": "satellite",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "globe",
+ "camera": [
+  {
+   "t": 0,
+   "place": "30.0, 72.0",
+   "zoom": 2.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 2.0,
+   "place": "32.5, 70.0",
+   "zoom": 4.0,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 6.0,
+   "place": "30.2, 75.5",
+   "zoom": 5.0,
+   "bearing": 0,
+   "pitch": 30,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 9,
+   "place": "29.6, 76.4",
+   "zoom": 5.3,
+   "bearing": -10,
+   "pitch": 40,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 1.6,
+   "endSec": 9,
+   "places": [
+    "Ghazni (33.55, 68.42)"
+   ],
+   "text": "GHAZNI",
+   "subtext": "Ghurid base",
+   "color": "#3a2a1a",
+   "size": 68,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ],
+   "pinVariant": "dot"
+  },
+  {
+   "name": "route",
+   "type": "route",
+   "startSec": 2.2,
+   "endSec": 6.8,
+   "places": [
+    "33.55, 68.42",
+    "34.0, 71.5",
+    "31.55, 74.34",
+    "29.80, 76.92"
+   ],
+   "mode": "straight",
+   "vehicle": "dot",
+   "routeStyle": "glow",
+   "color": "#a3141a",
+   "size": 44
+  },
+  {
+   "name": "radar",
+   "type": "radar",
+   "startSec": 6.4,
+   "endSec": 9,
+   "places": [
+    "Tarain (29.80, 76.92)"
+   ],
+   "color": "#a3141a",
+   "size": 80
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 6.4,
+   "endSec": 9,
+   "places": [
+    "Tarain (29.80, 76.92)"
+   ],
+   "text": "TARAIN",
+   "subtext": "1191 · 1192",
+   "color": "#a3141a",
+   "size": 94,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": false,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}

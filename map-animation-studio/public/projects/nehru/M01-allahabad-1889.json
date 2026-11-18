@@ -1,0 +1,119 @@
+{
+ "format": "16:9 1080p",
+ "durationSec": 7,
+ "theme": "paper",
+ "borders": "india",
+ "sfx": false,
+ "sfxVolume": 0.2,
+ "projection": "mercator",
+ "camera": [
+  {
+   "t": 0,
+   "place": "India",
+   "zoom": 2.3,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "cut",
+   "ease": "linear"
+  },
+  {
+   "t": 1.0,
+   "place": "India",
+   "zoom": 2.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 4.2,
+   "place": "Allahabad",
+   "zoom": 6.4,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "fly",
+   "ease": "ease-in-out"
+  },
+  {
+   "t": 7,
+   "place": "Allahabad",
+   "zoom": 6.6,
+   "bearing": 0,
+   "pitch": 0,
+   "move": "smooth",
+   "ease": "linear"
+  }
+ ],
+ "layers": [
+  {
+   "name": "highlight",
+   "type": "highlight",
+   "startSec": 0.3,
+   "endSec": 3.2,
+   "places": [
+    "India"
+   ],
+   "level": "country",
+   "highlightStyle": "paper-cutout",
+   "color": "#b8862b",
+   "text": ""
+  },
+  {
+   "name": "pin",
+   "type": "pin",
+   "startSec": 3.6,
+   "endSec": 7,
+   "places": [
+    "Allahabad"
+   ],
+   "text": "इलाहाबाद",
+   "subtext": "आज का प्रयागराज",
+   "color": "#a3141a",
+   "size": 84,
+   "keys": [
+    {
+     "t": 0,
+     "opacity": 0,
+     "scale": 0.2,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "linear"
+    },
+    {
+     "t": 0.5,
+     "opacity": 1,
+     "scale": 1,
+     "x": 0,
+     "y": 0,
+     "rotate": 0,
+     "ease": "back"
+    }
+   ]
+  },
+  {
+   "name": "location-card",
+   "type": "location-card",
+   "startSec": 4.4,
+   "endSec": 7,
+   "places": [
+    "Allahabad"
+   ],
+   "text": "इलाहाबाद",
+   "subtext": "14 नवंबर 1889",
+   "cardStyle": "minimal",
+   "anchor": "bottom-left",
+   "color": "#a3141a"
+  }
+ ],
+ "mapLayers": {
+  "countryLabels": false,
+  "states": true,
+  "roads": false,
+  "rail": false,
+  "rivers": true,
+  "graticule": false
+ },
+ "dayNight": false,
+ "dateTimeUtc": "1950-06-21T06:00:00Z"
+}
