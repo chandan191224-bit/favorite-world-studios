@@ -1,0 +1,3204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Detective Board Studio PRO — Favorite World Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0: #090b0f;
+    --bg-1: #10141c;
+    --bg-2: #171c27;
+    --bg-3: #202736;
+    --border: #262f40;
+    --border-hi: #3a4760;
+    --text-0: #f3f6fb;
+    --text-1: #a4b0c6;
+    --text-2: #68758d;
+    --accent: #e63946;
+    --accent-hi: #ff4d5a;
+    --amber: #f4a261;
+    --cyan: #38bdf8;
+    --green: #22c55e;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; user-select: none; }
+  html, body {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background: var(--bg-0); color: var(--text-0);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 12px; overflow: hidden;
+  }
+  input, textarea, select { user-select: text; font-family: inherit; }
+
+  /* APP SHELL */
+  .app {
+    display: grid;
+    grid-template-rows: 46px 1fr 210px;
+    grid-template-columns: 256px 1fr 296px;
+    width: 100vw; height: 100vh;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    grid-column: 1 / 4;
+    background: var(--bg-1);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 12px; gap: 10px; z-index: 20;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 8px; font-weight: 700; letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .brand-badge {
+    background: linear-gradient(135deg, var(--accent), #991b1b);
+    color: #fff; font-size: 9px; font-weight: 800; padding: 2px 6px;
+    border-radius: 4px; letter-spacing: 1px;
+  }
+  .top-group { display: flex; align-items: center; gap: 6px; }
+  .divider { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+
+  /* BUTTONS & INPUTS */
+  .btn {
+    background: var(--bg-2); color: var(--text-0);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 5px 10px; font-size: 11px; font-weight: 600;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+    transition: all 0.12s ease; white-space: nowrap;
+  }
+  .btn:hover { background: var(--bg-3); border-color: var(--border-hi); }
+  .btn.active { background: rgba(230,57,70,0.2); border-color: var(--accent); color: #fff; }
+  .btn.primary {
+    background: linear-gradient(180deg, var(--accent-hi), var(--accent));
+    border-color: #ff6b76; color: #fff;
+    box-shadow: 0 2px 10px rgba(230,57,70,0.35);
+  }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.amber {
+    background: rgba(244,162,97,0.16); border-color: rgba(244,162,97,0.5); color: #ffd0a6;
+  }
+  .btn.amber:hover { background: rgba(244,162,97,0.26); }
+  .btn.cyan {
+    background: rgba(56,189,248,0.14); border-color: rgba(56,189,248,0.45); color: #bae6fd;
+  }
+  .btn.sm { padding: 3px 7px; font-size: 10.5px; }
+  .btn.icon { padding: 5px 7px; justify-content: center; }
+
+  select, input[type="text"], input[type="number"], textarea {
+    background: var(--bg-0); color: var(--text-0);
+    border: 1px solid var(--border); border-radius: 5px;
+    padding: 5px 7px; font-size: 11px; outline: none;
+  }
+  select:focus, input:focus, textarea:focus { border-color: var(--cyan); }
+  textarea { resize: vertical; min-height: 54px; line-height: 1.4; width: 100%; }
+
+  /* PANELS */
+  .panel {
+    background: var(--bg-1);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .panel-left { border-right: 1px solid var(--border); }
+  .panel-right { border-left: 1px solid var(--border); }
+  .panel-header {
+    padding: 8px 10px; border-bottom: 1px solid var(--border);
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.9px;
+    color: var(--text-1); display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+  }
+  .panel-scroll {
+    flex: 1; overflow-y: auto; padding: 10px;
+  }
+  .panel-scroll::-webkit-scrollbar, .tl-tracks::-webkit-scrollbar { width: 6px; height: 6px; }
+  .panel-scroll::-webkit-scrollbar-thumb, .tl-tracks::-webkit-scrollbar-thumb {
+    background: var(--bg-3); border-radius: 3px;
+  }
+
+  /* PALETTE GRID */
+  .palette-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px;
+  }
+  .palette-item {
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 6px; cursor: pointer; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    transition: all 0.12s;
+  }
+  .palette-item:hover { border-color: var(--accent); background: var(--bg-3); transform: translateY(-1px); }
+  .palette-item .ico { font-size: 16px; line-height: 1; }
+  .palette-item span { font-size: 10px; font-weight: 600; color: var(--text-1); }
+
+  /* LAYERS */
+  .layer-list { display: flex; flex-direction: column; gap: 4px; }
+  .layer-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 8px; border-radius: 5px;
+    background: var(--bg-2); border: 1px solid transparent;
+    cursor: pointer; font-size: 11px;
+  }
+  .layer-item:hover { background: var(--bg-3); }
+  .layer-item.selected { border-color: var(--accent); background: rgba(230,57,70,0.15); }
+  .layer-tag {
+    font-size: 9px; font-family: 'JetBrains Mono', monospace;
+    padding: 1px 4px; border-radius: 3px; background: var(--bg-0); color: var(--text-2);
+    text-transform: uppercase;
+  }
+  .layer-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .layer-act {
+    background: none; border: none; color: var(--text-2); cursor: pointer; padding: 2px; font-size: 11px;
+  }
+  .layer-act:hover { color: #fff; }
+
+  /* STAGE / VIEWPORT */
+  .stage-wrap {
+    position: relative; background: #050608;
+    background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #stageCanvas {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.08);
+    cursor: default; max-width: 100%; max-height: 100%;
+  }
+  .stage-hud-top {
+    position: absolute; top: 10px; left: 10px; right: 10px;
+    display: flex; justify-content: space-between; pointer-events: none; z-index: 10;
+  }
+  .hud-pill {
+    pointer-events: auto;
+    background: rgba(11,14,20,0.85); backdrop-filter: blur(8px);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 4px 10px; display: flex; align-items: center; gap: 8px;
+    font-size: 10.5px; color: var(--text-1);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .rec-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+  .rec-dot.cam { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .stage-hud-bottom {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 10;
+  }
+  .tool-banner {
+    position: absolute; top: 46px; left: 50%; transform: translateX(-50%);
+    background: rgba(230,57,70,0.92); color: #fff; padding: 5px 14px;
+    border-radius: 20px; font-weight: 600; font-size: 11px;
+    display: none; z-index: 15; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .tool-banner.show { display: block; }
+
+  /* RIGHT INSPECTOR TABS */
+  .tabs {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--border); background: var(--bg-0);
+  }
+  .tab {
+    padding: 9px 4px; text-align: center; cursor: pointer;
+    font-size: 10.5px; font-weight: 700; color: var(--text-2);
+    border-bottom: 2px solid transparent; transition: 0.12s;
+  }
+  .tab:hover { color: var(--text-0); }
+  .tab.active { color: #fff; border-bottom-color: var(--accent); background: var(--bg-1); }
+
+  .sec {
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .sec-title {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--text-2); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .field { margin-bottom: 8px; }
+  .field label {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10.5px; color: var(--text-1); margin-bottom: 4px;
+  }
+  .field label .val { font-family: 'JetBrains Mono', monospace; color: var(--cyan); font-size: 10px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+  input[type="range"] {
+    width: 100%; accent-color: var(--accent); cursor: pointer; height: 4px;
+  }
+  input[type="color"] {
+    width: 100%; height: 26px; border: 1px solid var(--border);
+    border-radius: 4px; background: var(--bg-0); padding: 2px; cursor: pointer;
+  }
+  .checkbox-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4px 0; font-size: 11px; color: var(--text-1);
+  }
+
+  /* TIMELINE PANEL */
+  .timeline-panel {
+    grid-column: 1 / 4;
+    background: var(--bg-1); border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .tl-toolbar {
+    height: 36px; padding: 0 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.25);
+  }
+  .timecode {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+    color: var(--cyan); background: var(--bg-0); border: 1px solid var(--border);
+    padding: 3px 9px; border-radius: 4px; letter-spacing: 0.5px;
+  }
+  .tl-body {
+    flex: 1; display: grid; grid-template-columns: 185px 1fr; overflow: hidden;
+    position: relative;
+  }
+  .tl-labels {
+    border-right: 1px solid var(--border); overflow-y: hidden; background: var(--bg-1);
+  }
+  .tl-ruler-label {
+    height: 24px; border-bottom: 1px solid var(--border);
+    padding: 0 10px; display: flex; align-items: center; justify-content: space-between;
+    font-size: 9.5px; font-weight: 700; color: var(--text-2); text-transform: uppercase;
+  }
+  .tl-track-label {
+    height: 26px; border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding: 0 10px; display: flex; align-items: center; gap: 6px;
+    font-size: 10.5px; color: var(--text-1); white-space: nowrap; overflow: hidden;
+    cursor: pointer;
+  }
+  .tl-track-label.cam-row { background: rgba(56,189,248,0.07); color: #7dd3fc; font-weight: 700; }
+  .tl-track-label.selected { background: rgba(230,57,70,0.16); color: #fff; }
+  .tl-tracks {
+    overflow: auto; position: relative; background: var(--bg-0);
+  }
+  .tl-inner { position: relative; min-height: 100%; }
+  .tl-ruler {
+    height: 24px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: #0d1017; z-index: 6;
+    cursor: ew-resize;
+  }
+  .tl-tick {
+    position: absolute; top: 0; bottom: 0; border-left: 1px solid rgba(255,255,255,0.12);
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-2);
+    padding-left: 3px; padding-top: 2px; pointer-events: none;
+  }
+  .tl-row {
+    height: 26px; border-bottom: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+  }
+  .tl-row.cam-row { background: rgba(56,189,248,0.04); }
+  .tl-bar {
+    position: absolute; top: 3px; height: 20px; border-radius: 4px;
+    background: linear-gradient(90deg, #b91c1c, #e63946);
+    border: 1px solid rgba(255,255,255,0.22);
+    font-size: 9.5px; font-weight: 600; color: #fff;
+    padding: 0 6px; display: flex; align-items: center; overflow: hidden;
+    white-space: nowrap; cursor: grab;
+  }
+  .tl-bar.conn { background: linear-gradient(90deg, #9a3412, #ea580c); }
+  .tl-bar.selected { outline: 2px solid #fff; z-index: 3; }
+  .kf-diamond {
+    position: absolute; top: 6px; width: 12px; height: 12px;
+    background: var(--cyan); border: 2px solid #fff;
+    transform: translateX(-6px) rotate(45deg);
+    cursor: pointer; z-index: 4; transition: transform 0.1s;
+  }
+  .kf-diamond:hover, .kf-diamond.active {
+    background: var(--amber); transform: translateX(-6px) rotate(45deg) scale(1.25);
+  }
+  .playhead {
+    position: absolute; top: 0; bottom: 0; width: 2px;
+    background: var(--accent-hi); z-index: 10; pointer-events: none;
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .playhead::before {
+    content: ''; position: absolute; top: 0; left: -5px;
+    border-left: 6px solid transparent; border-right: 6px solid transparent;
+    border-top: 9px solid var(--accent-hi);
+  }
+
+  /* MODAL */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(5px);
+    display: none; align-items: center; justify-content: center; z-index: 100;
+  }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    width: 440px; background: var(--bg-1); border: 1px solid var(--border-hi);
+    border-radius: 10px; padding: 18px; box-shadow: 0 24px 70px rgba(0,0,0,0.8);
+  }
+  .modal h3 { margin: 0 0 12px; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
+  .progress-wrap {
+    width: 100%; height: 10px; background: var(--bg-0); border-radius: 6px;
+    overflow: hidden; border: 1px solid var(--border); margin: 12px 0;
+  }
+  .progress-bar {
+    height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--amber));
+    transition: width 0.08s linear;
+  }
+  .drop-zone {
+    border: 1.5px dashed var(--border-hi); border-radius: 6px; padding: 10px;
+    text-align: center; color: var(--text-2); cursor: pointer; margin-bottom: 10px;
+    transition: 0.12s;
+  }
+  .drop-zone:hover { border-color: var(--cyan); color: var(--text-0); background: rgba(56,189,248,0.06); }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="top-group">
+      <div class="brand">
+        <span style="font-size:16px">📌</span>
+        <span>DETECTIVE BOARD STUDIO</span>
+        <span class="brand-badge">PRO NLE</span>
+      </div>
+      <div class="divider"></div>
+      <select id="templateSelect" title="Load Pro Documentary Template">
+        <option value="truecrime">Template: True Crime Conspiracy Web</option>
+        <option value="heist">Template: Follow The Money (Heist)</option>
+        <option value="coldwar">Template: Cold War Classified Dossier</option>
+        <option value="editorial">Template: Documentary Essay (Vox Style)</option>
+        <option value="viral916">Template: 9:16 Viral Hook (Shorts/Reels)</option>
+        <option value="blank">Blank Canvas</option>
+      </select>
+      <button class="btn sm" id="loadTemplateBtn">Load</button>
+    </div>
+
+    <div class="top-group">
+      <select id="aspectSelect" title="Aspect Ratio">
+        <option value="16:9">16:9 YouTube / Doc</option>
+        <option value="9:16">9:16 Reels / Shorts</option>
+        <option value="1:1">1:1 Square</option>
+        <option value="21:9">21:9 Anamorphic</option>
+        <option value="4:5">4:5 Portrait</option>
+      </select>
+      <select id="resSelect" title="Export Resolution">
+        <option value="1080">1080p Full HD</option>
+        <option value="2160">4K UHD</option>
+        <option value="1440">1440p 2K</option>
+        <option value="720">720p HD</option>
+      </select>
+      <select id="fpsSelect" title="Frame Rate">
+        <option value="30">30 fps</option>
+        <option value="60">60 fps</option>
+        <option value="24">24 fps Cinema</option>
+      </select>
+      <div class="divider"></div>
+      <button class="btn icon" id="undoBtn" title="Undo (Ctrl+Z)">↶</button>
+      <button class="btn icon" id="redoBtn" title="Redo (Ctrl+Shift+Z)">↷</button>
+      <button class="btn sm" id="guidesBtn" title="Toggle Safe Guides & Rule of Thirds">Guides</button>
+      <button class="btn sm amber" id="choreographBtn" title="Auto-build cinematic documentary camera & reveal sequence">✨ Auto-Choreograph</button>
+    </div>
+
+    <div class="top-group">
+      <button class="btn sm" id="saveProjBtn" title="Save Project JSON">💾 Save</button>
+      <button class="btn sm" id="loadProjBtn" title="Load Project JSON">📂 Open</button>
+      <input type="file" id="projFileInput" accept=".json" style="display:none" />
+      <button class="btn sm" id="exportPngBtn" title="Export Full-Res PNG Still">🖼️ PNG</button>
+      <button class="btn primary" id="openExportBtn">🎬 Export Video</button>
+    </div>
+  </header>
+
+  <!-- LEFT PANEL: ELEMENTS & LAYERS -->
+  <aside class="panel panel-left">
+    <div class="panel-header">
+      <span>Evidence Elements</span>
+      <span style="color:var(--cyan);font-size:9px">CLICK TO ADD</span>
+    </div>
+    <div class="panel-scroll">
+      <div class="palette-grid">
+        <div class="palette-item" data-add="photo"><div class="ico">📷</div><span>Polaroid Photo</span></div>
+        <div class="palette-item" data-add="suspect"><div class="ico">🕵️</div><span>Suspect Profile</span></div>
+        <div class="palette-item" data-add="dossier"><div class="ico">📄</div><span>Dossier / Redact</span></div>
+        <div class="palette-item" data-add="newspaper"><div class="ico">📰</div><span>News Clipping</span></div>
+        <div class="palette-item" data-add="sticky"><div class="ico">📝</div><span>Sticky Note</span></div>
+        <div class="palette-item" data-add="stamp"><div class="ico">🔴</div><span>Stamp Slam</span></div>
+        <div class="palette-item" data-add="wiretap"><div class="ico">🎙️</div><span>Wiretap Audio</span></div>
+        <div class="palette-item" data-add="map"><div class="ico">📍</div><span>Tactical Map</span></div>
+        <div class="palette-item" data-add="marker"><div class="ico">⭕</div><span>Red Marker FX</span></div>
+        <div class="palette-item" id="quickLinkBtn" style="border-color:rgba(230,57,70,0.45)"><div class="ico">🧶</div><span>Connect Yarn (L)</span></div>
+      </div>
+
+      <div class="drop-zone" id="photoUploadZone">
+        <b>+ Upload Photo Evidence</b><br/>
+        <span style="font-size:10px">Click or Drop PNG / JPG onto board</span>
+        <input type="file" id="quickImgInput" accept="image/*" style="display:none" />
+      </div>
+
+      <div class="sec-title" style="margin-top:8px">
+        <span>Scene Layers (<span id="layerCount">0</span>)</span>
+        <span style="font-size:9px;color:var(--text-2)">Top = Front</span>
+      </div>
+      <div class="layer-list" id="layerList"></div>
+    </div>
+  </aside>
+
+  <!-- CENTER STAGE -->
+  <main class="stage-wrap" id="stageWrap">
+    <div class="stage-hud-top">
+      <div class="hud-pill">
+        <div class="rec-dot cam" id="modeDot"></div>
+        <span id="modeLabel">CAMERA PREVIEW</span>
+        <span style="color:var(--border-hi)">|</span>
+        <span id="hudCamStats">ZOOM 1.00x</span>
+      </div>
+      <div class="hud-pill">
+        <button class="btn sm active" id="toolSelectBtn">↖ Select (V)</button>
+        <button class="btn sm" id="toolLinkBtn">🧶 Yarn Link (L)</button>
+        <button class="btn sm cyan" id="toggleEditModeBtn" title="Switch between Camera Output Preview and Free Board Overview">🎥 Camera View</button>
+      </div>
+    </div>
+
+    <div class="tool-banner" id="toolBanner">🧶 YARN LINK MODE: Click Source Card → Click Target Card (Esc to exit)</div>
+    <canvas id="stageCanvas"></canvas>
+
+    <div class="stage-hud-bottom">
+      <button class="btn sm" id="frameSelectedBtn" title="Point camera directly at selected element & add keyframe">🎯 Focus Camera on Selected</button>
+      <button class="btn sm cyan" id="addKfQuickBtn" title="Capture Camera Keyframe at current playhead (K)">◆ Keyframe Camera (K)</button>
+      <button class="btn sm" id="resetCamBtn">↺ Reset Wide Shot</button>
+    </div>
+  </main>
+
+  <!-- RIGHT INSPECTOR -->
+  <aside class="panel panel-right">
+    <div class="tabs">
+      <div class="tab active" data-tab="element">Element</div>
+      <div class="tab" data-tab="board">Board & FX</div>
+      <div class="tab" data-tab="camera">Camera & SFX</div>
+    </div>
+    <div class="panel-scroll" id="inspectorBody"></div>
+  </aside>
+
+  <!-- BOTTOM TIMELINE -->
+  <section class="timeline-panel">
+    <div class="tl-toolbar">
+      <div class="top-group">
+        <button class="btn sm primary" id="playBtn">▶ Play</button>
+        <button class="btn sm" id="stopBtn">⏮ 0:00</button>
+        <button class="btn sm" id="stepBackBtn">◀</button>
+        <button class="btn sm" id="stepFwdBtn">▶</button>
+        <div class="timecode" id="timecodeDisplay">00:00.00 / 00:12.00</div>
+        <label style="display:flex;align-items:center;gap:4px;color:var(--text-1);margin-left:6px">
+          Dur(s): <input type="number" id="durationInput" value="12" min="3" max="60" step="1" style="width:48px;padding:3px 5px" />
+        </label>
+        <button class="btn sm active" id="loopBtn">🔁 Loop</button>
+      </div>
+      <div class="top-group">
+        <button class="btn sm cyan" id="tlAddKfBtn">◆ Add Cam Keyframe</button>
+        <button class="btn sm" id="tlDelKfBtn">✕ Del Keyframe</button>
+        <div class="divider"></div>
+        <span style="color:var(--text-2);font-size:10px">Tip: Drag bars to re-time reveals • Click ruler to scrub</span>
+      </div>
+    </div>
+    <div class="tl-body">
+      <div class="tl-labels" id="tlLabels"></div>
+      <div class="tl-tracks" id="tlTracks">
+        <div class="tl-inner" id="tlInner">
+          <div class="tl-ruler" id="tlRuler"></div>
+          <div id="tlRows"></div>
+          <div class="playhead" id="playhead"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- EXPORT VIDEO MODAL -->
+<div class="modal-backdrop" id="exportModal">
+  <div class="modal">
+    <h3><span>🎬 Export Broadcast Video Clip</span><button class="btn sm" id="closeExportBtn">✕</button></h3>
+    <div class="field">
+      <label>Output Specs</label>
+      <div id="exportSummary" style="background:var(--bg-0);padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:11px"></div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Video Quality / Bitrate</label>
+        <select id="exportBitrate" style="width:100%">
+          <option value="20000000">Master Pro (20 Mbps)</option>
+          <option value="12000000" selected>High Broadcast (12 Mbps)</option>
+          <option value="6000000">Web Optimized (6 Mbps)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Audio Mix</label>
+        <select id="exportAudioMode" style="width:100%">
+          <option value="sfx">Include Procedural SFX</option>
+          <option value="silent">Silent Clean Video</option>
+        </select>
+      </div>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="exportProgressBar"></div></div>
+    <div id="exportStatus" style="font-size:11px;color:var(--text-1);min-height:18px;margin-bottom:12px">Ready to render full timeline sequence.</div>
+    <div style="display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn" id="cancelExportBtn">Cancel</button>
+      <button class="btn primary" id="startRenderBtn">● Start Render & Download</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ============================================================
+     1. STATE & CONSTANTS
+  ============================================================ */
+  const ASPECTS = {
+    '16:9': [16, 9],
+    '9:16': [9, 16],
+    '1:1':  [1, 1],
+    '21:9': [21, 9],
+    '4:5':  [4, 5]
+  };
+
+  let uidCounter = 100;
+  const uid = (p = 'el') => `${p}_${++uidCounter}`;
+
+  const state = {
+    aspect: '16:9',
+    resHeight: 1080,
+    fps: 30,
+    duration: 12,
+    currentTime: 0,
+    playing: false,
+    loop: true,
+    viewMode: 'camera', // 'camera' | 'edit'
+    tool: 'select',     // 'select' | 'link'
+    linkSourceId: null,
+    showGuides: false,
+    activeTab: 'element',
+    selectedId: null,
+    selectedType: null, // 'element' | 'connection'
+    selectedKfId: null,
+    editCam: { x: 960, y: 540, zoom: 0.88, rot: 0 },
+    board: {
+      surface: 'slate', // cork | slate | blueprint | parchment | felt | chroma | transparent
+      spotX: 960,
+      spotY: 340,
+      spotIntensity: 0.72,
+      spotRadius: 1150,
+      spotWarmth: 0.25, // -1 cold cyan to +1 warm tungsten
+      vignette: 0.65,
+      grain: 0.22,
+      dust: 0.45,
+      shadowDepth: 0.75
+    },
+    cameraFX: {
+      handheld: 0.35,
+      sfxEnabled: true,
+      sfxVolume: 0.65
+    },
+    elements: [],
+    connections: [],
+    cameraKeyframes: []
+  };
+
+  const history = { undo: [], redo: [] };
+  const imageCache = new Map(); // src -> HTMLImageElement
+  let surfaceCache = null;
+  let surfaceCacheKey = '';
+  let grainCanvas = null;
+
+  /* ============================================================
+     2. PROCEDURAL SFX ENGINE (WEB AUDIO API)
+  ============================================================ */
+  const SFX = {
+    ctx: null,
+    dest: null,
+    init() {
+      if (!this.ctx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        this.ctx = new AC();
+        this.dest = this.ctx.createMediaStreamDestination();
+      }
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+    },
+    play(kind) {
+      if (!state.cameraFX.sfxEnabled) return;
+      this.init();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      const vol = state.cameraFX.sfxVolume;
+      const master = this.ctx.createGain();
+      master.gain.value = vol;
+      master.connect(this.ctx.destination);
+      if (this.dest) master.connect(this.dest);
+
+      const makeNoise = (dur) => {
+        const len = Math.floor(this.ctx.sampleRate * dur);
+        const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+        const src = this.ctx.createBufferSource();
+        src.buffer = buf;
+        return src;
+      };
+
+      if (kind === 'slam' || kind === 'paper') {
+        // Paper slap + pin thump
+        const n = makeNoise(0.16);
+        const f = this.ctx.createBiquadFilter();
+        f.type = 'bandpass'; f.frequency.setValueAtTime(1400, now); f.Q.value = 1.2;
+        const g = this.ctx.createGain();
+        g.gain.setValueAtTime(0.45, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        n.connect(f); f.connect(g); g.connect(master);
+        n.start(now);
+
+        const osc = this.ctx.createOscillator();
+        const og = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(42, now + 0.12);
+        og.gain.setValueAtTime(0.55, now);
+        og.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+        osc.connect(og); og.connect(master);
+        osc.start(now); osc.stop(now + 0.14);
+      } else if (kind === 'stamp') {
+        const osc = this.ctx.createOscillator();
+        const og = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(110, now);
+        osc.frequency.exponentialRampToValueAtTime(28, now + 0.22);
+        og.gain.setValueAtTime(0.9, now);
+        og.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+        osc.connect(og); og.connect(master);
+        osc.start(now); osc.stop(now + 0.25);
+
+        const n = makeNoise(0.08);
+        const f = this.ctx.createBiquadFilter();
+        f.type = 'lowpass'; f.frequency.value = 900;
+        const g = this.ctx.createGain();
+        g.gain.setValueAtTime(0.5, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        n.connect(f); f.connect(g); g.connect(master);
+        n.start(now);
+      } else if (kind === 'string') {
+        const n = makeNoise(0.32);
+        const f = this.ctx.createBiquadFilter();
+        f.type = 'bandpass';
+        f.frequency.setValueAtTime(300, now);
+        f.frequency.exponentialRampToValueAtTime(2200, now + 0.14);
+        f.frequency.exponentialRampToValueAtTime(500, now + 0.3);
+        f.Q.value = 2.5;
+        const g = this.ctx.createGain();
+        g.gain.setValueAtTime(0.01, now);
+        g.gain.linearRampToValueAtTime(0.32, now + 0.1);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.31);
+        n.connect(f); f.connect(g); g.connect(master);
+        n.start(now);
+      } else if (kind === 'marker') {
+        const n = makeNoise(0.28);
+        const f = this.ctx.createBiquadFilter();
+        f.type = 'bandpass'; f.frequency.value = 2600; f.Q.value = 3;
+        const g = this.ctx.createGain();
+        g.gain.setValueAtTime(0.18, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.27);
+        n.connect(f); f.connect(g); g.connect(master);
+        n.start(now);
+      }
+    }
+  };
+
+  /* ============================================================
+     3. HISTORY (UNDO / REDO)
+  ============================================================ */
+  function snapshot() {
+    return JSON.stringify({
+      board: state.board,
+      cameraFX: state.cameraFX,
+      elements: state.elements,
+      connections: state.connections,
+      cameraKeyframes: state.cameraKeyframes,
+      duration: state.duration,
+      aspect: state.aspect
+    });
+  }
+  function pushHistory() {
+    history.undo.push(snapshot());
+    if (history.undo.length > 40) history.undo.shift();
+    history.redo.length = 0;
+  }
+  function restoreSnapshot(snap) {
+    const d = JSON.parse(snap);
+    Object.assign(state.board, d.board);
+    Object.assign(state.cameraFX, d.cameraFX);
+    state.elements = d.elements;
+    state.connections = d.connections;
+    state.cameraKeyframes = d.cameraKeyframes;
+    state.duration = d.duration;
+    state.aspect = d.aspect;
+    document.getElementById('aspectSelect').value = state.aspect;
+    document.getElementById('durationInput').value = state.duration;
+    surfaceCacheKey = '';
+    resizeStageCanvas();
+    refreshAllUI();
+  }
+  function undo() {
+    if (!history.undo.length) return;
+    history.redo.push(snapshot());
+    restoreSnapshot(history.undo.pop());
+  }
+  function redo() {
+    if (!history.redo.length) return;
+    history.undo.push(snapshot());
+    restoreSnapshot(history.redo.pop());
+  }
+
+  /* ============================================================
+     4. EASING & CAMERA INTERPOLATION
+  ============================================================ */
+  const EASINGS = {
+    easeInOutCubic: t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2,
+    whipPan:        t => t === 0 ? 0 : t === 1 ? 1 : t < 0.5 ? Math.pow(2, 20*t - 10)/2 : (2 - Math.pow(2, -20*t + 10))/2,
+    docDrift:       t => -(Math.cos(Math.PI * t) - 1) / 2,
+    easeOutBack:    t => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
+    linear:         t => t
+  };
+
+  function getCameraAt(time, includeHandheld = true) {
+    const kfs = [...state.cameraKeyframes].sort((a, b) => a.time - b.time);
+    let cam = { x: 960, y: 540, zoom: 1, rot: 0 };
+    if (kfs.length === 1) {
+      cam = { x: kfs[0].x, y: kfs[0].y, zoom: kfs[0].zoom, rot: kfs[0].rot };
+    } else if (kfs.length > 1) {
+      if (time <= kfs[0].time) {
+        cam = { ...kfs[0] };
+      } else if (time >= kfs[kfs.length - 1].time) {
+        cam = { ...kfs[kfs.length - 1] };
+      } else {
+        for (let i = 0; i < kfs.length - 1; i++) {
+          const a = kfs[i], b = kfs[i + 1];
+          if (time >= a.time && time <= b.time) {
+            const raw = (time - a.time) / Math.max(0.0001, b.time - a.time);
+            const fn = EASINGS[b.ease] || EASINGS.easeInOutCubic;
+            const t = fn(Math.max(0, Math.min(1, raw)));
+            cam = {
+              x: a.x + (b.x - a.x) * t,
+              y: a.y + (b.y - a.y) * t,
+              zoom: a.zoom + (b.zoom - a.zoom) * t,
+              rot: a.rot + (b.rot - a.rot) * t
+            };
+            break;
+          }
+        }
+      }
+    }
+
+    // Subtle stamp impact camera shake
+    let shakeX = 0, shakeY = 0;
+    for (const el of state.elements) {
+      if (el.visible === false) continue;
+      if (el.type === 'stamp' || el.entrance === 'slam') {
+        const dt = time - (el.startTime + (el.type === 'stamp' ? 0.12 : 0.18));
+        if (dt >= 0 && dt < 0.22) {
+          const amp = (1 - dt / 0.22) * (el.type === 'stamp' ? 14 : 6);
+          shakeX += Math.sin(dt * 190) * amp;
+          shakeY += Math.cos(dt * 230) * amp;
+        }
+      }
+    }
+
+    // Documentary handheld drift
+    if (includeHandheld && state.cameraFX.handheld > 0) {
+      const h = state.cameraFX.handheld;
+      shakeX += (Math.sin(time * 1.1) * 9 + Math.cos(time * 2.3) * 4) * h;
+      shakeY += (Math.cos(time * 0.9) * 7 + Math.sin(time * 1.9) * 3) * h;
+      cam.rot += Math.sin(time * 0.7) * 0.55 * h;
+    }
+
+    return { x: cam.x + shakeX, y: cam.y + shakeY, zoom: cam.zoom, rot: cam.rot };
+  }
+
+  function getActiveCamera() {
+    return state.viewMode === 'camera' ? getCameraAt(state.currentTime, state.playing || state.exporting) : state.editCam;
+  }
+
+  /* ============================================================
+     5. PROCEDURAL BOARD SURFACE & FILM GRAIN CACHES
+  ============================================================ */
+  function buildSurfaceCache() {
+    const key = state.board.surface;
+    if (surfaceCache && surfaceCacheKey === key) return surfaceCache;
+    surfaceCacheKey = key;
+
+    const c = document.createElement('canvas');
+    c.width = 1024; c.height = 1024;
+    const ctx = c.getContext('2d');
+
+    if (key === 'transparent') {
+      surfaceCache = c;
+      return c;
+    }
+    if (key === 'chroma') {
+      ctx.fillStyle = '#00b140';
+      ctx.fillRect(0, 0, 1024, 1024);
+      surfaceCache = c;
+      return c;
+    }
+
+    const palettes = {
+      cork:      { base: '#8c5f3c', dark: '#5e3b22', light: '#b88358' },
+      slate:     { base: '#181c23', dark: '#101318', light: '#242a35' },
+      blueprint: { base: '#0e2a47', dark: '#091e33', light: '#163d66' },
+      parchment: { base: '#cdb998', dark: '#b39b74', light: '#dfd0b4' },
+      felt:      { base: '#1e2722', dark: '#141b17', light: '#2a362f' }
+    };
+    const p = palettes[key] || palettes.slate;
+    ctx.fillStyle = p.base;
+    ctx.fillRect(0, 0, 1024, 1024);
+
+    // Procedural organic grain / speckles
+    const count = key === 'cork' ? 42000 : 18000;
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * 1024;
+      const y = Math.random() * 1024;
+      const r = key === 'cork' ? (1 + Math.random() * 3.5) : (0.8 + Math.random() * 2.2);
+      ctx.fillStyle = Math.random() > 0.5 ? p.dark : p.light;
+      ctx.globalAlpha = key === 'cork' ? 0.32 : 0.14;
+      ctx.fillRect(x, y, r, r);
+    }
+    ctx.globalAlpha = 1;
+
+    // Blueprint technical grid
+    if (key === 'blueprint') {
+      ctx.strokeStyle = 'rgba(120, 200, 255, 0.11)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= 1024; x += 32) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1024); ctx.stroke();
+      }
+      for (let y = 0; y <= 1024; y += 32) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1024, y); ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(140, 215, 255, 0.25)';
+      ctx.lineWidth = 1.5;
+      for (let x = 0; x <= 1024; x += 128) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1024); ctx.stroke();
+      }
+      for (let y = 0; y <= 1024; y += 128) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1024, y); ctx.stroke();
+      }
+    }
+
+    // Subtle wall/felt crosshatch or parchment stains
+    if (key === 'felt') {
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+      for (let i = 0; i < 1024; i += 6) {
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 1024); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(1024, i); ctx.stroke();
+      }
+    }
+    if (key === 'parchment') {
+      for (let i = 0; i < 12; i++) {
+        const gx = Math.random() * 1024, gy = Math.random() * 1024, gr = 80 + Math.random() * 200;
+        const grad = ctx.createRadialGradient(gx, gy, 10, gx, gy, gr);
+        grad.addColorStop(0, 'rgba(110, 78, 40, 0.12)');
+        grad.addColorStop(1, 'rgba(110, 78, 40, 0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(gx - gr, gy - gr, gr * 2, gr * 2);
+      }
+    }
+
+    surfaceCache = c;
+    return c;
+  }
+
+  function ensureGrainCanvas() {
+    if (grainCanvas) return grainCanvas;
+    const c = document.createElement('canvas');
+    c.width = 256; c.height = 256;
+    const ctx = c.getContext('2d');
+    const img = ctx.createImageData(256, 256);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = Math.random() * 255;
+      img.data[i] = img.data[i+1] = img.data[i+2] = v;
+      img.data[i+3] = 36;
+    }
+    ctx.putImageData(img, 0, 0);
+    grainCanvas = c;
+    return c;
+  }
+
+  /* ============================================================
+     6. ELEMENT FACTORY & TEMPLATES
+  ============================================================ */
+  function createElement(type, overrides = {}) {
+    const base = {
+      id: uid(type),
+      type,
+      x: 960 + (Math.random() - 0.5) * 260,
+      y: 540 + (Math.random() - 0.5) * 160,
+      w: 250,
+      h: 280,
+      rot: (Math.random() - 0.5) * 8,
+      title: 'Evidence #01',
+      subtitle: 'CASE FILE 409-B',
+      body: 'Subject observed leaving Pier 14 at 02:14 AM.\nWire transfer routed via Zurich shell account.',
+      badge: 'PRIMARY SUSPECT',
+      badgeColor: '#dc2626',
+      color: '#f5f0e1',
+      pinType: 'pushpin', // pushpin | tape | none
+      pinColor: '#e63946',
+      photoSrc: '',
+      photoLut: 'noir', // none | noir | sepia | cold | cctv
+      highlightLine: 1,
+      highlightColor: '#fde047',
+      redacted: false,
+      unredactAnim: true,
+      markerShape: 'circle', // circle | underline | arrow | cross
+      markerColor: '#ef4444',
+      coords: '47.3769° N, 8.5417° E',
+      startTime: 0,
+      animDuration: 0.45,
+      entrance: 'slam', // slam | fade | slideUp | pop | none
+      visible: true,
+      locked: false
+    };
+
+    if (type === 'photo') {
+      Object.assign(base, { w: 230, h: 270, title: 'CCTV FRAME 02:14', subtitle: 'CAM-09 // HARBOR', pinType: 'tape' });
+    } else if (type === 'suspect') {
+      Object.assign(base, { w: 245, h: 310, title: 'VICTOR KANE', subtitle: 'ALIAS: "THE BROKER"', badge: 'PRIMARY SUSPECT', color: '#ede7d9' });
+    } else if (type === 'dossier') {
+      Object.assign(base, { w: 300, h: 235, title: 'FINANCIAL LEDGER #88', subtitle: 'TOP SECRET // EYES ONLY', redacted: true, color: '#efe6d0' });
+    } else if (type === 'newspaper') {
+      Object.assign(base, { w: 320, h: 240, title: 'MILLIONS VANISH OVERNIGHT', subtitle: 'THE DAILY CHRONICLE • OCT 14', body: 'Regulators confirm $42M left sovereign reserves hours before the market bell.', color: '#e2d8c3', pinType: 'tape' });
+    } else if (type === 'sticky') {
+      Object.assign(base, { w: 195, h: 185, title: 'CHECK ALIBI!', body: 'Flight logs do NOT match passport stamp. Call informant.', color: '#fef08a', pinType: 'none', rot: -4 });
+    } else if (type === 'stamp') {
+      Object.assign(base, { w: 250, h: 90, title: 'CLASSIFIED', badgeColor: '#dc2626', pinType: 'none', entrance: 'pop', animDuration: 0.25, rot: -12 });
+    } else if (type === 'wiretap') {
+      Object.assign(base, { w: 295, h: 155, title: 'INTERCEPT #04-A', subtitle: '02:17:44 UTC • FREQ 142.8', body: '"Move the ledger before sunrise. Nobody talks."', color: '#111827', pinType: 'pushpin', pinColor: '#38bdf8' });
+    } else if (type === 'map') {
+      Object.assign(base, { w: 265, h: 215, title: 'DROP LOCATION', subtitle: 'ZURICH VAULT SECTOR 4', coords: '47.3769° N, 8.5417° E', color: '#0f172a', pinType: 'pushpin', pinColor: '#f59e0b' });
+    } else if (type === 'marker') {
+      Object.assign(base, { w: 240, h: 120, title: 'MARKER CIRCLE', pinType: 'none', entrance: 'pop', animDuration: 0.55, rot: -3 });
+    }
+
+    return Object.assign(base, overrides);
+  }
+
+  function createConnection(fromId, toId, overrides = {}) {
+    return Object.assign({
+      id: uid('conn'),
+      fromId,
+      toId,
+      color: '#e63946',
+      style: 'yarn', // yarn | dashed | neon | arrow
+      width: 4,
+      sag: 0.35,
+      label: '',
+      pulse: true,
+      startTime: 1.5,
+      animDuration: 0.7
+    }, overrides);
+  }
+
+  function loadTemplate(name) {
+    pushHistory();
+    state.selectedId = null;
+    state.selectedType = null;
+    state.currentTime = 0;
+
+    if (name === 'blank') {
+      state.elements = [];
+      state.connections = [];
+      state.cameraKeyframes = [{ id: uid('kf'), time: 0, x: 960, y: 540, zoom: 1, rot: 0, ease: 'easeInOutCubic' }];
+      state.duration = 10;
+      refreshAllUI();
+      return;
+    }
+
+    if (name === 'truecrime') {
+      state.aspect = '16:9';
+      state.duration = 12;
+      Object.assign(state.board, { surface: 'slate', spotX: 960, spotY: 320, spotIntensity: 0.78, spotWarmth: 0.2, vignette: 0.7, grain: 0.24, dust: 0.5 });
+      const s1 = createElement('suspect',   { x: 470,  y: 350, rot: -3, title: 'VICTOR KANE', subtitle: 'CEO • APEX HOLDINGS', badge: 'PRIMARY SUSPECT', startTime: 0.4 });
+      const n1 = createElement('newspaper', { x: 960,  y: 260, rot: 1.5, title: '$42M VANISHES AT MIDNIGHT', subtitle: 'METRO CHRONICLE • NOV 04', body: 'Security feeds cut 9 minutes prior to vault breach. Insider involvement suspected.', startTime: 1.4 });
+      const d1 = createElement('dossier',   { x: 1450, y: 360, rot: 3.5, title: 'OFFSHORE LEDGER #09', subtitle: 'CLASSIFIED • FINANCIAL CRIMES', body: 'Account #CH-8841 opened 48h prior.\nBeneficiary signature matches V. Kane.\nEncrypted key sent from Pier 14.', redacted: true, unredactAnim: true, highlightLine: 1, startTime: 2.6 });
+      const p1 = createElement('photo',     { x: 430,  y: 740, rot: 4, title: 'CCTV CAM-04 // 02:14', subtitle: 'HARBOR WAREHOUSE', photoLut: 'cctv', startTime: 3.8 });
+      const w1 = createElement('wiretap',   { x: 960,  y: 660, rot: -1.5, title: 'WIRETAP INTERCEPT #7', subtitle: '02:19:03 UTC • BURNER LINE', body: '"Delete the manifest. The plane leaves Zurich at dawn."', startTime: 5.0 });
+      const m1 = createElement('map',       { x: 1470, y: 745, rot: -2.5, title: 'EXTRACTION POINT', subtitle: 'ZURICH PRIVATE HANGAR', coords: '47.4582° N, 8.5555° E', startTime: 6.2 });
+      const st = createElement('sticky',    { x: 700,  y: 515, rot: -7, title: 'NO ALIBI!!', body: 'Check diplomatic passport log #331.', startTime: 7.1 });
+      const mk = createElement('marker',    { x: 960,  y: 230, w: 300, h: 75, rot: -1, markerShape: 'circle', markerColor: '#ef4444', startTime: 2.0 });
+      const sm = createElement('stamp',     { x: 1450, y: 340, rot: -14, title: 'CONFIDENTIAL', startTime: 8.2 });
+
+      state.elements = [s1, n1, d1, p1, w1, m1, st, mk, sm];
+      state.connections = [
+        createConnection(s1.id, n1.id, { label: 'INSIDER ACCESS', startTime: 2.1 }),
+        createConnection(n1.id, d1.id, { label: '$42M WIRE', startTime: 3.3 }),
+        createConnection(s1.id, p1.id, { label: 'SPOTTED 02:14', startTime: 4.4 }),
+        createConnection(p1.id, w1.id, { label: 'BURNER CALL', startTime: 5.7, color: '#f59e0b' }),
+        createConnection(w1.id, m1.id, { label: 'FLIGHT PATH', startTime: 6.9 }),
+        createConnection(d1.id, m1.id, { label: 'SHELL VAULT', startTime: 7.4, style: 'dashed', color: '#38bdf8' })
+      ];
+      state.cameraKeyframes = [
+        { id: uid('kf'), time: 0,    x: 960,  y: 540, zoom: 0.92, rot: 0,    ease: 'easeInOutCubic' },
+        { id: uid('kf'), time: 1.6,  x: 680,  y: 330, zoom: 1.55, rot: -1.5, ease: 'easeInOutCubic' },
+        { id: uid('kf'), time: 3.5,  x: 1420, y: 360, zoom: 1.75, rot: 2,    ease: 'whipPan' },
+        { id: uid('kf'), time: 5.6,  x: 780,  y: 690, zoom: 1.6,  rot: -1,   ease: 'easeInOutCubic' },
+        { id: uid('kf'), time: 7.5,  x: 1460, y: 720, zoom: 1.65, rot: 1.5,  ease: 'docDrift' },
+        { id: uid('kf'), time: 9.2,  x: 1450, y: 350, zoom: 1.9,  rot: -3,   ease: 'whipPan' },
+        { id: uid('kf'), time: 11.4, x: 960,  y: 540, zoom: 0.96, rot: 0,    ease: 'easeInOutCubic' }
+      ];
+    } else if (name === 'heist') {
+      state.aspect = '16:9';
+      state.duration = 10;
+      Object.assign(state.board, { surface: 'cork', spotX: 960, spotY: 280, spotIntensity: 0.75, spotWarmth: 0.65, vignette: 0.62, grain: 0.18, dust: 0.3 });
+      const d1 = createElement('dossier',   { x: 460,  y: 380, rot: -2, title: 'SHELL CORP #1: CAYMAN', subtitle: 'WIRE ORIGIN', body: 'Initial deposit: $14,800,000\nSplit into 19 micro-transfers.\nZero KYC verification filed.', redacted: true, startTime: 0.3 });
+      const d2 = createElement('dossier',   { x: 960,  y: 520, rot: 2, title: 'PANAMA TRUST ROUTING', subtitle: 'INTERMEDIARY LAYER', body: 'Funds converted to bearer bonds.\nSigned by nominee director.\nTimestamp: 11:58 PM EST.', redacted: false, highlightLine: 0, startTime: 2.0 });
+      const n1 = createElement('newspaper', { x: 1460, y: 360, rot: -3, title: 'AUDITORS MISS $14.8M GAP', subtitle: 'FINANCIAL POST', body: 'Shareholders stunned as internal audit reveals massive accounting mirage.', startTime: 3.8 });
+      const st = createElement('sticky',    { x: 960,  y: 230, rot: -5, title: 'FOLLOW THE MONEY', body: 'Every trail leads back to Board Seat #4.', color: '#fde047', startTime: 5.0 });
+      const sm = createElement('stamp',     { x: 1460, y: 660, rot: -10, title: 'GUILTY', badgeColor: '#dc2626', startTime: 6.4 });
+      state.elements = [d1, d2, n1, st, sm];
+      state.connections = [
+        createConnection(d1.id, d2.id, { label: '$14.8M SPLIT', startTime: 2.6, color: '#dc2626' }),
+        createConnection(d2.id, n1.id, { label: 'COVER-UP', startTime: 4.5, color: '#dc2626' }),
+        createConnection(st.id, d2.id, { label: 'KEY LINK', startTime: 5.6, style: 'dashed', color: '#f59e0b' })
+      ];
+      autoChoreograph(false);
+    } else if (name === 'coldwar') {
+      state.aspect = '16:9';
+      state.duration = 11;
+      Object.assign(state.board, { surface: 'felt', spotX: 820, spotY: 250, spotIntensity: 0.82, spotWarmth: -0.35, vignette: 0.78, grain: 0.32, dust: 0.55 });
+      const m1 = createElement('map',     { x: 540,  y: 440, rot: -2, title: 'SECTOR BERLIN-EAST', subtitle: 'DEAD DROP ALPHA', coords: '52.5200° N, 13.4050° E', startTime: 0.4 });
+      const d1 = createElement('dossier', { x: 1020, y: 360, rot: 2, title: 'OPERATION NIGHTFALL', subtitle: 'DECLASSIFIED 1994', body: 'Agent "Kestrel" compromised at Checkpoint C.\nMicrofilm recovered in diplomatic pouch.', redacted: true, startTime: 1.8 });
+      const w1 = createElement('wiretap', { x: 1420, y: 650, rot: -2, title: 'NUMBERS STATION 4B', subtitle: 'SHORTWAVE 6840 KHZ', body: '"09 - 44 - 17 - 02 // REPEAT // EXTRACTION ABORTED"', startTime: 3.4 });
+      const p1 = createElement('photo',   { x: 640,  y: 780, rot: 5, title: 'SURVEILLANCE ROLL #12', subtitle: '35MM TRI-X', photoLut: 'sepia', startTime: 4.8 });
+      const sm = createElement('stamp',   { x: 1020, y: 360, rot: -15, title: 'TOP SECRET', startTime: 6.2 });
+      state.elements = [m1, d1, w1, p1, sm];
+      state.connections = [
+        createConnection(m1.id, d1.id, { label: 'MICROFILM', startTime: 2.5, color: '#ef4444' }),
+        createConnection(d1.id, w1.id, { label: 'BROADCAST', startTime: 4.1, style: 'neon', color: '#38bdf8' }),
+        createConnection(m1.id, p1.id, { label: 'VISUAL ID', startTime: 5.5, color: '#f59e0b' })
+      ];
+      autoChoreograph(false);
+    } else if (name === 'editorial') {
+      state.aspect = '16:9';
+      state.duration = 10;
+      Object.assign(state.board, { surface: 'parchment', spotX: 960, spotY: 420, spotIntensity: 0.45, spotWarmth: 0.3, vignette: 0.38, grain: 0.14, dust: 0.15 });
+      const n1 = createElement('newspaper', { x: 520,  y: 400, rot: -1.5, title: 'HOW ONE PATENT CHANGED EVERYTHING', subtitle: 'ARCHIVE • 1978', body: 'A little-known filing quietly reshaped global logistics for the next four decades.', startTime: 0.3 });
+      const d1 = createElement('dossier',   { x: 1020, y: 420, rot: 1, title: 'PATENT FILING #4,102,991', subtitle: 'PUBLIC RECORD', body: 'Efficiency rose 340% within 24 months.\nCompetitors licensed the standard globally.', redacted: false, highlightLine: 0, highlightColor: '#fde047', startTime: 1.8 });
+      const m1 = createElement('map',       { x: 1470, y: 540, rot: -1, title: 'GLOBAL HUB', subtitle: 'SHIPPING CORRIDOR', coords: '51.9244° N, 4.4777° E', startTime: 3.4 });
+      const mk = createElement('marker',    { x: 1020, y: 415, w: 270, h: 46, markerShape: 'underline', markerColor: '#ef4444', startTime: 2.7 });
+      state.elements = [n1, d1, m1, mk];
+      state.connections = [
+        createConnection(n1.id, d1.id, { label: '1978 FILING', startTime: 2.4, style: 'arrow', color: '#111827', sag: 0.12 }),
+        createConnection(d1.id, m1.id, { label: 'GLOBAL SCALE', startTime: 4.2, style: 'arrow', color: '#dc2626', sag: 0.18 })
+      ];
+      autoChoreograph(false);
+    } else if (name === 'viral916') {
+      state.aspect = '9:16';
+      state.duration = 8;
+      Object.assign(state.board, { surface: 'slate', spotX: 960, spotY: 420, spotIntensity: 0.85, spotWarmth: 0.15, vignette: 0.72, grain: 0.22, dust: 0.4 });
+      const s1 = createElement('suspect',   { x: 960, y: 240, rot: -2, title: 'THE MASTERMIND', subtitle: 'CASE #001', badge: 'AT LARGE', startTime: 0.2 });
+      const d1 = createElement('dossier',   { x: 960, y: 570, rot: 2, title: 'THE HIDDEN CLUE', subtitle: 'LEAKED MEMO', body: 'One phone call exposed the entire network.\nNobody checked the metadata.', redacted: true, startTime: 1.4 });
+      const w1 = createElement('wiretap',   { x: 960, y: 840, rot: -1.5, title: 'LAST RECORDING', subtitle: '03:11 AM', body: '"They found the backup server. Burn everything."', startTime: 2.8 });
+      const sm = createElement('stamp',     { x: 960, y: 570, rot: -12, title: 'SOLVED', badgeColor: '#16a34a', startTime: 4.5 });
+      state.elements = [s1, d1, w1, sm];
+      state.connections = [
+        createConnection(s1.id, d1.id, { label: 'LEAKED', startTime: 2.1, sag: 0.1 }),
+        createConnection(d1.id, w1.id, { label: 'FINAL CALL', startTime: 3.5, sag: 0.1, color: '#f59e0b' })
+      ];
+      state.cameraKeyframes = [
+        { id: uid('kf'), time: 0,   x: 960, y: 260, zoom: 1.9, rot: -2, ease: 'easeInOutCubic' },
+        { id: uid('kf'), time: 1.5, x: 960, y: 560, zoom: 1.85, rot: 2, ease: 'whipPan' },
+        { id: uid('kf'), time: 3.0, x: 960, y: 830, zoom: 1.9, rot: -1.5, ease: 'whipPan' },
+        { id: uid('kf'), time: 4.6, x: 960, y: 560, zoom: 1.65, rot: 0, ease: 'whipPan' },
+        { id: uid('kf'), time: 7.4, x: 960, y: 540, zoom: 1.15, rot: 0, ease: 'easeInOutCubic' }
+      ];
+    }
+
+    document.getElementById('aspectSelect').value = state.aspect;
+    document.getElementById('durationInput').value = state.duration;
+    surfaceCacheKey = '';
+    resizeStageCanvas();
+    refreshAllUI();
+  }
+
+  /* ============================================================
+     7. AUTO-CHOREOGRAPH DIRECTOR ENGINE
+  ============================================================ */
+  function autoChoreograph(recordUndo = true) {
+    if (!state.elements.length) return;
+    if (recordUndo) pushHistory();
+
+    const cards = state.elements.filter(e => e.type !== 'marker' && e.type !== 'stamp');
+    const overlays = state.elements.filter(e => e.type === 'marker' || e.type === 'stamp');
+    const total = Math.max(6, state.duration);
+    const seqEnd = total * 0.78;
+    const step = seqEnd / Math.max(1, cards.length);
+
+    cards.forEach((el, idx) => {
+      el.startTime = +(0.3 + idx * step * 0.85).toFixed(2);
+      el.animDuration = 0.45;
+    });
+
+    // Time connections right after both endpoints appear
+    state.connections.forEach((c) => {
+      const a = state.elements.find(e => e.id === c.fromId);
+      const b = state.elements.find(e => e.id === c.toId);
+      const t = Math.max(a ? a.startTime : 0, b ? b.startTime : 0) + 0.45;
+      c.startTime = +Math.min(total - 1.2, t).toFixed(2);
+      c.animDuration = 0.65;
+    });
+
+    // Time stamps / markers near the climax
+    overlays.forEach((el, idx) => {
+      el.startTime = +Math.min(total - 1.5, seqEnd * 0.85 + idx * 0.5).toFixed(2);
+    });
+
+    // Build cinematic camera tour
+    const kfs = [{ id: uid('kf'), time: 0, x: 960, y: 540, zoom: 0.92, rot: 0, ease: 'easeInOutCubic' }];
+    cards.forEach((el, idx) => {
+      const t = Math.min(total - 1.8, +(el.startTime + 0.35).toFixed(2));
+      kfs.push({
+        id: uid('kf'),
+        time: t,
+        x: el.x,
+        y: el.y,
+        zoom: state.aspect === '9:16' ? 1.75 : 1.65,
+        rot: (idx % 2 === 0 ? -1.8 : 1.8),
+        ease: idx % 2 === 1 ? 'whipPan' : 'easeInOutCubic'
+      });
+    });
+    kfs.push({ id: uid('kf'), time: +(total - 0.5).toFixed(2), x: 960, y: 540, zoom: 0.96, rot: 0, ease: 'easeInOutCubic' });
+
+    state.cameraKeyframes = kfs;
+    state.currentTime = 0;
+    refreshAllUI();
+  }
+
+  /* ============================================================
+     8. CANVAS RENDERING ENGINE (BOARD, ELEMENTS, YARN, FX)
+  ============================================================ */
+  const stageCanvas = document.getElementById('stageCanvas');
+  const stageCtx = stageCanvas.getContext('2d');
+
+  function getExportDims() {
+    const [aw, ah] = ASPECTS[state.aspect] || [16, 9];
+    const h = parseInt(state.resHeight, 10) || 1080;
+    const w = Math.round((h * aw) / ah / 2) * 2;
+    return { w, h };
+  }
+
+  function resizeStageCanvas() {
+    const wrap = document.getElementById('stageWrap');
+    const pad = 34;
+    const maxW = Math.max(300, wrap.clientWidth - pad);
+    const maxH = Math.max(220, wrap.clientHeight - pad);
+    const [aw, ah] = ASPECTS[state.aspect];
+    let w = maxW;
+    let h = (w * ah) / aw;
+    if (h > maxH) { h = maxH; w = (h * aw) / ah; }
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    stageCanvas.style.width = `${Math.floor(w)}px`;
+    stageCanvas.style.height = `${Math.floor(h)}px`;
+    stageCanvas.width = Math.floor(w * dpr);
+    stageCanvas.height = Math.floor(h * dpr);
+  }
+
+  function getBaseScale(W, H) {
+    return Math.min(W / 1920, H / 1080);
+  }
+
+  function screenToWorld(sx, sy, W, H, cam) {
+    const base = getBaseScale(W, H);
+    const dx = (sx - W / 2) / (cam.zoom * base);
+    const dy = (sy - H / 2) / (cam.zoom * base);
+    const rad = -cam.rot * Math.PI / 180;
+    return {
+      x: dx * Math.cos(rad) - dy * Math.sin(rad) + cam.x,
+      y: dx * Math.sin(rad) + dy * Math.cos(rad) + cam.y
+    };
+  }
+
+  function getPinPoint(el) {
+    const rad = (el.rot || 0) * Math.PI / 180;
+    const localY = -el.h / 2 + 14;
+    return {
+      x: el.x - localY * Math.sin(rad),
+      y: el.y + localY * Math.cos(rad)
+    };
+  }
+
+  function wrapText(ctx, text, x, y, maxW, lineH, maxLines = 8) {
+    const paras = String(text || '').split('\n');
+    const lines = [];
+    for (const p of paras) {
+      const words = p.split(' ');
+      let cur = '';
+      for (const word of words) {
+        const test = cur ? cur + ' ' + word : word;
+        if (ctx.measureText(test).width > maxW && cur) {
+          lines.push(cur); cur = word;
+        } else { cur = test; }
+      }
+      if (cur) lines.push(cur);
+    }
+    lines.slice(0, maxLines).forEach((ln, i) => ctx.fillText(ln, x, y + i * lineH));
+    return lines.slice(0, maxLines);
+  }
+
+  function getLoadedImage(src) {
+    if (!src) return null;
+    if (imageCache.has(src)) {
+      const img = imageCache.get(src);
+      return img.complete && img.naturalWidth ? img : null;
+    }
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = src;
+    imageCache.set(src, img);
+    return null;
+  }
+
+  function drawPushpin(ctx, x, y, color = '#e63946') {
+    ctx.save();
+    ctx.translate(x, y);
+    // Cast pin shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.45)';
+    ctx.beginPath(); ctx.ellipse(5, 7, 8, 5, 0.3, 0, Math.PI * 2); ctx.fill();
+    // Base rim
+    ctx.fillStyle = '#111';
+    ctx.beginPath(); ctx.arc(0, 0, 8.5, 0, Math.PI * 2); ctx.fill();
+    // Main cap with 3D gradient
+    const g = ctx.createRadialGradient(-3, -3, 1, 0, 0, 9);
+    g.addColorStop(0, '#ffffff');
+    g.addColorStop(0.28, color);
+    g.addColorStop(1, '#220505');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawMaskingTape(ctx, x, y, w = 74, h = 22, rot = -0.06) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.fillStyle = 'rgba(235, 224, 188, 0.72)';
+    ctx.shadowColor = 'rgba(0,0,0,0.25)';
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    ctx.moveTo(-w/2, -h/2);
+    ctx.lineTo(w/2, -h/2 + 2);
+    ctx.lineTo(w/2 - 3, h/2);
+    ctx.lineTo(-w/2 + 2, h/2 - 1);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawPlaceholderPortrait(ctx, x, y, w, h, lut) {
+    ctx.save();
+    ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+    const bg = lut === 'cctv' ? '#0f1c16' : lut === 'sepia' ? '#3d2e1e' : '#1b2029';
+    ctx.fillStyle = bg;
+    ctx.fillRect(x, y, w, h);
+
+    // Height lines for mugshot feel
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.lineWidth = 1;
+    for (let ly = y + 20; ly < y + h; ly += 22) {
+      ctx.beginPath(); ctx.moveTo(x, ly); ctx.lineTo(x + w, ly); ctx.stroke();
+    }
+
+    // Noir silhouette
+    ctx.fillStyle = lut === 'cctv' ? '#1f3b2d' : '#090b0f';
+    const cx = x + w / 2;
+    ctx.beginPath();
+    ctx.arc(cx, y + h * 0.42, w * 0.19, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(cx, y + h * 0.96, w * 0.38, h * 0.36, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+
+    // Rim light on silhouette
+    ctx.strokeStyle = lut === 'cctv' ? 'rgba(74,222,128,0.45)' : 'rgba(255,255,255,0.25)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, y + h * 0.42, w * 0.19, -Math.PI * 0.85, -Math.PI * 0.15);
+    ctx.stroke();
+
+    // CCTV scanlines + timestamp
+    if (lut === 'cctv') {
+      ctx.fillStyle = 'rgba(0,0,0,0.22)';
+      for (let sy = y; sy < y + h; sy += 4) ctx.fillRect(x, sy, w, 1.5);
+      ctx.fillStyle = '#4ade80';
+      ctx.font = 'bold 10px "JetBrains Mono", monospace';
+      ctx.fillText('● REC  CAM-04', x + 8, y + 16);
+    }
+    ctx.restore();
+  }
+
+  function drawElement(ctx, el, time, isSelected) {
+    if (el.visible === false) return;
+
+    // Entrance Animation calculation
+    const rawT = (time - (el.startTime || 0)) / Math.max(0.05, el.animDuration || 0.45);
+    if (state.viewMode === 'camera' && rawT < 0) return; // Not yet revealed in camera view
+
+    const t = state.viewMode === 'edit' ? 1 : Math.max(0, Math.min(1, rawT));
+    let alpha = 1, scale = 1, offY = 0, extraShadow = 0;
+
+    if (t < 1 && state.viewMode === 'camera') {
+      if (el.entrance === 'slam') {
+        const e = EASINGS.easeInOutCubic(t);
+        scale = 1 + (1 - e) * 0.45;
+        alpha = Math.min(1, t * 2.5);
+        extraShadow = (1 - e) * 36;
+      } else if (el.entrance === 'pop') {
+        scale = EASINGS.easeOutBack(t);
+        alpha = Math.min(1, t * 3);
+      } else if (el.entrance === 'slideUp') {
+        const e = EASINGS.easeInOutCubic(t);
+        offY = (1 - e) * 90;
+        alpha = e;
+      } else if (el.entrance === 'fade') {
+        alpha = t;
+      }
+    }
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(el.x, el.y + offY);
+    ctx.rotate((el.rot || 0) * Math.PI / 180);
+    ctx.scale(scale, scale);
+
+    const w = el.w, h = el.h;
+    const hw = w / 2, hh = h / 2;
+
+    // Shadow relative to spotlight
+    const dxL = (el.x - state.board.spotX) * 0.015;
+    const dyL = (el.y - state.board.spotY) * 0.015;
+    const shDepth = state.board.shadowDepth;
+
+    const applyCardShadow = () => {
+      ctx.shadowColor = `rgba(0,0,0,${0.62 * shDepth})`;
+      ctx.shadowBlur = (22 + extraShadow) * shDepth;
+      ctx.shadowOffsetX = (5 + dxL + extraShadow * 0.3) * shDepth;
+      ctx.shadowOffsetY = (10 + dyL + extraShadow * 0.6) * shDepth;
+    };
+
+    if (el.type === 'photo') {
+      applyCardShadow();
+      ctx.fillStyle = '#f6f3ec';
+      ctx.fillRect(-hw, -hh, w, h);
+      ctx.shadowColor = 'transparent';
+
+      const pad = 14, imgH = h - 62;
+      const img = getLoadedImage(el.photoSrc);
+      if (img) {
+        ctx.save();
+        ctx.beginPath(); ctx.rect(-hw + pad, -hh + pad, w - pad * 2, imgH); ctx.clip();
+        if (el.photoLut === 'noir') ctx.filter = 'grayscale(100%) contrast(135%) brightness(92%)';
+        else if (el.photoLut === 'sepia') ctx.filter = 'sepia(85%) contrast(115%) brightness(92%)';
+        else if (el.photoLut === 'cold') ctx.filter = 'saturate(55%) hue-rotate(175deg) contrast(120%)';
+        else if (el.photoLut === 'cctv') ctx.filter = 'grayscale(100%) sepia(100%) hue-rotate(85deg) contrast(150%)';
+        // Cover crop
+        const iw = img.naturalWidth, ih = img.naturalHeight;
+        const sc = Math.max((w - pad*2) / iw, imgH / ih);
+        ctx.drawImage(img, -iw*sc/2, -hh + pad + (imgH - ih*sc)/2, iw*sc, ih*sc);
+        ctx.filter = 'none';
+        if (el.photoLut === 'cctv') {
+          ctx.fillStyle = 'rgba(0,0,0,0.22)';
+          for (let sy = -hh + pad; sy < -hh + pad + imgH; sy += 4) ctx.fillRect(-hw + pad, sy, w - pad*2, 1.5);
+        }
+        ctx.restore();
+      } else {
+        drawPlaceholderPortrait(ctx, -hw + pad, -hh + pad, w - pad * 2, imgH, el.photoLut);
+      }
+
+      // Handwritten caption
+      ctx.fillStyle = '#1f2937';
+      ctx.font = '700 21px "Caveat", cursive';
+      ctx.fillText(el.title || '', -hw + 16, hh - 24);
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '600 9.5px "JetBrains Mono", monospace';
+      ctx.fillText(el.subtitle || '', -hw + 16, hh - 9);
+
+    } else if (el.type === 'suspect') {
+      applyCardShadow();
+      ctx.fillStyle = el.color || '#ede7d9';
+      ctx.fillRect(-hw, -hh, w, h);
+      ctx.shadowColor = 'transparent';
+
+      // Top dark header strip
+      ctx.fillStyle = '#18181b';
+      ctx.fillRect(-hw, -hh, w, 28);
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '700 11px "JetBrains Mono", monospace';
+      ctx.fillText('CASE SUBJECT // PROFILE', -hw + 12, -hh + 18);
+
+      // Photo slot
+      const img = getLoadedImage(el.photoSrc);
+      const px = -hw + 14, py = -hh + 38, pw = w - 28, ph = h * 0.48;
+      if (img) {
+        ctx.save();
+        ctx.beginPath(); ctx.rect(px, py, pw, ph); ctx.clip();
+        ctx.filter = el.photoLut === 'noir' ? 'grayscale(100%) contrast(130%)' : 'none';
+        const sc = Math.max(pw / img.naturalWidth, ph / img.naturalHeight);
+        ctx.drawImage(img, -img.naturalWidth*sc/2, py + (ph - img.naturalHeight*sc)/2, img.naturalWidth*sc, img.naturalHeight*sc);
+        ctx.restore();
+      } else {
+        drawPlaceholderPortrait(ctx, px, py, pw, ph, 'noir');
+      }
+
+      // Status Pill
+      ctx.fillStyle = el.badgeColor || '#dc2626';
+      ctx.fillRect(px, py + ph + 10, pw, 22);
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 11px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(el.badge || 'SUSPECT', 0, py + ph + 25);
+      ctx.textAlign = 'left';
+
+      // Name & Alias
+      ctx.fillStyle = '#111827';
+      ctx.font = '700 17px "Special Elite", monospace';
+      ctx.fillText(el.title || '', px, py + ph + 52);
+      ctx.fillStyle = '#4b5563';
+      ctx.font = '600 10.5px "JetBrains Mono", monospace';
+      ctx.fillText(el.subtitle || '', px, py + ph + 70);
+
+      // Faux barcode footer
+      ctx.fillStyle = '#111827';
+      for (let bx = px; bx < px + pw - 6; bx += 6) {
+        const bw = ((bx * 13) % 3) + 1;
+        ctx.fillRect(bx, hh - 18, bw, 11);
+      }
+
+    } else if (el.type === 'dossier') {
+      applyCardShadow();
+      ctx.fillStyle = el.color || '#efe6d0';
+      ctx.fillRect(-hw, -hh, w, h);
+      ctx.shadowColor = 'transparent';
+
+      // Manila folder tab top-left
+      ctx.fillStyle = '#dfd1b1';
+      ctx.fillRect(-hw, -hh - 14, 96, 15);
+      ctx.fillStyle = '#3f3626';
+      ctx.font = '700 9px "JetBrains Mono", monospace';
+      ctx.fillText('FILE // 409-B', -hw + 8, -hh - 3);
+
+      // Header rule
+      ctx.fillStyle = '#991b1b';
+      ctx.font = '700 10px "JetBrains Mono", monospace';
+      ctx.fillText(el.subtitle || 'TOP SECRET', -hw + 16, -hh + 22);
+      ctx.fillStyle = '#18181b';
+      ctx.font = '700 16px "Special Elite", monospace';
+      ctx.fillText(el.title || '', -hw + 16, -hh + 44);
+      ctx.strokeStyle = 'rgba(0,0,0,0.22)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(-hw + 16, -hh + 53); ctx.lineTo(hw - 16, -hh + 53); ctx.stroke();
+
+      // Body text + Animated Highlighter + Animated Redaction Bars
+      const bodyY = -hh + 76;
+      const lineH = 22;
+      ctx.font = '400 12.5px "JetBrains Mono", monospace';
+
+      // Measure lines first
+      const rawLines = String(el.body || '').split('\n');
+      const wrapped = [];
+      for (const p of rawLines) {
+        let cur = '';
+        for (const word of p.split(' ')) {
+          const test = cur ? cur + ' ' + word : word;
+          if (ctx.measureText(test).width > w - 34 && cur) { wrapped.push(cur); cur = word; }
+          else cur = test;
+        }
+        if (cur) wrapped.push(cur);
+      }
+
+      // Highlight swipe animation
+      const hlIdx = Number(el.highlightLine);
+      const hlProg = state.viewMode === 'edit' ? 1 : Math.max(0, Math.min(1, (time - (el.startTime + 0.55)) / 0.5));
+      if (hlIdx >= 0 && hlIdx < wrapped.length && hlProg > 0) {
+        const tw = ctx.measureText(wrapped[hlIdx]).width + 8;
+        ctx.fillStyle = el.highlightColor || '#fde047';
+        ctx.globalAlpha = alpha * 0.65;
+        ctx.fillRect(-hw + 14, bodyY + hlIdx * lineH - 13, tw * hlProg, 18);
+        ctx.globalAlpha = alpha;
+      }
+
+      // Draw text
+      ctx.fillStyle = '#1c1917';
+      wrapped.slice(0, 6).forEach((ln, i) => ctx.fillText(ln, -hw + 16, bodyY + i * lineH));
+
+      // Redaction bars
+      if (el.redacted) {
+        const unredactP = (el.unredactAnim && state.viewMode === 'camera')
+          ? Math.max(0, Math.min(1, (time - (el.startTime + 0.9)) / 0.6))
+          : 0;
+        const barW = (w - 44) * (1 - unredactP);
+        if (barW > 2 && wrapped.length > 0) {
+          ctx.fillStyle = '#09090b';
+          ctx.fillRect(-hw + 16, bodyY - 13, barW * 0.72, 17);
+          if (wrapped.length > 2) {
+            ctx.fillRect(-hw + 16, bodyY + 2 * lineH - 13, barW * 0.88, 17);
+          }
+        }
+      }
+
+    } else if (el.type === 'newspaper') {
+      applyCardShadow();
+      ctx.fillStyle = el.color || '#e2d8c3';
+      // Jagged torn paper top & bottom edges
+      ctx.beginPath();
+      ctx.moveTo(-hw, -hh);
+      for (let tx = -hw; tx <= hw; tx += 14) {
+        ctx.lineTo(tx, -hh + ((tx * 7) % 5));
+      }
+      ctx.lineTo(hw, hh);
+      for (let tx = hw; tx >= -hw; tx -= 14) {
+        ctx.lineTo(tx, hh - ((tx * 11) % 6));
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+
+      // Masthead
+      ctx.fillStyle = '#1c1917';
+      ctx.font = '700 9.5px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(el.subtitle || 'THE DAILY CHRONICLE', 0, -hh + 22);
+      ctx.strokeStyle = '#1c1917';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-hw + 14, -hh + 28); ctx.lineTo(hw - 14, -hh + 28); ctx.stroke();
+      ctx.lineWidth = 0.8;
+      ctx.beginPath(); ctx.moveTo(-hw + 14, -hh + 31); ctx.lineTo(hw - 14, -hh + 31); ctx.stroke();
+
+      // Bold Serif Headline
+      ctx.font = '900 20px "Playfair Display", Georgia, serif';
+      ctx.textAlign = 'left';
+      wrapText(ctx, el.title || '', -hw + 16, -hh + 56, w - 32, 23, 2);
+
+      // Faux 2-column editorial body
+      ctx.font = '400 11px Georgia, serif';
+      ctx.fillStyle = '#292524';
+      wrapText(ctx, el.body || '', -hw + 16, -hh + 114, w - 32, 16, 6);
+
+    } else if (el.type === 'sticky') {
+      applyCardShadow();
+      ctx.fillStyle = el.color || '#fef08a';
+      ctx.beginPath();
+      ctx.moveTo(-hw, -hh);
+      ctx.lineTo(hw, -hh);
+      ctx.lineTo(hw, hh - 18);
+      ctx.quadraticCurveTo(hw - 8, hh, hw - 22, hh);
+      ctx.lineTo(-hw, hh);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+
+      // Top glue band tint
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      ctx.fillRect(-hw, -hh, w, 24);
+
+      ctx.fillStyle = '#1e1b4b';
+      ctx.font = '700 24px "Caveat", cursive';
+      ctx.fillText(el.title || '', -hw + 14, -hh + 44);
+      ctx.font = '600 20px "Caveat", cursive';
+      wrapText(ctx, el.body || '', -hw + 14, -hh + 74, w - 28, 22, 5);
+
+    } else if (el.type === 'stamp') {
+      const col = el.badgeColor || '#dc2626';
+      ctx.strokeStyle = col;
+      ctx.fillStyle = col;
+      ctx.globalAlpha = alpha * 0.88;
+      ctx.lineWidth = 5;
+      ctx.strokeRect(-hw, -hh, w, h);
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-hw + 7, -hh + 7, w - 14, h - 14);
+      ctx.font = '900 32px "Special Elite", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText((el.title || 'CLASSIFIED').toUpperCase(), 0, 3);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+
+    } else if (el.type === 'wiretap') {
+      applyCardShadow();
+      ctx.fillStyle = '#0c121e';
+      ctx.fillRect(-hw, -hh, w, h);
+      ctx.shadowColor = 'transparent';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-hw, -hh, w, h);
+
+      // Header
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath(); ctx.arc(-hw + 16, -hh + 18, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '700 11px "JetBrains Mono", monospace';
+      ctx.fillText(el.title || 'WIRETAP', -hw + 28, -hh + 22);
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '600 9.5px "JetBrains Mono", monospace';
+      ctx.fillText(el.subtitle || '', -hw + 14, -hh + 38);
+
+      // Animated audio waveform
+      const waveY = -hh + 68;
+      const bars = 36;
+      const bw = (w - 28) / bars;
+      for (let i = 0; i < bars; i++) {
+        const amp = (Math.sin(i * 0.6 + time * 9) * 0.5 + 0.5) * (Math.cos(i * 0.35 - time * 4) * 0.5 + 0.5);
+        const bh = 4 + amp * 28;
+        ctx.fillStyle = i / bars < ((time * 0.25) % 1) ? '#38bdf8' : '#334155';
+        ctx.fillRect(-hw + 14 + i * bw, waveY - bh / 2, Math.max(2, bw - 2), bh);
+      }
+
+      // Transcript quote
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'italic 12px "Inter", sans-serif';
+      wrapText(ctx, el.body || '', -hw + 14, waveY + 34, w - 28, 16, 3);
+
+    } else if (el.type === 'map') {
+      applyCardShadow();
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-hw, -hh, w, h);
+      ctx.shadowColor = 'transparent';
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-hw, -hh, w, h);
+
+      // Grid & Stylized Vector Roads
+      ctx.save();
+      ctx.beginPath(); ctx.rect(-hw + 8, -hh + 8, w - 16, h - 56); ctx.clip();
+      ctx.fillStyle = '#0b1322';
+      ctx.fillRect(-hw + 8, -hh + 8, w - 16, h - 56);
+      ctx.strokeStyle = 'rgba(56,189,248,0.14)';
+      ctx.lineWidth = 1;
+      for (let gx = -hw; gx < hw; gx += 22) {
+        ctx.beginPath(); ctx.moveTo(gx, -hh); ctx.lineTo(gx, hh); ctx.stroke();
+      }
+      for (let gy = -hh; gy < hh; gy += 22) {
+        ctx.beginPath(); ctx.moveTo(-hw, gy); ctx.lineTo(hw, gy); ctx.stroke();
+      }
+      // Contour / roads
+      ctx.strokeStyle = 'rgba(148,163,184,0.35)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-hw, -hh + 40); ctx.quadraticCurveTo(0, -hh + 90, hw, -hh + 30);
+      ctx.moveTo(-hw + 50, -hh); ctx.quadraticCurveTo(10, 0, hw - 40, hh);
+      ctx.stroke();
+
+      // Pulsing Radar Target
+      const pulse = (time * 1.4) % 1;
+      ctx.strokeStyle = `rgba(239, 68, 68, ${1 - pulse})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(10, -24, 8 + pulse * 36, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath(); ctx.arc(10, -24, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '700 12px "JetBrains Mono", monospace';
+      ctx.fillText(el.title || 'LOCATION', -hw + 12, hh - 28);
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillText(el.coords || '47.3769° N, 8.5417° E', -hw + 12, hh - 11);
+
+    } else if (el.type === 'marker') {
+      const p = state.viewMode === 'edit' ? 1 : t;
+      ctx.strokeStyle = el.markerColor || '#ef4444';
+      ctx.lineWidth = 5.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.shadowColor = 'rgba(239,68,68,0.35)';
+      ctx.shadowBlur = 8;
+
+      if (el.markerShape === 'circle') {
+        ctx.beginPath();
+        const endA = Math.PI * 2.15 * p;
+        for (let a = 0; a <= endA; a += 0.12) {
+          const rx = hw * 0.96 + Math.sin(a * 3) * 3;
+          const ry = hh * 0.88 + Math.cos(a * 2) * 3;
+          const px = Math.cos(a) * rx, py = Math.sin(a) * ry;
+          if (a === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      } else if (el.markerShape === 'underline') {
+        ctx.beginPath();
+        ctx.moveTo(-hw, 4);
+        ctx.quadraticCurveTo(0, -4, -hw + w * p, 2);
+        ctx.stroke();
+      } else if (el.markerShape === 'cross') {
+        const p1 = Math.min(1, p * 2);
+        const p2 = Math.max(0, (p - 0.5) * 2);
+        ctx.beginPath();
+        ctx.moveTo(-hw * 0.7, -hh * 0.7);
+        ctx.lineTo(-hw * 0.7 + w * 0.7 * 2 * p1 * 0.5, -hh * 0.7 + h * 0.7 * 2 * p1 * 0.5);
+        ctx.stroke();
+        if (p2 > 0) {
+          ctx.beginPath();
+          ctx.moveTo(hw * 0.7, -hh * 0.7);
+          ctx.lineTo(hw * 0.7 - w * 0.7 * p2, -hh * 0.7 + h * 0.7 * p2);
+          ctx.stroke();
+        }
+      } else if (el.markerShape === 'arrow') {
+        const ex = -hw + w * p;
+        ctx.beginPath();
+        ctx.moveTo(-hw, 0); ctx.lineTo(ex, 0); ctx.stroke();
+        if (p > 0.85) {
+          ctx.beginPath();
+          ctx.moveTo(ex - 16, -12); ctx.lineTo(ex, 0); ctx.lineTo(ex - 16, 12);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Attachment Pin or Masking Tape
+    if (el.pinType === 'pushpin') {
+      drawPushpin(ctx, 0, -hh + 14, el.pinColor || '#e63946');
+    } else if (el.pinType === 'tape') {
+      drawMaskingTape(ctx, 0, -hh + 3, 76, 22, -0.05);
+    }
+
+    // Selection Gizmo (never rendered during export)
+    if (isSelected && !state.exporting) {
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([6, 4]);
+      ctx.strokeRect(-hw - 5, -hh - 5, w + 10, h + 10);
+      ctx.setLineDash([]);
+
+      // Resize handle (bottom-right)
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillRect(hw - 1, hh - 1, 13, 13);
+      // Rotate handle (top-center stem)
+      ctx.beginPath(); ctx.moveTo(0, -hh - 5); ctx.lineTo(0, -hh - 28); ctx.stroke();
+      ctx.fillStyle = '#f4a261';
+      ctx.beginPath(); ctx.arc(0, -hh - 32, 7, 0, Math.PI * 2); ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  function drawConnection(ctx, conn, time, isSelected) {
+    const a = state.elements.find(e => e.id === conn.fromId);
+    const b = state.elements.find(e => e.id === conn.toId);
+    if (!a || !b || a.visible === false || b.visible === false) return;
+
+    const rawT = (time - (conn.startTime || 0)) / Math.max(0.05, conn.animDuration || 0.7);
+    if (state.viewMode === 'camera' && rawT < 0) return;
+    const prog = state.viewMode === 'edit' ? 1 : EASINGS.easeInOutCubic(Math.max(0, Math.min(1, rawT)));
+
+    const p0 = getPinPoint(a);
+    const p2 = getPinPoint(b);
+    const dist = Math.hypot(p2.x - p0.x, p2.y - p0.y);
+    const sway = Math.sin(time * 1.8 + dist * 0.01) * 4 * conn.sag;
+    const p1 = {
+      x: (p0.x + p2.x) / 2,
+      y: (p0.y + p2.y) / 2 + dist * 0.24 * conn.sag + sway
+    };
+
+    const qPt = (u) => {
+      const inv = 1 - u;
+      return {
+        x: inv*inv*p0.x + 2*inv*u*p1.x + u*u*p2.x,
+        y: inv*inv*p0.y + 2*inv*u*p1.y + u*u*p2.y
+      };
+    };
+
+    const steps = 36;
+    const maxStep = Math.max(1, Math.floor(steps * prog));
+    const traceCurve = (ox = 0, oy = 0) => {
+      ctx.beginPath();
+      for (let i = 0; i <= maxStep; i++) {
+        const pt = qPt((i / steps));
+        if (i === 0) ctx.moveTo(pt.x + ox, pt.y + oy);
+        else ctx.lineTo(pt.x + ox, pt.y + oy);
+      }
+      ctx.stroke();
+    };
+
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // 1. Cast Shadow onto Board
+    ctx.strokeStyle = `rgba(0,0,0,${0.48 * state.board.shadowDepth})`;
+    ctx.lineWidth = (conn.width || 4) + 1.5;
+    traceCurve(6, 12);
+
+    // 2. Main Yarn / Line Pass
+    ctx.strokeStyle = conn.color || '#e63946';
+    ctx.lineWidth = conn.width || 4;
+    if (conn.style === 'dashed') ctx.setLineDash([12, 8]);
+    if (conn.style === 'neon') {
+      ctx.shadowColor = conn.color || '#38bdf8';
+      ctx.shadowBlur = 16;
+    }
+    traceCurve(0, 0);
+
+    // 3. Braided Wool Yarn Highlight Texture
+    if (conn.style === 'yarn') {
+      ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+      ctx.lineWidth = Math.max(1, (conn.width || 4) * 0.45);
+      ctx.setLineDash([4, 6]);
+      traceCurve(0, -0.8);
+    }
+    ctx.setLineDash([]);
+    ctx.shadowBlur = 0;
+
+    // 4. Arrowhead if style === 'arrow'
+    if (conn.style === 'arrow' && prog > 0.2) {
+      const tip = qPt(prog);
+      const prev = qPt(Math.max(0, prog - 0.04));
+      const ang = Math.atan2(tip.y - prev.y, tip.x - prev.x);
+      ctx.fillStyle = conn.color || '#e63946';
+      ctx.beginPath();
+      ctx.moveTo(tip.x, tip.y);
+      ctx.lineTo(tip.x - 16 * Math.cos(ang - 0.4), tip.y - 16 * Math.sin(ang - 0.4));
+      ctx.lineTo(tip.x - 16 * Math.cos(ang + 0.4), tip.y - 16 * Math.sin(ang + 0.4));
+      ctx.closePath(); ctx.fill();
+    }
+
+    // 5. Traveling Signal Pulse
+    if (conn.pulse && prog > 0.95) {
+      const u = (time * 0.65) % 1;
+      const pt = qPt(u);
+      ctx.fillStyle = '#fff';
+      ctx.shadowColor = conn.color || '#e63946';
+      ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(pt.x, pt.y, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    // 6. Mid-String Evidence Label Tag
+    if (conn.label && prog > 0.55) {
+      const mid = qPt(0.5);
+      ctx.font = '700 10.5px "JetBrains Mono", monospace';
+      const tw = ctx.measureText(conn.label).width + 16;
+      ctx.fillStyle = '#111827';
+      ctx.strokeStyle = conn.color || '#e63946';
+      ctx.lineWidth = 1.5;
+      ctx.shadowColor = 'rgba(0,0,0,0.5)';
+      ctx.shadowBlur = 8;
+      ctx.fillRect(mid.x - tw/2, mid.y - 11, tw, 22);
+      ctx.strokeRect(mid.x - tw/2, mid.y - 11, tw, 22);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#f8fafc';
+      ctx.textAlign = 'center';
+      ctx.fillText(conn.label, mid.x, mid.y + 4);
+      ctx.textAlign = 'left';
+    }
+
+    // Selection highlight
+    if (isSelected && !state.exporting) {
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = (conn.width || 4) + 5;
+      ctx.globalAlpha = 0.45;
+      traceCurve(0, 0);
+    }
+
+    ctx.restore();
+  }
+
+  function renderFrame(ctx, W, H, time, camOverride = null, forExport = false) {
+    const cam = camOverride || getActiveCamera();
+    const base = getBaseScale(W, H);
+
+    ctx.save();
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. World Space Transform
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate((cam.rot || 0) * Math.PI / 180);
+    ctx.scale(cam.zoom * base, cam.zoom * base);
+    ctx.translate(-cam.x, -cam.y);
+
+    // 2. Tiled Procedural Board Surface
+    if (state.board.surface !== 'transparent') {
+      const surf = buildSurfaceCache();
+      const pat = ctx.createPattern(surf, 'repeat');
+      ctx.fillStyle = pat;
+      ctx.fillRect(-2000, -2000, 6000, 5000);
+    }
+
+    // 3. Elements
+    for (const el of state.elements) {
+      drawElement(ctx, el, time, !forExport && state.selectedType === 'element' && state.selectedId === el.id);
+    }
+
+    // 4. Yarn / Surveillance Connections (drawn OVER cards like real tackboard string!)
+    for (const conn of state.connections) {
+      drawConnection(ctx, conn, time, !forExport && state.selectedType === 'connection' && state.selectedId === conn.id);
+    }
+
+    // 5. Link Mode Live Preview Line
+    if (!forExport && state.tool === 'link' && state.linkSourceId && mouseWorld) {
+      const src = state.elements.find(e => e.id === state.linkSourceId);
+      if (src) {
+        const p0 = getPinPoint(src);
+        ctx.strokeStyle = '#ff4d5a';
+        ctx.lineWidth = 3.5;
+        ctx.setLineDash([8, 6]);
+        ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.lineTo(mouseWorld.x, mouseWorld.y); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    // 6. Overhead Dynamic Spotlight (World Space)
+    if (state.board.surface !== 'transparent' && state.board.surface !== 'chroma' && state.board.spotIntensity > 0) {
+      const sx = state.board.spotX, sy = state.board.spotY, sr = state.board.spotRadius;
+      const w = state.board.spotWarmth;
+      const r = w >= 0 ? 255 : Math.round(255 + w * 90);
+      const g = Math.round(240 - Math.abs(w) * 20);
+      const b = w <= 0 ? 255 : Math.round(255 - w * 110);
+
+      // Soft warm/cold additive glow
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      const glow = ctx.createRadialGradient(sx, sy, 20, sx, sy, sr);
+      glow.addColorStop(0, `rgba(${r},${g},${b},${0.22 * state.board.spotIntensity})`);
+      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(-1500, -1500, 5000, 4000);
+      ctx.restore();
+
+      // Surrounding dark falloff
+      const dark = ctx.createRadialGradient(sx, sy, sr * 0.25, sx, sy, sr * 1.45);
+      dark.addColorStop(0, 'rgba(0,0,0,0)');
+      dark.addColorStop(1, `rgba(4,6,10,${0.72 * state.board.spotIntensity})`);
+      ctx.fillStyle = dark;
+      ctx.fillRect(-1500, -1500, 5000, 4000);
+    }
+
+    // 7. In Edit Mode: Show Camera Framing Box Outline
+    if (!forExport && state.viewMode === 'edit') {
+      const c = getCameraAt(time, false);
+      const [aw, ah] = ASPECTS[state.aspect];
+      const boxH = 1080 / c.zoom;
+      const boxW = (boxH * aw) / ah;
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rot * Math.PI / 180);
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 4 / cam.zoom;
+      ctx.setLineDash([14 / cam.zoom, 8 / cam.zoom]);
+      ctx.strokeRect(-boxW/2, -boxH/2, boxW, boxH);
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = `700 ${Math.round(20 / cam.zoom)}px "JetBrains Mono", monospace`;
+      ctx.fillText('🎥 CAMERA FRAME', -boxW/2 + 12/cam.zoom, -boxH/2 - 12/cam.zoom);
+      ctx.restore();
+    }
+
+    ctx.restore(); // Exit World Space
+
+    // 8. Floating Atmospheric Dust Motes (Screen Space)
+    if (state.board.dust > 0 && state.board.surface !== 'transparent' && state.board.surface !== 'chroma') {
+      ctx.save();
+      const count = Math.floor(35 * state.board.dust);
+      for (let i = 0; i < count; i++) {
+        const px = ((i * 317.3 + time * (12 + (i % 7) * 4)) % (W + 40)) - 20;
+        const py = ((i * 193.7 + Math.sin(time * 0.8 + i) * 35 + time * 6) % (H + 40)) - 20;
+        const rad = (1 + (i % 3) * 0.9) * (W / 1280);
+        ctx.fillStyle = `rgba(255, 244, 214, ${(0.12 + (i % 5) * 0.05) * state.board.dust})`;
+        ctx.beginPath(); ctx.arc(px, py, rad, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // 9. Cinematic Vignette (Screen Space)
+    if (state.board.vignette > 0 && state.board.surface !== 'transparent' && state.board.surface !== 'chroma') {
+      const vg = ctx.createRadialGradient(W/2, H/2, Math.min(W, H) * 0.34, W/2, H/2, Math.max(W, H) * 0.72);
+      vg.addColorStop(0, 'rgba(0,0,0,0)');
+      vg.addColorStop(1, `rgba(0,0,0,${state.board.vignette * 0.85})`);
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // 10. Animated 35mm Film Grain
+    if (state.board.grain > 0 && state.board.surface !== 'transparent' && state.board.surface !== 'chroma') {
+      const gc = ensureGrainCanvas();
+      ctx.save();
+      ctx.globalAlpha = state.board.grain * 0.55;
+      const ox = Math.floor(Math.sin(time * 97.3) * 128);
+      const oy = Math.floor(Math.cos(time * 73.1) * 128);
+      const pat = ctx.createPattern(gc, 'repeat');
+      ctx.translate(ox, oy);
+      ctx.fillStyle = pat;
+      ctx.fillRect(-256, -256, W + 512, H + 512);
+      ctx.restore();
+    }
+
+    // 11. Broadcast Safe Guides & Rule of Thirds (Editor Only)
+    if (!forExport && state.showGuides) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+      ctx.lineWidth = 1;
+      // Rule of thirds
+      ctx.beginPath();
+      ctx.moveTo(W/3, 0); ctx.lineTo(W/3, H);
+      ctx.moveTo(2*W/3, 0); ctx.lineTo(2*W/3, H);
+      ctx.moveTo(0, H/3); ctx.lineTo(W, H/3);
+      ctx.moveTo(0, 2*H/3); ctx.lineTo(W, 2*H/3);
+      ctx.stroke();
+      // Title Safe 90%
+      ctx.strokeStyle = 'rgba(244, 162, 97, 0.45)';
+      ctx.setLineDash([6, 4]);
+      ctx.strokeRect(W * 0.05, H * 0.05, W * 0.9, H * 0.9);
+      // 9:16 Center Vertical Crop indicator when editing 16:9
+      if (state.aspect === '16:9') {
+        const cw = H * (9 / 16);
+        ctx.strokeStyle = 'rgba(230, 57, 70, 0.55)';
+        ctx.strokeRect((W - cw) / 2, 0, cw, H);
+      }
+      ctx.restore();
+    }
+
+    ctx.restore();
+  }
+
+  /* ============================================================
+     9. INTERACTIVE STAGE MOUSE / DRAG / RESIZE / ROTATE / PAN
+  ============================================================ */
+  let drag = null;
+  let mouseWorld = null;
+
+  function hitTestElement(wx, wy) {
+    // Check top-to-bottom (reverse array)
+    for (let i = state.elements.length - 1; i >= 0; i--) {
+      const el = state.elements[i];
+      if (el.visible === false) continue;
+      if (state.viewMode === 'camera' && state.currentTime < el.startTime) continue;
+
+      // Transform point into element local space
+      const dx = wx - el.x, dy = wy - el.y;
+      const rad = -(el.rot || 0) * Math.PI / 180;
+      const lx = dx * Math.cos(rad) - dy * Math.sin(rad);
+      const ly = dx * Math.sin(rad) + dy * Math.cos(rad);
+      const hw = el.w / 2, hh = el.h / 2;
+
+      // Check selected gizmo handles first
+      if (state.selectedType === 'element' && state.selectedId === el.id) {
+        if (Math.hypot(lx - 0, ly - (-hh - 32)) < 18) return { el, part: 'rotate' };
+        if (lx >= hw - 10 && lx <= hw + 22 && ly >= hh - 10 && ly <= hh + 22) return { el, part: 'resize' };
+      }
+      if (Math.abs(lx) <= hw && Math.abs(ly) <= hh) {
+        return { el, part: 'move' };
+      }
+    }
+    return null;
+  }
+
+  function hitTestConnection(wx, wy) {
+    for (let i = state.connections.length - 1; i >= 0; i--) {
+      const c = state.connections[i];
+      const a = state.elements.find(e => e.id === c.fromId);
+      const b = state.elements.find(e => e.id === c.toId);
+      if (!a || !b) continue;
+      const p0 = getPinPoint(a), p2 = getPinPoint(b);
+      const dist = Math.hypot(p2.x - p0.x, p2.y - p0.y);
+      const p1 = { x: (p0.x + p2.x)/2, y: (p0.y + p2.y)/2 + dist * 0.24 * c.sag };
+      for (let u = 0.05; u <= 0.95; u += 0.05) {
+        const inv = 1 - u;
+        const px = inv*inv*p0.x + 2*inv*u*p1.x + u*u*p2.x;
+        const py = inv*inv*p0.y + 2*inv*u*p1.y + u*u*p2.y;
+        if (Math.hypot(wx - px, wy - py) < 16) return c;
+      }
+    }
+    return null;
+  }
+
+  function getCanvasCoords(ev) {
+    const rect = stageCanvas.getBoundingClientRect();
+    const sx = (ev.clientX - rect.left) * (stageCanvas.width / rect.width);
+    const sy = (ev.clientY - rect.top) * (stageCanvas.height / rect.height);
+    return { sx, sy };
+  }
+
+  stageCanvas.addEventListener('mousedown', (ev) => {
+    const { sx, sy } = getCanvasCoords(ev);
+    const cam = getActiveCamera();
+    const wpt = screenToWorld(sx, sy, stageCanvas.width, stageCanvas.height, cam);
+    mouseWorld = wpt;
+
+    // Middle click or Alt+Drag => Pan Camera
+    if (ev.button === 1 || ev.altKey) {
+      drag = { mode: 'pan', startX: sx, startY: sy, origCam: { ...cam } };
+      return;
+    }
+
+    const hit = hitTestElement(wpt.x, wpt.y);
+
+    // Yarn Link Tool
+    if (state.tool === 'link') {
+      if (hit) {
+        if (!state.linkSourceId) {
+          state.linkSourceId = hit.el.id;
+        } else if (state.linkSourceId !== hit.el.id) {
+          pushHistory();
+          const c = createConnection(state.linkSourceId, hit.el.id, {
+            startTime: +state.currentTime.toFixed(2)
+          });
+          state.connections.push(c);
+          state.selectedId = c.id;
+          state.selectedType = 'connection';
+          state.linkSourceId = null;
+          setTool('select');
+          refreshAllUI();
+        }
+      } else {
+        state.linkSourceId = null;
+      }
+      return;
+    }
+
+    if (hit) {
+      state.selectedId = hit.el.id;
+      state.selectedType = 'element';
+      state.activeTab = 'element';
+      if (!hit.el.locked) {
+        pushHistory();
+        drag = {
+          mode: hit.part,
+          el: hit.el,
+          startW: wpt,
+          orig: { x: hit.el.x, y: hit.el.y, w: hit.el.w, h: hit.el.h, rot: hit.el.rot }
+        };
+      }
+      refreshAllUI();
+      return;
+    }
+
+    const hitConn = hitTestConnection(wpt.x, wpt.y);
+    if (hitConn) {
+      state.selectedId = hitConn.id;
+      state.selectedType = 'connection';
+      state.activeTab = 'element';
+      refreshAllUI();
+      return;
+    }
+
+    // Drag empty canvas to pan camera
+    state.selectedId = null;
+    state.selectedType = null;
+    drag = { mode: 'pan', startX: sx, startY: sy, origCam: { ...cam } };
+    refreshAllUI();
+  });
+
+  window.addEventListener('mousemove', (ev) => {
+    const { sx, sy } = getCanvasCoords(ev);
+    const cam = getActiveCamera();
+    mouseWorld = screenToWorld(sx, sy, stageCanvas.width, stageCanvas.height, cam);
+    if (!drag) return;
+
+    if (drag.mode === 'pan') {
+      const base = getBaseScale(stageCanvas.width, stageCanvas.height);
+      const dx = (sx - drag.startX) / (drag.origCam.zoom * base);
+      const dy = (sy - drag.startY) / (drag.origCam.zoom * base);
+      const rad = -drag.origCam.rot * Math.PI / 180;
+      const nx = drag.origCam.x - (dx * Math.cos(rad) - dy * Math.sin(rad));
+      const ny = drag.origCam.y - (dx * Math.sin(rad) + dy * Math.cos(rad));
+      if (state.viewMode === 'edit') {
+        state.editCam.x = nx; state.editCam.y = ny;
+      } else {
+        upsertCameraKeyframeAtCurrent({ x: nx, y: ny, zoom: drag.origCam.zoom, rot: drag.origCam.rot }, false);
+      }
+    } else if (drag.mode === 'move') {
+      drag.el.x = Math.round(drag.orig.x + (mouseWorld.x - drag.startW.x));
+      drag.el.y = Math.round(drag.orig.y + (mouseWorld.y - drag.startW.y));
+    } else if (drag.mode === 'resize') {
+      const dx = mouseWorld.x - drag.el.x;
+      const dy = mouseWorld.y - drag.el.y;
+      const rad = -(drag.el.rot || 0) * Math.PI / 180;
+      const lx = dx * Math.cos(rad) - dy * Math.sin(rad);
+      const ly = dx * Math.sin(rad) + dy * Math.cos(rad);
+      drag.el.w = Math.max(90, Math.round(lx * 2));
+      drag.el.h = Math.max(50, Math.round(ly * 2));
+    } else if (drag.mode === 'rotate') {
+      const ang = Math.atan2(mouseWorld.y - drag.el.y, mouseWorld.x - drag.el.x) * 180 / Math.PI + 90;
+      drag.el.rot = Math.round(ang);
+    }
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (drag && (drag.mode === 'move' || drag.mode === 'resize' || drag.mode === 'rotate')) {
+      renderInspector();
+    }
+    drag = null;
+  });
+
+  stageCanvas.addEventListener('wheel', (ev) => {
+    ev.preventDefault();
+    const factor = ev.deltaY < 0 ? 1.09 : 0.91;
+    if (state.viewMode === 'edit') {
+      state.editCam.zoom = Math.max(0.25, Math.min(4, state.editCam.zoom * factor));
+    } else {
+      const cur = getCameraAt(state.currentTime, false);
+      const nz = Math.max(0.35, Math.min(3.5, cur.zoom * factor));
+      upsertCameraKeyframeAtCurrent({ ...cur, zoom: nz }, false);
+    }
+  }, { passive: false });
+
+  // Drag & Drop Image Files directly onto Stage
+  const stageWrap = document.getElementById('stageWrap');
+  stageWrap.addEventListener('dragover', (e) => e.preventDefault());
+  stageWrap.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) handleImageFileUpload(file, false);
+  });
+
+  function handleImageFileUpload(file, attachToSelected = false) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      pushHistory();
+      if (attachToSelected && state.selectedType === 'element') {
+        const el = state.elements.find(e => e.id === state.selectedId);
+        if (el && (el.type === 'photo' || el.type === 'suspect')) {
+          el.photoSrc = reader.result;
+          refreshAllUI();
+          return;
+        }
+      }
+      const el = createElement('photo', {
+        title: file.name.replace(/\.[^.]+$/, '').toUpperCase().slice(0, 22),
+        subtitle: 'UPLOADED EVIDENCE',
+        photoSrc: reader.result,
+        photoLut: 'none',
+        startTime: +state.currentTime.toFixed(2)
+      });
+      state.elements.push(el);
+      state.selectedId = el.id;
+      state.selectedType = 'element';
+      refreshAllUI();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ============================================================
+     10. CAMERA KEYFRAME MANAGEMENT
+  ============================================================ */
+  function upsertCameraKeyframeAtCurrent(vals, recordHistory = true) {
+    if (recordHistory) pushHistory();
+    const t = +state.currentTime.toFixed(2);
+    let existing = state.cameraKeyframes.find(k => Math.abs(k.time - t) < 0.09);
+    if (existing) {
+      Object.assign(existing, vals);
+      state.selectedKfId = existing.id;
+    } else {
+      const kf = {
+        id: uid('kf'),
+        time: t,
+        x: Math.round(vals.x),
+        y: Math.round(vals.y),
+        zoom: +vals.zoom.toFixed(2),
+        rot: +(vals.rot || 0).toFixed(1),
+        ease: vals.ease || 'easeInOutCubic'
+      };
+      state.cameraKeyframes.push(kf);
+      state.selectedKfId = kf.id;
+    }
+    renderTimeline();
+  }
+
+  function focusCameraOnSelected() {
+    if (state.selectedType !== 'element') return;
+    const el = state.elements.find(e => e.id === state.selectedId);
+    if (!el) return;
+    state.viewMode = 'camera';
+    updateModeUI();
+    const targetZoom = Math.max(1.2, Math.min(2.4, 520 / Math.max(el.w, el.h)));
+    upsertCameraKeyframeAtCurrent({
+      x: el.x, y: el.y, zoom: targetZoom, rot: Math.max(-8, Math.min(8, el.rot * 0.4)), ease: 'whipPan'
+    });
+    renderInspector();
+  }
+
+  /* ============================================================
+     11. UI RENDERERS (LAYERS, INSPECTOR, TIMELINE)
+  ============================================================ */
+  function refreshAllUI() {
+    renderLayers();
+    renderInspector();
+    renderTimeline();
+    updateModeUI();
+  }
+
+  function setTool(tool) {
+    state.tool = tool;
+    state.linkSourceId = null;
+    document.getElementById('toolSelectBtn').classList.toggle('active', tool === 'select');
+    document.getElementById('toolLinkBtn').classList.toggle('active', tool === 'link');
+    document.getElementById('toolBanner').classList.toggle('show', tool === 'link');
+    stageCanvas.style.cursor = tool === 'link' ? 'crosshair' : 'default';
+  }
+
+  function updateModeUI() {
+    const isCam = state.viewMode === 'camera';
+    document.getElementById('modeLabel').textContent = isCam ? 'CAMERA PREVIEW' : 'FREE BOARD EDIT';
+    document.getElementById('modeDot').classList.toggle('cam', isCam);
+    document.getElementById('toggleEditModeBtn').textContent = isCam ? '🎥 Camera View' : '🗺️ Board Overview';
+  }
+
+  function renderLayers() {
+    const box = document.getElementById('layerList');
+    document.getElementById('layerCount').textContent = state.elements.length + state.connections.length;
+    box.innerHTML = '';
+
+    // Show connections first as top strings
+    state.connections.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'layer-item' + (state.selectedType === 'connection' && state.selectedId === c.id ? ' selected' : '');
+      div.innerHTML = `
+        <span class="layer-tag" style="color:#fb923c">YARN</span>
+        <span class="layer-name">${c.label || 'Connection #' + (idx + 1)}</span>
+        <button class="layer-act" title="Delete">✕</button>
+      `;
+      div.onclick = (e) => {
+        if (e.target.tagName === 'BUTTON') {
+          pushHistory();
+          state.connections = state.connections.filter(x => x.id !== c.id);
+          if (state.selectedId === c.id) state.selectedId = null;
+          refreshAllUI();
+          return;
+        }
+        state.selectedId = c.id; state.selectedType = 'connection'; state.activeTab = 'element';
+        refreshAllUI();
+      };
+      box.appendChild(div);
+    });
+
+    // Show elements top-to-bottom
+    [...state.elements].reverse().forEach((el) => {
+      const div = document.createElement('div');
+      div.className = 'layer-item' + (state.selectedType === 'element' && state.selectedId === el.id ? ' selected' : '');
+      div.innerHTML = `
+        <span class="layer-tag">${el.type.slice(0, 4)}</span>
+        <span class="layer-name">${el.title || el.type}</span>
+        <button class="layer-act" data-act="up" title="Bring Forward">↑</button>
+        <button class="layer-act" data-act="vis" title="Toggle Visibility">${el.visible === false ? '🙈' : '👁'}</button>
+        <button class="layer-act" data-act="del" title="Delete">✕</button>
+      `;
+      div.onclick = (e) => {
+        const act = e.target.dataset.act;
+        if (act === 'vis') {
+          el.visible = el.visible === false ? true : false;
+          renderLayers();
+          return;
+        }
+        if (act === 'del') {
+          deleteSelected(el.id, 'element');
+          return;
+        }
+        if (act === 'up') {
+          const idx = state.elements.findIndex(x => x.id === el.id);
+          if (idx < state.elements.length - 1) {
+            pushHistory();
+            [state.elements[idx], state.elements[idx + 1]] = [state.elements[idx + 1], state.elements[idx]];
+            refreshAllUI();
+          }
+          return;
+        }
+        state.selectedId = el.id; state.selectedType = 'element'; state.activeTab = 'element';
+        refreshAllUI();
+      };
+      box.appendChild(div);
+    });
+  }
+
+  function deleteSelected(id = state.selectedId, type = state.selectedType) {
+    if (!id) return;
+    pushHistory();
+    if (type === 'element') {
+      state.elements = state.elements.filter(e => e.id !== id);
+      state.connections = state.connections.filter(c => c.fromId !== id && c.toId !== id);
+    } else if (type === 'connection') {
+      state.connections = state.connections.filter(c => c.id !== id);
+    }
+    if (state.selectedId === id) { state.selectedId = null; state.selectedType = null; }
+    refreshAllUI();
+  }
+
+  function renderInspector() {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === state.activeTab));
+    const body = document.getElementById('inspectorBody');
+
+    if (state.activeTab === 'element') {
+      if (state.selectedType === 'connection') {
+        const c = state.connections.find(x => x.id === state.selectedId);
+        if (!c) { body.innerHTML = '<div style="color:var(--text-2);padding:12px">Select any evidence card or yarn string on the board to customize.</div>'; return; }
+        body.innerHTML = `
+          <div class="sec">
+            <div class="sec-title"><span>🧶 Yarn / Connection Style</span></div>
+            <div class="field"><label>Evidence Tag Label</label><input type="text" id="i_label" value="${esc(c.label)}" placeholder="e.g. $4.2M WIRE" style="width:100%"/></div>
+            <div class="row2">
+              <div class="field"><label>Style</label>
+                <select id="i_style" style="width:100%">
+                  <option value="yarn" ${c.style==='yarn'?'selected':''}>Twisted Yarn</option>
+                  <option value="dashed" ${c.style==='dashed'?'selected':''}>Dashed Vector</option>
+                  <option value="neon" ${c.style==='neon'?'selected':''}>Tactical Neon</option>
+                  <option value="arrow" ${c.style==='arrow'?'selected':''}>Editorial Arrow</option>
+                </select>
+              </div>
+              <div class="field"><label>Color</label><input type="color" id="i_color" value="${c.color}"/></div>
+            </div>
+            <div class="field"><label>Gravity Sag <span class="val">${c.sag}</span></label><input type="range" id="i_sag" min="0" max="1" step="0.05" value="${c.sag}"/></div>
+            <div class="field"><label>Thickness <span class="val">${c.width}px</span></label><input type="range" id="i_width" min="2" max="10" step="0.5" value="${c.width}"/></div>
+            <div class="checkbox-row"><span>Traveling Signal Pulse</span><input type="checkbox" id="i_pulse" ${c.pulse?'checked':''}/></div>
+          </div>
+          <div class="sec">
+            <div class="sec-title"><span>⏱️ Draw-On Timing</span></div>
+            <div class="row2">
+              <div class="field"><label>Start (s)</label><input type="number" id="i_start" step="0.1" min="0" max="${state.duration}" value="${c.startTime}" style="width:100%"/></div>
+              <div class="field"><label>Draw Dur (s)</label><input type="number" id="i_dur" step="0.05" min="0.1" max="5" value="${c.animDuration}" style="width:100%"/></div>
+            </div>
+            <button class="btn sm" style="width:100%;justify-content:center;color:#fca5a5" id="i_del">🗑️ Delete Connection</button>
+          </div>
+        `;
+        bind('i_label', 'input', v => { c.label = v; renderLayers(); });
+        bind('i_style', 'change', v => { c.style = v; });
+        bind('i_color', 'input', v => { c.color = v; });
+        bind('i_sag', 'input', v => { c.sag = +v; renderInspector(); });
+        bind('i_width', 'input', v => { c.width = +v; renderInspector(); });
+        bindCheck('i_pulse', v => { c.pulse = v; });
+        bind('i_start', 'change', v => { c.startTime = +v; renderTimeline(); });
+        bind('i_dur', 'change', v => { c.animDuration = +v; renderTimeline(); });
+        document.getElementById('i_del').onclick = () => deleteSelected();
+        return;
+      }
+
+      const el = state.elements.find(x => x.id === state.selectedId);
+      if (!el) {
+        body.innerHTML = `<div style="color:var(--text-2);line-height:1.6;padding:8px">
+          <b>No Element Selected</b><br/><br/>
+          • Click any evidence card or red string to edit typography, photo filters, redaction, and animations.<br/>
+          • Drag cards directly on the board, or drag handles to resize & rotate.<br/>
+          • Press <b>L</b> to connect any two cards with physics yarn.
+        </div>`;
+        return;
+      }
+
+      let extraHTML = '';
+      if (el.type === 'photo' || el.type === 'suspect') {
+        extraHTML += `
+          <div class="field">
+            <label>Photo Evidence</label>
+            <div class="row2">
+              <button class="btn sm cyan" id="i_uploadImg" style="justify-content:center">📁 Upload Photo</button>
+              <select id="i_lut" style="width:100%">
+                <option value="none" ${el.photoLut==='none'?'selected':''}>LUT: Original</option>
+                <option value="noir" ${el.photoLut==='noir'?'selected':''}>LUT: Noir B&W</option>
+                <option value="sepia" ${el.photoLut==='sepia'?'selected':''}>LUT: Crime Sepia</option>
+                <option value="cold" ${el.photoLut==='cold'?'selected':''}>LUT: Cold Doc</option>
+                <option value="cctv" ${el.photoLut==='cctv'?'selected':''}>LUT: Night CCTV</option>
+              </select>
+            </div>
+            <input type="file" id="i_imgFile" accept="image/*" style="display:none"/>
+          </div>`;
+      }
+      if (el.type === 'suspect' || el.type === 'stamp') {
+        extraHTML += `
+          <div class="row2">
+            ${el.type === 'suspect' ? `<div class="field"><label>Status Badge</label><input type="text" id="i_badge" value="${esc(el.badge)}" style="width:100%"/></div>` : ''}
+            <div class="field"><label>Ink / Badge Color</label><input type="color" id="i_badgeCol" value="${el.badgeColor || '#dc2626'}"/></div>
+          </div>`;
+      }
+      if (el.type === 'dossier') {
+        extraHTML += `
+          <div class="row2">
+            <div class="field"><label>Highlight Line # (-1 off)</label><input type="number" id="i_hlLine" min="-1" max="5" value="${el.highlightLine}" style="width:100%"/></div>
+            <div class="field"><label>Highlighter Color</label><input type="color" id="i_hlCol" value="${el.highlightColor || '#fde047'}"/></div>
+          </div>
+          <div class="checkbox-row"><span>Black Redaction Bars</span><input type="checkbox" id="i_redact" ${el.redacted?'checked':''}/></div>
+          <div class="checkbox-row"><span>Animate Unredact Reveal</span><input type="checkbox" id="i_unredact" ${el.unredactAnim?'checked':''}/></div>`;
+      }
+      if (el.type === 'map') {
+        extraHTML += `<div class="field"><label>GPS Coordinates</label><input type="text" id="i_coords" value="${esc(el.coords)}" style="width:100%"/></div>`;
+      }
+      if (el.type === 'marker') {
+        extraHTML += `
+          <div class="row2">
+            <div class="field"><label>Marker Shape</label>
+              <select id="i_mshape" style="width:100%">
+                <option value="circle" ${el.markerShape==='circle'?'selected':''}>Hand Circle</option>
+                <option value="underline" ${el.markerShape==='underline'?'selected':''}>Underline</option>
+                <option value="arrow" ${el.markerShape==='arrow'?'selected':''}>Arrow</option>
+                <option value="cross" ${el.markerShape==='cross'?'selected':''}>X Cross-Out</option>
+              </select>
+            </div>
+            <div class="field"><label>Marker Ink</label><input type="color" id="i_mcol" value="${el.markerColor || '#ef4444'}"/></div>
+          </div>`;
+      }
+
+      body.innerHTML = `
+        <div class="sec">
+          <div class="sec-title"><span>Content (${el.type.toUpperCase()})</span>
+            <button class="btn sm" id="i_dup">Duplicate</button>
+          </div>
+          <div class="field"><label>Title / Headline</label><input type="text" id="i_title" value="${esc(el.title)}" style="width:100%"/></div>
+          ${el.type !== 'sticky' && el.type !== 'stamp' && el.type !== 'marker' ? `<div class="field"><label>Subtitle / Case Meta</label><input type="text" id="i_sub" value="${esc(el.subtitle)}" style="width:100%"/></div>` : ''}
+          ${['dossier','newspaper','sticky','wiretap'].includes(el.type) ? `<div class="field"><label>Body Text / Transcript</label><textarea id="i_body">${esc(el.body)}</textarea></div>` : ''}
+          ${extraHTML}
+        </div>
+        <div class="sec">
+          <div class="sec-title"><span>Transform & Pin Attachment</span></div>
+          <div class="row3">
+            <div class="field"><label>Width</label><input type="number" id="i_w" value="${el.w}" style="width:100%"/></div>
+            <div class="field"><label>Height</label><input type="number" id="i_h" value="${el.h}" style="width:100%"/></div>
+            <div class="field"><label>Angle °</label><input type="number" id="i_rot" value="${el.rot}" style="width:100%"/></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Attachment</label>
+              <select id="i_pin" style="width:100%">
+                <option value="pushpin" ${el.pinType==='pushpin'?'selected':''}>3D Pushpin</option>
+                <option value="tape" ${el.pinType==='tape'?'selected':''}>Masking Tape</option>
+                <option value="none" ${el.pinType==='none'?'selected':''}>None</option>
+              </select>
+            </div>
+            <div class="field"><label>Card / Pin Color</label><input type="color" id="i_cardCol" value="${el.type==='sticky' || el.type==='dossier' ? el.color : (el.pinColor || '#e63946')}"/></div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-title"><span>⏱️ Motion & Reveal Animation</span></div>
+          <div class="row2">
+            <div class="field"><label>Entrance FX</label>
+              <select id="i_ent" style="width:100%">
+                <option value="slam" ${el.entrance==='slam'?'selected':''}>Card Slam</option>
+                <option value="pop" ${el.entrance==='pop'?'selected':''}>Pop / Stamp</option>
+                <option value="slideUp" ${el.entrance==='slideUp'?'selected':''}>Slide Up</option>
+                <option value="fade" ${el.entrance==='fade'?'selected':''}>Smooth Fade</option>
+                <option value="none" ${el.entrance==='none'?'selected':''}>Instant</option>
+              </select>
+            </div>
+            <div class="field"><label>Reveal At (s)</label><input type="number" id="i_start" step="0.1" min="0" max="${state.duration}" value="${el.startTime}" style="width:100%"/></div>
+          </div>
+          <div class="field"><label>Anim Duration <span class="val">${el.animDuration}s</span></label><input type="range" id="i_dur" min="0.15" max="2" step="0.05" value="${el.animDuration}"/></div>
+          <div class="row2" style="margin-top:8px">
+            <button class="btn sm cyan" id="i_focus">🎯 Focus Cam</button>
+            <button class="btn sm" id="i_del" style="color:#fca5a5">🗑️ Delete</button>
+          </div>
+        </div>
+      `;
+
+      bind('i_title', 'input', v => { el.title = v; renderLayers(); });
+      bind('i_sub', 'input', v => { el.subtitle = v; });
+      bind('i_body', 'input', v => { el.body = v; });
+      bind('i_w', 'change', v => { el.w = Math.max(60, +v); });
+      bind('i_h', 'change', v => { el.h = Math.max(40, +v); });
+      bind('i_rot', 'input', v => { el.rot = +v; });
+      bind('i_pin', 'change', v => { el.pinType = v; });
+      bind('i_cardCol', 'input', v => {
+        if (el.type === 'sticky' || el.type === 'dossier') el.color = v;
+        else el.pinColor = v;
+      });
+      bind('i_ent', 'change', v => { el.entrance = v; });
+      bind('i_start', 'change', v => { el.startTime = Math.max(0, +v); renderTimeline(); });
+      bind('i_dur', 'input', v => { el.animDuration = +v; renderTimeline(); renderInspector(); });
+      bind('i_lut', 'change', v => { el.photoLut = v; });
+      bind('i_badge', 'input', v => { el.badge = v; });
+      bind('i_badgeCol', 'input', v => { el.badgeColor = v; });
+      bind('i_hlLine', 'change', v => { el.highlightLine = +v; });
+      bind('i_hlCol', 'input', v => { el.highlightColor = v; });
+      bindCheck('i_redact', v => { el.redacted = v; });
+      bindCheck('i_unredact', v => { el.unredactAnim = v; });
+      bind('i_coords', 'input', v => { el.coords = v; });
+      bind('i_mshape', 'change', v => { el.markerShape = v; });
+      bind('i_mcol', 'input', v => { el.markerColor = v; });
+
+      const upBtn = document.getElementById('i_uploadImg');
+      if (upBtn) {
+        const fi = document.getElementById('i_imgFile');
+        upBtn.onclick = () => fi.click();
+        fi.onchange = () => { if (fi.files[0]) handleImageFileUpload(fi.files[0], true); };
+      }
+      document.getElementById('i_dup').onclick = () => duplicateSelected();
+      document.getElementById('i_focus').onclick = () => focusCameraOnSelected();
+      document.getElementById('i_del').onclick = () => deleteSelected();
+
+    } else if (state.activeTab === 'board') {
+      const b = state.board;
+      body.innerHTML = `
+        <div class="sec">
+          <div class="sec-title"><span>Board Surface Material</span></div>
+          <div class="field">
+            <select id="b_surf" style="width:100%">
+              <option value="slate" ${b.surface==='slate'?'selected':''}>Dark Noir Slate (Netflix Doc)</option>
+              <option value="cork" ${b.surface==='cork'?'selected':''}>Classic Detective Corkboard</option>
+              <option value="felt" ${b.surface==='felt'?'selected':''}>Tactical Command Felt</option>
+              <option value="parchment" ${b.surface==='parchment'?'selected':''}>Aged Archive Parchment</option>
+              <option value="blueprint" ${b.surface==='blueprint'?'selected':''}>Technical Blueprint Grid</option>
+              <option value="chroma" ${b.surface==='chroma'?'selected':''}>Chroma Key Green (Premiere/AE)</option>
+              <option value="transparent" ${b.surface==='transparent'?'selected':''}>Transparent Alpha (PNG Overlay)</option>
+            </select>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-title"><span>💡 Dynamic Overhead Spotlight</span></div>
+          <div class="field"><label>Spotlight Intensity <span class="val">${Math.round(b.spotIntensity*100)}%</span></label><input type="range" id="b_si" min="0" max="1.2" step="0.02" value="${b.spotIntensity}"/></div>
+          <div class="field"><label>Lamp Position X <span class="val">${b.spotX}</span></label><input type="range" id="b_sx" min="0" max="1920" step="10" value="${b.spotX}"/></div>
+          <div class="field"><label>Lamp Position Y <span class="val">${b.spotY}</span></label><input type="range" id="b_sy" min="0" max="1080" step="10" value="${b.spotY}"/></div>
+          <div class="field"><label>Color Temp (Cold ↔ Warm) <span class="val">${b.spotWarmth}</span></label><input type="range" id="b_sw" min="-1" max="1" step="0.05" value="${b.spotWarmth}"/></div>
+        </div>
+        <div class="sec">
+          <div class="sec-title"><span>🎞️ Cinema Post-Processing</span></div>
+          <div class="field"><label>Lens Vignette <span class="val">${Math.round(b.vignette*100)}%</span></label><input type="range" id="b_vig" min="0" max="1" step="0.02" value="${b.vignette}"/></div>
+          <div class="field"><label>35mm Film Grain <span class="val">${Math.round(b.grain*100)}%</span></label><input type="range" id="b_grn" min="0" max="0.8" step="0.02" value="${b.grain}"/></div>
+          <div class="field"><label>Floating Dust Motes <span class="val">${Math.round(b.dust*100)}%</span></label><input type="range" id="b_dst" min="0" max="1" step="0.05" value="${b.dust}"/></div>
+          <div class="field"><label>Drop Shadow Depth <span class="val">${Math.round(b.shadowDepth*100)}%</span></label><input type="range" id="b_shd" min="0" max="1.3" step="0.05" value="${b.shadowDepth}"/></div>
+        </div>
+      `;
+      bind('b_surf', 'change', v => { b.surface = v; surfaceCacheKey = ''; });
+      bind('b_si', 'input', v => { b.spotIntensity = +v; renderInspector(); });
+      bind('b_sx', 'input', v => { b.spotX = +v; renderInspector(); });
+      bind('b_sy', 'input', v => { b.spotY = +v; renderInspector(); });
+      bind('b_sw', 'input', v => { b.spotWarmth = +v; renderInspector(); });
+      bind('b_vig', 'input', v => { b.vignette = +v; renderInspector(); });
+      bind('b_grn', 'input', v => { b.grain = +v; renderInspector(); });
+      bind('b_dst', 'input', v => { b.dust = +v; renderInspector(); });
+      bind('b_shd', 'input', v => { b.shadowDepth = +v; renderInspector(); });
+
+    } else if (state.activeTab === 'camera') {
+      const cam = getCameraAt(state.currentTime, false);
+      const activeKf = state.cameraKeyframes.find(k => k.id === state.selectedKfId);
+      body.innerHTML = `
+        <div class="sec">
+          <div class="sec-title"><span>🎥 Current Camera Framing</span></div>
+          <div class="row2">
+            <div class="field"><label>Pan X</label><input type="number" id="c_x" value="${Math.round(cam.x)}" style="width:100%"/></div>
+            <div class="field"><label>Pan Y</label><input type="number" id="c_y" value="${Math.round(cam.y)}" style="width:100%"/></div>
+          </div>
+          <div class="field"><label>Camera Zoom <span class="val">${cam.zoom.toFixed(2)}x</span></label><input type="range" id="c_zoom" min="0.4" max="3.2" step="0.05" value="${cam.zoom}"/></div>
+          <div class="field"><label>Dutch Roll / Tilt <span class="val">${cam.rot.toFixed(1)}°</span></label><input type="range" id="c_rot" min="-20" max="20" step="0.5" value="${cam.rot}"/></div>
+          <div class="field"><label>Transition Easing</label>
+            <select id="c_ease" style="width:100%">
+              <option value="easeInOutCubic" ${(activeKf?.ease||'easeInOutCubic')==='easeInOutCubic'?'selected':''}>Cinematic Smooth (Cubic)</option>
+              <option value="whipPan" ${activeKf?.ease==='whipPan'?'selected':''}>Whip Pan / Crash Zoom</option>
+              <option value="docDrift" ${activeKf?.ease==='docDrift'?'selected':''}>Slow Documentary Drift</option>
+              <option value="linear" ${activeKf?.ease==='linear'?'selected':''}>Constant Linear</option>
+            </select>
+          </div>
+          <button class="btn sm cyan" id="c_saveKf" style="width:100%;justify-content:center">◆ Save / Update Keyframe at ${state.currentTime.toFixed(2)}s</button>
+        </div>
+        <div class="sec">
+          <div class="sec-title"><span>📹 Handheld Motion & Sound FX</span></div>
+          <div class="field"><label>Handheld Micro-Drift <span class="val">${Math.round(state.cameraFX.handheld*100)}%</span></label><input type="range" id="c_hh" min="0" max="1" step="0.05" value="${state.cameraFX.handheld}"/></div>
+          <div class="checkbox-row"><span>Procedural Documentary SFX</span><input type="checkbox" id="c_sfx" ${state.cameraFX.sfxEnabled?'checked':''}/></div>
+          <div class="field"><label>SFX Volume <span class="val">${Math.round(state.cameraFX.sfxVolume*100)}%</span></label><input type="range" id="c_vol" min="0" max="1" step="0.05" value="${state.cameraFX.sfxVolume}"/></div>
+          <div class="row2" style="margin-top:6px">
+            <button class="btn sm" id="testSfxSlam">🔊 Test Slam</button>
+            <button class="btn sm" id="testSfxStamp">🔊 Test Stamp</button>
+          </div>
+        </div>
+      `;
+      const pushCam = () => {
+        upsertCameraKeyframeAtCurrent({
+          x: +document.getElementById('c_x').value,
+          y: +document.getElementById('c_y').value,
+          zoom: +document.getElementById('c_zoom').value,
+          rot: +document.getElementById('c_rot').value,
+          ease: document.getElementById('c_ease').value
+        }, false);
+      };
+      ['c_x','c_y','c_zoom','c_rot','c_ease'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => { pushCam(); });
+      });
+      document.getElementById('c_saveKf').onclick = () => { pushHistory(); pushCam(); renderInspector(); };
+      bind('c_hh', 'input', v => { state.cameraFX.handheld = +v; renderInspector(); });
+      bindCheck('c_sfx', v => { state.cameraFX.sfxEnabled = v; });
+      bind('c_vol', 'input', v => { state.cameraFX.sfxVolume = +v; renderInspector(); });
+      document.getElementById('testSfxSlam').onclick = () => SFX.play('slam');
+      document.getElementById('testSfxStamp').onclick = () => SFX.play('stamp');
+    }
+  }
+
+  function esc(s) { return String(s || '').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function bind(id, evt, fn) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(evt, () => fn(el.value));
+  }
+  function bindCheck(id, fn) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => fn(el.checked));
+  }
+
+  function duplicateSelected() {
+    if (state.selectedType !== 'element') return;
+    const el = state.elements.find(e => e.id === state.selectedId);
+    if (!el) return;
+    pushHistory();
+    const copy = JSON.parse(JSON.stringify(el));
+    copy.id = uid(el.type);
+    copy.x += 36; copy.y += 36;
+    copy.title = (copy.title || '') + ' COPY';
+    state.elements.push(copy);
+    state.selectedId = copy.id;
+    refreshAllUI();
+  }
+
+  /* ============================================================
+     12. MULTI-TRACK NLE TIMELINE
+  ============================================================ */
+  const PX_PER_SEC = 84;
+
+  function renderTimeline() {
+    const labels = document.getElementById('tlLabels');
+    const ruler = document.getElementById('tlRuler');
+    const rows = document.getElementById('tlRows');
+    const inner = document.getElementById('tlInner');
+
+    const totalW = Math.max(document.getElementById('tlTracks').clientWidth, state.duration * PX_PER_SEC + 60);
+    inner.style.width = `${totalW}px`;
+
+    // Ruler ticks
+    ruler.innerHTML = '';
+    for (let s = 0; s <= state.duration; s++) {
+      const tick = document.createElement('div');
+      tick.className = 'tl-tick';
+      tick.style.left = `${s * PX_PER_SEC}px`;
+      tick.textContent = `${s}s`;
+      ruler.appendChild(tick);
+    }
+
+    labels.innerHTML = `<div class="tl-ruler-label"><span>TRACKS</span><span>${state.duration}s</span></div>`;
+    rows.innerHTML = '';
+
+    // Row 0: Camera Keyframes Track
+    const camLbl = document.createElement('div');
+    camLbl.className = 'tl-track-label cam-row';
+    camLbl.textContent = `🎥 Camera (${state.cameraKeyframes.length} KFs)`;
+    camLbl.onclick = () => { state.activeTab = 'camera'; renderInspector(); };
+    labels.appendChild(camLbl);
+
+    const camRow = document.createElement('div');
+    camRow.className = 'tl-row cam-row';
+    state.cameraKeyframes.forEach(kf => {
+      const d = document.createElement('div');
+      d.className = 'kf-diamond' + (state.selectedKfId === kf.id ? ' active' : '');
+      d.style.left = `${kf.time * PX_PER_SEC}px`;
+      d.title = `Camera KF @ ${kf.time.toFixed(2)}s (Zoom ${kf.zoom}x) — Drag to move`;
+      d.onmousedown = (ev) => {
+        ev.stopPropagation();
+        state.selectedKfId = kf.id;
+        state.currentTime = kf.time;
+        state.activeTab = 'camera';
+        renderInspector();
+        const startX = ev.clientX, origT = kf.time;
+        const onMove = (m) => {
+          kf.time = +Math.max(0, Math.min(state.duration, origT + (m.clientX - startX) / PX_PER_SEC)).toFixed(2);
+          state.currentTime = kf.time;
+          d.style.left = `${kf.time * PX_PER_SEC}px`;
+          updatePlayheadUI();
+        };
+        const onUp = () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); renderTimeline(); };
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+      };
+      camRow.appendChild(d);
+    });
+    rows.appendChild(camRow);
+
+    // Element & Connection Tracks
+    const items = [
+      ...state.elements.map(e => ({ kind: 'element', item: e, name: `${e.title || e.type}` })),
+      ...state.connections.map((c, i) => ({ kind: 'connection', item: c, name: `🧶 ${c.label || 'Yarn #' + (i + 1)}` }))
+    ];
+
+    items.forEach(({ kind, item, name }) => {
+      const isSel = state.selectedType === kind && state.selectedId === item.id;
+      const lbl = document.createElement('div');
+      lbl.className = 'tl-track-label' + (isSel ? ' selected' : '');
+      lbl.textContent = name;
+      lbl.onclick = () => {
+        state.selectedId = item.id; state.selectedType = kind; state.activeTab = 'element';
+        refreshAllUI();
+      };
+      labels.appendChild(lbl);
+
+      const row = document.createElement('div');
+      row.className = 'tl-row';
+
+      const bar = document.createElement('div');
+      bar.className = 'tl-bar' + (kind === 'connection' ? ' conn' : '') + (isSel ? ' selected' : '');
+      bar.style.left = `${(item.startTime || 0) * PX_PER_SEC}px`;
+      bar.style.width = `${Math.max(36, (state.duration - (item.startTime || 0)) * PX_PER_SEC)}px`;
+      bar.textContent = `${(item.startTime || 0).toFixed(1)}s • ${name}`;
+
+      bar.onmousedown = (ev) => {
+        ev.stopPropagation();
+        state.selectedId = item.id; state.selectedType = kind;
+        const startX = ev.clientX, origT = item.startTime || 0;
+        const onMove = (m) => {
+          item.startTime = +Math.max(0, Math.min(state.duration - 0.3, origT + (m.clientX - startX) / PX_PER_SEC)).toFixed(2);
+          bar.style.left = `${item.startTime * PX_PER_SEC}px`;
+          bar.style.width = `${Math.max(36, (state.duration - item.startTime) * PX_PER_SEC)}px`;
+          bar.textContent = `${item.startTime.toFixed(1)}s • ${name}`;
+        };
+        const onUp = () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); refreshAllUI(); };
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+      };
+      row.appendChild(bar);
+      rows.appendChild(row);
+    });
+
+    updatePlayheadUI();
+  }
+
+  function updatePlayheadUI() {
+    document.getElementById('playhead').style.left = `${state.currentTime * PX_PER_SEC}px`;
+    const fmt = (s) => {
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      const cs = Math.floor((s % 1) * 100);
+      return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;
+    };
+    document.getElementById('timecodeDisplay').textContent = `${fmt(state.currentTime)} / ${fmt(state.duration)}`;
+  }
+
+  // Sync vertical scroll between track labels and tracks
+  document.getElementById('tlTracks').addEventListener('scroll', (e) => {
+    document.getElementById('tlLabels').scrollTop = e.target.scrollTop;
+  });
+
+  // Scrub ruler
+  document.getElementById('tlRuler').addEventListener('mousedown', (ev) => {
+    const scrub = (e) => {
+      const rect = document.getElementById('tlInner').getBoundingClientRect();
+      const x = Math.max(0, e.clientX - rect.left);
+      state.currentTime = +Math.max(0, Math.min(state.duration, x / PX_PER_SEC)).toFixed(2);
+      updatePlayheadUI();
+    };
+    scrub(ev);
+    const onUp = () => { window.removeEventListener('mousemove', scrub); window.removeEventListener('mouseup', onUp); };
+    window.addEventListener('mousemove', scrub);
+    window.addEventListener('mouseup', onUp);
+  });
+
+  /* ============================================================
+     13. PLAYBACK LOOP & SFX TRIGGERING
+  ============================================================ */
+  let lastFrameTs = performance.now();
+  let lastTriggerTime = -1;
+
+  function triggerCrossedSFX(prevT, curT) {
+    if (curT < prevT) return;
+    for (const el of state.elements) {
+      if (el.visible === false) continue;
+      if (el.startTime > prevT && el.startTime <= curT) {
+        if (el.type === 'stamp') SFX.play('stamp');
+        else if (el.type === 'marker') SFX.play('marker');
+        else SFX.play('slam');
+      }
+    }
+    for (const c of state.connections) {
+      if (c.startTime > prevT && c.startTime <= curT) {
+        SFX.play('string');
+      }
+    }
+  }
+
+  function mainLoop(ts) {
+    const dt = Math.min(0.1, (ts - lastFrameTs) / 1000);
+    lastFrameTs = ts;
+
+    if (state.playing && !state.exporting) {
+      const prevT = state.currentTime;
+      state.currentTime += dt;
+      if (state.currentTime >= state.duration) {
+        if (state.loop) {
+          state.currentTime = 0;
+          lastTriggerTime = -0.01;
+        } else {
+          state.currentTime = state.duration;
+          state.playing = false;
+          document.getElementById('playBtn').textContent = '▶ Play';
+        }
+      } else {
+        triggerCrossedSFX(prevT, state.currentTime);
+      }
+      updatePlayheadUI();
+    }
+
+    const cam = getActiveCamera();
+    document.getElementById('hudCamStats').textContent = `ZOOM ${cam.zoom.toFixed(2)}x • ${Math.round(cam.x)},${Math.round(cam.y)}`;
+    renderFrame(stageCtx, stageCanvas.width, stageCanvas.height, state.currentTime, cam, false);
+    requestAnimationFrame(mainLoop);
+  }
+
+  /* ============================================================
+     14. BROADCAST VIDEO & PNG EXPORTER + JSON SAVE/LOAD
+  ============================================================ */
+  let activeRecorder = null;
+  let exportAborted = false;
+
+  function openExportModal() {
+    const { w, h } = getExportDims();
+    document.getElementById('exportSummary').textContent =
+      `${w} × ${h} (${state.aspect})  •  ${state.fps} FPS  •  ${state.duration}s Sequence`;
+    document.getElementById('exportProgressBar').style.width = '0%';
+    document.getElementById('exportStatus').textContent = 'Ready to render full timeline sequence.';
+    document.getElementById('startRenderBtn').disabled = false;
+    document.getElementById('exportModal').classList.add('show');
+  }
+
+  function startVideoExport() {
+    const { w, h } = getExportDims();
+    const fps = parseInt(state.fps, 10) || 30;
+    const bitrate = parseInt(document.getElementById('exportBitrate').value, 10) || 12000000;
+    const includeAudio = document.getElementById('exportAudioMode').value === 'sfx';
+
+    const expCanvas = document.createElement('canvas');
+    expCanvas.width = w; expCanvas.height = h;
+    const expCtx = expCanvas.getContext('2d');
+
+    const stream = expCanvas.captureStream(fps);
+    if (includeAudio && state.cameraFX.sfxEnabled) {
+      SFX.init();
+      if (SFX.dest) {
+        SFX.dest.stream.getAudioTracks().forEach(track => stream.addTrack(track));
+      }
+    }
+
+    const mimeCandidates = [
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/mp4;codecs=avc1',
+      'video/webm'
+    ];
+    const mimeType = mimeCandidates.find(m => MediaRecorder.isTypeSupported(m)) || 'video/webm';
+    const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+
+    const chunks = [];
+    const rec = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: bitrate });
+    activeRecorder = rec;
+    exportAborted = false;
+    state.exporting = true;
+    state.playing = false;
+    document.getElementById('startRenderBtn').disabled = true;
+
+    rec.ondataavailable = (e) => { if (e.data && e.data.size > 0) chunks.push(e.data); };
+    rec.onstop = () => {
+      state.exporting = false;
+      activeRecorder = null;
+      if (exportAborted) return;
+      const blob = new Blob(chunks, { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `detective-board-${w}x${h}-${fps}fps.${ext}`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      document.getElementById('exportStatus').textContent = `✅ Render complete! Downloaded ${a.download}`;
+      document.getElementById('startRenderBtn').disabled = false;
+    };
+
+    rec.start(100);
+    const prevMode = state.viewMode;
+    state.viewMode = 'camera';
+
+    const startWall = performance.now();
+    let prevT = -0.01;
+    const statusEl = document.getElementById('exportStatus');
+    const barEl = document.getElementById('exportProgressBar');
+
+    function stepExport() {
+      if (exportAborted) {
+        state.viewMode = prevMode;
+        if (rec.state !== 'inactive') rec.stop();
+        return;
+      }
+      const elapsed = (performance.now() - startWall) / 1000;
+      const t = Math.min(state.duration, elapsed);
+      if (includeAudio) triggerCrossedSFX(prevT, t);
+      prevT = t;
+
+      const cam = getCameraAt(t, true);
+      renderFrame(expCtx, w, h, t, cam, true);
+
+      const pct = Math.min(100, Math.round((t / state.duration) * 100));
+      barEl.style.width = `${pct}%`;
+      statusEl.textContent = `Rendering ${w}×${h} @ ${fps}fps... ${t.toFixed(1)}s / ${state.duration}s (${pct}%)`;
+
+      if (elapsed < state.duration) {
+        requestAnimationFrame(stepExport);
+      } else {
+        state.viewMode = prevMode;
+        rec.stop();
+      }
+    }
+    requestAnimationFrame(stepExport);
+  }
+
+  function exportPNG() {
+    const { w, h } = getExportDims();
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    const cam = getCameraAt(state.currentTime, false);
+    renderFrame(ctx, w, h, state.currentTime, cam, true);
+    const a = document.createElement('a');
+    a.href = c.toDataURL('image/png');
+    a.download = `detective-board-still-${w}x${h}.png`;
+    a.click();
+  }
+
+  /* ============================================================
+     15. EVENT WIRING & KEYBOARD SHORTCUTS
+  ============================================================ */
+  document.querySelectorAll('.palette-item[data-add]').forEach(btn => {
+    btn.onclick = () => {
+      pushHistory();
+      const cam = getActiveCamera();
+      const el = createElement(btn.dataset.add, {
+        x: Math.round(cam.x + (Math.random() - 0.5) * 120),
+        y: Math.round(cam.y + (Math.random() - 0.5) * 80),
+        startTime: +state.currentTime.toFixed(2)
+      });
+      state.elements.push(el);
+      state.selectedId = el.id;
+      state.selectedType = 'element';
+      state.activeTab = 'element';
+      refreshAllUI();
+    };
+  });
+
+  document.getElementById('quickLinkBtn').onclick = () => setTool(state.tool === 'link' ? 'select' : 'link');
+  document.getElementById('toolSelectBtn').onclick = () => setTool('select');
+  document.getElementById('toolLinkBtn').onclick = () => setTool('link');
+
+  document.getElementById('toggleEditModeBtn').onclick = () => {
+    state.viewMode = state.viewMode === 'camera' ? 'edit' : 'camera';
+    updateModeUI();
+  };
+
+  document.querySelectorAll('.tab').forEach(t => {
+    t.onclick = () => { state.activeTab = t.dataset.tab; renderInspector(); };
+  });
+
+  document.getElementById('photoUploadZone').onclick = () => document.getElementById('quickImgInput').click();
+  document.getElementById('quickImgInput').onchange = (e) => {
+    if (e.target.files[0]) handleImageFileUpload(e.target.files[0], false);
+    e.target.value = '';
+  };
+
+  document.getElementById('loadTemplateBtn').onclick = () => {
+    loadTemplate(document.getElementById('templateSelect').value);
+  };
+  document.getElementById('aspectSelect').onchange = (e) => {
+    state.aspect = e.target.value; resizeStageCanvas();
+  };
+  document.getElementById('resSelect').onchange = (e) => { state.resHeight = +e.target.value; };
+  document.getElementById('fpsSelect').onchange = (e) => { state.fps = +e.target.value; };
+  document.getElementById('undoBtn').onclick = undo;
+  document.getElementById('redoBtn').onclick = redo;
+  document.getElementById('guidesBtn').onclick = (e) => {
+    state.showGuides = !state.showGuides;
+    e.target.classList.toggle('active', state.showGuides);
+  };
+  document.getElementById('choreographBtn').onclick = () => autoChoreograph(true);
+
+  document.getElementById('frameSelectedBtn').onclick = focusCameraOnSelected;
+  document.getElementById('addKfQuickBtn').onclick = () => {
+    const cam = getCameraAt(state.currentTime, false);
+    upsertCameraKeyframeAtCurrent(cam, true);
+  };
+  document.getElementById('resetCamBtn').onclick = () => {
+    if (state.viewMode === 'edit') {
+      state.editCam = { x: 960, y: 540, zoom: 0.88, rot: 0 };
+    } else {
+      upsertCameraKeyframeAtCurrent({ x: 960, y: 540, zoom: 0.96, rot: 0, ease: 'easeInOutCubic' }, true);
+    }
+  };
+
+  // Timeline Transport Controls
+  const togglePlay = () => {
+    SFX.init();
+    state.playing = !state.playing;
+    if (state.playing) {
+      state.viewMode = 'camera';
+      updateModeUI();
+      if (state.currentTime >= state.duration - 0.05) state.currentTime = 0;
+    }
+    document.getElementById('playBtn').textContent = state.playing ? '⏸ Pause' : '▶ Play';
+  };
+  document.getElementById('playBtn').onclick = togglePlay;
+  document.getElementById('stopBtn').onclick = () => {
+    state.playing = false; state.currentTime = 0;
+    document.getElementById('playBtn').textContent = '▶ Play';
+    updatePlayheadUI();
+  };
+  document.getElementById('stepBackBtn').onclick = () => {
+    state.currentTime = +Math.max(0, state.currentTime - 0.1).toFixed(2); updatePlayheadUI();
+  };
+  document.getElementById('stepFwdBtn').onclick = () => {
+    state.currentTime = +Math.min(state.duration, state.currentTime + 0.1).toFixed(2); updatePlayheadUI();
+  };
+  document.getElementById('durationInput').onchange = (e) => {
+    state.duration = Math.max(3, Math.min(60, +e.target.value || 12));
+    renderTimeline();
+  };
+  document.getElementById('loopBtn').onclick = (e) => {
+    state.loop = !state.loop; e.target.classList.toggle('active', state.loop);
+  };
+  document.getElementById('tlAddKfBtn').onclick = () => {
+    upsertCameraKeyframeAtCurrent(getCameraAt(state.currentTime, false), true);
+  };
+  document.getElementById('tlDelKfBtn').onclick = () => {
+    if (!state.selectedKfId || state.cameraKeyframes.length <= 1) return;
+    pushHistory();
+    state.cameraKeyframes = state.cameraKeyframes.filter(k => k.id !== state.selectedKfId);
+    state.selectedKfId = null;
+    renderTimeline();
+  };
+
+  // Export & Save/Load
+  document.getElementById('exportPngBtn').onclick = exportPNG;
+  document.getElementById('openExportBtn').onclick = openExportModal;
+  document.getElementById('closeExportBtn').onclick =
+  document.getElementById('cancelExportBtn').onclick = () => {
+    exportAborted = true;
+    document.getElementById('exportModal').classList.remove('show');
+  };
+  document.getElementById('startRenderBtn').onclick = startVideoExport;
+
+  document.getElementById('saveProjBtn').onclick = () => {
+    const blob = new Blob([snapshot()], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'detective-board-project.json';
+    a.click();
+  };
+  document.getElementById('loadProjBtn').onclick = () => document.getElementById('projFileInput').click();
+  document.getElementById('projFileInput').onchange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => { pushHistory(); restoreSnapshot(r.result); };
+    r.readAsText(f);
+    e.target.value = '';
+  };
+
+  // Pro Keyboard Shortcuts
+  window.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+    if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+    else if (e.key.toLowerCase() === 'l') setTool('link');
+    else if (e.key.toLowerCase() === 'v') setTool('select');
+    else if (e.key === 'Escape') setTool('select');
+    else if (e.key.toLowerCase() === 'k') upsertCameraKeyframeAtCurrent(getCameraAt(state.currentTime, false), true);
+    else if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId) { e.preventDefault(); deleteSelected(); }
+    else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
+    else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') { e.preventDefault(); duplicateSelected(); }
+    else if (e.key === 'ArrowLeft') { state.currentTime = +Math.max(0, state.currentTime - 0.1).toFixed(2); updatePlayheadUI(); }
+    else if (e.key === 'ArrowRight') { state.currentTime = +Math.min(state.duration, state.currentTime + 0.1).toFixed(2); updatePlayheadUI(); }
+  });
+
+  window.addEventListener('resize', resizeStageCanvas);
+
+  // BOOT STUDIO WITH TRUE CRIME TEMPLATE
+  loadTemplate('truecrime');
+  requestAnimationFrame(mainLoop);
+})();
+</script>
+</body>
+</html>
